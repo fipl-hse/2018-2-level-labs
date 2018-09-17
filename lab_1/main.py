@@ -9,7 +9,7 @@ def calculate_frequences() -> dict:
     """
     Calculates number of times each word appears in the text
     """
-    return {'word': 20}
+    return {'word': 20, 'another_word': 30}
 
 def filter_stop_words() -> dict:
     """
