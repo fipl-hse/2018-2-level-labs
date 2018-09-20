@@ -3,7 +3,7 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
-stroka=input('')
+stroka = input('')
 
 def calculate_frequences() -> dict:
     """
@@ -17,9 +17,9 @@ def filter_stop_words() -> dict:
     """
     Removes all stop words from the given frequencies dictionary
     """
-    spisok1=[1, 2, 3, 4]
-    spisok2=[3, 4, 5, 6]
-    spisok3_itog=
+    spisok1 = [1, 2, 3, 4]
+    spisok2 = [3, 4, 5, 6]
+    spisok3_itog =
     
     pass
 
@@ -27,5 +27,6 @@ def get_top_n() -> tuple:
     """
     Takes first N popular words
     """
-    list=['dog:', '"was', 'brown,']
+    list = ['dog:', '"was', 'brown,']
+    
     pass
