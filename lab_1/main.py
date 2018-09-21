@@ -1,9 +1,8 @@
 import re
 
 def calculate_frequences(text) -> dict:
-    
-    text = re.sub(r'[^\w\s]+|[\d]+', '', text)
-    if text = '':
+    text = re.sub(r'[^\w\s]+|[\d]+','',text)
+    if text == '':
         print ({})
     else:
         text = text.lower()
@@ -11,14 +10,13 @@ def calculate_frequences(text) -> dict:
         frequency = {}
         for i in text:
             if i not in frequency:
-                if i != '':
-                    frequency[i] = 1
+                frequency[i] = 1
             else:
                 num = frequency.get(i)
                 frequency[i] = num+1
+        print (frequency)
         filter_stop_words(frequency, stop_words)
-        get_top_n(frequency, top_n)
-        
+        get_top_n()
     pass
 
 def filter_stop_words(frequency, stop_words) -> dict:
@@ -33,12 +31,8 @@ def filter_stop_words(frequency, stop_words) -> dict:
     pass
 
 def get_top_n() -> tuple:
-    freq = sorted(frequency, key = lambda x: x[1], reverse = True)
-    print (freq)
-    i = 0
-    top = []
-    while i != top_n:
-        top.append(freq[i])
-        i+=1
-    print (top)
+    freq = list(frequency.items())
+    freq_sort = sorted(freq, key=lambda x: x[1], reverse = True)
+    top_n = max(freq_sort, key=lambda x: x[1])[0]
+    print (top_n)
     pass
