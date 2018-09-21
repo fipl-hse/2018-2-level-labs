@@ -1,5 +1,8 @@
 import re
 
+text = input('')
+stop_words = input('')
+
 def calculate_frequences(text) -> dict:
     text = re.sub(r'[^\w\s]+|[\d]+','',text)
     if text == '':
