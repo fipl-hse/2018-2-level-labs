@@ -1,8 +1,3 @@
-"""
-Labour work #1
-
-Count frequencies dictionary by the given arbitrary text
-"""
 import re
 
 def calculate_frequences(text) -> dict:
@@ -26,14 +21,24 @@ def calculate_frequences(text) -> dict:
         
     pass
 
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
+def filter_stop_words(frequency, stop_words) -> dict:
+    stop_words = stop_words.lower()
+    stop_words = stop_words.split(', ')
+    frequency_copy = frequency.copy()
+    for i in frequency_copy:
+        for n in stop_words:
+            if i == n:
+                del frequency[i]
+    print (frequency)
     pass
 
 def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
+    freq = sorted(frequency, key = lambda x: x[1], reverse = True)
+    print (freq)
+    i = 0
+    top = []
+    while i != top_n:
+        top.append(freq[i])
+        i+=1
+    print (top)
     pass
