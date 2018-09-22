@@ -26,10 +26,24 @@ def calculate_frequences(text: str) -> dict:
     return freq_dict
     pass
 
-def filter_stop_words() -> dict:
+def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
     """
     Removes all stop words from the given frequencies dictionary
     """
+    freq_dict_clear = {}
+    if STOP_WORDS is None:
+        if freq_dict is None:
+            freq_dict_clear = {}
+        else:
+            freq_dict_clear = freq_dict.copy()
+    else:
+        if freq_dict is None:
+            freq_dict_clear = {}
+        else:
+            for word in freq_dict.keys():
+                if type(word) is str and word not in STOP_WORDS:
+                    freq_dict_clear[word] = freq_dict[word]
+    return freq_dict_clear
     pass
 
 def get_top_n() -> tuple:
