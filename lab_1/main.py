@@ -9,7 +9,7 @@ def calculate_frequences(text: str) -> dict:
     """
     Calculates number of times each word appears in the text
     """
-        if type(text) is str:
+    if type(text) is str:
         if text == '' or text is None:
             freq_dict = {}
         else:
