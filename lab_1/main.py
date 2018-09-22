@@ -14,8 +14,8 @@ def calculate_frequences(text: str) -> dict:
     dict_freq = {}
     for word in words:
         word = word.lower()
-        for el in string.punctuation:
-            word = word.replace(el, "")
+        for i in string.punctuation:
+            word = word.replace(i, "")
 
         if word == "":
             continue
