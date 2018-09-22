@@ -4,18 +4,48 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
+import string
+def calculate_frequences(text: str) -> dict:
 
-def calculate_frequences() -> dict:
-    """
-    Calculates number of times each word appears in the text
-    """
-    return {'word': 5}
+    if text == "" or text == None or type(text) != str:
+        return {}
 
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    pass
+    words = text.split(" ")
+    dict_freq = {}
+    for word in words:
+        word = word.lower()
+        for el in string.punctuation:
+            word = word.replace(el, "")
+
+        if word == "":
+            continue
+        if word.isdigit():
+            continue
+
+        if dict_freq.get(word) == None:
+            dict_freq[word] = 1
+        else:
+            dict_freq.update({word: dict_freq[word] + 1})
+
+    return dict_freq
+
+def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
+    if frequences == None and stop_words == None:
+        return {}
+    if stop_words == () or frequences == {} or stop_words == None or frequences == None:
+        return frequences
+    delete digits
+    new_frequences = {}
+    for word in frequences:
+        if type(word) == str:
+            new_frequences[word] = frequences[word]
+    frequences = new_frequences
+    for stop_word in stop_words:
+        if type(stop_word) != str:
+            continue
+        else:
+            frequences.pop(stop_word, '')
+    return frequences 
 
 def get_top_n() -> tuple:
     """
