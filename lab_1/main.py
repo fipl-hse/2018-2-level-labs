@@ -25,11 +25,12 @@ def calculate_frequences(text) -> dict:
     else:
         return frequent_dict
 
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    pass
+def filter_stop_words(frequent_dict, stopwords) -> dict: #Removes all stop words from the given frequencies dictionary
+    new_frequent_dict = {}
+    for word, frequency in frequent_dict.items():
+        if word not in stop_words:
+            new_frequent_dict[word] = frequency
+    return new_frequent_dict
 
 def get_top_n() -> tuple:
     """
@@ -43,6 +44,6 @@ Onomastic Terminology”.
 any system of onyms is characterized with a number of features.'''
 stopwords = ['onomastics', 'the', 'onym']
 frequent_dict = calculate_frequences(text)
-# filter_stop_words(frequent_dict, stopwords)
+frequent_dict = filter_stop_words(frequent_dict, stopwords)
 # get_top_n(frequent_dict, n)
 print(frequent_dict)
