@@ -2,26 +2,26 @@ import re
 from string import punctuation
 from collections import Counter
 r = re.compile(r'[\s{}]+'.format(re.escape(punctuation)))
-def stpw(x):
+def filter_stop_words(x):
     if len(x) <= 3:
         return False
     else:
         return True
 
-def file_import():
+def get_top_n():
     file = open("texte.txt", "r")
     dbfile = file.read()
     dbfile = r.split(dbfile)
-    stopwords()
+    calculate_frequences()
 
-def stopwords():
+def calculate_frequences():
     top = int(input('top what?'))
     words = []
     file = open("texte.txt", "r")
     dbfile = file.read()
     dbfile = r.split(dbfile)
     stopwords1 = dbfile
-    swfilter = filter(stpw, stopwords1)
+    swfilter = filter(filter_stop_words, stopwords1)
     for x in swfilter:
         words.append(x)
     words = [y for y in words if not (y.isdigit() 
@@ -35,4 +35,4 @@ def stopwords():
     freqtop = open("frequency.txt", "w")
     freqtop.writelines (freqfin)
     print (freqfin)
-file_import()
+get_top_n()
