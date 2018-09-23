@@ -4,14 +4,18 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
-def calculate_frequences(text) -> dict: # Calculates number of times each word appears in the text
+def calculate_frequences(text) -> dict:
     frequent_dict = {}
     import re
     if text and type(text) != int:
-        prepared_text = re.findall(r'[a-z]+\D', text.lower())
+        prepared_text = re.findall(r'[a-z]+', text.lower())
+        print(prepared_text)
         for index, element in enumerate(prepared_text):
-            new_word = element
+            new_word = ''
             count = 1
+            for el_index in range(len(element)):
+                if element[el_index] in 'qwertyuioplkjhgfdsazxcvbnm':
+                    new_word += element[el_index]
             if new_word not in frequent_dict:
                 frequent_dict[new_word] = count
             else:
