@@ -5,7 +5,7 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 
-def calculate_frequences(text: str) -> dict:
+def calculate_frequencies(text: str) -> dict:
     """
     Calculates number of times each word appears in the text
     """
