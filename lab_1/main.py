@@ -10,10 +10,8 @@ def calculate_frequences(text: str) -> dict:
         word = word.lower()
         for i in string.punctuation:
             word = word.replace(i, "")
-        for i in string.whitespace:
-            word.replace(i, "")
-        if word == '\n' or word == 'n\n':
-            continue
+        while '\n' in words:
+            words.remove('\n')
         if word == "":
             continue
         if word.isdigit():
