@@ -28,7 +28,6 @@ def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
         return {}
     if stop_words == () or frequences == {} or stop_words == None or frequences == None:
         return frequences
-    delete digits
     new_frequences = {}
     for word in frequences:
         if type(word) == str:
@@ -46,7 +45,6 @@ def get_top_n(frequences: dict, top_n: int) -> tuple:
         return ()
     top_words = []
     n = 0
-    print(frequences)
     for word in frequences:
         if n == top_n:
             break
