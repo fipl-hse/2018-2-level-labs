@@ -4,6 +4,23 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
+def calculate_frequences() -> dict:
+    """
+    Calculates number of times each word appears in the text
+    """
+    pass
+ def filter_stop_words() -> dict:
+    """
+    Removes all stop words from the given frequencies dictionary
+    """
+    pass
+ def get_top_n() -> tuple:
+    """
+    Takes first N popular words
+    """
+    pass
+
+
 import string
 def calculate_frequences(text: str) -> dict:
 
@@ -47,8 +64,15 @@ def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
             frequences.pop(stop_word, '')
     return frequences 
 
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
+def get_top_n(frequences: dict, top_n: int) -> tuple:
+    if frequences == {} or top_n <= 0:
+        return ()
+    top_words = []
+    n = 0
+    print(frequences)
+    for word in frequences:
+        if n == top_n:
+            break
+        top_words.append(word)
+        n += 1 
+    return tuple(top_words)
