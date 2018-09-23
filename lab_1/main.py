@@ -12,7 +12,8 @@ def calculate_frequences(text: str) -> dict:
             word = word.replace(i, "")
         for i in string.whitespace:
             word.replace(i, "")
-            
+        if word == '\n' or word == 'n\n':
+            continue
         if word == "":
             continue
         if word.isdigit():
