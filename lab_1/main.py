@@ -4,14 +4,13 @@ def calculate_frequences(text: str) -> dict:
     if text == "" or text == None or type(text) != str:
         return {}
 
-    words = text.split(" ")
+    words = text.split()
     dict_freq = {}
     for word in words:
         word = word.lower()
         for i in string.punctuation:
-            word = word.replace(i, "")
-        while '\n' in words:
-            words.remove('\n')
+            word = word.replace(i, '')
+        word.replace('\n', '')
         if word == "":
             continue
         if word.isdigit():
