@@ -25,11 +25,12 @@ def calculate_frequences(text) -> dict:
     else:
         return frequent_dict
 
-def filter_stop_words(frequent_dict, stop_words) -> dict: #Removes all stop words from the given frequencies dictionary
+def filter_stop_words(frequent_dict, stopwords) -> dict: #Removes all stop words from the given frequencies dictionary
     new_frequent_dict = {}
-    for word, frequency in frequent_dict.items():
-        if word not in stop_words:
-            new_frequent_dict[word] = frequency
+    if frequent_dict:
+        for word, frequency in frequent_dict.items():
+            if word not in stop_words:
+                new_frequent_dict[word] = frequency
     return new_frequent_dict
 
 def get_top_n() -> tuple:
