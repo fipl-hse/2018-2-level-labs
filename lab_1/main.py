@@ -25,7 +25,7 @@ def calculate_frequences(text) -> dict:
     else:
         return frequent_dict
 
-def filter_stop_words(frequent_dict, stopwords) -> dict: #Removes all stop words from the given frequencies dictionary
+def filter_stop_words(frequent_dict, stop_words) -> dict: #Removes all stop words from the given frequencies dictionary
     new_frequent_dict = {}
     for word, frequency in frequent_dict.items():
         if word not in stop_words:
@@ -42,8 +42,8 @@ text = '''The the the the
 semantic field of any town is an associations of people. For the N.V. Podolskaya in “The Dictionary of Russian
 Onomastic Terminology”. 
 any system of onyms is characterized with a number of features.'''
-stopwords = ['onomastics', 'the', 'onym']
+stop_words = ['onomastics', 'the', 'onym']
 frequent_dict = calculate_frequences(text)
-frequent_dict = filter_stop_words(frequent_dict, stopwords)
+frequent_dict = filter_stop_words(frequent_dict, stop_words)
 # get_top_n(frequent_dict, n)
 print(frequent_dict)
