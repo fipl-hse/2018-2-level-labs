@@ -41,7 +41,7 @@ def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
             freq_dict_clear = {}
         else:
             for word in freq_dict.keys():
-                if type(word) is str and word not in STOP_WORDS:
+                if isinstance(word, str) and word not in STOP_WORDS:
                     freq_dict_clear[word] = freq_dict[word]
     return freq_dict_clear
     pass
