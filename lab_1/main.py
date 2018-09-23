@@ -31,7 +31,7 @@ def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
     if stop_words == () or frequences == {}:
         return frequences
     if stop_words is None or frequences is None:
-        return frequences        
+        return frequences
     new_frequences = {}
     for word in frequences:
         if type(word) == str:
@@ -42,7 +42,7 @@ def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
             continue
         else:
             frequences.pop(stop_word, '')
-    return frequences 
+    return frequences
 
 
 def get_top_n(frequences: dict, top_n: int) -> tuple:
@@ -54,5 +54,5 @@ def get_top_n(frequences: dict, top_n: int) -> tuple:
         if n == top_n:
             break
         top_words.append(word)
-        n += 1 
+        n += 1
     return tuple(top_words)
