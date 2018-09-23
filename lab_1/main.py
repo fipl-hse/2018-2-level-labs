@@ -11,7 +11,6 @@ def calculate_frequences(text: str) -> dict:
         word = word.lower()
         for i in string.punctuation:
             word = word.replace(i, '')
-        word.replace('\n', '')
         if word == "":
             continue
         if word.isdigit():
