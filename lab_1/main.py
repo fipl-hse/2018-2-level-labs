@@ -7,9 +7,8 @@ Count frequencies dictionary by the given arbitrary text
 def calculate_frequences(text) -> dict: # Calculates number of times each word appears in the text
     frequent_dict = {}
     import re
-    if text:
-        prepared_text = re.findall(r'[a-z]+', text.lower())
-        print(prepared_text)
+    if text and type(text) != int:
+        prepared_text = re.findall(r'[a-z]+\D', text.lower())
         for index, element in enumerate(prepared_text):
             new_word = element
             count = 1
@@ -18,7 +17,9 @@ def calculate_frequences(text) -> dict: # Calculates number of times each word a
             else:
                 new_count = frequent_dict[new_word] + 1
                 frequent_dict[new_word] = new_count
-    return frequent_dict
+        return frequent_dict
+    else:
+        return frequent_dict
 
 def filter_stop_words() -> dict:
     """
