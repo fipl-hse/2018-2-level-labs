@@ -2,7 +2,7 @@ import string
 
 
 def calculate_frequences(text: str) -> dict:
-    if text == "" or text is None or type(text) != str:
+    if text == "" or text == None or type(text) != str:
         return {}
 
     words = text.split()
@@ -16,20 +16,19 @@ def calculate_frequences(text: str) -> dict:
         if word.isdigit():
             continue
 
-        if dict_freq.get(word) is None:
+        if dict_freq.get(word) == None:
             dict_freq[word] = 1
         else:
             dict_freq.update({word: dict_freq[word] + 1})
-
     return dict_freq
 
 
 def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
-    if frequences is None and stop_words is None:
+    if frequences == None and stop_words == None:
         return {}
     if stop_words == () or frequences == {}:
         return frequences
-    if stop_words is None or frequences is None:
+    if stop_words == None or frequences == None:
         return frequences
     new_frequences = {}
     for word in frequences:
