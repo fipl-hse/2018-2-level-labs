@@ -12,7 +12,7 @@ def read_a_file(path_to_file, lines_limit):
     return text
 
 
-def count_frequencies(text):
+def calculate_frequences(text):
     
     if text.isdigit() or text is None:
         return {}
@@ -40,8 +40,6 @@ def filter_stop_words(frequency, stop_words):
     if frequency is None or stop_words is None:
         return frequency
     
-    frequency = list(frequency)
-
     frequencies = frequency.copy()
     for key in frequencies:
         if str(key).isdigit() or key in stop_words:
