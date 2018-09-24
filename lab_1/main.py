@@ -11,6 +11,7 @@ def calculate_frequences(text: str) -> dict:
     """
     Calculates number of times each word appears in the text
     """
+    text = text.lower()
     words = text.split(' ')
     frequencies = {}
     for w in words:
