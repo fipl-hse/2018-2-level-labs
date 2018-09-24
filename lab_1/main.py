@@ -35,11 +35,34 @@ def filter_stop_words(frequent_dict, stop_words) -> dict: # Removes all stop wor
     else:
         return frequent_dict
 
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
+def get_top_n(frequent_dict, top_n) -> tuple:
+    words = []
+    frequencies = []
+    tuple_top_n = ()
+    if frequent_dict and top_n:
+        for word, frequency in frequent_dict.items():
+            words.append(word)
+            frequencies.append(frequency)
+        print(words)
+        print(frequencies)
+        for j in range(len(frequencies) - 2): # сортировка строк методом пузырька
+            for i in range(len(frequencies) - j -1):
+                repository_fr = 0
+                repository_words = ''
+                if frequencies[i] < frequencies[i+1]:
+                    repository_fr = frequencies[i]
+                    frequencies[i] = frequencies[i + 1]
+                    frequencies[i + 1] = repository_fr
+                    repository_words = words[i]
+                    words[i] = words[i + 1]
+                    words[i + 1] = repository_words
+        for i in range(n):
+            tuple_top_n = (words[i],) + tuple_top_n[:]
+        print(words)
+        print(frequencies)
+        return tuple_top_n
+    else:
+        return tuple_top_n
 
 text = '''The the the the
 semantic field of any town is an associations of people. For the N.V. Podolskaya in “The Dictionary of Russian
