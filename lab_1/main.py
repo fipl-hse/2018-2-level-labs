@@ -12,7 +12,7 @@ def calculate_frequences(text) -> dict:
         for index, element in enumerate(prepared_text):
             new_word = ''
             count = 1
-            for el_index in range(len(element)):
+            for el_index in range(len(element)): # так как регуярное выражение разбивает текст на слова, оставляя пробел и пр., вводим дополнительный цикл, где избавляемся от лишнего "мусора"
                 if element[el_index] in 'qwertyuioplkjhgfdsazxcvbnm':
                     new_word += element[el_index]
             if new_word not in frequent_dict:
@@ -28,7 +28,7 @@ def filter_stop_words(frequent_dict, stop_words) -> dict: # Removes all stop wor
     new_frequent_dict = {}
     if frequent_dict and stop_words:
         for word, frequency in frequent_dict.items():
-            if word not in stop_words and type(word) != int:
+            if word not in stop_words and isinstance(word, str):
                  new_frequent_dict[word] = frequency
         return new_frequent_dict
     else:
