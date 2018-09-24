@@ -36,14 +36,12 @@ def calculate_frequences(text) -> dict:
     if '' in frequency:
         del frequency['']
     return frequency
-    stop_words = 'is'
+    stop_words = 'is, the, a, was'
     top_n = int('3')
     pass
 
 
 def filter_stop_words(frequency, stop_words) -> dict:
-    stop_words = stop_words.lower()
-    stop_words = stop_words.split(', ')
     frequency_clean = frequency.copy()
     frequency_copy = frequency.copy()
     for i in frequency_copy:
