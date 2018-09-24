@@ -14,22 +14,20 @@ def read_from_file(path_to_file, lines_limit) -> str:
     
     
 def calculate_frequences(text) -> dict:
-    if text == None or text.isdigit():
+     if text == None or text.isdigit():
         return {}
-    
     trash = '''_-=!@#()~_+$%^&*]}{[:;'",./><?1234567890'''
     for i in text:
         if i in trash:
             text = text.replace(i, ' ')
+             continue
     text_l = text.lower()
     text_split = text_l.split(' ')
     frequency = {}
     for i in text_split:
-        if i not in frequency:
-            frequency[i] = 1
-        else:
-           num = frequency.get(i)
-           frequency[i] = num+1
+         freq_word = text.count(i)
+         frequency[i] = freq_word
+         continue
     return frequency
     pass
 
@@ -37,15 +35,14 @@ def calculate_frequences(text) -> dict:
 def filter_stop_words(frequency, stop_words) -> dict:
     if frequency is None or stop_words is None:
         return frequency
-    
-    frequency_clean = frequency.copy()
+    frequency = list(frequency)
     frequency_copy = frequency.copy()
-    for i in frequency_copy:
-        for n in stop_words:
-            if i == n:
-                del frequency_clean[i]
-    return frequency_clean
-    pass
+    for key in frequency_copy:
+         if str(key).isdigit() or key in stop_words:
+             frequency_copy.pop(key)
+             continue
+     return frequency_copy
+     pass
 
 
 def get_top_n(frequency_clean, top_n) -> tuple:
@@ -53,12 +50,14 @@ def get_top_n(frequency_clean, top_n) -> tuple:
         return ()
     count = top_n
     top = []
-    freq_list = list(frequency_clean.items())
+    freq_list = []
+    for key, value in frequency.items():
+        list.append([key, value])
     freq_sort = sorted(freq_list, reverse=True)
-    for i in freq_sort:
+    for i in freq_list:
         if count == 0:
             break
-        top.append(i[1])
+        top.append(i[0])
         count -= 1
     top = tuple(top)
     return top
