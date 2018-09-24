@@ -4,11 +4,10 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
-
 def calculate_frequences(text):
     text = None
-    frequencies = {}
     if text != None and type(text) != int:
+        frequencies = {}
         new_text = text.lower()
         alphabet = 'qwertyuiopasdfghjklzxcvbnm'
         clean_text = ''
@@ -25,7 +24,8 @@ def calculate_frequences(text):
              clean_list = []
              clean_list = clean_text.split(' ')
              frequencies = {token: clean_list.count(token) for token in clean_list}
-             frequencies.pop('')
+             if '' in frequencies:
+                 frequencies.pop('')
              return frequencies
     else:
         frequencies = {}
