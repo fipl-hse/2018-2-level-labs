@@ -1,9 +1,7 @@
 """
 Labour work #1
-
 Count frequencies dictionary by the given arbitrary text
 """
-
 def calculate_frequences(text) -> dict:
     frequent_dict = {}
     import re
@@ -12,7 +10,8 @@ def calculate_frequences(text) -> dict:
         for index, element in enumerate(prepared_text):
             new_word = ''
             count = 1
-            for el_index in range(len(element)): # так как регуярное выражение разбивает текст на слова, оставляя пробел и пр., вводим дополнительный цикл, где избавляемся от лишнего "мусора"
+            for el_index in range(len(element)): # так как регуярное выражение разбивает текст на слова, 
+                # оставляя пробел и пр., вводим дополнительный цикл, где избавляемся от лишнего "мусора"
                 if element[el_index] in 'qwertyuioplkjhgfdsazxcvbnm':
                     new_word += element[el_index]
             if new_word not in frequent_dict:
@@ -23,7 +22,6 @@ def calculate_frequences(text) -> dict:
         return frequent_dict
     else:
         return frequent_dict
-
 def filter_stop_words(frequent_dict, stop_words) -> dict: # Removes all stop words from the given frequencies dictionary
     new_frequent_dict = {}
     if frequent_dict and stop_words:
@@ -33,7 +31,6 @@ def filter_stop_words(frequent_dict, stop_words) -> dict: # Removes all stop wor
         return new_frequent_dict
     else:
         return frequent_dict
-
 def get_top_n(frequent_dict, top_n) -> tuple:
     words = []
     frequencies = []
@@ -59,7 +56,6 @@ def get_top_n(frequent_dict, top_n) -> tuple:
         return tuple_top_n
     else:
         return tuple_top_n
-
 text = '''The quick brown fox jumps over the lazy dog'''
 stopwords = ['the', 'lazy']
 n = 2
