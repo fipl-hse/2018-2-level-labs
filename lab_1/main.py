@@ -3,12 +3,15 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
+from builtins import str
+
+
 def calculate_frequences(texts: str) -> dict:
     my_first_dict = {}
     bykva = ''
     texts_list = []
 
-    if texts == '' or texts is None or type(texts) != str:
+    if texts == '' or texts == None or type(texts) != str:
         return {}
     if type(texts) == str:
         texts = texts.lower()
@@ -29,12 +32,24 @@ def calculate_frequences(texts: str) -> dict:
         else:
             return {}
 
-def filter_stop_words(my_first_dict: dict, stop_words: spisok) -> dict:
 
-    if not my_first_dict:
-        return my_first_dict
+def filter_stop_words(my_first_dict: dict, STOP_WORDS: tuple) -> dict:
+
+    if my_first_dict == None:
+        return {}
+    if STOP_WORDS == None
+        return {}
 
     my_second_dict = my_first_dict.copy()
+
+    for new_stop_word in STOP_WORDS:
+        if new_stop_word in my_second_dict:
+            my_second_dict.pop(new_stop_word)
+    for key in my_second_dict.keys():
+        if type(key) == str and key not in STOP_WORDS:
+            my_second_dict[key] = my_first_dict[key]
+    return my_second_dict
+
 
 def get_top_n() -> tuple:
     """
