@@ -26,11 +26,16 @@ def calculate_frequences(text):
     print(v)
     return v
 
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    pass
+def filter_stop_words(v,stop_words):
+    del_list = []
+    for key in v.keys():
+        if key in stop_words:
+            del_list.append(key)
+    print(v)
+    
+    for element in del_list:
+        v.pop(element)
+    print(v)
 
 def get_top_n() -> tuple:
     """
