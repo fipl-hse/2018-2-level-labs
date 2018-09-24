@@ -34,10 +34,9 @@ def filter_stop_words(freq_dict, stop_words):
     return filtered_dict
 
 
-def get_top_n(filtered_dict, n) -> tuple:
+def get_top_n(filtered_dict, element_count) -> tuple:
     key_list = []
     new_list = []
-    element_count = n
     if element_count < 0:
         return ()
     for key, value in filtered_dict.items():
