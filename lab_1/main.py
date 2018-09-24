@@ -24,38 +24,39 @@ def calculate_frequences(text) -> dict:
     for i in text:
         if i in punctuation or i in numbers:
             text = text.replace(i, '')
-    text_l = text.lower()
-    text_split = text_l.split(' ')
-    frequency = {}
-    for i in text_split:
-        if i not in frequency:
-            frequency[i] = 1
-        else:
-            num = frequency.get(i)
-            frequency[i] = num+1
-    if '' in frequency:
-        del frequency['']
+    if text == None:
+        return {}
+    else:
+        text_l = text.lower()
+        text_split = text_l.split(' ')
+        frequency = {}
+        for i in text_split:
+            if i not in frequency:
+                frequency[i] = 1
+            else:
+                num = frequency.get(i)
+                frequency[i] = num+1
     return frequency
-    stop_words = 'is, the, a, was'
-    top_n = int('3')
     pass
 
 
 def filter_stop_words(frequency, stop_words) -> dict:
-    if frequency is not None or stop_words is not None:
-        frequency_clean = frequency.copy()
-        frequency_copy = frequency.copy()
-        for i in frequency_copy:
-            for n in stop_words:
-                if i == n:
-                    del frequency_clean[i]
-    else:
-        return {}
+    if frequency is None or stop_words is None:
+        return frequency
+    
+    frequency_clean = frequency.copy()
+    frequency_copy = frequency.copy()
+    for i in frequency_copy:
+        for n in stop_words:
+            if i == n:
+                del frequency_clean[i]
     return frequency_clean
     pass
 
 
 def get_top_n(frequency_clean, top_n) -> tuple:
+    if top_n < 0:
+        return ()
     freq_list = list(frequency_clean.items())
     freq_sort = sorted(freq_list, key=lambda x: x[1], reverse=True)
     count = 0
@@ -73,4 +74,3 @@ def get_top_n(frequency_clean, top_n) -> tuple:
         file.write('\n')
     file.close()
     pass
-
