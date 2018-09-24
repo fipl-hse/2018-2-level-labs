@@ -5,7 +5,6 @@ Count frequencies dictionary by the given arbitrary text
 """
 from typing import Dict, Any
 
-
 def calculate_frequences(text: str):
     freq_dict = {}
     if text == '' or text is None:
@@ -15,11 +14,11 @@ def calculate_frequences(text: str):
     for symbol in lower_text:
         if not symbol.isalpha():
             lower_text = lower_text.replace(symbol, ' ')
-    list = lower_text.split()
-    for word in list:
+    word_list = lower_text.split()
+    for word in word_list:
         if word.isalpha():
             dict_key = word
-            dict_value = list.count(word)
+            dict_value = word_list.count(word)
             new_dict = {dict_key: dict_value}
             freq_dict.update(new_dict)
     return freq_dict
