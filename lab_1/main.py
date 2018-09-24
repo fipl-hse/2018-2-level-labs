@@ -36,12 +36,13 @@ def calculate_frequences(text) -> dict:
 def filter_stop_words(frequency, stop_words) -> dict:
     stop_words = stop_words.lower()
     stop_words = stop_words.split(', ')
+    frequency_clean = frequency.copy()
     frequency_copy = frequency.copy()
     for i in frequency_copy:
         for n in stop_words:
             if i == n:
-                del frequency[i]
-    return frequency
+                del frequency_clean[i]
+    return frequency_clean
     pass
 
 
