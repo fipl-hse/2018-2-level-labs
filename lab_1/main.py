@@ -5,7 +5,7 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 
-def calculate_frequences():
+def calculate_frequences(text):
     text = ''''''
     if text != None:
         new_text = text.lower()
@@ -29,11 +29,18 @@ def calculate_frequences():
 calculate_frequences()
 
 
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    pass
+
+def filter_stop_words(frequencies, stop_words):
+    new_frequencies = {}
+    stop_words = input('Input the stop words')
+    for word in frequencies.keys():
+        if word not in stop_words:
+            new_frequencies[word] = frequencies.get(word)
+    print(new_frequencies)
+    return new_frequencies
+
+
+filter_stop_words()
 
 def get_top_n() -> tuple:
     """
