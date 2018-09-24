@@ -14,8 +14,6 @@ def calculate_frequences(texts: str) -> dict:
     #   texts_list = []
     if not texts:
         return {}
-    if texts.isdigit():
-        continue
     if isinstance(texts, str):
         texts = texts.lower()
         texts = texts.split(' ')
