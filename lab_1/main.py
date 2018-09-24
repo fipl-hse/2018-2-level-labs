@@ -1,4 +1,4 @@
-def read_from_file(path_to_file, lines_limit):
+def read_a_file(path_to_file, lines_limit):
     a = open(path_to_file, 'r')
     x = 0
     text = '' 
@@ -12,7 +12,7 @@ def read_from_file(path_to_file, lines_limit):
     return text
 
 
-def count_frequences(text):
+def count_frequencies(text):
     
     if text.isdigit() or text is None:
         return {}
