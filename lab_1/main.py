@@ -3,7 +3,7 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
-text = """hi"""
+text = "The quick brown fox jumps over the lazy dog"
 import re
 
 # re.sub(r'\s', '', text)
@@ -37,44 +37,22 @@ def calculate_frequences(text):
     else:
         return(dictionary)
 
-dictionary = calculate_frequences(text)
-print (dictionary)
 
-stop_words =('ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there', 'about',
-                  'once', 'during', 'out', 'very', 'having', 'with', 'they', 'own', 'an', 'be',
-                  'some', 'for', 'do', 'its', 'yours', 'such', 'into', 'of', 'most', 'itself',
-                  'other', 'off', 'is', 's', 'am', 'or', 'who', 'as', 'from', 'him', 'each', 'the',
-                  'themselves', 'until', 'below', 'are', 'we', 'these', 'your', 'his', 'through',
-                  'don', 'nor', 'me', 'were', 'her', 'more', 'himself', 'this', 'down', 'should',
-                  'our', 'their', 'while', 'above', 'both', 'up', 'to', 'ours', 'had', 'she', 'all',
-                  'no', 'when', 'at', 'any', 'before', 'them', 'same', 'and', 'been', 'have', 'in',
-                  'will', 'on', 'does', 'yourselves', 'then', 'that', 'because', 'what', 'over',
-                  'why', 'so', 'can', 'did', 'not', 'now', 'under', 'he', 'you', 'herself', 'has',
-                  'just', 'where', 'too', 'only', 'myself', 'which', 'those', 'i', 'after', 'few',
-                  'whom', 't', 'being', 'if', 'theirs', 'my', 'against', 'a', 'by', 'doing',
-                  'it', 'how', 'further', 'was', 'here', 'than')
 
-# def filter_stop_words(dictionary, stop_words) -> dict:
-#     all_words = dictionary.keys()
-#     #print(all_words)
-#     clean_list = []
-#     new_dictionary = {}
-#     for name in all_words:
-#         #print(name)
-#         if name in stop_words:
-#             all_words.pop(name)
-#         else:
-#             clean_list.append(name)
-#          if name not in stop_words:
-#             clean_keys = clean_list.append(name)
-#         print(clean_list)
-#          if name not in new_dictionary:
-#              new_dictionary[name] = 0
-#          new_dictionary[name] += 1
-#              #return(new_dictionary)
-#          print(new_dictionary)
-#
-# filter_stop_words(dictionary,stop_words)
+
+def filter_stop_words(freq_dict,stop_words) -> dict:
+    freq_dict = {}
+    if not freq_dict:
+        return freq_dict
+    new_freq_dict = freq_dict.copy()
+    all_words = freq_dict.keys()
+    for name in all_words:
+        if name != str:
+            new_freq_dict.pop(name)
+    if stop_words:
+        if word in stop_words:
+            new_freq_dict.pop(word)
+    return new_freq_dict
 
 
 
@@ -82,7 +60,20 @@ stop_words =('ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there'
 #     Removes all stop words from the given frequencies dictionary
 #     """
 #     pass
-#
+def get_top_n(frequencies: dict, top_n: int) -> tuple:
+    top_tuple = ()
+    if top_n <= 0:
+        return top_tuple
+    else:
+        all_words = frequencies.keys()
+        for word in all_words:
+            top_list.append(word)
+    tuple_top_n = tuple(top_list[:top_n])
+    print (tuple_top_n)
+
+
+
+
 # def get_top_n() -> tuple:
 #     """
 #     Takes first N popular words
