@@ -56,8 +56,9 @@ def get_top_n(frequent_dict, top_n) -> tuple:
                     repository_words = words[i]
                     words[i] = words[i + 1]
                     words[i + 1] = repository_words
-        for i in range(top_n):
-            tuple_top_n = tuple_top_n[:] + (words[i],)
+         for i in range(top_n):
+            if i <= (len(words) - 1):
+                tuple_top_n = tuple_top_n[:] + (words[i],)
         print(words)
         print(frequencies)
         return tuple_top_n
