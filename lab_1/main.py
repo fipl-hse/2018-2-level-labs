@@ -14,6 +14,7 @@ def read_from_file(path_to_file, lines_limit) -> str:
     calculate_frequences(text)
     pass
     
+    
 def calculate_frequences(text) -> dict:
     punctuation = [',', '.', '<', '>', '/', '?', ';', ':', '*', '`', '~', '!',
                    '#', '$', '%', '^', '(', ')',
@@ -75,5 +76,6 @@ def get_top_n() -> tuple:
         file.write('\n')
     file.close()
     pass
+
 
 read_from_file(path_to_file, lines_limit)
