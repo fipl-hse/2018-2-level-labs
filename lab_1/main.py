@@ -31,9 +31,9 @@ def filter_stop_words(freq_dict, STOP_WORDS):
     filtered_dict = {}
     if freq_dict is not None and STOP_WORDS is not None:
         for key, value in freq_dict.items():
-            if key not in STOP_WORDS:
-
-                filtered_dict.update({key: value})
+            if key == str(key):
+                if key not in STOP_WORDS:
+                    filtered_dict.update({key: value})
     return filtered_dict
 
             
