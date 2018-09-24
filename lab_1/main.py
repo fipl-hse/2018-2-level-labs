@@ -1,3 +1,5 @@
+#Laboratory work 1
+
 alph = '" "abcdefghijklmnopqrstuvwxyz'
 d_freq = {}
 stop_words = ('the', 'over', 'here', 'that', 'on', 'up', 'down', 'a')
