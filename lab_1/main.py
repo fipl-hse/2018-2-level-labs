@@ -3,7 +3,7 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
-from typing import Dict, Any
+
 
 def calculate_frequences(text: str):
     freq_dict = {}
@@ -37,12 +37,13 @@ def filter_stop_words(freq_dict, stop_words):
 def get_top_n(filtered_dict, n) -> tuple:
     key_list = []
     new_list = []
-    if n < 0:
+    element_count = n
+    if element_count < 0:
         return ()
     for key, value in filtered_dict.items():
         key_list.append([value, key])
         sorted(key_list)
-    fixed_list = key_list[: n]
+    fixed_list = key_list[: element_count]
     for element in fixed_list:
         needed_element = element[1]
         new_list.append(needed_element)
