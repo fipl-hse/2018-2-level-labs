@@ -18,10 +18,7 @@ def calculate_frequences(text) -> dict:
                    '#', '$', '%', '^', '(', ')',
                    '-', '_', '@', '+', '=', '{', '[', '}', ']', '|', '"']
     numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    for i in text:
-        if '\n' in i:
-            text = text.replace('\n', ' ')
-    for i in text:
+    for i in str(text):
         if i in punctuation or i in numbers:
             text = text.replace(i, '')
     if text == None:
@@ -68,7 +65,10 @@ def get_top_n(frequency_clean, top_n) -> tuple:
             top.append(i[0])
             count += 1
     top = tuple(top)
-    file = open('report.txt', 'w')
+    
+    
+def write_in_file(path_to_report, top):
+    file = open(path_to_report, 'w')
     for i in top:
         file.write(i)
         file.write('\n')
