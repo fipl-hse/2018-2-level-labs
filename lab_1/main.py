@@ -17,8 +17,7 @@ def calculate_frequences(text):
     
     if text is None:
         return {}
-    
-        
+         
     punct_numb = ''',<>./"?:;}{[]!@(#$%^&*+-|№~`–_—)1234567890'''
 
     for i in text:
@@ -44,8 +43,8 @@ def filter_stop_words(frequency, stop_words):
     
     frequencies = dict()
     for i in frequency:
-        if not str(i[0]).isdigit() or i[0] not in stop_words:
-            frequencies.update(i)
+        if not i[0] not in stop_words:
+            frequencies.update(frequency[i])
             continue
     return frequencies
 
