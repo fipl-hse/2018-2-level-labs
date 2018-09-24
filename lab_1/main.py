@@ -36,7 +36,7 @@ def calculate_frequences(text) -> dict:
     if '' in frequency:
         del frequency['']
     return frequency
-    stop_words = 'is, was, i, she, he, we, a, the'
+    stop_words = 'is'
     top_n = int('3')
     pass
 
