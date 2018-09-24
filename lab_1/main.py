@@ -21,7 +21,7 @@ def calculate_frequences(text) -> dict:
     """
     text_l = text.lower()
     
-    punct = '''.,!?;:'"<>/\[]{}()1234567890''' #знаки препинания для исключения из текста
+    punct = '''.,!?;:'"<>/\[]{}()1234567890*-+''' #знаки препинания для исключения из текста
     punct = list(punct)
     for i in punct:
         text_l = text_l.replace(i, ' ') #заменяем знаки препинания на пробелы
@@ -69,13 +69,13 @@ def get_top_n(fsw, top_n) -> tuple:
     if top_n > len(l):
         top_n = len(l)
 
-    popular=[ ]
+    popular = [ ]
     for k in range(top_n):
         i = l[-(k+1)]
         for key, value in fsw.items():
             if value == i:
                 popular.append(key)
-    popular=popular[0:top_n]
+    popular = popular[0:top_n]
     popular = tuple(popular)
     return popular
 
@@ -84,18 +84,18 @@ def get_top_n(fsw, top_n) -> tuple:
     # Вот пошла программа
 
     print ("Это частоты по всем словам.")
-    f=calculate_freq(text)
+    f = calculate_freq(text)
     for key, value in f.items():
             print (key, " ", value)
 
     print (" ")        
     print ("Это частоты слов, за исключением стопов.")    
-    ff=filter_stop_words (f, stop_words)    
+    ff = filter_stop_words (f, stop_words)    
     for key, value in fsw.items():
             print (key, " ", value)
 
-    top_n=3
-    fff=get_top(fsw, top_n)
+    top_n = 3
+    fff = get_top(fsw, top_n)
     print (" ")
     print ("Это самые популярные слова.") 
     print (fff)
