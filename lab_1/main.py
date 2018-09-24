@@ -10,7 +10,7 @@ def calculate_frequences(text) -> dict:
         for index, element in enumerate(prepared_text):
             new_word = ''
             count = 1
-            for el_index in range(len(element)): # так как регуярное выражение разбивает текст на слова, 
+            for el_index in range(len(element)): # так как регуярное выражение разбивает текст на слова,
                 # оставляя пробел и пр., вводим дополнительный цикл, где избавляемся от лишнего "мусора"
                 if element[el_index] in 'qwertyuioplkjhgfdsazxcvbnm':
                     new_word += element[el_index]
@@ -19,9 +19,7 @@ def calculate_frequences(text) -> dict:
             else:
                 new_count = frequent_dict[new_word] + 1
                 frequent_dict[new_word] = new_count
-        return frequent_dict
-    else:
-        return frequent_dict
+    return frequent_dict
 def filter_stop_words(frequent_dict, stop_words) -> dict: # Removes all stop words from the given frequencies dictionary
     new_frequent_dict = {}
     if frequent_dict and stop_words:
@@ -53,12 +51,10 @@ def get_top_n(frequent_dict, top_n) -> tuple:
         for i in range(top_n):
             if i <= (len(words) - 1):
                 tuple_top_n = tuple_top_n[:] + (words[i],)
-        return tuple_top_n
-    else:
-        return tuple_top_n
-text = '''The quick brown fox jumps over the lazy dog'''
-stopwords = ['the', 'lazy']
-n = 2
-frequent_dict = calculate_frequences(text)
-frequent_dict = filter_stop_words(frequent_dict, stopwords)
-frequent_dict = get_top_n(frequent_dict, n)
+    return tuple_top_n
+TEXT = '''The quick brown fox jumps over the lazy dog'''
+STOPWORDS = ['the', 'lazy']
+N = 2
+FREQUENT_DICT = calculate_frequences(TEXT)
+FREQUENT_DICT = filter_stop_words(FREQUENT_DICT, STOPWORDS)
+FREQUENT_DICT = get_top_n(FREQUENT_DICT, N)
