@@ -70,11 +70,11 @@ def get_top_n(my_second_dict: dict, top_n: int) -> tuple:
     top_my_list = []
     if top_n <= 0:
         return()
-
-    for key, value in my_second_dict.items():
-        top_my_list.append([value, key])
-
-my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
-
-    return(tuple_top_n)
-#     tuple_top_n = tuple(top_my_list[:top_n])
+    else:
+        for slovo_stop in my_first_dict.keys():
+            top_my_list.append(slovo_stop)
+    tuple_top_n = tuple(top_my_list[:top_n])
+    return (tuple_top_n)
+#my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
+#for key, value in my_second_dict.items():
+   
