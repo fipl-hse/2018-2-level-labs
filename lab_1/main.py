@@ -17,10 +17,9 @@ def calculate_frequences(text) -> dict:
     if text == None or text.isdigit():
         return {}
     
-    punctuation = '''_-=!@#()~_+$%^&*]}{[:;'",./><?'''
-    numbers = '1234567890'
+    trash = '''_-=!@#()~_+$%^&*]}{[:;'",./><?1234567890'''
     for i in text:
-        if i in punctuation or i in numbers:
+        if i in trash:
             text = text.replace(i, ' ')
     text_l = text.lower()
     text_split = text_l.split(' ')
@@ -55,11 +54,11 @@ def get_top_n(frequency_clean, top_n) -> tuple:
     count = top_n
     top = []
     freq_list = list(frequency_clean.items())
-    freq_sort = sorted(freq_list, key=lambda x: x[1], reverse=True)
+    freq_sort = sorted(freq_list, reverse=True)
     for i in freq_sort:
         if count == 0:
             break
-        top.append(i[0])
+        top.append(i[1])
         count -= 1
     top = tuple(top)
     return top
