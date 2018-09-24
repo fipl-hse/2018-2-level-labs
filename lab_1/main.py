@@ -16,7 +16,7 @@ def read_from_file(path_to_file, lines_limit) -> str:
 def calculate_frequences(text) -> dict:
     if text == None or text.isdigit():
         return {}
-    trash = '_-=!@#()~_+$%^&*]}{[:;'",./><?1234567890'
+    trash = '''_-=!@#()~_+$%^&*]}{[:;'",./><?1234567890'''
     for i in text:
         if i in trash:
             text = text.replace(i, ' ')
