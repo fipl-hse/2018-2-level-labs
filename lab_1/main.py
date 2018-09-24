@@ -3,12 +3,11 @@ def read_from_file(path_to_file, lines_limit) -> str:
     count = 0
     text = ''
     for i in f.read():
-    if count == lines_limit:
-        return text
-        break
-    else:
-        text += i
-        count += 1
+        if count == lines_limit:
+            return text
+        else:
+            text += i
+            count += 1
     f.close()
     return text
     calculate_frequences(text)
