@@ -38,7 +38,7 @@ def calculate_frequences(texts: str) -> dict:
                 if part not in errors:
                     new_slovo += part
             if new_slovo != '':
-                if new_slovo not in my_first_dict
+                if new_slovo not in my_first_dict:
                     my_first_dict[new_slovo] = count_bykva
                 else:
                     new_count_bykva = my_first_dict[new_slovo] + 1
