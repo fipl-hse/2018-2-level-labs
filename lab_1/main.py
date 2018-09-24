@@ -21,7 +21,7 @@ def calculate_frequences(text) -> dict:
     """
     text_l = text.lower()
     
-    punct = '''.,!?;:'"<>/\[]{}()''' #знаки препинания для исключения из текста
+    punct = '''.,!?;:'"<>/\[]{}()1234567890''' #знаки препинания для исключения из текста
     punct = list(punct)
     for i in punct:
         text_l = text_l.replace(i, ' ') #заменяем знаки препинания на пробелы
