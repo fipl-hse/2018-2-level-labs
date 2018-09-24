@@ -31,18 +31,18 @@ def calculate_frequences(texts: str) -> dict:
                   '>','<',':',';','{','}','~','"','`','"'
                   ]
         print(texts)
-        for bykva in texts:
-            new_bykva = ''
+        for slovo in texts:
+            new_slovo = ''
             count_bykva = 1
-            for part in bykva:
+            for part in slovo:
                 if part not in errors:
-                    new_bykva += part
-            if new_bykva != '':
-                if new_bykva not in my_first_dict
-                    my_first_dict[bykva] = count_bykva
+                    new_slovo += part
+            if new_slovo != '':
+                if new_slovo not in my_first_dict
+                    my_first_dict[new_slovo] = count_bykva
                 else:
-                    new_count_bykva = my_first_dict[new_bykva] + 1
-                    my_first_dict[new_bykva] = new_count_bykva
+                    new_count_bykva = my_first_dict[new_slovo] + 1
+                    my_first_dict[new_slovo] = new_count_bykva
         #    count_bykva = texts_list.count(bykva)
 
     return my_first_dict
@@ -78,7 +78,3 @@ my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[
 
     return tuple(top_my_list)
 #     tuple_top_n = tuple(top_my_list[:top_n])
-
-
-
-
