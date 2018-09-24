@@ -13,9 +13,11 @@ def read_a_file(path_to_file, lines_limit):
 
 
 def calculate_frequences(text):
+    text = str(text)
     
     if text is None:
         return {}
+    
         
     punct_numb = ''',<>./"?:;}{[]!@(#$%^&*+-|№~`–_—)1234567890'''
 
@@ -43,7 +45,7 @@ def filter_stop_words(frequency, stop_words):
     frequencies = dict()
     for key, value in frequency.items():
         if not str(key).isdigit() or key not in stop_words:
-            frequencies.update([key, value])
+            frequencies.update(key, value)
             continue
     return frequencies
 
