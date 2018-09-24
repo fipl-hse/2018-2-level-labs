@@ -27,7 +27,8 @@ def calculate_frequences(texts: str) -> dict:
         texts = texts.split('')
 
         for bykva in texts_list:
-            my_first_dict[bykva] = texts_list.count(bykva)
+            count_bykva = texts_list.count(bykva)
+            my_first_dict[bykva] = count_bykva
             return my_first_dict
         else:
             return {}
@@ -51,8 +52,15 @@ def filter_stop_words(my_first_dict: dict, STOP_WORDS: tuple) -> dict:
     return my_second_dict
 
 
-def get_top_n(my_first_dict: dict, ) -> tuple:
-    
+def get_top_n(my_second_dict: dict, top_n: int) -> tuple:
 
+    top_my_list = []
+    if top_n <= 0:
+        return()
 
-    return tuple
+    for key, value in my_second_dict.items():
+        top_my_list.append([value, key])
+        tuple_top_n = tuple(top_my_list[:top_n])
+    return tuple(top_my_list)
+ #my_second_dict = sorted(my_second_dict.items(), key = lambda bykva: bykva[1], reverse = True)
+
