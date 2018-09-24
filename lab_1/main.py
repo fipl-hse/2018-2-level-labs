@@ -10,7 +10,6 @@ def read_from_file(path_to_file, lines_limit) -> str:
             count += 1
     f.close()
     return text
-    pass
     
     
 def calculate_frequences(text) -> dict:
@@ -28,7 +27,6 @@ def calculate_frequences(text) -> dict:
          frequency[i] = freq_word
          continue
     return frequency
-    pass
 
 
 def filter_stop_words(frequency, stop_words) -> dict:
@@ -41,7 +39,6 @@ def filter_stop_words(frequency, stop_words) -> dict:
              frequency_copy.pop(key)
              continue
     return frequency_copy
-    pass
 
 
 def get_top_n(frequency_clean, top_n) -> tuple:
@@ -68,4 +65,3 @@ def write_in_file(path_to_report, top):
         file.write(i)
         file.write('\n')
     file.close()
-    pass
