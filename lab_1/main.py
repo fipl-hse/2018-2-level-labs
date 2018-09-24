@@ -41,7 +41,6 @@ def filter_stop_words(stop_words) -> dict:
     dict_without_stop_words = dict(zip(list_from_dict, list_from_dict_with_values))
     return dict_without_stop_words
     
-dict_without_stop_words = filter_stop_words()
 
 
 sorted_and_reversed_list = []
