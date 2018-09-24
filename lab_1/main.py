@@ -14,7 +14,9 @@ def read_a_file(path_to_file, lines_limit):
 
 def calculate_frequences(text):
     
-    if text.isdigit() or text is None:
+    if text.isdigit():
+        return {}
+    elif text is None:
         return {}
     
     punct_numb = ''',<>./"?:;}{[]!@(#$%^&*+-|№~`–_—)1234567890'''
@@ -40,10 +42,10 @@ def filter_stop_words(frequency, stop_words):
     if frequency is None or stop_words is None:
         return frequency
     
-    frequencies = frequency.copy()
-    for key in frequencies:
-        if str(key).isdigit() or key in stop_words:
-            frequencies.pop(key)
+    frequencies = dict()
+    for key in frequency:
+        if not str(key).isdigit() or key not in stop_words:
+            frequencies.update([key, value])
             continue
     return frequencies
 
@@ -71,7 +73,7 @@ def get_top_n(frequencies, top_n):
     return top
 
 
-def write_in_file(path_to_report, top):
+def write_to_file(path_to_report, top):
     
     file = open(path_to_report, 'w')
     
