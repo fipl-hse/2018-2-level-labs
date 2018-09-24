@@ -4,8 +4,8 @@ our_file.close()
 stop_words = input('Input stop words: \n')
 top_n = int(input('How many top used words you want to see: \n'))
 
+def count_frequency(text: str) -> dict:
 
-def count_frequency(text):
     text = text.lower()
 
     for i in text:
@@ -37,35 +37,36 @@ def count_frequency(text):
 
     return frequency
     filter_stop_words(frequency, stop_words)
+    get_top_n(frequencies)
 
 
-def filter_stop_words(frequency, stop_words):
+def filter_stop_words(frequency: dict, stop_words: str) -> dict:
+
     stop_words = stop_words.lower()
-    stop_words_list = stop_words.split(', ')
+    stop_words_list = stop_words.split(' ')
     stop_words_tuple = tuple(stop_words_list)
 
-    new_frequency = frequency.copy()
-    for i in new_frequency:
+    frequencies = frequency.copy()
+    for i in frequency:
         for n in stop_words_tuple:
             if i == n:
-                del frequency[i]
+                del frequencies[i]
 
-    return frequency
-    get_top_n(frequency, top_n)
+    return frequencies
 
 
-def get_top_n(frequency, top_n):
-    frequency_list = list(frequency.items())
-    frequency_sort = sorted(frequency_list, key=lambda x: x[1], reverse=True)
+def get_top_n(frequencies: dict, top_n: int) -> tuple:
+    frequencies_list = list(frequencies.items())
+    frequencies_sort = sorted(frequencies_list, key=lambda x: x[1], reverse=True)
 
     result = []
-    i = 0
-    for element in frequency_sort:
-        if i == top_n:
+    x = 0
+    for i in frequencies_sort:
+        if x == top_n:
             break
         else:
-            result.append(element[0])
-            i += 1
+            result.append(i[0])
+            x += 1
 
     result = tuple(result)
     print(result)
