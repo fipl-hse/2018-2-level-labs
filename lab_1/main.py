@@ -1,4 +1,3 @@
-#Laboratory work 1
 
 alph = '" "abcdefghijklmnopqrstuvwxyz'
 d_freq = {}
