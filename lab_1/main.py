@@ -43,9 +43,9 @@ def filter_stop_words(frequency, stop_words):
         return frequency
     
     frequencies = dict()
-    for key, value in frequency.items():
-        if not str(key).isdigit() or key not in stop_words:
-            frequencies.update(key, value)
+    for i in frequency:
+        if not str(i[0]).isdigit() or i[0] not in stop_words:
+            frequencies.update(i)
             continue
     return frequencies
 
