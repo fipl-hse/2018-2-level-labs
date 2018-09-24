@@ -54,17 +54,17 @@ def filter_stop_words(frequency, stop_words) -> dict:
 def get_top_n(frequency_clean, top_n) -> tuple:
     if top_n < 0:
         return ()
+    count = top_n
+    top = []
     freq_list = list(frequency_clean.items())
     freq_sort = sorted(freq_list, key=lambda x: x[1], reverse=True)
-    count = 0
-    top = []
     for i in freq_sort:
-        if count == top_n:
+        if count == 0:
             break
-        else:
-            top.append(i[0])
-            count += 1
+        top.append(i[0])
+        count -= 1
     top = tuple(top)
+    return top
     
     
 def write_in_file(path_to_report, top):
