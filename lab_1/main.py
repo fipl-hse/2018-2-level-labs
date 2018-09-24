@@ -1,16 +1,14 @@
-"""
-Labour work #1
-
 Count frequencies dictionary by the given arbitrary text
 """
 def calculate_frequences(texts: str) -> dict:
     my_first_dict = {}
     bykva = ''
-    texts_list = []
-    if texts == '' or texts is None or type(texts) != int:
+ #   texts_list = []
+    if texts or type(texts) != str:
         return {}
-    if type(texts) is str:
-        texts = texts.lower()
+    if texts or type(texts) = str:
+        texts_list = texts.lower()
+        texts_list = texts.split(' ')
         for bykva in texts:
             if bykva not in 'abcdefghijklmnopqrstuvwxyz':
                 texts = texts.replace(bykva, '')
@@ -18,13 +16,13 @@ def calculate_frequences(texts: str) -> dict:
                 continue
             if bykva in 'abcdefghijklmnopqrstuvwxyz':
                 texts_list.append(bykva)
-        texts = texts.split(' ')
         for bykva in texts_list:
             count_bykva = texts_list.count(bykva)
             my_first_dict[bykva] = count_bykva
             return my_first_dict
         else:
             return {}
+
 def filter_stop_words(my_first_dict: dict, STOP_WORDS: tuple) -> dict:
     if my_first_dict is None:
         return {}
@@ -38,6 +36,7 @@ def filter_stop_words(my_first_dict: dict, STOP_WORDS: tuple) -> dict:
         if type(key) == str and key not in STOP_WORDS:
             my_second_dict[key] = my_first_dict[key]
     return my_second_dict
+
 def get_top_n(my_second_dict: dict, top_n: int) -> tuple:
     top_my_list = []
     if top_n <= 0:
@@ -47,4 +46,8 @@ def get_top_n(my_second_dict: dict, top_n: int) -> tuple:
         tuple_top_n = tuple(top_my_list[:top_n])
     return tuple(top_my_list)
  #my_second_dict = sorted(my_second_dict.items(), key = lambda bykva: bykva[1], reverse = True)
+
+
+
+
 
