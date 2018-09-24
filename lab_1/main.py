@@ -6,7 +6,7 @@ f.close()
 def calculate_frequences(text) -> dict:
     punctuation = [',', '.', '<', '>', '/', '?', ';', ':', '*', '`', '~', '!',
                    '#', '$', '%', '^', '(', ')',
-                   '-', '_', '@', '+', '{', '[', '}', ']', '|']
+                   '-', '_', '@', '+', '=', '{', '[', '}', ']', '|']
     numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     for i in text:
         if '\n' in i:
@@ -23,6 +23,8 @@ def calculate_frequences(text) -> dict:
         else:
             num = frequency.get(i)
             frequency[i] = num+1
+    if '' in frequency:
+        del frequency['']
     return frequency
     stop_words = input('Please, input the stop words ')
     top_n = int(input('Please, input how many top used words you want to see '))
