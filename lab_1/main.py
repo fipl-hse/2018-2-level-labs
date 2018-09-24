@@ -7,7 +7,7 @@ def calculate_frequences(texts: str) -> dict:
     my_first_dict = {}
     bykva = ''
     texts_list = []
-    if texts == '' or texts is None or type(texts) != str:
+    if texts == '' or texts is None or type(texts) != int:
         return {}
     if type(texts) is str:
         texts = texts.lower()
