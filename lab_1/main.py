@@ -25,9 +25,12 @@ def filter_stop_words(frequencies, stop_words):
             filtered_dictionary[key] = frequencies.get(key)
     return filtered_dictionary
 
-
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
+def get_top_n(filtered_dictionary, top_n):
+    for_keys = []
+    if top_n > 0:
+        for key in filtered_dictionary.keys():
+            for_keys.append(key)
+        for_keys = for_keys[: top_n]
+        tuple_dictionary = tuple(for_keys)
+        return tuple_dictionary
+    return tuple_dictionary
