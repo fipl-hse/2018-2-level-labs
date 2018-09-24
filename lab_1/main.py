@@ -1,24 +1,70 @@
-"""
-Labour work #1
+dict_freq = {}
+def calculate_frequences(text) -> dict:
+    
+    clean_text = []
+    clean_str = ''
+       
+    if type(text) != str:
+        return{}
+    
+    low_text = text.lower()
+    a = low_text.split(" ")
+    for i in a:
+        for s in i:
+            if s.isalpha():
+                clean_str += s
+        clean_text.append(clean_str)
+        clean_str = ''
+                  
+    for i in clean_text:
+        dict_freq[i] = clean_text.count(i)   
+    
+    return dict_freq
 
-Count frequencies dictionary by the given arbitrary text
-"""
+def filter_stop_words(stop_words) -> dict:
+
+    for i in stop_words: 
+        if type(i) != str:
+            stop_words.remove(i)  
+
+    list_from_dict = list(dict_freq)
+    for value in dict_freq.values():
+        list_from_dict_with_values.append(value)
+
+    
+
+    for i, e in enumerate(list_from_dict):
+        if e in stop_words:
+            list_from_dict.remove(e)
+            del list_from_dict_with_values[i]
+    
+    dict_without_stop_words = dict(zip(list_from_dict, list_from_dict_with_values))
+    return dict_without_stop_words
+    
+dict_without_stop_words = filter_stop_words()
 
 
-def calculate_frequences() -> dict:
-    """
-    Calculates number of times each word appears in the text
-    """
-    return {'abc':'letters', '123':'numbers'}
+sorted_and_reversed_list = []
+list_with_max = []
 
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    pass
+def get_top_n(n) -> tuple:
+   
+    if type(n) != int:
+        return()
+        
+    for value in dict_without_stop_words.values():
+        sorted_and_reversed_list.append(value)
+        sorted_and_reversed_list.sort()
+        sorted_and_reversed_list.reverse()
 
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
+    for i in sorted_and_reversed_list:
+        for key, value in dict_without_stop_words.items():
+            if value == i:
+                list_with_max.append(key)
+                del dict_without_stop_words[key]
+                break
+    
+    list_with_n_max = list_with_max[1 : n+1 : 1]
+    tuple_with_max = tuple(list_with_n_max)
+    return tuple_with_max
+  
