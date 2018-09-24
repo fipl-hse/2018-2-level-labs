@@ -19,7 +19,7 @@ def calculate_frequences(text: str) -> dict:
             new_text = new_text.replace(c,"")
 
         new_text1 = new_text.split()
-        d = {}
+
         for i in range (0,len(new_text1)):
             d[new_text1[i]] = new_text1.count(new_text1[i])
 
