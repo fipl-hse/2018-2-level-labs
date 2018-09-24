@@ -43,7 +43,7 @@ def filter_stop_words(frequency, stop_words):
     
     frequencies = dict()
     for i in frequency:
-        if not i[0] not in stop_words:
+        if not str(i[0]) not in stop_words:
             frequencies.update(frequency[i])
             continue
     return frequencies
