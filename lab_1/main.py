@@ -1,8 +1,13 @@
-f = open('data.txt', 'r')
-text = f.read()
-f.close()
-
-
+def read_from_file(path_to_file: str, lines_limit: int) -> str:
+    f = open(path_to_file, 'r')
+    count = 0
+    text = ''
+    while count < lines_limit:
+        text += f.readline()
+    f.close()
+    calculate_frequences(text)
+    pass
+    
 def calculate_frequences(text) -> dict:
     punctuation = [',', '.', '<', '>', '/', '?', ';', ':', '*', '`', '~', '!',
                    '#', '$', '%', '^', '(', ')',
@@ -64,3 +69,5 @@ def get_top_n() -> tuple:
         file.write('\n')
     file.close()
     pass
+
+read_from_file(path_to_file, lines_limit)
