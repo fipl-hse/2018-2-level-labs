@@ -1,10 +1,16 @@
-def read_from_file(path_to_file: str, lines_limit: int) -> str:
+def read_from_file(path_to_file, lines_limit) -> str:
     f = open(path_to_file, 'r')
     count = 0
     text = ''
-    while count < lines_limit:
-        text += f.readline()
+    for i in f.read():
+    if count == lines_limit:
+        return text
+        break
+    else:
+        text += i
+        count += 1
     f.close()
+    return text
     calculate_frequences(text)
     pass
     
@@ -31,8 +37,8 @@ def calculate_frequences(text) -> dict:
     if '' in frequency:
         del frequency['']
     return frequency
-    stop_words = input('Please, input the stop words ')
-    top_n = int(input('Please, input how many top used words you want to see '))
+    stop_words = 'is, was, i, she, he, we, a, the'
+    top_n = int('3')
     filter_stop_words(frequency, stop_words)
     get_top_n(frequency, top_n)
     pass
