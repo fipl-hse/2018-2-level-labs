@@ -1,4 +1,4 @@
-f = open('text.txt', 'r')
+f = open('data.txt', 'r')
 text = f.read()
 f.close()
 
@@ -23,6 +23,7 @@ def calculate_frequences(text) -> dict:
         else:
             num = frequency.get(i)
             frequency[i] = num+1
+    return frequency
     stop_words = input('Please, input the stop words ')
     top_n = int(input('Please, input how many top used words you want to see '))
     filter_stop_words(frequency, stop_words)
@@ -54,7 +55,7 @@ def get_top_n() -> tuple:
             top.append(i[0])
             count += 1
     top = tuple(top)
-    file = open('result.txt', 'w')
+    file = open('report.txt', 'w')
     for i in top:
         file.write(i)
         file.write('\n')
