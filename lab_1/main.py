@@ -9,7 +9,7 @@ Count frequencies dictionary by the given arbitrary text
 def calculate_frequences(texts: str) -> dict:
 
     my_first_dict = {}
-    new_bykva = ''
+
 
     #   texts_list = []
     if not texts:
@@ -32,6 +32,7 @@ def calculate_frequences(texts: str) -> dict:
                   ]
         print(texts)
         for bykva in texts:
+            new_bykva = ''
             count_bykva = 1
             for part in bykva:
                 if part not in errors:
@@ -48,19 +49,19 @@ def calculate_frequences(texts: str) -> dict:
 
 def filter_stop_words(my_first_dict: dict, STOP_WORDS: tuple) -> dict:
 
-    if my_first_dict is None:
-        return {}
-    if STOP_WORDS is None:
-        return {}
-
     my_second_dict = my_first_dict.copy()
 
-    for new_stop_word in STOP_WORDS:
-        if new_stop_word in my_second_dict:
+    if not my_first_dict:
+        return my_first_dict
+    if not STOP_WORDS :
+        return my_first_dict
+
+    for new_stop_word in my_first_dict.keys():
+        if not isinstance(new_stop_word, str):
             my_second_dict.pop(new_stop_word)
-    for key in my_second_dict.keys():
-        if type(key) == str and key not in STOP_WORDS:
-            my_second_dict[key] = my_first_dict[key]
+    for slovo_stop in STOP_WORDS:
+        if slovo_stop in my_second_dict:
+            my_second_dict.pop(slovo_stop)
     return my_second_dict
 
 
@@ -72,9 +73,11 @@ def get_top_n(my_second_dict: dict, top_n: int) -> tuple:
 
     for key, value in my_second_dict.items():
         top_my_list.append([value, key])
-        tuple_top_n = tuple(top_my_list[:top_n])
+
+my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
+
     return tuple(top_my_list)
- #my_second_dict = sorted(my_second_dict.items(), key = lambda bykva: bykva[1], reverse = True)
+#     tuple_top_n = tuple(top_my_list[:top_n])
 
 
 
