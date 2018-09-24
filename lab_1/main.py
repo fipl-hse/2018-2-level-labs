@@ -76,5 +76,5 @@ def get_top_n(my_second_dict: dict, top_n: int) -> tuple:
 
 my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
 
-    return tuple(top_my_list)
+    return(tuple_top_n)
 #     tuple_top_n = tuple(top_my_list[:top_n])
