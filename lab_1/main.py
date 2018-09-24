@@ -14,25 +14,23 @@ def read_from_file(path_to_file, lines_limit) -> str:
     
     
 def calculate_frequences(text) -> dict:
-    punctuation = [',', '.', '<', '>', '/', '?', ';', ':', '*', '`', '~', '!',
-                   '#', '$', '%', '^', '(', ')',
-                   '-', '_', '@', '+', '=', '{', '[', '}', ']', '|', '"']
-    numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    for i in str(text):
-        if i in punctuation or i in numbers:
-            text = text.replace(i, '')
-    if text == None:
+    if text == None or text.isdigit():
         return {}
-    else:
-        text_l = text.lower()
-        text_split = text_l.split(' ')
-        frequency = {}
-        for i in text_split:
-            if i not in frequency:
-                frequency[i] = 1
-            else:
-                num = frequency.get(i)
-                frequency[i] = num+1
+    
+    punctuation = '''_-=!@#()~_+$%^&*]}{[:;'",./><?'''
+    numbers = '1234567890'
+    for i in text:
+        if i in punctuation or i in numbers:
+            text = text.replace(i, ' ')
+    text_l = text.lower()
+    text_split = text_l.split(' ')
+    frequency = {}
+    for i in text_split:
+        if i not in frequency:
+            frequency[i] = 1
+        else:
+           num = frequency.get(i)
+           frequency[i] = num+1
     return frequency
     pass
 
