@@ -38,7 +38,7 @@ def filter_stop_words(my_first_dict: dict, STOP_WORDS: tuple) -> dict:
 
     if my_first_dict is None:
         return {}
-    if STOP_WORDS is None
+    if STOP_WORDS is None:
         return {}
 
     my_second_dict = my_first_dict.copy()
