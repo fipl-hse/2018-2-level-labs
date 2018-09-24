@@ -41,7 +41,7 @@ def calculate_frequences(text) -> dict:
     stop_words = 'is, was, i, she, he, we, a, the'
     top_n = int('3')
     filter_stop_words(frequency, stop_words)
-    get_top_n(frequency, top_n)
+    get_top_n(frequency_clean, top_n)
     pass
 
 
@@ -58,8 +58,8 @@ def filter_stop_words(frequency, stop_words) -> dict:
     pass
 
 
-def get_top_n() -> tuple:
-    freq_list = list(frequency.items())
+def get_top_n(frequency_clean, top_n) -> tuple:
+    freq_list = list(frequency_clean.items())
     freq_sort = sorted(freq_list, key=lambda x: x[1], reverse=True)
     count = 0
     top = []
