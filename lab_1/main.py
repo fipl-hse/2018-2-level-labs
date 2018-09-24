@@ -7,9 +7,8 @@ Count frequencies dictionary by the given arbitrary text
 def calculate_frequences(text) -> dict:
     frequent_dict = {}
     import re
-    if text and type(text) != int:
+    if text and isinstance(text, str):
         prepared_text = re.findall(r'[a-z]+', text.lower())
-        print(prepared_text)
         for index, element in enumerate(prepared_text):
             new_word = ''
             count = 1
@@ -43,8 +42,6 @@ def get_top_n(frequent_dict, top_n) -> tuple:
         for word, frequency in frequent_dict.items():
             words.append(word)
             frequencies.append(frequency)
-        # print(words)
-        # print(frequencies)
         for j in range(len(frequencies) - 2): # сортировка строк методом пузырька
             for i in range(len(frequencies) - j -1):
                 repository_fr = 0
@@ -59,18 +56,13 @@ def get_top_n(frequent_dict, top_n) -> tuple:
         for i in range(top_n):
             if i <= (len(words) - 1):
                 tuple_top_n = tuple_top_n[:] + (words[i],)
-        # print(words)
-        # print(frequencies)
         return tuple_top_n
     else:
         return tuple_top_n
-    
-text = '''The the the the
-semantic field of any town is an associations of people. For the N.V. Podolskaya in “The Dictionary of Russian
-Onomastic Terminology”. 
-any system of onyms is characterized with a number of features.'''
-stop_words = ['onomastics', 'the', 'onym']
+
+text = '''The quick brown fox jumps over the lazy dog'''
+stopwords = ['the', 'lazy']
+n = 2
 frequent_dict = calculate_frequences(text)
-frequent_dict = filter_stop_words(frequent_dict, stop_words)
-# get_top_n(frequent_dict, n)
-print(frequent_dict)
+frequent_dict = filter_stop_words(frequent_dict, stopwords)
+frequent_dict = get_top_n(frequent_dict, n)
