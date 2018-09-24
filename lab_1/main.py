@@ -1,41 +1,29 @@
-"""
-Labour work #1
-
-Count frequencies dictionary by the given arbitrary text
-"""
-text = "The quick brown fox jumps over the lazy dog"
-import re
-
-# re.sub(r'\s', '', text)
 def calculate_frequences(text):
     dictionary = {}
     if text and type(text) != int:
         text = text.lower()
         text.replace('\n', ' ')
-
-        for element in '1234567890':
-            text = text.replace(element, '')
-            list_text = text.split(' ')
-
-        text.strip(' ')
+        list_text = text.split(' ')
         while text.find('  ') != -1:
             text = text.replace('  ', '')
         while '\n' in list_text:
-            list.text.remove('\n')
-
-        list_text = text.split(' ')
+            list_text.remove('\n')
         symbols = '''!@#$%^&*()"№:?,.<>/'[]{};-+~`1234567890\n'''
-
+        print(list_text)
         for word in list_text:
+            new_word = ''
+            count = 1
             for sign in word:
-                if sign in symbols:
-                    word = word.replace(sign, '')
-            if word not in dictionary:
-                dictionary[word] = 0
-            dictionary[word] += 1
-        return(dictionary)
-    else:
-        return(dictionary)
+                if sign not in symbols:
+                    new_word += sign
+            if new_word != '':
+                if new_word not in dictionary:
+                    dictionary[new_word] = count
+                else:
+                    new_count = dictionary[new_word] + 1
+                    dictionary[new_word] = new_count
+
+    return(dictionary)
 
 
 
@@ -49,18 +37,16 @@ def filter_stop_words(freq_dict,stop_words) -> dict:
     for name in all_words:
           if not isinstance(name, str):
               new_freq_dict.pop(name)
-    if stop_words:
-        for word in stop_words:
-            if word in new_freq_dict:
-                new_freq_dict.pop(word)
-        return(new_freq_dict)
+    if not stop_words:
+        return freq_dict
+    for word in stop_words:
+        if word in new_freq_dict:
+            new_freq_dict.pop(word)
+    return(new_freq_dict)
 
 
 
-#     """
-#     Removes all stop words from the given frequencies dictionary
-#     """
-#     pass
+
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
     top_list = []
     if top_n <= 0:
@@ -71,7 +57,6 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
             top_list.append(word)
     tuple_top_n = tuple(top_list[:top_n])
     return (tuple_top_n)
-
 
 
 
