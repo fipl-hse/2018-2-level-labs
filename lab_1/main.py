@@ -51,7 +51,6 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
     l.reverse()
     for i in range(len(l)-top_n):
         l.pop()
-    print(l)
 
     for list_el in l:
         for k,v in frequencies.items():
