@@ -32,7 +32,7 @@ calculate_frequences()
 
 def filter_stop_words(frequencies, stop_words):
     new_frequencies = {}
-    stop_words = input('Input the stop words')
+    stop_words = ()
     for word in frequencies.keys():
         if word not in stop_words:
             new_frequencies[word] = frequencies.get(word)
