@@ -24,7 +24,7 @@ def calculate_frequences(texts: str) -> dict:
             if bykva in 'abcdefghijklmnopqrstuvwxyz':
                 texts_list.append(bykva)
 
-        texts = texts.split('')
+        texts = texts.split(' ')
 
         for bykva in texts_list:
             count_bykva = texts_list.count(bykva)
