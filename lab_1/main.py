@@ -10,7 +10,6 @@ def read_from_file(path_to_file, lines_limit) -> str:
             count += 1
     f.close()
     return text
-    calculate_frequences(text)
     pass
     
     
@@ -39,8 +38,6 @@ def calculate_frequences(text) -> dict:
     return frequency
     stop_words = 'is, was, i, she, he, we, a, the'
     top_n = int('3')
-    filter_stop_words(frequency, stop_words)
-    get_top_n(frequency_clean, top_n)
     pass
 
 
@@ -76,5 +73,3 @@ def get_top_n(frequency_clean, top_n) -> tuple:
     file.close()
     pass
 
-
-read_from_file(path_to_file, lines_limit)
