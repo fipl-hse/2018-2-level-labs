@@ -37,8 +37,8 @@ def filter_stop_words(v,stop_words):
         v.pop(element)
     print(v)
 
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
+def get_top_n(v,n):
+    v_sort = Counter(v).most_common()
+    top_n = v_sort[:n]
+    print('TOP_N = ',top_n)
+            
