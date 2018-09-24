@@ -20,7 +20,6 @@ def calculate_frequences(text) -> dict:
     for i in text:
         if i in trash:
             text = text.replace(i, ' ')
-             continue
     text_l = text.lower()
     text_split = text_l.split(' ')
     frequency = {}
