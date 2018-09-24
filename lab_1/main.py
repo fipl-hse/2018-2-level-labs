@@ -40,8 +40,8 @@ def filter_stop_words(frequency, stop_words) -> dict:
          if str(key).isdigit() or key in stop_words:
              frequency_copy.pop(key)
              continue
-     return frequency_copy
-     pass
+    return frequency_copy
+    pass
 
 
 def get_top_n(frequency_clean, top_n) -> tuple:
