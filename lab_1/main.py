@@ -44,12 +44,31 @@ def get_top_n(filtered_dict, element_count) -> tuple:
         sorted(key_list)
     fixed_list = key_list[: element_count]
     for element in fixed_list:
-        needed_element = element[1]
+        needed_element = element[-1]
         new_list.append(needed_element)
     dict_tuple = tuple(new_list)
     return dict_tuple
 
-# Changed the 3rd function. Still working, thought that it might be better. This is the "before" function
+
+def read_from_file(path_to_file, lines_limit: int) -> str:
+    given_text = open(path_to_file).read()
+    new_text = ''
+    for line in given_text:
+        if lines_limit == 0:
+            break
+        new_text = new_text + line
+        lines_limit -= 1
+    return new_text
+
+
+def write_to_file(path_to_file: str, content: tuple):
+    the_list = '\n'.join(content)
+    the_file = open(path_to_file, 'w')
+    the_file.write(the_list)
+    the_file.close()
+
+
+# Changed the whole 3rd function. Still working, just thought it might be better. This is the "before" function:
 # def get_top_n(filtered_dict, n) -> tuple:
 #    key_list = []
 #    if n > 0:
