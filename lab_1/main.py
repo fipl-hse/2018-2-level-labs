@@ -47,7 +47,7 @@ def get_top_n(frequency_clean, top_n) -> tuple:
 	count = top_n
 	top = []
 	freq_list = []
-	for key, value in frequency.items():
+	for key, value in frequency_clean.items():
 		freq_list.append([key, value])
 	freq_sort = sorted(freq_list, reverse=True)
 	for i in freq_list:
