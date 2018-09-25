@@ -78,3 +78,4 @@ def write_to_file(path_to_file: str, content: tuple):
         report.write(inside)
         continue
     report.close() 
+    return True
