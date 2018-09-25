@@ -32,22 +32,24 @@ def calculate_frequences(text):
         return frequencies
 
 
-
-
 def filter_stop_words(frequencies, stop_words):
     new_frequencies = {}
     stop_words = ()
     for word in frequencies.keys():
         if word not in stop_words:
             new_frequencies[word] = frequencies.get(word)
-    print(new_frequencies)
     return new_frequencies
 
 
-filter_stop_words()
-
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
+def get_top_n(filtered_dict, n):
+    filtered_dict = {}
+    list_keys = []
+    if n <= 0:
+        tuple_top = ()
+        return tuple_top
+    else:
+        for key in filtered_dict.keys():
+            list_keys.append(key)
+        slice_keys = list_keys[:n]
+        tuple_top = tuple(slice_keys)
+        return tuple_top
