@@ -13,6 +13,8 @@ def calculate_frequences(text: str) -> dict:
         freq_dict = {}
         return freq_dict
 
+def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
+
     errors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                   '!', '?', '.', ',', '_', '-', '@', '#', '$', '&',
                   '^', '%', '*', '=', '-', '+', '/', ']', '[',
@@ -34,7 +36,7 @@ def calculate_frequences(text: str) -> dict:
     return freq_dict
 
 
-def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
+#def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
 
     if freq_dict is None or STOP_WORDS is None:                                        
         return freq_dict
