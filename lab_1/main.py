@@ -30,9 +30,19 @@ def calculate_frequences(text):
 
     frequency = dict()
     for i in text_list:
+        if i not in frequency:
+            frequency[i] = 1
+        else:
+            count = frequency.get(i)
+            frequency[i] = count+1
         word_numb = text.count(i)
         frequency[i] = word_numb
         continue
+        
+	frequency_second = frequency.copy()
+	for key in frequency_second.keys():
+		if '\n' in key or key == '':
+			del frequency[key]
     return frequency
 
     
