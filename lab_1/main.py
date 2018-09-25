@@ -55,7 +55,7 @@ def filter_stop_words(final_dict: dict, stop_words: tuple) -> dict:
 
 
 def get_top_n(final_dict: dict, top_n: int) -> tuple:
-  values = []
+  list_sort = []
   list_with_keys = []
   max_n_words = []
 
@@ -63,19 +63,19 @@ def get_top_n(final_dict: dict, top_n: int) -> tuple:
         return ()
 
     for value in final_dict.values():
-        values.append(value)
+        values.append(list_sort)
         values.sort(reserve = True)
     
 
-    for i in values:
+    for i in list_sort:
         for key, value in final_dict.items():
             if value == i:
                 list_with_keys.append(key)
                 final_dict[key] = ""
                 break
 
-    if top_n > len(value):
-        return tuple(value)
+    if top_n > len(list_with_keys):
+        return tuple(list_with_keys)
     if top_n < 0:
         return()
 
