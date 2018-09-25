@@ -12,8 +12,8 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
         if i == lines_limit:
             break   
         else:
-            line_imp = line + '\n'
-            text_to_work += line_imp
+            #line_imp = line + '\n'
+            text_to_work += line + '\n'
             i += 1
             continue
     return text_to_work
@@ -75,8 +75,8 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
 def write_to_file(path_to_file: str, content: tuple):
     report = open(path_to_file, 'w')
     for token in content:
-        inside = token + '\n'
-        report.write(inside)
+        #inside = token + '\n'
+        report.write(token + '\n')
         continue
     report.close() 
     return True
