@@ -30,17 +30,19 @@ def calculate_frequences(text: str) -> dict:
         frequencies = {}
         return frequencies
 
-
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     new_frequencies = {}
-    if stop_words ==  None:
+    if stop_words ==  None or frequencies == None:
         return new_frequencies
     else:
+        for key in frequencies.keys():
+            if type(key) != str:
+                del frequencies[key]
+                return frequencies
         for word in frequencies.keys():
             if word not in stop_words:
                 new_frequencies[word] = frequencies.get(word)
         return new_frequencies
-
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
     list_keys = []
@@ -48,9 +50,9 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
         tuple_top = ()
         return tuple_top
     else:
-        for key in filtered_dict.keys():
+        for key in frequencies.keys():
             list_keys.append(key)
-        slice_keys = list_keys[:n]
+        slice_keys = list_keys[: top_n]
         tuple_top = tuple(slice_keys)
         return tuple_top
 
