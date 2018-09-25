@@ -56,8 +56,8 @@ def get_top_n(frequencies, top_n):
     frequencies_list = []
     for key, value in frequencies.items():
         frequencies_list.append([key, value])  
-    frequencies_sort = sorted(frequencies_list, reverse=True)    
-    for i in frequencies_sort:
+    frequencies_list = sorted(frequencies_list, reverse=True)    
+    for i in frequencies_list:
         if x == 0:
             break
         top.append(i[0])
