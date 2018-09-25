@@ -10,9 +10,9 @@ def calculate_frequences(text) -> dict:
         for element in prepared_text:
             new_word = ''
             count = 1
-            for el_index in range(len(element)): # вводим дополнительный цикл, где избавляемся от лишнего "мусора"
-                if element[el_index] in 'qwertyuioplkjhgfdsazxcvbnm':
-                    new_word += element[el_index]
+            for el_element in enumerate(element): # вводим дополнительный цикл, где избавляемся от лишнего "мусора"
+                if el_element[1] in 'qwertyuioplkjhgfdsazxcvbnm':
+                    new_word += el_element[1]
             if new_word not in frequent_dict:
                 frequent_dict[new_word] = count
             else:
