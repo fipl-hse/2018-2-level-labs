@@ -1,4 +1,4 @@
-def read_a_file(path_to_file, lines_limit):
+def read_from_file(path_to_file, lines_limit):
     a = open(path_to_file, 'r')
     x = 0
     text = '' 
@@ -12,9 +12,8 @@ def read_a_file(path_to_file, lines_limit):
     return text
 
 
-def calculate_frequences(text):
-    text = str(text)
-    if text is None:
+def calculate_frequences(text)
+    if text == None or str(text).isdigit():
         return {}
     punct_numb = ''',<>./"?:;}{[]!@(#$%^&*+-|№~`–_—)1234567890'''
     for i in text:
@@ -61,9 +60,8 @@ def get_top_n(frequencies, top_n):
     for i in frequencies_sort:
         if x == 0:
             break
-        else:
-            top.append(i[0])
-            x -= 1  
+        top.append(i[0])
+        x -= 1  
     top = tuple(top)
     return top
 
