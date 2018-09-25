@@ -44,13 +44,13 @@ def calculate_frequences(text: str) -> dict:
 
 def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
 
+    if not  freq_dict or not STOP_WORDS :
+        return  freq_dict
+    if freq_dict != None or STOP_WORDS != None:
+        return  freq_dict
+    
     freq_dict_new = freq_dict.copy()
-
-    if not  freq_dict:
-        return  freq_dict
-    if not STOP_WORDS :
-        return  freq_dict
-
+   
     for new_stop_word in freq_dict.keys():
         if not isinstance(new_stop_word, str):
             freq_dict_new.pop(new_stop_word)
@@ -71,12 +71,12 @@ def get_top_n(freq_dict_new: dict, top_n: int) -> tuple:
     tuple_top_n = tuple(top_my_list[:top_n])
     return (tuple_top_n)
 
-TEXT = '''The quick brown fox jumps over the lazy dog'''
-STOP_WORDS = ['the', 'lazy']
-N = 2
-FREQ_DICT = calculate_frequences(TEXT)
-FREQ_DICT = filter_stop_words(FREQ_DICT, STOP_WORDS)
-FREQ_DICT = get_top_n(FREQ_DICT, N)
+#TEXT = '''The quick brown fox jumps over the lazy dog'''
+# STOP_WORDS = ['the', 'lazy']
+# N = 2
+# FREQ_DICT = calculate_frequences(TEXT)
+# FREQ_DICT = filter_stop_words(FREQ_DICT, STOP_WORDS)
+# FREQ_DICT = get_top_n(FREQ_DICT, N)
 
 #my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
 #for key, value in my_second_dict.items():
