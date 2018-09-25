@@ -3,7 +3,7 @@ import string
 
 def calculate_frequences(text: str) -> dict:
     
-    if text == "" or text is None or isinstance(text) != str:
+    if text == "" or text is None or type(text) != str:
         return {}
     words = text.split()
     dict_freq = {}
@@ -34,11 +34,11 @@ def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
         return frequences
     new_frequences = {}
     for word in frequences:
-        if isinstance(word) == str:
+        if type(word) == str:
             new_frequences[word] = frequences[word]
     frequences = new_frequences
     for stop_word in stop_words:
-        if isinstance(stop_word) != str:
+        if type(stop_word) != str:
             continue
         else:
             frequences.pop(stop_word, '')
