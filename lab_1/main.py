@@ -70,5 +70,16 @@ def get_top_n(freq_dict_new: dict, top_n: int) -> tuple:
             top_my_list.append(slovo_stop)
     tuple_top_n = tuple(top_my_list[:top_n])
     return (tuple_top_n)
+
+TEXT = '''The quick brown fox jumps over the lazy dog'''
+STOP_WORDS = ['the', 'lazy']
+N = 2
+FREQUENT_DICT = calculate_top_my_list(TEXT)
+FREQUENT_DICT = filter_stop_words(FREQ_DICT, STOP_WORDS)
+FREQUENT_DICT = get_top_n(FREQ_DICT, N)
+
 #my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
 #for key, value in my_second_dict.items():
+
+
+
