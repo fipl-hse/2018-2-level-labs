@@ -37,7 +37,7 @@ def calculate_frequences(text):
             del frequency[key]
     return frequency
 
-    
+
 def filter_stop_words(frequency, stop_words):    
     if frequency is None or stop_words is None:
         return frequency
