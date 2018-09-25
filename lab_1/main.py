@@ -48,6 +48,4 @@ def get_top_n(frequencies_dict_new: dict, top_n: int) -> tuple:
             break
         itog_list.append(item[1])
         count += 1
-        resultat = tuple(itog_list)
-    
-    return resultat
+    return tuple(itog_list)
