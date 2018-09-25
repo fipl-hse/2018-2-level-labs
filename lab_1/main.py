@@ -1,6 +1,5 @@
 """
 Labour work #1
-
 Count frequencies dictionary by the given arbitrary text
 """
 dict_freq1 = {}
@@ -30,13 +29,12 @@ def calculate_frequences(text: str) -> dict:
     return dict_freq1
 
 
-filtered_words = {}
-stop_words_values = []
-dict_as_list = []
-stop_words = []
-
-
-def filter_stop_words(stop_words) -> dict:
+def filter_stop_words(final_dict: dict, stop_words: tuple) -> dict:
+  
+  filtered_words = {}
+  stop_words_values = []
+  dict_as_list = []
+  stop_words = []
 
     for i in stop_words:
         if type(i) != str:
@@ -56,29 +54,30 @@ def filter_stop_words(stop_words) -> dict:
     return final_dict
 
 
-clean_dict = filter_stop_words(stop_words)
-
-values = []
-list_with_keys = []
-max_n_words = []
-
-
 def get_top_n(final_dict: dict, top_n: int) -> tuple:
+  values = []
+  list_with_keys = []
+  max_n_words = []
 
     if type(top_n) != int:
         return ()
 
-    for value in clean_dict.values():
+    for value in final_dict.values():
         values.append(value)
-        values.sort()
-        values.reverse()
+        values.sort(reserve = True)
+    
 
     for i in values:
-        for key, value in clean_dict.items():
+        for key, value in final_dict.items():
             if value == i:
                 list_with_keys.append(key)
-                del clean_dict[key]
+                final_dict[key] = ""
                 break
 
-    max_n_words = tuple(list_with_keys[0:top_n:1])
+    if top_n > len(value):
+        return tuple(value)
+    if top_n < 0:
+        return()
+
+    max_n_words = tuple(list_with_keys[:top_n])
     return max_n_words
