@@ -32,7 +32,6 @@ def calculate_frequences(text: str) -> dict:
 
 
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
-    new_frequencies = {}
     for word in frequencies.keys():
         if word not in stop_words:
             new_frequencies[word] = frequencies.get(word)
