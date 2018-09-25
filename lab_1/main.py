@@ -33,7 +33,7 @@ def calculate_frequences(text):
     frequency_second = frequency.copy()
     for key in frequency_second.keys():
         if '\n' in key or key == '':
-		    del frequency[key]
+            del frequency[key]
     return frequency
 
     
