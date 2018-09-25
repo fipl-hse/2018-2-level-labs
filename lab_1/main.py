@@ -1,19 +1,18 @@
 def read_from_file(path_to_file, lines_limit):
-    a = open(path_to_file, 'r')
-    x = 0
+    file = open(path_to_file, 'r')
+    count = 0
     text = '' 
-    for i in a.read():
-        if x == lines_limit:
+    for i in file.read():
+        if count == lines_limit:
             return text
-        else:
-            text += i
-            x += i
-            a.close()
+        text += i
+        count += i
+    file.close()
     return text
 
 
 def calculate_frequences(text):
-    if text == None or str(text).isdigit():
+    if text is None or str(text).isdigit():
         return {}
     punct_numb = ''',<>./"'?:;}{[]!@(#$%^&*+-|№~`–_—)1234567890'''
     for i in text:
@@ -51,17 +50,17 @@ def filter_stop_words(frequency, stop_words):
 def get_top_n(frequencies, top_n):    
     if top_n < 0:
         return ()   
-    x = top_n
+    count = top_n
     top = []
     frequencies_list = []
     for key, value in frequencies.items():
         frequencies_list.append([key, value])  
     frequencies_list = sorted(frequencies_list, reverse=True)    
     for i in frequencies_list:
-        if x == 0:
+        if count == 0:
             break
         top.append(i[0])
-        x -= 1  
+        count -= 1  
     top = tuple(top)
     return top
 
