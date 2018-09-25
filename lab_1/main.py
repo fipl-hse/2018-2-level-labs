@@ -1,12 +1,12 @@
 #Laboratory work
 
-alph = '" "abcdefghijklmnopqrstuvwxyz'
-d_freq = {}
-stop_words = ('the', 'over', 'here', 'that', 'on', 'up', 'down', 'a')
-dict_3 = {}
-top_n = int(input('Сколько первых по популярности слов вывести? Укажите число: '))
+#stop_words = ('the', 'over', 'here', 'that', 'on', 'up', 'down', 'a')
+#dict_3 = {}
+
 
 def calculate_frequences(text:str):
+  alph = '" "abcdefghijklmnopqrstuvwxyz'
+  d_freq = {}
   text = str(text)
   text = text.lower()
   for e in text:
@@ -20,9 +20,6 @@ def calculate_frequences(text:str):
       d_freq[e] += 1
   return d_freq
 
-func1 = calculate_frequences(text)
-print ('Результат I функции: ', func1)
-
 
 def filter_stop_words(d_freq, stop_words):
   d_freq_copy = d_freq.copy()
@@ -30,10 +27,7 @@ def filter_stop_words(d_freq, stop_words):
     if e in d_freq_copy.keys():
       d_freq_copy.pop(e)
   return d_freq_copy
-d_freq_filt = filter_stop_words(d_freq, stop_words)
 
-func2 = filter_stop_words(d_freq, stop_words)
-print ('Результат II функции: ', func2)
 
 def get_top_n(d_freq_filt, top_n):
   l_intr = []
@@ -50,5 +44,3 @@ def get_top_n(d_freq_filt, top_n):
   top_n_list = tuple(top_n_list)
   return top_n_list
 
-func3 = get_top_n(d_freq_filt, top_n)
-print ('Результат III функции: ', func3)
