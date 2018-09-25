@@ -1,3 +1,7 @@
+"""
+Labour work #1
+Count frequencies dictionary by the given arbitrary text
+"""
 def calculate_frequences(text):
     """
     Calculates number of times each word appears in the text
