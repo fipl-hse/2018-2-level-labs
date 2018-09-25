@@ -8,6 +8,7 @@ Count frequencies dictionary by the given arbitrary text
 
 def calculate_frequences(text: str) -> dict:
 
+    freq_dict = {}
     if text is None or str(text).isdigit():                                      
         freq_dict = {}
         return freq_dict
@@ -24,8 +25,7 @@ def calculate_frequences(text: str) -> dict:
 
     text = text.lower()
     text = text.split(' ')
-
-    freq_dict = {}                                                                 
+                                                                    
     for slovo_new in text:
         freq_slovo = text.count(slovo_new)
         freq_dict[slovo_new] = freq_slovo
@@ -39,11 +39,10 @@ def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
     if freq_dict is None or STOP_WORDS is None:                                        
         return freq_dict
 
-    for key in spisok(freq_dict):                                                       
-         if key in STOP_WORDS or str(key).isdigit():
+    for key in list(freq_dict):                                                       
+         if str(key).isdigit() or key in STOP_WORDS:
              freq_dict.pop(key)
-          #  continue
-
+      
     return freq_dict
 
 
