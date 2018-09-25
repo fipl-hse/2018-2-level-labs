@@ -63,7 +63,7 @@ list_with_keys = []
 max_n_words = []
 
 
-def get_top_n(top_n: int) -> tuple:
+def get_top_n(final_dict: dict, top_n: int) -> tuple:
 
     if type(top_n) != int:
         return ()
