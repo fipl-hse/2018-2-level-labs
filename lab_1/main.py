@@ -1,6 +1,4 @@
-"""
-lab1
-"""
+
 def calculate_frequences(text):
     if text == None or str(text).isdigit() or text == "":
         return {}
@@ -68,29 +66,4 @@ def get_top_n(frequencies, top_n):
 # print('filter_stop_words',b)
 # c =  tuple(get_top_n (b,top_n))
 # print('get_top_n', c)
-=======
-"""
-Labour work #1
 
-Count frequencies dictionary by the given arbitrary text
-"""
-
-
-def calculate_frequences() -> dict:
-    """
-    Calculates number of times each word appears in the text
-    """
-    pass
-
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    return'amas'
-
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
->>>>>>> 0a9ea625ccb16b4ea63e51a77ebdc4892aff38ea
