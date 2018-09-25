@@ -1,38 +1,50 @@
 import re
 from string import punctuation
 from collections import Counter
+
 r = re.compile(r'[\s{}]+'.format(re.escape(punctuation)))
-def filter_stop_words(x):
-    if len(x) <= 3:
-        return False
-    else:
+stpw = []
+stpw = ['a', 'an', 'is', 'are', 'am', 'the', 'of', 'with', 'at', 'to', 'in']
+def text_input():
+    global words
+    words = str(input("Put your text here, please: "))
+    secret = '.txt'
+    bull = int(words.find(secret))
+    if int(bull) == int(len(words) - 4):
+        text = open(words, 'r')
+        text = text.read()
+        words = text
+        words = str(words.lower())
+        return words
         return True
+        calculate_frequences()
+    else:
+        words = str(words.lower())
+        calculate_frequences()
+        return words
+        return False
+    pass
 
-def get_top_n():
-    file = open("texte.txt", "r")
-    dbfile = file.read()
-    dbfile = r.split(dbfile)
-    calculate_frequences()
+def calculate_frequences() -> dict:
+    global words
+    words1 = r.split(words)
+    global freq
+    freq = (Counter(words1).most_common())
+    freq = dict(freq)
+    return freq
+    pass
 
-def calculate_frequences():
-    top = int(input('top what?'))
-    words = []
-    file = open("texte.txt", "r")
-    dbfile = file.read()
-    dbfile = r.split(dbfile)
-    stopwords1 = dbfile
-    swfilter = filter(filter_stop_words, stopwords1)
-    for x in swfilter:
-        words.append(x)
-    words = [y for y in words if not (y.isdigit() 
-                                         or y[0] == '-' and y[1:].isdigit())]
-    #print (words)
-    freqfin = []
-    words = (Counter(words).most_common(top))
-    freqfin = [str(z) for z in words]
-    freqfin = [z + '\n' for z in freqfin]
-    freqfin = ''.join(freqfin)
-    freqtop = open("frequency.txt", "w")
-    freqtop.writelines (freqfin)
-    print (freqfin)
-get_top_n()
+def filter_stop_words() -> dict:
+    global filtered_words
+    filtered_words = {k: freq[k] for k in freq if k not in stpw}
+    return filtered_words
+    pass
+
+
+def get_top_n() -> tuple:
+    top = int(input("Enter the number for top n: "))
+    fin = tuple(Counter(filtered_words).most_common(top))
+    for i in fin:
+        print(i)
+    return fin
+    pass
