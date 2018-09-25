@@ -8,12 +8,13 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
     file = open(path_to_file, 'r')
     text = file.read()
     text_to_work = ''
+    i = 0
     for line in text:
-         if lines_limit == 0:
-                break
-         else:
+        if lines_limit == 0:
+            break   
+        else:
             text_to_work += line
-            lines_limit -= 1
+            i += 1
             continue
     return text_to_work
 
@@ -77,4 +78,4 @@ def write_to_file(path_to_file: str, content: tuple):
         inside = token + '\n'
         report.write(inside)
         continue
-        report.close()    
+    report.close()    
