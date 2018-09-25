@@ -30,6 +30,10 @@ def filter_stop_words(frequencies, stop_words):
         return filtered_dictionary
     else:
         for key in frequencies.keys():
+            if type(key) != str:
+                del frequencies[key]
+                return frequencies
+        for key in frequencies.keys():
             if key not in stop_words:
                 filtered_dictionary[key] = frequencies.get(key)
         return filtered_dictionary
