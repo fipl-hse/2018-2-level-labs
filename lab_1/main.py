@@ -10,8 +10,8 @@ def calculate_frequences(base):
     frequency_dict = {}
     if type(base) is str:
         base = base.lower()
-        signs = "?!%~<>/\.,[]{}()@"'#*&0123456789"
-        for c in sings:
+        signs = """?!%~<>/\.,[]{}()@"'#*&0123456789"""
+        for c in signs:
             base = base.replase(c," ")
         base1 = base.lower()
          
@@ -44,15 +44,13 @@ def get_top_n(right_words, top_n: int):
     return final
 
 
-pass
-
 text = '''I always have lunch at 7:00 evenings.
           My friends and I usually have fun together.
           365 members of my family are very close to me,
           my father is so smart.'''
 text = text.lower()
 wrong_words = ('usually', 'have', 'my')
-first_dict = calculate_frequencies(text)
+first_dict = calculate_frequences(text)
 filtered = filter_stop_words(first_dict, wrong_words)
 #N = int(input('enter an appropriate n, please'))
 N = 2
