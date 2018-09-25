@@ -4,7 +4,7 @@ The first laborary work
 def read_from_file(path_to_file, lines_limit):
     file = open(path_to_file, 'r')
     count = 0
-    text = '' 
+    text = ''
     for i in file.read():
         if count == lines_limit:
             return text
@@ -30,7 +30,7 @@ def calculate_frequences(text):
         else:
             count = frequency.get(i)
             frequency[i] = count+1
-        continue       
+        continue
     frequency_second = frequency.copy()
     for key in frequency_second.keys():
         if '\n' in key or key == '':
@@ -38,7 +38,7 @@ def calculate_frequences(text):
     return frequency
 
 
-def filter_stop_words(frequency, stop_words):    
+def filter_stop_words(frequency, stop_words):
     if frequency is None or stop_words is None:
         return frequency
     frequency_copy = frequency.copy()
@@ -50,26 +50,26 @@ def filter_stop_words(frequency, stop_words):
     return frequencies
 
 
-def get_top_n(frequencies, top_n):    
+def get_top_n(frequencies, top_n):
     if top_n < 0:
-        return ()   
+        return ()
     count = top_n
     top = []
     frequencies_list = []
     for key, value in frequencies.items():
-        frequencies_list.append([key, value])  
-    frequencies_list = sorted(frequencies_list, reverse=True)    
+        frequencies_list.append([key, value])
+    frequencies_list = sorted(frequencies_list, reverse=True)
     for i in frequencies_list:
         if count == 0:
             break
         top.append(i[0])
-        count -= 1  
+        count -= 1
     top = tuple(top)
     return top
 
 
-def write_to_file(path_report, top):    
-    file = open(path_report, 'w')    
+def write_to_file(path_report, top):
+    file = open(path_report, 'w')
     for i in top:
         file.write(i)
         file.write('\n')
