@@ -5,10 +5,10 @@ Count frequencies dictionary by the given arbitrary text
 """
 def read_from_file(path_to_file: str, lines_limit: int) -> str:
     file = open(path_to_file, 'r')
-    text = file.read()
+    file = file.read()
     text_to_work = ''
     i = 0
-    for line in text:
+    for line in file:
         if i == lines_limit:
             break   
         else:
