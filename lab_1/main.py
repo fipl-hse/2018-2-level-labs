@@ -42,7 +42,7 @@ def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
     for key in spisok(freq_dict):                                                       
          if key in STOP_WORDS or str(key).isdigit():
              freq_dict.pop(key)
-            continue
+          #  continue
 
     return freq_dict
 
