@@ -1,14 +1,14 @@
 def read_from_file(path_to_file, lines_limit) -> str:
     f = open(path_to_file, 'r')
     count = 0
-	text = ''
+    text = ''
     for i in f.read():
         if count == lines_limit:
 		     return text
         else:
 		    text += i
 		    count += 1
-		    f.close()
+    f.close()
     return text
     
     
