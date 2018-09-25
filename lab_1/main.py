@@ -50,9 +50,6 @@ def filter_stop_words(freq_dict, stop_words) -> dict:
 
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
-     """
-    Takes first N popular words
-    """
         
     top_list = []
     if top_n <= 0:
