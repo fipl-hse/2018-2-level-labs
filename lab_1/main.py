@@ -78,4 +78,5 @@ def write_to_file(path_to_file: str, content: tuple):
         inside = token + '\n'
         report.write(inside)
         continue
-    report.close()    
+    report.close() 
+    return None
