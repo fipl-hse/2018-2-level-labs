@@ -34,4 +34,4 @@ def get_top_n(filtered_dictionary, top_n):
         tuple_dictionary = tuple(for_keys)
     else:
         tuple_dictionary = ()
-        return tuple_dictionary
+    return tuple_dictionary
