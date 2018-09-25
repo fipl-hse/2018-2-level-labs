@@ -11,9 +11,12 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
     for line in text:
          if lines_limit == 0:
                 break
-         text_to_work += line
-         lines_limit -= 1
+         else:
+            text_to_work += line
+            lines_limit -= 1
+            continue
     return text_to_work
+
 
 def calculate_frequences(text: str) -> dict:
     if text != None and type(text) != int:
@@ -73,4 +76,5 @@ def write_to_file(path_to_file: str, content: tuple):
     for token in content:
         inside = token + '\n'
         report.write(inside)
+        continue
         report.close()    
