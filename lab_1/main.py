@@ -4,6 +4,12 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
+def read_from_file(path_to_file: str, lines_limit: int) -> str:
+    text = open(path_to_file)
+    first_lines = text.readlines()[0:lines_limit]
+    text.close()
+    return first_lines
+
 
 def calculate_frequences(text: str) -> dict:
     """
@@ -24,7 +30,7 @@ def calculate_frequences(text: str) -> dict:
     else:
         freq_dict = {}
     return freq_dict
-    pass
+
 
 def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
     """
@@ -44,18 +50,30 @@ def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
                 if isinstance(word, str) and word not in STOP_WORDS:
                     freq_dict_clear[word] = freq_dict[word]
     return freq_dict_clear
-    pass
+
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
     """
     Takes first N popular words
     """
+    frequencies_list = []
+    for frequency in frequencies.values():
+        frequencies_list.append(frequency)
     top_n_list = []
     if top_n <= 0:
         top_n_list = []
     else:
         for word in frequencies.keys():
-            top_n_list.append(word)
+            if frequencies[word] == max(frequencies_list):
+                top_n_list.append(word)
+                frequencies_list.remove(max(frequencies_list))
     top_n_tuple = tuple(top_n_list[:top_n])
     return top_n_tuple
-    pass
+
+
+def write_to_file(path_to_file: str, content: tuple):
+    report = open(path_to_file, 'w')
+    for word in content:
+        report.write(word)
+        report.write('\n')
+    report.close()
