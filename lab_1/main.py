@@ -16,7 +16,8 @@ def calculate_frequences(text):
                 text = clean_text
         splitted_text = text.split(' ')
         frequencies = {word: splitted_text.count(word) for word in splitted_text}
-        frequencies.pop('')
+        if '' in frequencies:
+            frequencies.pop('')
         return frequencies
     else:
         frequencies = {}
