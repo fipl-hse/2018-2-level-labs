@@ -21,7 +21,7 @@ def calculate_frequences(text) -> dict:
     
     return dict_freq
 
-def filter_stop_words(stop_words) -> dict:
+def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
 
     for i in stop_words: 
         if type(i) != str:
