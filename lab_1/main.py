@@ -9,20 +9,22 @@ frequency = {}
 def calculate_frequences(base):
     frequency_dict = {}
     if type(base) is str:
-        base = base.lower()
+        base1 = base.lower()
         signs = """?!%~<>/\.,[]{}()@"'#*&0123456789"""
         for c in signs:
-            base = base.replase(c," ")
-        base1 = base.lower()
+            base1 = base1.replase(c," ")
+            
+        clean_base = base1.lower()
          
-        for i in range(0, len(base1)):
-            frequency_dict[base1[i]] = base1.count(base1[i])
+        for i in range(0, len(clean_base)):
+            frequency_dict[clean_base[i]] = base1.count(clean_base[i])
 
     return frequency_dict
 
 
 
 def filter_stop_words(new_dict, stop_words):
+    
     filtered_words = {}
     
     if not stop_words:
