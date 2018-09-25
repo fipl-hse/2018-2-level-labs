@@ -51,7 +51,7 @@ def filter_stop_words(final_dict: dict, stop_words: tuple) -> dict:
 def get_top_n(final_dict: dict, top_n: int) -> tuple:
     list_sort = []
     list_with_keys = []
-
+    
     if type(top_n) != int:
         return ()
 
