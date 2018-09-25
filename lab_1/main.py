@@ -23,13 +23,10 @@ def calculate_frequences(text):
                     new_count = dictionary[new_word] + 1
                     dictionary[new_word] = new_count
 
-    return(dictionary)
+    return dictionary 
 
 
-
-
-def filter_stop_words(freq_dict,stop_words) -> dict:
-
+def filter_stop_words(freq_dict, stop_words) -> dict:
     if not freq_dict:
         return freq_dict
     new_freq_dict = freq_dict.copy()
@@ -42,9 +39,7 @@ def filter_stop_words(freq_dict,stop_words) -> dict:
     for word in stop_words:
         if word in new_freq_dict:
             new_freq_dict.pop(word)
-    return(new_freq_dict)
-
-
+    return new_freq_dict
 
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
@@ -56,12 +51,4 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
         for word in all_words:
             top_list.append(word)
     tuple_top_n = tuple(top_list[:top_n])
-    return (tuple_top_n)
-
-
-
-# def get_top_n() -> tuple:
-#     """
-#     Takes first N popular words
-#     """
-#     pass
+    return tuple_top_n
