@@ -1,71 +1,55 @@
-#Not works
 """
 Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
 
-
-def calculate_frequences(text: str) -> dict:
-
-    freq_dict = {}
-    if text is None or str(text).isdigit():                                      
+def calculate_frequences(text_one: str) -> dict:
+    if text_one is None or str(text_one).isdigit():                                       
         freq_dict = {}
         return freq_dict
-
-def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
-
-    errors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                  '!', '?', '.', ',', '_', '-', '@', '#', '$', '&',
-                  '^', '%', '*', '=', '-', '+', '/', ']', '[',
-                  '>', '<', ':', ';', '{', '}', '~', '"', '`', '"'
-                  ]                                                                
-    for slovo in text:
-        if slovo in errors:
-            text = text.replace(slovo, ' ')
+    for element in text_one:
+        if element in """1234567890!@#$%^&*()_-=+[]{}"'/?.,<>;:`~№""":
+            text_one = text_one.replace(element, ' ')
             continue
 
-    text = text.lower()
-    text = text.split(' ')
-                                                                    
-    for slovo_new in text:
-        freq_slovo = text.count(slovo_new)
-        freq_dict[slovo_new] = freq_slovo
+    text_one = text_one.lower()
+    text_one = text_one.split(' ')
+
+    freq_dict = {}
+    for word_one in text_one:
+        frequency_word = text_one.count(word_one)
+        freq_dict[word_one] = frequency_word
         continue
 
     return freq_dict
 
+def filter_stop_words(frequencies_dict: dict, stop_words: tuple) -> dict:
+    if stop_words is None or frequencies_dict is None:
+        return frequencies_dict
+    for key in list(frequencies_dict):
+        if str(key).isdigit() or key in stop_words:
+            frequencies_dict.pop(key)
+            continue
+    return frequencies_dict
 
-#def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
+def get_top_n(frequencies_dict_new: dict, top_n_best: int) -> tuple:
 
-    if freq_dict is None or STOP_WORDS is None:                                        
-        return freq_dict
-
-    for key in list(freq_dict):                                                       
-         if str(key).isdigit() or key in STOP_WORDS:
-             freq_dict.pop(key)
-      
-    return freq_dict
-
-
-def get_top_n(freq_dict_new: dict, top_n: int) -> tuple:
-
-    if top_n < 0:                                                                    
+     if top_n_first < 0:
         return ()
 
-    top_my_list = []                                            
-    for key, value in freq_dict_new.items():
-        top_my_list.append([value, key])
+     list_of_best_words = []
+     for key, value in frequencies_dict_new.items():
+        list_of_best_words.append([value, key])
         continue
-
-    sorted(top_my_list, reverse = True)                        
-
-    itog_list = []                                              
-    count_itog = top_n
-    for thing in top_my_list:
-        if count_itog == 0:
+     sorted(list_of_best_words, reverse = True)
+     itog_list = []
+     count = top_n_best
+    for element in list_of_best_words:
+        if count == 0:
             break
-        itog_list.append(thing[1])
-        count_itog -= 1
-    tuple_top_n = tuple(itog_list)
-    return tuple_top_n
+        itog_list.append(element[1])
+        count -= 1
+        resultat = tuple(itog_list)
+    
+    return resultat
