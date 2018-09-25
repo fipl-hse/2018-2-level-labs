@@ -51,14 +51,18 @@ def get_top_n(filtered_dict, element_count) -> tuple:
 
 
 def read_from_file(path_to_file, lines_limit: int) -> str:
-    given_text = open(path_to_file).read()
-    new_text = ''
-    for line in given_text:
-        if lines_limit == 0:
-            break
-        new_text = new_text + line
-        lines_limit -= 1
-    return new_text
+    try:
+        given_text = open(path_to_file).read()
+        new_text = ''
+        for line in given_text:
+            if lines_limit == 0:
+                break
+            new_text = new_text + line
+            lines_limit -= 1
+        return new_text
+    except IOError: 
+        return ()        
+    
 
 
 def write_to_file(path_to_file: str, content: tuple):
