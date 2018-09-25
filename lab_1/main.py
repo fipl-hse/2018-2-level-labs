@@ -33,6 +33,7 @@ def calculate_frequences(text: str) -> dict:
 filtered_words = {}
 stop_words_values = []
 dict_as_list = []
+stop_words = []
 
 
 def filter_stop_words(stop_words) -> dict:
