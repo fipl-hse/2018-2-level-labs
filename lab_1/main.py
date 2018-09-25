@@ -12,7 +12,8 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
         if i == lines_limit:
             break   
         else:
-            text_to_work += line
+            line_imp = line + '\n'
+            text_to_work += line_imp
             i += 1
             continue
     return text_to_work
