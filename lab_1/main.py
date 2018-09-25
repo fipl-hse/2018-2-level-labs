@@ -3,15 +3,18 @@ Laboratory work 1
 """
 
 def read_from_file(path_to_file, lines_limit) -> str:
-    fail = open(path_to_file, 'r')
+    try:
+        file = open(path_to_file, 'r')
+    except FileNotFoundError:
+        return None
     count = 0
     text = ''
-    for i in fail.read():
+    for i in file.read():
         if count == lines_limit:
             return text
         text += i
         count += 1
-    fail.close()
+    file.close()
     return text
 
 
