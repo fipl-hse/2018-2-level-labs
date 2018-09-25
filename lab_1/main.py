@@ -1,12 +1,6 @@
-"""
-Labour work #1
-
-Count frequencies dictionary by the given arbitrary text
-"""
 
 def calculate_frequences(text: str) -> dict:
-    frequencies = {}
-
+    frequences = {}
     if type(text) == str:
         for i in text:
             if i.isalpha():
@@ -18,39 +12,35 @@ def calculate_frequences(text: str) -> dict:
         for w in words:
             if w.isalpha():
                 if w in frequencies.keys():
-                    n = frequencies[w]
-                    frequencies[w] = n + 1
+                    k = frequencies[w]
+                    frequencies[w] = k + 1
                 else:
                     frequencies[w] = 1
 
         return frequencies
     elif text == None or type(text) != str:
         return frequencies
-    """
-    Calculates number of times each word appears in the text
-   
-    """
-
-
+    
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     frequencies1 = {}
-    if type(stop_words) == tuple:
-        dct1 = dict(frequencies)
-        for k, v in dct1.items():
-            if k in stop_words:
-                del frequencies[k]
-        return frequencies
-    elif stop_words == None or stop_words !=tuple:
-        return frequencies1
-    """
-    Removes all stop words from the given frequencies dictionary
-    """ 
+    for i in frequencies.keys():
+        if type(i) == str:
+            if type(stop_words) == tuple:
+                dct1 = dict(frequencies)
+                for k, v in dct1.items():
+                    if k in stop_words:
+                        del frequencies[k]
+                return frequencies
+            elif stop_words != tuple:
+                return frequencies1
+        else:
+            return frequencies1
+   
     
-
-
+    
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
-  res = ()
-    if top_n > 0:
+    tup1 = ()
+    if type(frequencies) == dict and type(top_n) == int and top_n > 0:
         res = []
         l = list(frequencies.values())
         l.sort()
@@ -69,11 +59,9 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
         print(res)
         return res
     else:
-        print(res)
-        return res
-    """
-    Takes first N popular words
-    """
+        print(tup1)
+        return tup1
+  
    
 
 
