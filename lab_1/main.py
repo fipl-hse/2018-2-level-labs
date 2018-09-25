@@ -1,6 +1,6 @@
 def calculate_frequences(text):
     dictionary = {}
-    if text and isinstance(text, str):
+    if text and not isinstance(text, int):
         text = text.lower()
         text.replace('\n', ' ')
         list_text = text.split(' ')
