@@ -46,7 +46,7 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
 sorted_and_reversed_list = []
 list_with_max = []
 
-def get_top_n(dictwithout_stop_words: dict, n: int) -> tuple:
+def get_top_n(dict_without_stop_words: dict, n: int) -> tuple:
    
     if type(n) != int:
         return()
