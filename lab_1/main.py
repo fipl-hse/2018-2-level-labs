@@ -1,3 +1,4 @@
+#Not works
 """
 Labour work #1
 
@@ -5,71 +6,65 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 
-
 def calculate_frequences(text: str) -> dict:
-    freq_dict = {}
-    #   texts_list = []
-    if not text:
-        return {}
-    if isinstance(text, str):
-        text = text.lower()
-        text.replace('\n', ' ')
-        text_list = text.split(' ')
-        while text.find(' ') != -1:
-            text = text.replace(' ', '')
-        while '\n' in text_list:
-            text_list.remove('\n')
-        errors = ['0','1','2','3','4','5','6','7','8','9',
-                  '!','?','.',',','_','-','@','#','$','&',
-                  '^','%','*','=','-','+','/',']','[',
-                  '>','<',':',';','{','}','~','"','`','"'
-                  ]
-        print(text_list)
-        for slovo in text_list:
-            new_slovo = ''
-            count_bykva = 1
-            for part in slovo:
-                if part not in errors:
-                    new_slovo += part
-            if new_slovo != '':
-                if new_slovo not in freq_dict:
-                    freq_dict[new_slovo] = count_bykva
-                else:
-                    count_bykva_new = freq_dict[new_slovo] + 1
-                    freq_dict[new_slovo] = count_bykva_new
-        #    count_bykva = texts_list.count(bykva)
-    return  freq_dict
+
+    if text is None or str(text).isdigit():                                      
+        freq_dict = {}
+        return freq_dict
+
+    errors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                  '!', '?', '.', ',', '_', '-', '@', '#', '$', '&',
+                  '^', '%', '*', '=', '-', '+', '/', ']', '[',
+                  '>', '<', ':', ';', '{', '}', '~', '"', '`', '"'
+                  ]                                                                
+    for slovo in text:
+        if slovo in errors:
+            text = text.replace(slovo, ' ')
+            continue
+
+    text = text.lower()
+    text = text.split(' ')
+
+    freq_dict = {}                                                                 
+    for slovo_new in text:
+        freq_slovo = text.count(slovo_new)
+        freq_dict[slovo_new] = freq_slovo
+        continue
+
+    return freq_dict
+
 
 def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
-    freq_dict_new = freq_dict.copy()
-    if not  freq_dict or not STOP_WORDS:
-        return  freq_dict
-    if freq_dict != None or STOP_WORDS != None:
-        return  freq_dict
-    for new_stop_word in freq_dict.keys():
-        if not isinstance(new_stop_word, str):
-            freq_dict_new.pop(new_stop_word)
-    for slovo_stop in STOP_WORDS:
-        if slovo_stop in freq_dict_new:
-            freq_dict_new.pop(slovo_stop)
-    return freq_dict_new
+
+    if freq_dict is None or STOP_WORDS is None:                                        
+        return freq_dict
+
+    for key in spisok(freq_dict):                                                       
+         if key in STOP_WORDS or str(key).isdigit():
+             freq_dict.pop(key)
+            continue
+
+    return freq_dict
 
 
 def get_top_n(freq_dict_new: dict, top_n: int) -> tuple:
-    top_my_list = []
-    if top_n <= 0:
-        return()
-    else:
-        for slovo_stop in freq_dict_new.keys():
-            top_my_list.append(slovo_stop)
-    tuple_top_n = tuple(top_my_list[:top_n])
-    return (tuple_top_n)
 
+    if top_n < 0:                                                                    
+        return ()
 
-#my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
-#for key, value in my_second_dict.items():
+    top_my_list = []                                            
+    for key, value in freq_dict_new.items():
+        top_my_list.append([value, key])
+        continue
 
+    sorted(top_my_list, reverse = True)                        
 
-
-
-
+    itog_list = []                                              
+    count_itog = top_n
+    for thing in top_my_list:
+        if count_itog == 0:
+            break
+        itog_list.append(thing[1])
+        count_itog -= 1
+    tuple_top_n = tuple(itog_list)
+    return tuple_top_n
