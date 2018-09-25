@@ -13,8 +13,8 @@ def read_from_file(path_to_file, lines_limit) -> str:
         count += 1
     fail.close()
     return text
-    
-    
+
+
 def calculate_frequences(text) -> dict:
     if text is None or str(text).isdigit():
         return {}
