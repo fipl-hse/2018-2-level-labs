@@ -39,7 +39,7 @@ def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     return new_frequencies
 
 
-def get_top_n(frequencies: dict, top_n: int) -> tuple::
+def get_top_n(frequencies: dict, top_n: int) -> tuple:
     list_keys = []
     if n <= 0:
         tuple_top = ()
