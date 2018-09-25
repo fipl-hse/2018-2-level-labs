@@ -4,7 +4,7 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
-def calculate_frequences(text):
+def calculate_frequences(text: str) -> dict:
     text = None
     if text != None and type(text) != int:
         frequencies = {}
@@ -32,7 +32,7 @@ def calculate_frequences(text):
         return frequencies
 
 
-def filter_stop_words(frequencies, stop_words):
+def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     new_frequencies = {}
     stop_words = ()
     for word in frequencies.keys():
@@ -41,7 +41,7 @@ def filter_stop_words(frequencies, stop_words):
     return new_frequencies
 
 
-def get_top_n(filtered_dict, n):
+def get_top_n(frequencies: dict, top_n: int) -> tuple::
     filtered_dict = {}
     list_keys = []
     if n <= 0:
