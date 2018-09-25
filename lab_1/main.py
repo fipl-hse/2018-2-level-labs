@@ -3,6 +3,20 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
+def read_from_file(path_to_file: str, lines_limit: int) -> str:
+    file = open(path_to_file, 'r')
+    file = file.read()
+    text_to_work = ''
+    i = 0
+    for line in file:
+        if i == lines_limit:
+            break   
+        else:
+            #line_imp = line + '\n'
+            text_to_work += line + '\n'
+            i += 1
+            continue
+    return text_to_work 
 
 
 def calculate_frequences(text: str) -> dict:
@@ -57,22 +71,6 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
         tuple_top = tuple(slice_keys)
         return tuple_top
     
-    
-def read_from_file(path_to_file: str, lines_limit: int) -> str:
-    file = open(path_to_file, 'r')
-    file = file.read()
-    text_to_work = ''
-    i = 0
-    for line in file:
-        if i == lines_limit:
-            break   
-        else:
-            #line_imp = line + '\n'
-            text_to_work += line + '\n'
-            i += 1
-            continue
-    return text_to_work 
-
     
 def write_to_file(path_to_file: str, content: tuple):
     report = open(path_to_file, 'w')
