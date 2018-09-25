@@ -9,7 +9,7 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
     text_to_work = ''
     i = 0
     for line in text:
-        if lines_limit == 0:
+        if i == lines_limit:
             break   
         else:
             text_to_work += line
