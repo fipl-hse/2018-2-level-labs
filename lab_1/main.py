@@ -1,4 +1,7 @@
 def calculate_frequences(text):
+    """
+    Calculates number of times each word appears in the text
+    """
     dictionary = {}
     if text and not isinstance(text, int):
         text = text.lower()
@@ -27,6 +30,9 @@ def calculate_frequences(text):
 
 
 def filter_stop_words(freq_dict, stop_words) -> dict:
+    """
+    Removes all stop words from the given frequencies dictionary
+    """
 
     if not freq_dict:
         return freq_dict
@@ -44,6 +50,9 @@ def filter_stop_words(freq_dict, stop_words) -> dict:
 
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
+     """
+    Takes first N popular words
+    """
     top_list = []
     if top_n <= 0:
         return()
@@ -52,6 +61,4 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
         top_list.append(word)
     tuple_top_n = tuple(top_list[:top_n])
     return tuple_top_n
-
-
 
