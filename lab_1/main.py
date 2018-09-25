@@ -61,7 +61,7 @@ def read_from_file(path_to_file, lines_limit: int) -> str:
             lines_limit -= 1
         return new_text
     except IOError:
-        return () 
+        return ()
 
 
 def write_to_file(path_to_file: str, content: tuple):
