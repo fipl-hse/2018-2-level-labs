@@ -39,11 +39,12 @@ def calculate_frequences(text):
     
 def filter_stop_words(frequency, stop_words):    
     if frequency is None or stop_words is None:
-        return frequency    
-    frequencies = dict()
-    for i in frequency:
-        if not str(i[0]) not in stop_words:
-            frequencies.update(frequency[i])
+        return frequency
+    frequency_copy = frequency.copy()
+    frequencies = frequency.copy()
+    for key in frequency_copy:
+        if str(key).isdigit() or key in stop_words:
+            del frequencies[key]
             continue
     return frequencies
 
