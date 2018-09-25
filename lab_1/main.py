@@ -23,8 +23,11 @@ def calculate_frequences(text) -> dict:
 	text_split = text_l.split(' ')
 	frequency = {}
 	for i in text_split:
-		freq_word = text.count(i)
-		frequency[i] = freq_word
+		if i not in frequency:
+			frequency[i] = 1
+		else:
+			num = frequency.get(i)
+			frequency[i] = num+1
 		continue
 	frequency_check = frequency.copy()
 	for key in frequency_check.keys():
