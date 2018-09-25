@@ -6,21 +6,20 @@ Count frequencies dictionary by the given arbitrary text
 
 
 
-def calculate_frequences(texts: str) -> dict:
+def calculate_frequences(text: str) -> dict:
 
     freq_dict = {}
     #   texts_list = []
-    if not texts:
+    if not text:
         return {}
-    if isinstance(texts, str):
+    if isinstance(text, str):
         texts = texts.lower()
         texts = texts.split(' ')
-        texts.replace('\n', ' ')
         while '\n' in texts:
             texts.remove('\n')
         while texts.find(' ') != -1:
             texts = texts.replace(' ', '')
-
+        texts.replace('\n', ' ')
         errors = ['0','1','2','3','4','5','6','7','8','9',
                   '!','?','.',',','_','-','@','#','$','&',
                   '^','%','*','=','-','+','/',']','[',
@@ -41,9 +40,9 @@ def calculate_frequences(texts: str) -> dict:
                     freq_dict[new_slovo] = new_count_bykva
         #    count_bykva = texts_list.count(bykva)
 
-    return  freq_dictionary
+    return  freq_dict
 
-def filter_stop_words(freq_dictionary: dict, STOP_WORDS: tuple) -> dict:
+def filter_stop_words(freq_dict: dict, STOP_WORDS: tuple) -> dict:
 
     freq_dict_new = freq_dict.copy()
 
@@ -73,6 +72,3 @@ def get_top_n(freq_dict_new: dict, top_n: int) -> tuple:
     return (tuple_top_n)
 #my_second_dict = sorted(my_second_dict.items(), key=lambda new_bykva: new_bykva[1], reverse=True)
 #for key, value in my_second_dict.items():
-
-
-
