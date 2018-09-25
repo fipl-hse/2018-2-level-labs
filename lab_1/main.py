@@ -1,3 +1,6 @@
+"""
+The first laborary work
+"""
 def read_from_file(path_to_file, lines_limit):
     file = open(path_to_file, 'r')
     count = 0
