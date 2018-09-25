@@ -3,7 +3,6 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 dict_freq1 = {}
-final_dict = {}
 
 
 def calculate_frequences(text: str) -> dict:
@@ -30,11 +29,6 @@ def calculate_frequences(text: str) -> dict:
 
 
 def filter_stop_words(final_dict: dict, stop_words: tuple) -> dict:
-  
-  filtered_words = {}
-  stop_words_values = []
-  dict_as_list = []
-  stop_words = []
 
     for i in stop_words:
         if type(i) != str:
@@ -57,14 +51,13 @@ def filter_stop_words(final_dict: dict, stop_words: tuple) -> dict:
 def get_top_n(final_dict: dict, top_n: int) -> tuple:
   list_sort = []
   list_with_keys = []
-  max_n_words = []
 
     if type(top_n) != int:
         return ()
 
     for value in final_dict.values():
-        values.append(list_sort)
-        values.sort(reserve = True)
+        list_sort.append(list_sort)
+        list_sort.sort(reserve = True)
     
 
     for i in list_sort:
