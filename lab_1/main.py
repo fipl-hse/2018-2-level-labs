@@ -6,27 +6,34 @@ Count frequencies dictionary by the given arbitrary text
 frequency = {}
 
 
-def count_frequency(base):
-    words = base.split(' ')
+def calculate_frequences(base):
     frequency_dict = {}
     if type(base) is str:
-        for i in range(0, len(words)):
-            frequency_dict[words[i]] = words.count(words[i])
+        base = base.lower()
+        signs = "?!%~<>/\.,[]{}()@"'#*&0123456789"
+        for c in sings:
+            base = base.replase(c," ")
+        base1 = base.lower()
+         
+        for i in range(0, len(base1)):
+            frequency_dict[base1[i]] = base1.count(base1[i])
 
     return frequency_dict
 
 
-pass
-
 
 def filter_stop_words(new_dict, stop_words):
-    freq = {key: new_dict[key] for key in new_dict if (key not in stop_words) and (type(key) is str)}
-    right_words = sorted(freq, key=freq.get)
-    right_words.reverse()
-    return right_words
+    filtered_words = {}
+    
+    if not stop_words:
+        stop_words = tuple()
+    if new_dict:
+        filtered_words = {key: new_dict[key] for key in new_dict if (key not in wrong_words) and (type(key)  is str)}
+        
+    return filtered_words
+        
+  
 
-
-pass
 
 
 def get_top_n(right_words, top_n: int):
@@ -44,8 +51,9 @@ text = '''I always have lunch at 7:00 evenings.
           365 members of my family are very close to me,
           my father is so smart.'''
 text = text.lower()
-wrong_words = ['usually', 'have', 'my']
-first_dict = count_frequency(text)
+wrong_words = ('usually', 'have', 'my')
+first_dict = calculate_frequencies(text)
 filtered = filter_stop_words(first_dict, wrong_words)
-N = int(input('enter an appropriate n, please'))
+#N = int(input('enter an appropriate n, please'))
+N = 2
 finish = get_top_n(filtered, N)
