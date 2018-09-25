@@ -12,23 +12,6 @@ class GetTopNTest(unittest.TestCase):
     """
     Tests getting n popular words
     """
-
-    def test_get_top_n_ideal(self):
-        """
-        Check that we get top n words ideal case
-        """
-
-        filtered_dict = {
-            'quick': 4,
-            'brown': 3,
-            'fox': 2,
-            'jumps': 1,
-            'lazy': 1,
-            'dog': 1
-        }
-        expected_result = ('quick', 'brown', 'fox')
-        top_words = main.get_top_n(filtered_dict, 3)
-        self.assertEqual(expected_result, top_words)
         
 
     def test_get_top_n_empty(self):
