@@ -1,5 +1,6 @@
-<<<<<<< HEAD
-
+"""
+lab1
+"""
 def calculate_frequences(text):
     if text == None or str(text).isdigit() or text == "":
         return {}
