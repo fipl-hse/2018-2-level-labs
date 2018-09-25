@@ -33,19 +33,19 @@ def filter_stop_words(frequencies_dict: dict, stop_words: tuple) -> dict:
             continue
     return frequencies_dict
 
-def get_top_n(frequencies_dict_new: dict, top_n_best: int) -> tuple:
+def get_top_n(frequencies_dict_new: dict, top_n: int) -> tuple:
 
-     if top_n_first < 0:
+     if top_n < 0:
         return ()
 
-     list_of_best_words = []
+     list_of_words = []
      for key, value in frequencies_dict_new.items():
-        list_of_best_words.append([value, key])
+        list_of_words.append([value, key])
         continue
-     sorted(list_of_best_words, reverse = True)
+     sorted(list_of_words, reverse = True)
      itog_list = []
-     count = top_n_best
-    for element in list_of_best_words:
+     count = top_n
+    for element in list_of_words:
         if count == 0:
             break
         itog_list.append(element[1])
