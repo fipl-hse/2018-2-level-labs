@@ -32,5 +32,7 @@ def get_top_n(filtered_dictionary, top_n):
             for_keys.append(key)
         for_keys = for_keys[: top_n]
         tuple_dictionary = tuple(for_keys)
+    else:
+        tuple_dictionary = ()
         return tuple_dictionary
     return tuple_dictionary
