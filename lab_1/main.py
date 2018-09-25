@@ -23,7 +23,6 @@ def calculate_frequences(text):
         frequencies = {}
         return frequencies
 
-
 def filter_stop_words(frequencies, stop_words):
     filtered_dictionary = {}
     if stop_words == None and frequencies == None:
@@ -33,9 +32,9 @@ def filter_stop_words(frequencies, stop_words):
             if type(key) != str:
                 del frequencies[key]
                 return frequencies
-        for key in frequencies.keys():
-            if key not in stop_words:
-                filtered_dictionary[key] = frequencies.get(key)
+        for sign in frequencies.keys():
+            if sign not in stop_words:
+                filtered_dictionary[sign] = frequencies.get(sign)
         return filtered_dictionary
 
 def get_top_n(filtered_dictionary, top_n):
