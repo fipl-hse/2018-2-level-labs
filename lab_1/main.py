@@ -28,29 +28,34 @@ def filter_stop_words(frequency2,stop_words):
 
 
 def get_top_n(frequencies, top_n):
-    #new = []
-    #for key,value in frequencies.items():
-        #new.append([value, key])
+    if top_n<0:
+        return()
+    new = []
+    dic1 = []
+    for key,value in frequencies.items():
+        new.append([value, key])
+        continue
     #sorted(new.items(), key=lambda i: i[1], reverse=True)
-    #sorted(new, reverse=True)
+    sorted(new, reverse=True)
     #dic1 = []
-    #counter = 0
-    #for element in new:
-        #if counter == top_n:
-            #break
-        #dic1 = dic1.append(element[1])
-        #counter += 1
-    #res = tuple(dic1)
-    #return res
-    res = []
     counter = 0
-
-    for key in frequencies.keys():
+    for element in new:
         if counter == top_n:
             break
-        res.append(key)
-        counter +=1
-    return tuple(res)
+        dic1.append(element[1])
+        counter += 1
+    res = tuple(dic1)
+    return res
+
+    #res = []
+    #counter = 0
+
+    #for key in frequencies.keys():
+        #if counter == top_n:
+            #break
+        #res.append(key)
+        #counter +=1
+    #return tuple(res)
 
 
 
