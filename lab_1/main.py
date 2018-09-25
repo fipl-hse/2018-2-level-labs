@@ -35,8 +35,6 @@ def calculate_frequences(text):
         else:
             count = frequency.get(i)
             frequency[i] = count+1
-        word_numb = text.count(i)
-        frequency[i] = word_numb
         continue
         
 	frequency_second = frequency.copy()
