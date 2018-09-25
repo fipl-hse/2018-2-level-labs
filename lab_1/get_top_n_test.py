@@ -30,23 +30,6 @@ class GetTopNTest(unittest.TestCase):
         top_words = main.get_top_n(filtered_dict, 3)
         self.assertEqual(expected_result, top_words)
 
-    def test_get_top_n_equals_length(self):
-        """
-        Check that we get n words if n equals dict length
-        """
-
-        filtered_dict = {
-            'quick': 4,
-            'brown': 3,
-            'fox': 2,
-            'jumps': 1,
-            'lazy': 1,
-            'dog': 1
-        }
-        expected_result = ('quick', 'brown', 'fox', 'jumps', 'lazy', 'dog')
-        top_words = main.get_top_n(filtered_dict, 6)
-        self.assertEqual(expected_result, top_words)
-
     def test_get_top_n_empty(self):
         """
         Check that result is empty on empty filtered dict
@@ -64,7 +47,7 @@ class GetTopNTest(unittest.TestCase):
         filtered_dict = {'fox': 1}
         top_words = main.get_top_n(filtered_dict, 3)
         self.assertEqual(expected_result, top_words)
-
+    
     def test_get_top_n_equal_frequency(self):
         """
         Check that we get top n words ideal case
