@@ -25,7 +25,7 @@ def calculate_frequences(text):
 
 def filter_stop_words(frequencies, stop_words):
     filtered_dictionary = {}
-    if stop_words == None and frequencies == None:
+    if frequencies == None or stop_words == None:
         return filtered_dictionary
     else:
         for key in frequencies.keys():
