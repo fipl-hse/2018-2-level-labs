@@ -72,9 +72,9 @@ def get_top_n(frequencies, top_n):
     return top
 
 
-def write_to_file(path_to_report, top):
+def write_to_file(path_report, top):
     
-    file = open(path_to_report, 'w')
+    file = open(path_report, 'w')
     
     for i in top:
         file.write(i)
