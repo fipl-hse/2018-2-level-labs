@@ -28,7 +28,7 @@ def calculate_frequences(text) -> dict:
 		continue
 	frequency_check = frequency.copy()
 	for key in frequency_check.keys():
-		if key == '' or key == '\n':
+		if key == '' or '\n' in key:
 			del frequency[key]
 	return frequency
 
