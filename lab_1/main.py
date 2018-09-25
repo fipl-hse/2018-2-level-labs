@@ -1,14 +1,14 @@
 def read_from_file(path_to_file, lines_limit) -> str:
-    f = open(path_to_file, 'r')
+    fail = open(path_to_file, 'r')
     count = 0
     text = ''
-    for i in f.read():
+    for i in fail.read():
         if count == lines_limit:
             return text
         else:
             text += i
             count += 1
-    f.close()
+    fail.close()
     return text
     
     
@@ -56,7 +56,6 @@ def get_top_n(frequency_clean, top_n) -> tuple:
     freq_list = []
     for key, value in frequency_clean.items():
         freq_list.append([key, value])
-    freq_sort = sorted(freq_list, reverse=True)
     for i in freq_list:
         if count == 0:
             break
