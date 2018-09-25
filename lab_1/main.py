@@ -3,24 +3,18 @@ import string
 
 def calculate_frequences(text: str) -> dict:
     
-    if text == "" or text is None or type(text) != str:
+    if text == "" or text is None or isinstance(text) != str:
         return {}
-
     words = text.split()
     dict_freq = {}
-    
     for word in words:
         word = word.lower()
-        
         for i in string.punctuation:
-            word = word.replace(i, '')
-            
+            word = word.replace(i, '')  
         if word == "":
             continue
-            
         if word.isdigit():
             continue
-
         if dict_freq.get(word) is None:
             dict_freq[word] = 1
         else:
@@ -34,23 +28,17 @@ def filter_stop_words(frequences: dict, stop_words: tuple) -> dict:
     
     if frequences is None and stop_words is None:
         return {}
-    
     if stop_words == () or frequences == {}:
         return frequences
-    
     if stop_words is None or frequences is None:
         return frequences
-    
     new_frequences = {}
-    
     for word in frequences:
-        if type(word) == str:
+        if isinstance(word) == str:
             new_frequences[word] = frequences[word]
-            
     frequences = new_frequences
-    
     for stop_word in stop_words:
-        if type(stop_word) != str:
+        if isinstance(stop_word) != str:
             continue
         else:
             frequences.pop(stop_word, '')
@@ -63,10 +51,8 @@ def get_top_n(frequences: dict, top_n: int) -> tuple:
     
     if frequences == {} or top_n <= 0:
         return ()
-    
     top_words = []
     word_n = 0
-    
     for word in frequences:
         if word_n == top_n:
             break
