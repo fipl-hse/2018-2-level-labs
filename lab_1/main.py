@@ -6,8 +6,8 @@ def read_from_file(path_to_file, lines_limit) -> str:
         if count == lines_limit:
             return text
         else:
-		    text += i
-		    count += 1
+            text += i
+            count += 1
     f.close()
     return text
     
