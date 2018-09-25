@@ -1,3 +1,7 @@
+"""
+Laboratory work 1
+"""
+
 def read_from_file(path_to_file, lines_limit) -> str:
     fail = open(path_to_file, 'r')
     count = 0
@@ -5,15 +9,14 @@ def read_from_file(path_to_file, lines_limit) -> str:
     for i in fail.read():
         if count == lines_limit:
             return text
-        else:
-            text += i
-            count += 1
+        text += i
+        count += 1
     fail.close()
     return text
     
     
 def calculate_frequences(text) -> dict:
-    if text == None or str(text).isdigit():
+    if text is None or str(text).isdigit():
         return {}
     trash = '''_-=!@#()~_+$%^&*]}{[:;'",./><?1234567890'''
     for i in text:
@@ -63,8 +66,8 @@ def get_top_n(frequency_clean, top_n) -> tuple:
         count -= 1
     top = tuple(top)
     return top
-    
-    
+
+
 def write_in_file(path_to_report, top):
     file = open(path_to_report, 'w')
     for i in top:
