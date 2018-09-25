@@ -57,7 +57,7 @@ def get_top_n(final_dict: dict, top_n: int) -> tuple:
 
     for value in final_dict.values():
         list_sort.append(list_sort)
-        list_sort.sort(reserve = True)
+        list_sort.sort(reverse = True)
     
 
     for i in list_sort:
