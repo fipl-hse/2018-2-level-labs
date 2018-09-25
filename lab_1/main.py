@@ -62,9 +62,9 @@ def get_top_n(dict_without_stop_words: dict, n: int) -> tuple:
                 dict_without_stop_words[key] = ''
                 break
     if n > len(sorted_and_reversed_list):
-        return list_with_max
+        return tuple(list_with_max)
     
-    list_with_n_max = list_with_max[1 : n]
+    list_with_n_max = list_with_max[: n]
     tuple_with_max = tuple(list_with_n_max)
     return tuple_with_max
   
