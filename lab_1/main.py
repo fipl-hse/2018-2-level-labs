@@ -7,7 +7,7 @@ def calculate_frequences(text) -> dict:
     import re
     if text and isinstance(text, str):
         prepared_text = re.findall(r'[a-z]+', text.lower())
-        for element in enumerate(prepared_text):
+        for element in prepared_text:
             new_word = ''
             count = 1
             for el_index in range(len(element)): # вводим дополнительный цикл, где избавляемся от лишнего "мусора"
