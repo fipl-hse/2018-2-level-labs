@@ -4,6 +4,17 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
+def read_from_file(path_to_file: str, lines_limit: int) -> str:
+    lines_limit = int(lines_limit)
+    text = open(path_to_file).read()
+    text_to_work = ''
+    for line in text:
+         while lines_limit != 0:
+              text_to_work += line
+              break
+              lines_limit -= 1
+    return text_to_work
+
 def calculate_frequences(text: str) -> dict:
     if text != None and type(text) != int:
         frequencies = {}
