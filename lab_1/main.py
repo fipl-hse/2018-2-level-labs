@@ -10,6 +10,8 @@ stop_words = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
 top_n = 3
 def calculate_frequences(text: str) -> dict:
+    if text is None:
+        pass
     words = text.lower()
     words = r.split(words)
     global frequencies
@@ -18,11 +20,19 @@ def calculate_frequences(text: str) -> dict:
     return frequencies
 
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
+    if frequencies is None:
+        pass
+    
+    if stop_words is None:
+        stop_words = tuple()
+        
     filtered_w = {k: frequencies[k] for k in frequencies if (k not in stop_words) and
                   (type(k) is str) and (not k.isdigit() or k == '-' and k[1:].isdigit())}
     return filtered_w
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
+    if top_n is None:
+        pass
     top_w = list(frequencies.items())
     top_w = ((tuple(top_w))[0:top_n])
     return top_w
