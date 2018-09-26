@@ -12,17 +12,16 @@ top_n = 3
 def calculate_frequences(text: str) -> dict:
     if text is None:
         pass
-    words = text.lower()
+    words = str(text).lower()
     words = r.split(words)
     global frequencies
     frequencies = Counter(words).most_common()
     frequencies = dict(frequencies)
+    if frequencies is None:
+        frequencies = {}
     return frequencies
 
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
-    if frequencies is None:
-        pass
-    
     if stop_words is None:
         stop_words = tuple()
         
