@@ -1,12 +1,18 @@
-mat = input('''Введите текст, который нужно обработать или имя файла, который нужно открыть (с форматом)''')
-if mat[-4:0] == ".txt":
-    f = open(mat,'r')
-    text = f.read()
-else:
-    text = mat
-def calculate_frequences(text) -> dict:
+import random
+
+
+def read_from_file():
+    f = open(r'C:\Users\admin\Downloads\2018-2-level-labs\Beatles - Yesterday.txt', 'r')
+    c = f.read()
+    return c
+
+
+text = read_from_file()
+
+
+def calculate_frequences(text):
     prom1 = text.split()
-    punct_marks = ''':;!(){}[]"',?/.<>\n'''
+    punct_marks = '''1234567890:;!(){}[]"',?/.<>\n'''
     for i in range(0, len(prom1)):
         for c in prom1[i]:
             if c in punct_marks and c in prom1[i]:
@@ -18,35 +24,61 @@ def calculate_frequences(text) -> dict:
         if prom1[i] in prom1[i - 1::-1]:
             continue
     return frequency
-freq_dict = calculate_frequences(text)
-stop_words = ["на","и","в","я","не","ты","мне","с","до","как","от","но","о"]
-def filter_stop_words(freq_dict, stop_words) -> dict:
-    freq_dict = {k: freq_dict[k] for k in freq_dict if k not in stop_words}
-    return freq_dict
-new_freq_dict = filter_stop_words(freq_dict, stop_words)
-n = int(input("Введите желаемое число самых популярных слов"))
-def get_top_n() -> tuple:
+
+
+res = calculate_frequences(text)
+stop_words = ["i", "do", "an", "not", "to"]
+
+
+def filter_stop_words(res, stop_words):
+    res = {k: res[k] for k in res if k not in stop_words}
+    return res
+
+
+filtered_dict = filter_stop_words(res, stop_words)
+# n = random.randint(1, 10)
+n = 3
+print(n)
+
+
+def get_top_n(filtered_dict, n):
+    final_top = []
     slova = []
     chastoty = []
-    for k, v in freq_dict.items():
+    for k,v in filtered_dict.items():
         slova.append(k)
         chastoty.append(v)
-        final_top = []
-    if n <= len(slova):
-        while len(final_top) != n:
-            maxi = max(chastoty)
-            for k in freq_dict.keys():
-                if freq_dict[k] == maxi:
-                    final_top.append(k)
-                    chastoty.remove(maxi)
-    else:
-        n = len(slova)
-        while len(final_top) != n:
-            maxi = max(chastoty)
-            for k in freq_dict.keys():
-                if freq_dict[k] == maxi:
-                    final_top.append(k)
-                    chastoty.remove(maxi)
+    maxi = chastoty[0]
+    schet = 0
+    while schet != n + 1:
+        for i in range(1, len(chastoty)):
+            if chastoty[i] > maxi:
+               maxi = chastoty[i]
+        for c in slova:
+            if filtered_dict[c] == maxi:
+               final_top.append(c)
+               slova.remove(c)
+               chastoty.remove(maxi)
     final_top = tuple(final_top)
-    return final_top
-final = top_n(freq_dict, n)
+    return (final_top)
+final = get_top_n(filtered_dict, n)
+
+def write_into_file():
+    zapis = open('report.txt', 'w')
+    for k, v in res.items():
+        t = k + ":" + str(v) + "," + "\n"
+        zapis.write(t)
+    for k, v in filtered_dict.items():
+        u = k + ":" + str(v) + "," + "\n"
+        zapis.write(u)
+    for c in final:
+        v = c + "\n"
+        zapis.write(v)
+    zapis.close()
+    r = open('report.txt', 'r')
+    o = r.read()
+    return o
+
+
+# m = write_into_file()
+# print(m)
