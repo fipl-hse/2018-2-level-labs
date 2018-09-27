@@ -6,11 +6,10 @@ Celebrated if remarkably especia"lly an.
 Goi(ng eat set she books found met aware.'''
 STOP_WORDS = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
-TOP_N = 3
-if text is None:
-        text = ''
-        
+TOP_N = 3     
 def calculate_frequences(text: str) -> dict:
+    if text is None:
+        text = ''
     global frequencies
     frequencies = collections.Counter()
     words = str(text).lower()
@@ -30,16 +29,13 @@ def calculate_frequences(text: str) -> dict:
     frequencies = dict(frequencies)
     return frequencies
 
-if frequencies is None:
-        frequencies = {}
-if stop_words is None:
-        stop_words = tuple()
-        
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
+    if frequencies is None:
+        frequencies = {}
+    if stop_words is None:
+        stop_words = tuple()
     filtered_w = {k: frequencies[k] for k in frequencies if (k not in stop_words) and (type(k) is str)}
     return filtered_w
-if top_n is None or top_n < 0 or isinstance(top_n) == str:
-        top_n = 0
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
     if top_n is None or top_n < 0 or isinstance(top_n) == str:
