@@ -14,11 +14,11 @@ def calculate_frequences(text) -> dict:
             return {}
         for s in i:
             if not s.isalpha():
-                return {}
+                pass
             else:
                 clean_str.replace('', s)
                 clean_text.append(clean_str)
-                break
+                clean_str = ''
         
     if clean_text == []:
         return {}
