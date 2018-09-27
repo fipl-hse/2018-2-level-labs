@@ -7,8 +7,7 @@ dict_freq1 = {}
 
 def calculate_frequences(text: str) -> dict:
 
-    if type(text) != str:
-        return {}
+    
 
     text = text.lower()
     text_split = text.split(" ")
@@ -16,15 +15,14 @@ def calculate_frequences(text: str) -> dict:
     clean = ''
 
     for i in text_split:
+        if type(text) != str:
+            return {}
         for symbol in i:
             if symbol.isalpha():
-                clean += symbol
+                text2.append(symbol)
+                clean = ''
             else:
                 return {}
-        if clean != '':
-            text2.append(clean)
-            clean = ''
- 
         
     if text2 == []:
         return {}
