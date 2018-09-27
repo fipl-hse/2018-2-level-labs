@@ -31,6 +31,8 @@ def calculate_frequences(text: str) -> dict:
     return frequencies
 
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
+    if frequencies is None:
+        frequencies = {}
     if stop_words is None:
         stop_words = tuple()
     filtered_w = {k: frequencies[k] for k in frequencies if (k not in stop_words) and (type(k) is str)}
