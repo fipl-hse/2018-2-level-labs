@@ -36,7 +36,9 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
                 return {}
 
     
-    
+    for key in dict_freq.keys():
+        if type(key) != str:
+            return {}
     if dict_freq == None:
         return {}
     else:
