@@ -22,9 +22,14 @@ def calculate_frequences(text: str) -> dict:
         if clean != '':
             text2.append(clean)
             clean = ''
-
-    for i in text2:
+    else:
+        i.remove.symbol
+        
+    if text2 == []:
+        return {}
+    else:
         dict_freq1[i] = text2.count(i)
+        
     return dict_freq1
 
 
