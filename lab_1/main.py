@@ -38,7 +38,7 @@ def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     return filtered_w
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
-    if top_n is None or top_n < 0 or isinstance(top_n) == str:
+    if top_n is None or top_n < 0 or isinstance(top_n, int):
         top_n = 0
     top_w = sorted(frequencies, key=frequencies.get, reverse=True)
     top_w = ((tuple(top_w))[0:top_n])
