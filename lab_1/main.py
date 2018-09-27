@@ -8,8 +8,9 @@ stop_words = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
 top_n = 3
 import collections
-c = collections.Counter()
 def calculate_frequences(text: str) -> dict:
+    global frequencies
+    frequencies = collections.Counter()
     if text is None:
         text = ''
     words = str(text).lower()
@@ -23,11 +24,10 @@ def calculate_frequences(text: str) -> dict:
     for k in words:
         if k.isdigit() or k == '-' and k[1:].isdigit():
             words = words.replace(k, '')
-    global frequencies
-    frequencies = words.split()
-    for word in frequencies:
-        c[word] += 1
-    frequencies = c
+    words = words.split()
+    for word in words:
+        frequencies[word] += 1
+    frequencies = dict(frequencies)
     return frequencies
 
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
