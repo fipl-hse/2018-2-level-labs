@@ -5,7 +5,7 @@ def calculate_frequences(text) -> dict:
     clean_str = ''
        
     if type(text) != str:
-        return{}
+        return {}
     
     low_text = text.lower()
     a = low_text.split(" ")
@@ -25,12 +25,12 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
     list_from_dict_with_values = []
     
     list_stop_words = list(stop_words)
+    
     if list_stop_words == None:
-        return {}
+        return dict_freq
+    
     for i in list_stop_words: 
         if type(i) != str:
-            return {}
-        elif i == None:
             return {}
 
     list_from_dict = list(dict_freq)
