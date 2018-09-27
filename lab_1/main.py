@@ -10,11 +10,14 @@ def calculate_frequences(text) -> dict:
     low_text = text.lower()
     a = low_text.split(" ")
     for i in a:
+        if type(i) != str:
+            return {}
         for s in i:
             if s.isalpha():
                 clean_str.replace('', s)
-        clean_text.append(clean_str)
-        clean_str = ''
+                clean_text.append(clean_str)
+                break
+        
     if clean_text == []:
         return {}
     else:
