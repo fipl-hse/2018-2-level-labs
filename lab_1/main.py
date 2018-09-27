@@ -25,7 +25,7 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
     list_from_dict_with_values = []
     
     list_stop_words = list(stop_words)
-    if list_stop_words == []:
+    if list_stop_words == None:
         return {}
     for i in list_stop_words: 
         if type(i) != str:
@@ -34,7 +34,7 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
             return {}
 
     list_from_dict = list(dict_freq)
-    if list_from_dict == []:
+    if list_from_dict == None:
         return {}
     for i in list_from_dict:
         if type(i) != str:
