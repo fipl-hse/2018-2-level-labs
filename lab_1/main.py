@@ -22,6 +22,8 @@ def calculate_frequences(text: str) -> dict:
         if clean != '':
             text2.append(clean)
             clean = ''
+        else:
+            return {}
         
     if text2 == []:
         return {}
