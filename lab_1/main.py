@@ -12,7 +12,7 @@ def calculate_frequences(text) -> dict:
     for i in a:
         for s in i:
             if s.isalpha():
-                clean_str += s
+                clean_str.replace('', s)
         clean_text.append(clean_str)
         clean_str = ''
                   
@@ -26,10 +26,14 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
     for i in stop_words: 
         if type(i) != str:
             return {}
+        elif i == None:
+            return {}
 
     list_from_dict = list(dict_freq)
     for i in list_from_dict:
         if type(i) != str:
+            return {}
+        elif i == None:
             return {}
         
     for value in dict_freq.values():
