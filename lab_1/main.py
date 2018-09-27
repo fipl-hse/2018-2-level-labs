@@ -15,11 +15,11 @@ def calculate_frequences(text) -> dict:
                 clean_str.replace('', s)
         clean_text.append(clean_str)
         clean_str = ''
-    if clean_text == None:
+    if clean_text == []:
         return {}
     else:
         for i in clean_text:
-        dict_freq = clean_text.count(i)   
+            dict_freq[i]= clean_text.count([i])   
     
     return dict_freq
 
