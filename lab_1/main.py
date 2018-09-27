@@ -23,17 +23,21 @@ def calculate_frequences(text) -> dict:
 
 def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
     list_from_dict_with_values = []
-    for i in stop_words: 
+    
+    list_stop_words = list(stop_words)
+    if list_stop_words == []:
+        return {}
+    for i in list_stop_words: 
         if type(i) != str:
             return {}
         elif i == None:
             return {}
 
     list_from_dict = list(dict_freq)
+    if list_from_dict == []:
+        return {}
     for i in list_from_dict:
         if type(i) != str:
-            return {}
-        elif i == None:
             return {}
         
     for value in dict_freq.values():
@@ -42,7 +46,7 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
     
 
     for i, e in enumerate(list_from_dict):
-        if e in stop_words:
+        if e in list_stop_words:
             list_from_dict.remove(e)
             del list_from_dict_with_values[i]
     
