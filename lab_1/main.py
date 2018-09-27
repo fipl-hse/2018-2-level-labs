@@ -18,7 +18,7 @@ def calculate_frequences(text) -> dict:
                 clean_text.append(clean_str)
                 clean_str = ''
             else:
-                i.remove(s)
+                return {}
         
     if clean_text == []:
         return {}
