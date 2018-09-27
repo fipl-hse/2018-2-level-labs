@@ -1,18 +1,18 @@
-from string import punctuation
-from collections import Counter
-text = '''He do subjects *prepared 34 bachelor juvenile ye oh.
+"""This module does blah blah."""
+import collections
+TEXT = '''He do subjects *prepared 34 bachelor juvenile ye oh.
 He feelings rem'oving informed he as 34 ignorant we prepared.
 Celebrated if remarkably especia"lly an.
 Goi(ng eat set she books found met aware.'''
-stop_words = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
+STOP_WORDS = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
-top_n = 3
-import collections
+TOP_N = 3
+if text is None:
+        text = ''
+        
 def calculate_frequences(text: str) -> dict:
     global frequencies
     frequencies = collections.Counter()
-    if text is None:
-        text = ''
     words = str(text).lower()
     restr_chars = "~$%&^@*#\"{}[]\'/\n:;!?().,<>"
     for i in restr_chars:
@@ -30,18 +30,18 @@ def calculate_frequences(text: str) -> dict:
     frequencies = dict(frequencies)
     return frequencies
 
-def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
-    if frequencies is None:
+if frequencies is None:
         frequencies = {}
     if stop_words is None:
         stop_words = tuple()
+def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     filtered_w = {k: frequencies[k] for k in frequencies if (k not in stop_words) and (type(k) is str)}
     return filtered_w
-
-def get_top_n(frequencies: dict, top_n: int) -> tuple:
-    if top_n is None or top_n < 0 or type(top_n) == str:
+if top_n is None or top_n < 0 or isinstance(top_n) == str:
         top_n = 0
-    top_w = sorted(frequencies, key=frequencies.get, reverse = True)
+def get_top_n(frequencies: dict, top_n: int) -> tuple:
+    if top_n is None or top_n < 0 or isinstance(top_n) == str:
+        top_n = 0
+    top_w = sorted(frequencies, key=frequencies.get, reverse=True)
     top_w = ((tuple(top_w))[0:top_n])
-    print (top_w)
     return top_w
