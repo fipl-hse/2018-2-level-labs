@@ -29,13 +29,16 @@ def calculate_frequences(text: str) -> dict:
 
 
 def filter_stop_words(final_dict: dict, stop_words: tuple) -> dict:
+    
     stop_words_values = []
+    
     if stop_words == None:
         return {}
 
     for i in stop_words:
         if type(i) != str:
-            stop_words.remove(i)
+            stop_words_list = list(stop_words)
+            stop_words_list.remove(i)
 
     dict_as_list = list(dict_freq1)
 
