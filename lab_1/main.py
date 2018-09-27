@@ -30,7 +30,7 @@ def calculate_frequences(text: str) -> dict:
 
 def filter_stop_words(final_dict: dict, stop_words: tuple) -> dict:
     stop_words_values = []
-    if stop_words = None:
+    if stop_words == None:
         return {}
 
     for i in stop_words:
