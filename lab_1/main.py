@@ -19,11 +19,12 @@ def calculate_frequences(text: str) -> dict:
         for symbol in i:
             if symbol.isalpha():
                 clean += symbol
+            else:
+                return {}
         if clean != '':
             text2.append(clean)
             clean = ''
-        else:
-            i.replace(clean, '')
+ 
         
     if text2 == []:
         return {}
