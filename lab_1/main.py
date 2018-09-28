@@ -18,7 +18,7 @@ def calculate_frequences(text) -> dict:
     else:
         a = []
         a.append(low_text)
-        
+    d = []   
     for i in a:
         if type(i) != str:
             a.remove(i)
@@ -28,11 +28,10 @@ def calculate_frequences(text) -> dict:
                         clean_text.append(s)
                         clean_str = ''
                     else:
-                        d = []
                         d.append(s)
                         clean_str = ''
                 else:
-                    return {}
+                    d.append(s)
     if clean_text == []:
         return {}
     else:
