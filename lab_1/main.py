@@ -26,8 +26,9 @@ def calculate_frequences(text) -> dict:
         for s in i:
             if s not in "abcdefghijklmnopqrstuvwxyz":
                 break
-            clean_text.append(s)
-            clean_str = ''
+            else:
+                clean_text.append(s)
+                clean_str = ''
         else:
             return {}
         
