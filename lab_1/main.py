@@ -23,7 +23,7 @@ def calculate_frequences(text) -> dict:
         if type(i) != str:
             return {}
         for s in i:
-            if not s.isalpha():
+            if s not in "abcdefghijklmnopqrstuvwxyz":
                 break
             clean_text.append(s)
             clean_str = ''
