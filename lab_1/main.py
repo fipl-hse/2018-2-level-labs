@@ -26,10 +26,10 @@ def calculate_frequences(text) -> dict:
                 if type(s) == str:
                     if s in "abcdefghijklmnopqrstuvwxyz":
                         clean_text.append(s)
-                        clean_str = ''
+                        
                     else:
                         d.append(s)
-                        clean_str = ''
+                        
                 else:
                     d.append(s)
     if clean_text == []:
