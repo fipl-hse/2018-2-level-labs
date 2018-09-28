@@ -73,7 +73,9 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
 
     for i, e in enumerate(list_from_dict):
         if e == None:
-            return {} 
+            return {}
+        if type(e) != str:
+            return {}
         if e in list_stop_words:
             list_from_dict.remove(e)
             del list_from_dict_with_values[i]
