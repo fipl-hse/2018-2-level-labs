@@ -27,7 +27,7 @@ def calculate_frequences(text) -> dict:
                 if s.isalpha():
                     c = []
                     c.append(s)
-    a.append(c)
+                    a.append(c)
     clean_text.append(a)
     
     if clean_text != []:
