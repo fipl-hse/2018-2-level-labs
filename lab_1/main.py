@@ -36,7 +36,7 @@ def filter_stop_words(frequencies_dict: dict, stop_words: tuple) -> dict:
 def get_top_n(frequencies_dict_new: dict, top_n: int) -> tuple:
 
     list_of_words = []
-    itog_list = []
+    itog_res = []
     count = 0
     if top_n < 0:
         return ()
@@ -46,6 +46,6 @@ def get_top_n(frequencies_dict_new: dict, top_n: int) -> tuple:
     for item in list_of_words:
         if count == top_n:
             break
-        itog_list.append(item[1])
+        itog_res.append(item[1])
         count += 1
-    return tuple(itog_list)
+    return tuple(itog_res)
