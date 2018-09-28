@@ -17,7 +17,8 @@ def calculate_frequences(text) -> dict:
                 k = i.split(" ")
                 a.append(k)
     else:
-        a = list(low_text)
+        a = []
+        a.append(low_text)
         
     for i in a:
         if type(i) != str:
