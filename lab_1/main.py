@@ -2,20 +2,19 @@ dict_freq = {}
 def calculate_frequences(text) -> dict:
     
     clean_text = []
-    
-       
+  
     if type(text) != str:
         return {}
     
     low_text = text.lower()
-    if " " in low_text:
-        a = low_text.split(" ")
-    elif "\n" in low_text:
+    if "\n" in low_text:
         a = low_text.split("\n")
         for i in a:
             if " " in i:
                 k = i.split(" ")
                 a.append(k)
+    elif " " in low_text:
+        a = low_text.split(" ")
     else:
         a = []
         a.append(low_text)
@@ -25,16 +24,16 @@ def calculate_frequences(text) -> dict:
             a.remove(i)
         else:
             for s in i:
-                if s not in "abcdefghijklmnopqrstuvwxyz":
-                    break
-                else:
+                if s in "abcdefghijklmnopqrstuvwxyz":
                     clean_text.append(s)
                     clean_str = ''
+                else:
+                    break
     if clean_text == []:
         return {}
     else:
         for i in clean_text:
-            dict_freq[i]= clean_text.count([i])   
+            dict_freq[i]= clean_text.count(i)   
     
     return dict_freq
 
