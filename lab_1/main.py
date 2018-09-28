@@ -1,12 +1,13 @@
 """This module does blah blah."""
 import collections
-TEXT = '''He do subjects *prepared 34 bachelor juvenile ye oh.
+TEXT = '''He do do do do subjects *prepared 34 bachelor juvenile ye oh.
 He feelings rem'oving informed he as 34 ignorant we prepared.
 Celebrated if remarkably especia"lly an.
 Goi(ng eat set she books found met aware.'''
 STOP_WORDS = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
-TOP_N = 3
+TOP_N = 8
+FREQUENCIES = {}
 def calculate_frequences(text: str) -> dict:
     if text is None:
         text = ''
