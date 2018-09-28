@@ -33,7 +33,7 @@ def calculate_frequences(text) -> dict:
         return {}
     else:
         for i in clean_text:
-            c = clean_text.count(i)
+            c = list(clean_text.count(i))
         dict_freq = dict(zip(clean_text, c))
         
     
