@@ -11,7 +11,7 @@ FREQUENCIES = {}
 def calculate_frequences(text: str) -> dict:
     if text is None:
         text = ''
-    c = collections.Counter()
+    c_elements = collections.Counter()
     words = str(text).lower()
     restr_chars = "~$%&^@*#\"{}[]\'/\n:;!?().,<>"
     for i in restr_chars:
@@ -26,11 +26,11 @@ def calculate_frequences(text: str) -> dict:
     words = words.split()
     global frequencies
     for word in words:
-        c[word] += 1
+        c_elements[word] += 1
     frequencies = dict(c)
     return frequencies
 
-def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
+def filter_stop_words(FREQUENCIES: dict, stop_words: tuple) -> dict:
     if frequencies is None:
         frequencies = {}
     if stop_words is None:
@@ -38,9 +38,9 @@ def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     filtered_w = {k: frequencies[k] for k in frequencies if (k not in stop_words) and (isinstance(k, str))}
     return filtered_w
 
-def get_top_n(frequencies: dict, top_n: int) -> tuple:
+def get_top_n(FREQUENCIES: dict, top_n: int) -> tuple:
     if top_n is None or top_n < 0 or not isinstance(top_n, int):
-        top_n =0 
+        top_n=0
     top_w = sorted(frequencies, key=frequencies.get, reverse=True)
     top_w = ((tuple(top_w))[0:top_n])
     return top_w
