@@ -22,6 +22,7 @@ def calculate_frequences(text) -> dict:
     for i in a:
         if type(i) != str:
             a.remove(i)
+        else:   
             for s in i:
                 if type(s) == str:
                     if s in "abcdefghijklmnopqrstuvwxyz":
