@@ -36,7 +36,7 @@ def calculate_frequences(text) -> dict:
     else:
         return {}
     
-return dict_freq
+    return dict_freq
 
 def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
     list_from_dict_with_values = []
