@@ -5,11 +5,11 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 def calculate_frequences(text_one: str) -> dict:
-    if text_one is None or str(text_one).isdigit():                                       
+    if text_one is None or str(text_one).isdigit():
         freq_dict = {}
         return freq_dict
     for element in text_one:
-        if element in """1234567890!@#$%^&*()_-=+[]{}"'/?.,<>;:`~№""":
+        if element in """1234567890!@#$%^&*()_-=+[]{}"'/?.,<>;:`~№\n""":
             text_one = text_one.replace(element, ' ')
             continue
 
@@ -18,9 +18,10 @@ def calculate_frequences(text_one: str) -> dict:
 
     freq_dict = {}
     for word_one in text_one:
-        frequency_word = text_one.count(word_one)
-        freq_dict[word_one] = frequency_word
-        continue
+        if word_one:
+            frequency_word = text_one.count(word_one)
+            freq_dict[word_one] = frequency_word
+            continue
 
     return freq_dict
 
@@ -49,3 +50,4 @@ def get_top_n(frequencies_dict_new: dict, top_n: int) -> tuple:
         itog_res.append(item[1])
         count += 1
     return tuple(itog_res)
+
