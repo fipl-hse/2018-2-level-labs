@@ -5,7 +5,7 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 from collections import Counter
-def calculate_frequences(text:str)-> dict 
+def calculate_frequences(text:str)-> dict: 
     text = text.lower()
     t = []
     punctuation_marks = """['.',','!',','?',':',';','\','/','"','*',
@@ -26,7 +26,7 @@ def calculate_frequences(text:str)-> dict
   
     return v
 
-def filter_stop_words(v:dict,stop_words:tuple)-> dict
+def filter_stop_words(v:dict,stop_words:tuple)-> dict:
     del_list = []
     for key in v.keys():
         if key in stop_words:
@@ -37,7 +37,7 @@ def filter_stop_words(v:dict,stop_words:tuple)-> dict
  
     return v
 
-def get_top_n(v,n):
+def get_top_n(v:dict,n:int)-> tuple:
     v_sort = Counter(v).most_common()
     print('v_s = ', v_sort)
     top_n = v_sort[:n]
