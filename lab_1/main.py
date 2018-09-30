@@ -5,57 +5,69 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 def calculate_frequences(text):
-    unrelevant_symbols_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.', '`', "'", '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '"',
-                               '№', ';', ':', '?', '-', '=', '/', '\n', '\t', '|', '<', '>', '"', '[', ']', '{', '}']
+
     freq_dict = {}
 
-    if text is None or text == '':
-        return freq_dict
-    else:
+    if text and isinstance(text, str) and text != None:
+
         text = text.lower()
+        text.replace('\n', '')
 
-        for lett in text:
-            if lett.isalpha():
-                continue
-            else:
-                for s in unrelevant_symbols_list:
-                    if s == lett:
-                        text = text.replace(lett, '')
+        divided_text = text.split(" ")
 
-        text = text.split(' ')
-        text_copy = text[:]
-        for word in text_copy:
-            if word == '':
-                continue
-            else:
-                text += word
+        empty_wordlist = []
 
-        for word in text:
+        for word in divided_text:
+            empty_word = ''
+
+            if word.isalpha():
+                empty_wordlist.append(word)
+
+            elif not word.isalpha():
+                for letter in word:
+                    if letter.isalpha():
+                        empty_word += letter
+            if empty_word:
+                empty_wordlist.append(empty_word)
+
+        for word in empty_wordlist:
             if word in freq_dict:
                 freq_dict[word] += 1
             else:
                 freq_dict[word] = 1
-    freq_dict_clean = freq_dict.copy()
-    return freq_dict, freq_dict_clean
+
+        freq_dict_clean = freq_dict.copy()
+        return freq_dict_clean
+
+    else:
+        return freq_dict
 
 
 def filter_stop_words(freq_dict_clean, stopwords):
     print(freq_dict_clean)
 
+    if not freq_dict_clean or not stopwords:
+        return freq_dict_clean
+
     for key in list(freq_dict_clean):
         if key in stopwords:
+            del freq_dict_clean[key]
+        if type(key) != str:
             del freq_dict_clean[key]
 
     return freq_dict_clean
 
 
 def get_top_n(freq_dict_clean, top_n):
+
     freq_list = []
+
+    if not top_n > 0:
+        return ()
 
     for k, v in freq_dict_clean.items():
         freq_list.append([v, k])
     print(freq_list)
-    freq_list.sort(reverse=True)
 
     top_freq_list = freq_list[:top_n]
 
