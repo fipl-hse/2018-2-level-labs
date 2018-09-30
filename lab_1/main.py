@@ -8,7 +8,7 @@ Count frequencies dictionary by the given arbitrary text
 def calculate_frequences(text):
     freq_dict = {}
 
-    if text and isinstance(text, str):
+    if isinstance(text, str):
         text = text.lower()
         text.replace('\n', '')
 
@@ -37,7 +37,6 @@ def calculate_frequences(text):
 
         freq_dict_clean = freq_dict.copy()
         return freq_dict_clean
-
     else:
         return freq_dict
 
