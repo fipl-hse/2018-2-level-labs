@@ -27,22 +27,19 @@ def calculate_frequences(text) -> dict:
 
             for i in a:
                 for s in i:
-                    if s not in 'abcdefghijklmnopqrstuvwxyz':
+                    if s.isdidit:
                         continue
-                clean_str += s
-                clean_text.append(clean_str)
-                clean_str = ''
+                    clean_str += s
+                    clean_text.append(clean_str)
+                    clean_str = ''
                     
                         
    
     
-    if clean_text != []:
-        for i in clean_text:
-            if i == '':
-                clean_text.remove(i)
-            dict_freq[i] = clean_text.count(i)
-    else:
+    if clean_text == []:
         return {}
+    else:
+        dict_freq[i] = clean_text.count(i)
     
     return dict_freq
 
