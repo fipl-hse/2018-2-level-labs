@@ -16,6 +16,10 @@ def calculate_frequences(text:str)-> dict:
         for p_m in punctuation_marks:
             if p_m in text:
                 text = text.replace(p_m,' ')
+        numbers = [0,1,2,3,4,5,6,7,8,9]
+        for num in numbers:
+            if num in text:
+                text = text.replace(num,' ')
         t = text.split()
         number = len(t)
         for i in t:
