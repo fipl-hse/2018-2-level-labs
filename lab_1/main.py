@@ -31,7 +31,7 @@ def calculate_frequences(text:str)-> dict:
 def filter_stop_words(v:dict,stop_words:tuple)-> dict:
     if not(isinstance(v,dict)):
         return {}
-     if not(isinstance(stop_words,tuple)):
+    if not(isinstance(stop_words,tuple)):
         return v
     del_list = []
     for key in v.keys():
