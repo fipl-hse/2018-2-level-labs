@@ -27,7 +27,7 @@ def calculate_frequences(text) -> dict:
 
             for i in a:
                 for s in i:
-                    if s.isdidit:
+                    if not s.isalpha:
                         continue
                     clean_str += s
                     clean_text.append(clean_str)
