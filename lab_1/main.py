@@ -7,8 +7,8 @@ Count frequencies dictionary by the given arbitrary text
 
 def calculate_frequences(text):
     freq_dict = {}
-    if text and isinstance(text, str) and text is not None:
 
+    if text and isinstance(text, str) and text is not None:
         text = text.lower()
         text.replace('\n', '')
 
@@ -50,7 +50,7 @@ def filter_stop_words(freq_dict_clean, stopwords):
     for key in list(freq_dict_clean):
         if key in stopwords:
             del freq_dict_clean[key]
-        if type(key) != str:
+        if not isinstance(key, str):
             del freq_dict_clean[key]
 
     return freq_dict_clean
@@ -63,17 +63,15 @@ def get_top_n(freq_dict_clean, top_n):
     if not top_n > 0:
         return ()
 
-    for k, v in freq_dict_clean.items():
-        freq_list.append([v, k])
+    for k, value in freq_dict_clean.items():
+        freq_list.append([value, k])
 
     top_freq_list = freq_list[:top_n]
 
     final_top_freq_list = []
-    for i, element in enumerate(top_freq_list):
+    for element in top_freq_list:
         final_top_freq_list.append(element[1])
 
     final_top_freq_list = tuple(final_top_freq_list)
 
     return final_top_freq_list
-
-
