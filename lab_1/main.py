@@ -14,11 +14,6 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
         text.append(r_txt[line])
     return text
 def calculate_frequences(text: str) -> dict:
-	if text is None:
-		text = '''He do subjects *prepared 34 bachelor juvenile ye oh.
-		He feelings rem'oving informed he as 34 ignorant we prepared.
-		Celebrated if remarkably especia"lly an.
-		Goi(ng eat set she books found met aware.'''
     frequencies = {}
     if text is None:
         text = ''
@@ -56,7 +51,7 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
     return top_w
 
 def write_to_file(path_to_file: str, content: tuple):
-	wr_w = top_w
+    wr_w = top_w
     content = ()
     path_to_file = "report.txt"
     rep = open(path_to_file, 'w')
@@ -64,5 +59,5 @@ def write_to_file(path_to_file: str, content: tuple):
     for i in content:
         rep.write(str(i))
     rep.close()
-	return rep
+    return rep
 
