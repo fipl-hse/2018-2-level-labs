@@ -4,33 +4,32 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 
+
 def calculate_frequences(text):
-
     freq_dict = {}
-
-    if text and isinstance(text, str) and text != None:
+    if text and isinstance(text, str) and text is not None:
 
         text = text.lower()
         text.replace('\n', '')
 
         divided_text = text.split(" ")
 
-        empty_wordlist = []
+        empty_word_list = []
 
         for word in divided_text:
             empty_word = ''
 
             if word.isalpha():
-                empty_wordlist.append(word)
+                empty_word_list.append(word)
 
             elif not word.isalpha():
                 for letter in word:
                     if letter.isalpha():
                         empty_word += letter
             if empty_word:
-                empty_wordlist.append(empty_word)
+                empty_word_list.append(empty_word)
 
-        for word in empty_wordlist:
+        for word in empty_word_list:
             if word in freq_dict:
                 freq_dict[word] += 1
             else:
@@ -44,7 +43,6 @@ def calculate_frequences(text):
 
 
 def filter_stop_words(freq_dict_clean, stopwords):
-    print(freq_dict_clean)
 
     if not freq_dict_clean or not stopwords:
         return freq_dict_clean
@@ -67,7 +65,6 @@ def get_top_n(freq_dict_clean, top_n):
 
     for k, v in freq_dict_clean.items():
         freq_list.append([v, k])
-    print(freq_list)
 
     top_freq_list = freq_list[:top_n]
 
