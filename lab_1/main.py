@@ -8,8 +8,8 @@ STOP_WORDS = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
 TOP_N = 5
 def read_from_file(path_to_file: str, lines_limit: int) -> str:
-	lines_limit = 4
-	path_to_file = 'data.txt'
+    lines_limit = 4
+    path_to_file = 'data.txt'
     TEXT = []
     ins = open(str(path_to_file), "r")
     r_txt = ins.read()
