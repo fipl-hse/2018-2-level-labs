@@ -46,18 +46,16 @@ def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
     if top_n is None or top_n < 0 or not isinstance(top_n, int):
         top_n = 0
-    top_w = sorted(frequencies, key=frequencies.get, reverse=True)
-    top_w = ((tuple(top_w))[0:top_n])
-    return top_w
+    content = sorted(frequencies, key=frequencies.get, reverse=True)
+    content = ((tuple(content))[0:top_n])
+    return content
 
 def write_to_file(path_to_file: str, content: tuple):
-    wr_w = top_w
-    content = ()
+
     path_to_file = "report.txt"
     rep = open(path_to_file, 'w')
-    content = (z + '\n' for z in top_w)
-    for i in content:
+    wr_w = (z + '\n' for z in content)
+    for i in wr_w:
         rep.write(str(i))
     rep.close()
     return rep
-
