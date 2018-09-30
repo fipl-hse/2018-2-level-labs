@@ -27,11 +27,13 @@ def calculate_frequences(text) -> dict:
 
             for i in a:
                 for s in i:
-                    clean_str += s
-                    clean_text.append(clean_str)
-                    clean_str = ''
-                    if s.isalpha != True:
+                    if s.isalpha == False
                         continue
+                    else:
+                        clean_str += s
+                        clean_text.append(clean_str)
+                        clean_str = ''
+                    
                         
    
     
