@@ -3,6 +3,7 @@ def calculate_frequences(text) -> dict:
     
     clean_text = []
     clean_str = ''
+    res = ''
     if type(text) != str:
         return {}
     
@@ -30,6 +31,9 @@ def calculate_frequences(text) -> dict:
                         clean_str += s
                         clean_text.append(clean_str)
                         clean_str = ''
+                    else:
+                        res +=s
+                        res = ''
     
     if clean_text != []:
         for i in clean_text:
