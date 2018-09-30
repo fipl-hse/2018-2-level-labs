@@ -5,26 +5,28 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 from collections import Counter
-def calculate_frequences(text:str)-> dict: 
-    text = text.lower()
-    t = []
-    punctuation_marks = """['.',','!',','?',':',';','\','/','"','*',
+def calculate_frequences(text:str)-> dict:
+    v = {}
+    if type(text) == str:
+        text = text.lower()
+        t = []
+        punctuation_marks = """['.',','!',','?',':',';','\','/','"','*',
     '-','_',''','"','@','#','$','%','^','&','(',')','+','=','[',']',
     '{','}','~','<','>','№' ]"""
-    for p_m in punctuation_marks:
-        if p_m in text:
-            text = text.replace(p_m,' ')
-    t = text.split()
-    number = len(t)
-    v = {}
-    for i in t:
-        if v.get(i):
-            v[i] += 1      
-        else: 
-            v[i] = 1
-    
-  
+        for p_m in punctuation_marks:
+            if p_m in text:
+                text = text.replace(p_m,' ')
+        t = text.split()
+        number = len(t)
+        for i in t:
+            if v.get(i):
+                v[i] += 1      
+            else: 
+                v[i] = 1
+    elif text == None or type(text) != str:
+        return v         
     return v
+
 
 def filter_stop_words(v:dict,stop_words:tuple)-> dict:
     del_list = []
