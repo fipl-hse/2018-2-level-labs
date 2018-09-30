@@ -27,7 +27,7 @@ def calculate_frequences(text) -> dict:
 
             for i in a:
                 for s in i:
-                    if s not in 'abcdefghijklmnopqrstuvwxyz':
+                    if not s in 'abcdefghijklmnopqrstuvwxyz':
                         continue
                         
                     else:
