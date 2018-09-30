@@ -1,125 +1,120 @@
-﻿yesterday : 1;
-all : 1;
-my : 1;
-troubles : 1;
-seemed : 1;
-so : 1;
-far : 1;
-away : 3;
-now : 5;
-it : 1;
-looks : 1;
-as : 1;
-though : 1;
-they : 1;
-are : 1;
-here : 1;
-to : 8;
-stay : 1;
-oh : 4;
-i : 12;
-believe : 3;
-in : 3;
-yesterday : 8;
-suddenly : 2;
-im : 1;
-not : 5;
-half : 1;
-the : 1;
-man : 1;
-used : 1;
-be : 1;
-there : 1;
-is : 1;
-a : 3;
-shadow : 1;
-hanging : 1;
-over : 1;
-me : 1;
-came : 1;
-why : 2;
-she : 4;
-had : 2;
-go : 2;
-do : 2;
-know : 2;
-would : 2;
-say : 2;
-said : 2;
-something : 2;
-wrong : 2;
-long : 2;
-for : 2;
-love : 2;
-was : 2;
-such : 2;
-an : 2;
-easy : 2;
-game : 2;
-play : 2;
-need : 2;
-place : 2;
-hide : 2;
-﻿yesterday : 1;
-all : 1;
-my : 1;
-troubles : 1;
-seemed : 1;
-so : 1;
-far : 1;
-away : 3;
-now : 5;
-it : 1;
-looks : 1;
-as : 1;
-though : 1;
-they : 1;
-are : 1;
-here : 1;
-to : 8;
-stay : 1;
-oh : 4;
-believe : 3;
-in : 3;
-yesterday : 8;
-suddenly : 2;
-im : 1;
-half : 1;
-the : 1;
-man : 1;
-used : 1;
-be : 1;
-there : 1;
-is : 1;
-a : 3;
-shadow : 1;
-hanging : 1;
-over : 1;
-me : 1;
-came : 1;
-why : 2;
-she : 4;
-had : 2;
-go : 2;
-know : 2;
-would : 2;
-say : 2;
-said : 2;
-something : 2;
-wrong : 2;
-long : 2;
-for : 2;
-love : 2;
-was : 2;
-such : 2;
-easy : 2;
-game : 2;
-play : 2;
-need : 2;
-place : 2;
-hide : 2;
-to,
-yesterday,
-now,
-oh,
-she,
+﻿yesterday:1,
+all:1,
+my:1,
+troubles:1,
+seemed:1,
+so:1,
+far:1,
+away:3,
+now:5,
+it:1,
+looks:1,
+as:1,
+though:1,
+they:1,
+are:1,
+here:1,
+to:8,
+stay:1,
+oh:4,
+i:12,
+believe:3,
+in:3,
+yesterday:8,
+suddenly:2,
+im:1,
+not:5,
+half:1,
+the:1,
+man:1,
+used:1,
+be:1,
+there:1,
+is:1,
+a:3,
+shadow:1,
+hanging:1,
+over:1,
+me:1,
+came:1,
+why:2,
+she:4,
+had:2,
+go:2,
+do:2,
+know:2,
+would:2,
+say:2,
+said:2,
+something:2,
+wrong:2,
+long:2,
+for:2,
+love:2,
+was:2,
+such:2,
+an:2,
+easy:2,
+game:2,
+play:2,
+need:2,
+place:2,
+hide:2,
+﻿yesterday:1,
+all:1,
+my:1,
+troubles:1,
+seemed:1,
+so:1,
+far:1,
+away:3,
+now:5,
+it:1,
+looks:1,
+as:1,
+though:1,
+they:1,
+are:1,
+here:1,
+stay:1,
+oh:4,
+believe:3,
+in:3,
+yesterday:8,
+suddenly:2,
+im:1,
+half:1,
+the:1,
+man:1,
+used:1,
+be:1,
+there:1,
+is:1,
+a:3,
+shadow:1,
+hanging:1,
+over:1,
+me:1,
+came:1,
+why:2,
+she:4,
+had:2,
+go:2,
+know:2,
+would:2,
+say:2,
+said:2,
+something:2,
+wrong:2,
+long:2,
+for:2,
+love:2,
+was:2,
+such:2,
+easy:2,
+game:2,
+play:2,
+need:2,
+place:2,
+hide:2,
+yesterday
