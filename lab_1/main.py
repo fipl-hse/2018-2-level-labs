@@ -55,7 +55,7 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
     return top_w
 
 def write_to_file(path_to_file: str, content: tuple):
-	content = ()
+    content = ()
     path_to_file = "report.txt"
     rep = open(path_to_file, 'w')
     content = (z + '\n' for z in top_w)
