@@ -30,8 +30,8 @@ def calculate_frequences(text) -> dict:
                     if not s in 'abcdefghijklmnopqrstuvwxyz':
                         continue
                         
-                    else:
-                        clean_str += s
+                   
+                clean_str += s
                 clean_text.append(clean_str)
                 clean_str = ''
                         
