@@ -29,6 +29,8 @@ def calculate_frequences(text:str)-> dict:
 
 
 def filter_stop_words(v:dict,stop_words:tuple)-> dict:
+    if not(isinstance(v,dict)):
+        return {}
     del_list = []
     for key in v.keys():
         if key in stop_words:
@@ -38,6 +40,7 @@ def filter_stop_words(v:dict,stop_words:tuple)-> dict:
         v.pop(element)
  
     return v
+    
 
 def get_top_n(v:dict,n:int)-> tuple:
     v_sort = Counter(v).most_common()
