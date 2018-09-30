@@ -32,8 +32,8 @@ def calculate_frequences(text) -> dict:
                         
                     else:
                         clean_str += s
-            clean_text.append(clean_str)
-            clean_str = ''
+                clean_text.append(clean_str)
+                clean_str = ''
                         
             
                         
@@ -41,6 +41,8 @@ def calculate_frequences(text) -> dict:
     
     if clean_text != []:
         for i in clean_text:
+            if '' in clean_text:
+                clean_text.remove('')
             dict_freq[i] = clean_text.count(i)
     else:
         return {}
