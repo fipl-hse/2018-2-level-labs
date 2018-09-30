@@ -34,7 +34,7 @@ def calculate_frequences(text) -> dict:
                         res +=s
                         res = ''
             
-            clean_str = ''
+                clean_str = ''
    
     
     if clean_text != []:
