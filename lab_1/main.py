@@ -29,11 +29,12 @@ def calculate_frequences(text) -> dict:
                 for s in i:
                     if s in 'abcdefghijklmnopqrstuvwxyz':
                         clean_str += s
-                        clean_text.append(clean_str)
-                        clean_str = ''
                     else:
                         res +=s
                         res = ''
+            clean_text.append(clean_str)
+            clean_str = ''
+   
     
     if clean_text != []:
         for i in clean_text:
