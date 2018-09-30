@@ -2,7 +2,7 @@ dict_freq = {}
 def calculate_frequences(text) -> dict:
     
     clean_text = []
-  
+    clean_str = ''
     if type(text) != str:
         return {}
     
