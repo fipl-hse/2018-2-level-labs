@@ -1,23 +1,24 @@
 """This module does blah blah."""
 import collections
-TEXT = '''He do subjects *prepared 34 bachelor juvenile ye oh.
-He feelings rem'oving informed he as 34 ignorant we prepared.
-Celebrated if remarkably especia"lly an.
-Goi(ng eat set she books found met aware.'''
 STOP_WORDS = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
 TOP_N = 5
 def read_from_file(path_to_file: str, lines_limit: int) -> str:
     lines_limit = 4
     path_to_file = 'data.txt'
-    TEXT = []
+    text = []
     ins = open(str(path_to_file), "r")
     r_txt = ins.read()
     r_txt = r_txt.split('\n')
     for line in range(lines_limit):
-        TEXT.append(r_txt[line])
-    return TEXT
+        text.append(r_txt[line])
+    return text
 def calculate_frequences(text: str) -> dict:
+	if text is None:
+		text = '''He do subjects *prepared 34 bachelor juvenile ye oh.
+		He feelings rem'oving informed he as 34 ignorant we prepared.
+		Celebrated if remarkably especia"lly an.
+		Goi(ng eat set she books found met aware.'''
     frequencies = {}
     if text is None:
         text = ''
@@ -55,11 +56,13 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
     return top_w
 
 def write_to_file(path_to_file: str, content: tuple):
+	wr_w = top_w
     content = ()
     path_to_file = "report.txt"
     rep = open(path_to_file, 'w')
     content = (z + '\n' for z in top_w)
     for i in content:
         rep.write(str(i))
-    return rep
     rep.close()
+	return rep
+
