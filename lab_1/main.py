@@ -7,9 +7,9 @@ Goi(ng eat set she books found met aware.'''
 STOP_WORDS = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
 'with', 'at', 'to', 'in', 'as')
 TOP_N = 5
-path_to_file ='data.txt'
-lines_limit = 4 
 def read_from_file(path_to_file: str, lines_limit: int) -> str:
+	lines_limit = 4
+	path_to_file = 'data.txt'
     TEXT = []
     ins = open(str(path_to_file), "r")
     r_txt = ins.read()
@@ -18,7 +18,6 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
         TEXT.append(r_txt[line])
     return TEXT
 def calculate_frequences(text: str) -> dict:
-    global frequencies
     frequencies = {}
     if text is None:
         text = ''
@@ -49,15 +48,14 @@ def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
     return filtered_w
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
-    lines_limit = 2
     if top_n is None or top_n < 0 or not isinstance(top_n, int):
-        top_n= 0
-    global top_w
+        top_n = 0
     top_w = sorted(frequencies, key=frequencies.get, reverse=True)
     top_w = ((tuple(top_w))[0:top_n])
     return top_w
-content = ()
+
 def write_to_file(path_to_file: str, content: tuple):
+	content = ()
     path_to_file = "report.txt"
     rep = open(path_to_file, 'w')
     content = (z + '\n' for z in top_w)
