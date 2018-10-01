@@ -9,10 +9,10 @@ large, powerful computer, shared by many users. The idea of the electronic
 mailbox was born when users looked for a way to talk to each other electronically.
 By 1984,the Internet had begun to develop into the form we know today.'''
 
-#FREQ_DICT = {}
-#STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
+FREQ_DICT = {}
+STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
               'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
-#finish_list = []
+finish_list = []
 
 def calculate_frequences(TEXT) -> dict:
     """
@@ -45,8 +45,6 @@ def filter_stop_words(FREQ_DICT, STOP_WORDS) -> dict:
     Removes all stop words from the given frequencies dictionary
     """
     filtered_dict = {}
-    STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
-              'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
     if (FREQ_DICT is None or STOP_WORDS is None or FREQ_DICT == {}):
         return{}
 
