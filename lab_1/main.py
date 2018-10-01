@@ -47,6 +47,8 @@ def filter_stop_words(v:dict,stop_words:tuple)-> dict:
     
 
 def get_top_n(v:dict,n:int)-> tuple:
+    if n < 0:
+        return ()
     v_sort = Counter(v).most_common()
     print('v_s = ', v_sort)
     top_n = v_sort[:n]
