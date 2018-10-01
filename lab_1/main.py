@@ -8,7 +8,7 @@ Count frequencies dictionary by the given arbitrary text
 
 def calculate_frequences(text):
     frequency_dict = {}
-    if insinstance(text) is str:
+    if isinstance(text) is str:
         text1 = text.lower()
         signs = """^;:$`?№!%~<>/\.,[]{}()@"'#*&0123456789"""
         for c in signs:
