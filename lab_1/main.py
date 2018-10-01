@@ -12,29 +12,29 @@ By 1984,the Internet had begun to develop into the form we know today.'''
 FREQ_DICT = {}
 STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
               'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
-FINISH_LIST = []
+finish_list = []
 
 def calculate_frequences(TEXT) -> dict:
     """
     Calculates number of times each word appears in the text
     """
-    if not isinstance(TEXT, str):  # если текст не текст, то не надо его
+    if not isinstance(TEXT, str):
         return {}
 
     text_l = TEXT.lower()
-    punct = '''.,!?;:'"<>/\[]{}()1234567890*-+$%@#&^~`'''  # знаки препинания для исключения из текста
+    punct = '''.,!?;:'"<>/[]{}()1234567890*-+$%@#&^~`'''
     punct = list(punct)
     for i in punct:
-        text_l = text_l.replace(i, ' ') #заменяем знаки препинания на пробелы
+        text_l = text_l.replace(i, ' ')
 
-    text_s = text_l.split()             #превращаем обработанный текст в список
-    text_u = []                        # создаем список для слов без повторов
-    for i in text_s:                    # и его заполняем 
+    text_s = text_l.split()
+    text_u = []
+    for i in text_s:
         if not i in text_u:
             text_u.append(i)
 
-    text_f = []                      #а это список для частот слов в исх.тексте
-    for i in text_u:                # слова берем из списка без повторов
+    text_f = []
+    for i in text_u:
         text_f.append(text_s.count(i))
     FREQ_DICT = dict(zip(text_u, text_f))  
     return FREQ_DICT
@@ -66,16 +66,16 @@ def get_top_n(filtered_dict, top_n) -> tuple:
     Takes first N popular words
     """ 
 
-    FINISH_LIST = filtered_dict.values()
-    FINISH_LIST = list(FINISH_LIST)
-    FINISH_LIST = sorted(FINISH_LIST)
+    finish_list = filtered_dict.values()
+    finish_list = list(finish_list)
+    finish_list = sorted(finish_list)
 
-    if top_n > len(FINISH_LIST):
-        top_n = len(FINISH_LIST)
+    if top_n > len(finish_list):
+        top_n = len(finish_list)
 
     popular = []
     for k in range(top_n):
-        i = FINISH_LIST[-(k+1)]
+        i = finish_list[-(k+1)]
         for key, value in filtered_dict.items():
             if value == i:
                 popular.append(key)
