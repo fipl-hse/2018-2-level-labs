@@ -18,7 +18,7 @@ def calculate_frequences(text) -> dict:
    
     for i in a:  
         for s in i:
-            if s.isdigit():
+            if s in "abcdefghijklmnopqrstuvwxyz":
                 continue
             for symb in ost:
                 if symb in s:
@@ -31,7 +31,6 @@ def calculate_frequences(text) -> dict:
     
     if clean_text == []:
         return {}
-    
     else:
         for i in clean_text:
             dict_freq[i] = clean_text.count(i)
