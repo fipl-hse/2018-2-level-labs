@@ -1,8 +1,4 @@
-"""
-Labour work #1
 
-Count frequencies dictionary by the given arbitrary text
-"""
 """
 Labour work #1
 
@@ -14,9 +10,9 @@ def calculate_frequences(text):
     frequency_dict = {}
     if type(text) is str:
         text1 = text.lower()
-        signs = """?!%~<>/\.,[]{}()@"'#*&0123456789"""
+        signs = """^;:$`?№!%~<>/\.,[]{}()@"'#*&0123456789"""
         for c in signs:
-            text1 = text1.replase(c, " ")
+            text1 = text1.replaсe(c, " ")
 
         clean_text = text1.split()
 
@@ -36,8 +32,8 @@ def filter_stop_words(new_dict, stop_words):
 
 
 
-def get_top_n(right_words, top_n: int):
-    filtered_list = sorted(right_words.items(), key=lambda item: item[i], reverse=True)
+def get_top_n(new_dict, top_n: int):
+    filtered_list = sorted(new_dict.items(), key=lambda item: item[1], reverse=True)
     if top_n > len(filtered_list):
         top_n = len(filtered_list)
     final_words = tuple(filtered_list[i][0] for i in range (top_n))
