@@ -11,7 +11,7 @@ def calculate_frequences(text):
     if not isinstance(text, str):
         return freq_dict
 
-    else:
+    elif isinstance(text, str):
         text = text.lower()
         text.replace('\n', '')
 
