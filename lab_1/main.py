@@ -25,8 +25,8 @@ def calculate_frequences(text) -> dict:
                     s = s[:symb] + s[symb + 1:]
                 s = s.strip(symb)
             clean_str += s
-            clean_text.append(clean_str)
-            clean_str = '' 
+        clean_text.append(clean_str)
+        clean_str = '' 
            
     
     if clean_text == []:
