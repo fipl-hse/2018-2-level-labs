@@ -10,10 +10,9 @@ mailbox was born when users looked for a way to talk to each other electronicall
 By 1984,the Internet had begun to develop into the form we know today.'''
 
 freq_dict = {}
-#filtered_dict = {}
 stop_words = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
               'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
-l=[ ]
+l=[]
 
 def calculate_frequences(text) -> dict:
     """
@@ -29,12 +28,12 @@ def calculate_frequences(text) -> dict:
         text_l = text_l.replace(i, ' ') #заменяем знаки препинания на пробелы
 
     text_s = text_l.split()             #превращаем обработанный текст в список
-    text_u = [ ]                        # создаем список для слов без повторов
+    text_u = []                        # создаем список для слов без повторов
     for i in text_s:                    # и его заполняем 
         if not i in text_u:
             text_u.append(i)
 
-    text_f=[ ]                      #а это список для частот слов в исх.тексте
+    text_f=[]                      #а это список для частот слов в исх.тексте
     for i in text_u:                # слова берем из списка без повторов
         text_f.append(text_s.count(i))
     freq_dict = dict(zip(text_u, text_f))
@@ -77,7 +76,7 @@ def get_top_n(filtered_dict, top_n) -> tuple:
     if top_n > len(l):
         top_n = len(l)
 
-    popular = [ ]
+    popular = []
     for k in range(top_n):
         i = l[-(k+1)]
         for key, value in filtered_dict.items():
