@@ -7,7 +7,7 @@ def calculate_frequences(text) -> dict:
     text = text.lower()
     for i in text:  
         if i in ost:
-            text = text.replace(i, ''):
+            text = text.replace(i, '')
         text_splited = text.split(" ")
         for i in text_splited:
             if dict_freq.get(i):
