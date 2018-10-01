@@ -25,13 +25,12 @@ def calculate_frequences(text) -> dict:
             a.remove(i)
         else:   
             for s in i:
-                if s.isalpha == False:
-                    
-                    continue
-                else:    
+                if s.isalpha == True:
                     clean_str += s
                     clean_text.append(clean_str)
                     clean_str = '' 
+                else:    
+                    continue
     
     if clean_text == []:
         return {}
