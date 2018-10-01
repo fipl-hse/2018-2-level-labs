@@ -6,19 +6,17 @@ def calculate_frequences(text) -> dict:
     res = ''
     if type(text) != str:
         return {}
-    
+    a = []
     low_text = text.lower()
     for i in low_text:
         if "\n" in low_text:
             a = low_text.split("\n")
             for i in a:
-                if " " in i:
-                    k = i.split(" ")
-                    a.append(k)
+                k = i.split(" ")
+                a.append(k)
         elif " " in low_text:
             a = low_text.split(" ")
         else:
-            a = []
             a.append(low_text)
    
     for i in a:
@@ -28,9 +26,9 @@ def calculate_frequences(text) -> dict:
             for s in i:
                 if s.isalpha == False:
                     continue
-                    
-                clean_str += s
-                clean_text.append(clean_str)
+                else:    
+                    clean_str += s
+                    clean_text.append(clean_str)
                      
     
     if clean_text == []:
