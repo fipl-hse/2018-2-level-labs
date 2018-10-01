@@ -17,7 +17,6 @@ def calculate_frequences(text: str)-> dict:
             if m_n in text:
                 text = text.replace(m_n, ' ')
         text_list = text.split()
-        number = len(text_list)
         for i in text_list:
             if vocabulary.get(i):
                 vocabulary[i] += 1
