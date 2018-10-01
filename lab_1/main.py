@@ -47,10 +47,10 @@ def filter_stop_words(FREQ_DICT, STOP_WORDS) -> dict:
     filtered_dict = {}
     if (FREQ_DICT is None or STOP_WORDS is None or FREQ_DICT == {}):
         return{}
-
+      
     if STOP_WORDS == ():
         return FREQ_DICT
-
+      
     STOP_WORDS = (STOP_WORDS + (1, 2, 3, 4, 5, 6, 7, 8, 9, 0))
     sw_l = list(STOP_WORDS)
 
@@ -59,7 +59,7 @@ def filter_stop_words(FREQ_DICT, STOP_WORDS) -> dict:
             filtered_dict[i] = FREQ_DICT[i]
 
     return filtered_dict
-
+  
 
 def get_top_n(filtered_dict, top_n) -> tuple:
     """
