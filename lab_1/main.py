@@ -9,10 +9,10 @@ large, powerful computer, shared by many users. The idea of the electronic
 mailbox was born when users looked for a way to talk to each other electronically.
 By 1984,the Internet had begun to develop into the form we know today.'''
 
-FREQ_DICT = {}
-STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
+#FREQ_DICT = {}
+#STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
               'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
-finish_list = []
+#finish_list = []
 
 def calculate_frequences(TEXT) -> dict:
     """
@@ -36,7 +36,7 @@ def calculate_frequences(TEXT) -> dict:
     text_f = []
     for i in text_u:
         text_f.append(text_s.count(i))
-    FREQ_DICT = dict(zip(text_u, text_f))  
+    FREQ_DICT = dict(zip(text_u, text_f))
     return FREQ_DICT
 
 
@@ -45,6 +45,8 @@ def filter_stop_words(FREQ_DICT, STOP_WORDS) -> dict:
     Removes all stop words from the given frequencies dictionary
     """
     filtered_dict = {}
+    STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
+              'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
     if (FREQ_DICT is None or STOP_WORDS is None or FREQ_DICT == {}):
         return{}
 
@@ -58,14 +60,13 @@ def filter_stop_words(FREQ_DICT, STOP_WORDS) -> dict:
         if not i in sw_l:
             filtered_dict[i] = FREQ_DICT[i]
 
-    return filtered_dict 
+    return filtered_dict
 
 
 def get_top_n(filtered_dict, top_n) -> tuple:
     """
     Takes first N popular words
-    """ 
-
+    """
     finish_list = filtered_dict.values()
     finish_list = list(finish_list)
     finish_list = sorted(finish_list)
