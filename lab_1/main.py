@@ -46,6 +46,7 @@ def filter_stop_words(freq_dict, stop_words) -> dict:
     """
     Removes all stop words from the given frequencies dictionary
     """
+    filtered_dict = {}
     if (freq_dict is None or stop_words is None or freq_dict == {}):
         return{}
 
