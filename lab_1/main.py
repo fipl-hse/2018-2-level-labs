@@ -49,6 +49,5 @@ def get_top_n(vocabulary: dict, n_top_words: int)-> tuple:
     temp_list = []
     for temp in top_n:
         temp_list.append(temp[0])
-
     return tuple(temp_list)
 
