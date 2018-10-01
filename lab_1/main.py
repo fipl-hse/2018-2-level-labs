@@ -33,17 +33,22 @@ def get_top_n(filtered_dict, n):
     for k,v in filtered_dict.items():
         slova.append(k)
         chastoty.append(v)
-    sup = chastoty[0]
-    schet = 0
-    while schet != n + 1:
-        for i in range(0, len(chastoty)-1):
-            if chastoty[i] > sup:
-               sup = chastoty[i]
-        for c in slova:
-            if filtered_dict[c] == sup:
-               final_top.append(c)
-               slova.remove(c)
-               chastoty.remove(sup)
+    smax = []
+    while True:
+          maxi = chastoty[0]
+          smax = []
+          for i in range(1, len(chastoty)):
+              if chastoty[i] > maxi:
+                 maxi = chastoty[i]
+          ch = chastoty.count(maxi)
+          for c in slova:
+              if filtered_dict[c] == maxi:
+                 smax.append(c)
+                 slova.remove(c)
+          chastoty.remove(maxi)
+          if len(smax) > n:
+             break
+    final_top = smax[0:n+1]
     final_top = tuple(final_top)
     return (final_top)
 final = get_top_n(filtered_dict, n)
