@@ -3,7 +3,6 @@ stop_words = ("the", "over")
 
 
 def calculate_frequences(text):
-    work_words = []
     frequencies = {}
     if not text:
         return {}
@@ -12,29 +11,18 @@ def calculate_frequences(text):
 
     if type(text) == str:
         ready_text = text.lower()
-        words = ready_text.split(' ')
 
-        if '\n' in words:
-            while '\n' in words:
-                words.remove('\n')
-        if '' in words:
-            while '' in words:
-                words.remove('')
+        not_needed = "`~!@#$%^&*()-_=+{[}]:;',<.>/?1234567890\|"
 
-        for index, word in enumerate(words):
-            cleanword = ''
-            if not word.isalpha():
-                for i in word:
-                    if i.isalpha():
-                        cleanword += i
-                if cleanword:
-                    work_words.append(cleanword)
-            else:
-                work_words.append(cleanword)
+        for symbol in not_needed:
+            ready_text = ready_text.replace(symbol, "")
+            if symbol == "/n":
+                ready_text = ready_text.replace(symbol, " ")
 
-        for word in work_words:
-            num_words = work_words.count(word)
-            frequencies[word] = num_words
+        words = ready_text.split()
+
+        for i in range(0, len(words)):
+            frequencies[words[i]] = words.count(words[i])
 
     return frequencies
 
