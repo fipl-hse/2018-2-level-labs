@@ -18,11 +18,12 @@ def calculate_frequences(text) -> dict:
    
     for i in a:  
         for s in i:
-            if s.isdigit() == True:
+            if s.isdigit():
                 continue
             for symb in ost:
                 if symb in s:
                     s = s[:symb] + s[symb + 1:]
+                s = s.strip(symb)
             clean_str += s
             clean_text.append(clean_str)
             clean_str = '' 
