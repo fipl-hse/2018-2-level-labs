@@ -14,8 +14,7 @@ def calculate_frequences(text: str) -> dict:
 
     text = text.lower()
                
-    
-    if i in text:
+    for i in text:
         if i in aliens:
             text = text.replace(i, '')
         text_split = text.split(" ")
