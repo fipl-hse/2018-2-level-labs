@@ -5,16 +5,23 @@ def calculate_frequences(text) -> dict:
     if type(text) != str:
         return {}
     text = text.lower()
-    for i in text:  
-
-        if i in ost:
-            text = text.replace(i, '')
-        text_splited = text.split(" ")
-        for i in text_splited:
-            if dict_freq.get(i):
-                dict_freq[i] +=1
-            else:
-                dict_freq[i] = 1
+    text_split = text.split(" ")
+    clean_text = []
+    clean_str = ''
+    
+    for i in text_split:
+        for s in i:
+            if s.isalpha():
+                clean_text.append(s)
+                clean_str = ''
+            elif s.isdigit():
+                continue
+                
+    if clean_text == []:
+        return {}
+    else:
+        for i in clean_text:
+            dict_freq[i] = clean_text.count(i)
     
     return dict_freq
 
@@ -30,7 +37,7 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
         list_stop_words = list(stop_words)
         for i in list_stop_words: 
             if type(i) != str:
-                return {}
+                return dict_freq
 
         for key in dict_freq.keys():
             if type(key) != str:
