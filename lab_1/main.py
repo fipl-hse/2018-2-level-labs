@@ -29,17 +29,12 @@ def calculate_frequences(text) -> dict:
             for i in a:
                 for s in i:
                     if s.isalpha == False:
-                        res += s
-                        res = ''
+
                         continue
-                    else:
-                        clean_str += s
-                        clean_text.append(clean_str)
                     
-                        
-                    
-                        
-   
+                clean_str += s
+                clean_text.append(clean_str)
+                clean_str = ''    
     
     if clean_text == []:
         return {}
