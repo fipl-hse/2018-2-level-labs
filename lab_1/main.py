@@ -11,7 +11,7 @@ def calculate_frequences(text):
     if not isinstance(text, str):
         return freq_dict
 
-    elif isinstance(text, str):
+    else:
         text = text.lower()
         text.replace('\n', '')
 
@@ -75,3 +75,28 @@ def get_top_n(freq_dict_clean, top_n):
     final_top_freq_list = tuple(final_top_freq_list)
 
     return final_top_freq_list
+
+
+def read_from_file(path_to_file, lines_limit):
+
+    text = ''
+    counter = 0
+
+    with open(path_to_file, encoding='utf-8') as file_opened:
+        for line in file_opened:
+            if counter != lines_limit:
+                text += line + '\n'
+                counter += 1
+            else:
+                break
+    print(text)
+    return text
+
+
+def write_to_file(path_to_file, content):
+
+    with open(path_to_file, 'w', encoding='utf-8') as file_opened:
+        for element in content:
+            element += '\n'
+            print(element)
+            file_opened.write(element)
