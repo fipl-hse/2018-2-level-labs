@@ -12,8 +12,9 @@ def calculate_frequences(text) -> dict:
         if "\n" in low_text:
             a = low_text.split("\n")
             for i in a:
-                k = i.split(" ")
-                a.append(k)
+                if " " in i:
+                    k = i.split(" ")
+            a.extend(k)
         elif " " in low_text:
             a = low_text.split(" ")
         else:
