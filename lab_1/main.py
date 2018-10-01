@@ -10,7 +10,7 @@ mailbox was born when users looked for a way to talk to each other electronicall
 By 1984,the Internet had begun to develop into the form we know today.'''
 
 freq_dict = {}
-filtered_dict = {}
+#filtered_dict = {}
 stop_words = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
               'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
 l=[ ]
