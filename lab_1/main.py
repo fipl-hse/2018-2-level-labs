@@ -13,9 +13,10 @@ def calculate_frequences(text: str) -> dict:
             return {}
 
     text = text.lower()
-                
-    if i in aliens:
-        if i in text:
+               
+    
+    if i in text:
+        if i in aliens:
             text = text.replace(i, '')
         text_split = text.split(" ")
         for i in text_split:
@@ -30,6 +31,7 @@ def calculate_frequences(text: str) -> dict:
 def filter_stop_words(dict_freq1: dict, stop_words: tuple) -> dict:
 
     stop_words_values = []
+    
     if stop_words == None:
         return dict_freq1
     if dict_freq1 == None:
