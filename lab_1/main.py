@@ -22,21 +22,21 @@ def calculate_frequences(text: str)-> dict:
                 vocabulary[i] += 1
             else:
                 vocabulary[i] = 1
-    elif text == None or type(text) != str:
+    elif text is None or type(text) != str:
         return vocabulary
     return vocabulary
 
 
 def filter_stop_words(vocabulary: dict, stop_words: tuple)-> dict:
-    if not(isinstance(vocabulary, dict)):
+    if not isinstance(vocabulary, dict):
         return {}
-    if not(isinstance(stop_words, tuple)):
+    if not isinstance(stop_words, tuple):
         return vocabulary
     del_list = []
     for key in vocabulary.keys():
         if key in stop_words:
             del_list.append(key)
-        if not(isinstance(key, str)):
+        if not isinstance(key, str):
             del_list.append(key)
     for element in del_list:
         vocabulary.pop(element)
@@ -46,11 +46,9 @@ def get_top_n(vocabulary: dict, n_top_words: int)-> tuple:
     if n_top_words < 0:
         return ()
     v_sort = Counter(vocabulary).most_common()
-    print('v_s = ', v_sort)
     top_n = v_sort[:n_top_words]
-    print('TOP_N = ', top_n)
     temp_list = []
     for temp in top_n:
         temp_list.append(temp[0])
 
-    return(tuple(temp_list))
+    return tuple(temp_list)
