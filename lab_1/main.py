@@ -16,7 +16,7 @@ def calculate_frequences(text: str) -> dict:
     text_split = text.split(" ")
     text2 = []
     clean = ''
-     for i in text_split:
+    for i in text_split:
         for symbol in i:
             if symbol.isalpha():
                 text2.append(symbol)
