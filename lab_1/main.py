@@ -1,41 +1,19 @@
 dict_freq = {}
 def calculate_frequences(text) -> dict:
     
-    clean_text = []
-    clean_str = ''
     ost = """'.', ',', ':', '"', '`', '[', ']', '?', '!', '@', '&', "'", '-', '$', '^', '*', '(', ')', '_', '“', '”', '’', '#', '%', '<', '>', '*', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'"""
     if type(text) != str:
         return {}
-    a = []
-    low_text = text.lower()
-    a = low_text.split(" ")
-    if "\n" in a:
-        while "\n" in a:
-            a.remove("\n")
-    elif '' in a:
-        while '' in a:
-            a.remove('')
-   
-    for i in a:  
-        for s in i:
-            if s.isdigit():
-                continue
-            for symb in ost:
-                if symb in s:
-                    numb_symb = s.find(symb)
-                    s = s[:numb_symb] + s[numb_symb + 1:]
-                s = s.strip(symb)
-            if s in "abcdefghijklmnopqrstuvwxyz":
-                clean_str += s
-                clean_text.append(clean_str)
-                clean_str = '' 
-           
-    
-    if clean_text == []:
-        return {}
-    else:
-        for i in clean_text:
-            dict_freq[i] = clean_text.count(i)
+    text = text.lower()
+    for i in text:  
+        if i in ost:
+            text = text.replace(i, ''):
+        text_splited = text.split(" ")
+        for i in text_splited:
+            if dict_freq.get(i):
+                dict_freq[i] +=1
+            else:
+                dict_freq[i] = 1
     
     return dict_freq
 
