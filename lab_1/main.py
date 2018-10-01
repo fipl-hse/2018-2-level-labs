@@ -22,7 +22,8 @@ def calculate_frequences(text) -> dict:
                 continue
             for symb in ost:
                 if symb in s:
-                    s = s[:symb] + s[symb + 1:]
+                    numb_symb = s.find(symb)
+                    s = s[:numb_symb] + s[numb_symb + 1:]
                 s = s.strip(symb)
             clean_str += s
         clean_text.append(clean_str)
