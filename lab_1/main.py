@@ -12,7 +12,7 @@ def calculate_frequences(text):
     if type(text) == str:
         ready_text = text.lower()
 
-        not_needed = "`~!@#$%^&*()-_=+{[}]:;',<.>/?1234567890\|"
+        not_needed = """`~!@#$%^&*()-_=+{[}]:;'",<.>/?1234567890\|"""
 
         for symbol in not_needed:
             ready_text = ready_text.replace(symbol, "")
@@ -48,7 +48,8 @@ def filter_stop_words(frequencies, stop_words):
 
 
 def get_top_n(frequencies, top_n):
-
+    if frequencies == {} or top_n <= 0:
+        return ()
     res = []
     l = list(frequencies.values())
     l.sort()
