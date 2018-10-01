@@ -3,7 +3,7 @@ def calculate_frequences(text) -> dict:
     
     clean_text = []
     clean_str = ''
-    ost = ''
+    ost = """'.', ',', ':', '"', '`', '[', ']', '?', '!', '@', '&', "'", '-', '$', '^', '*', '(', ')', '_', '“', '”', '’', '#', '%', '<', '>', '*', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'"""
     if type(text) != str:
         return {}
     a = []
@@ -18,8 +18,11 @@ def calculate_frequences(text) -> dict:
    
     for i in a:  
         for s in i:
-            if s.isalpha() == False:
+            if s.isdigit() == True:
                 continue
+            for symb in ost:
+                if symb in s:
+                    s = s[:symb] + s[symb + 1:]
             clean_str += s
             clean_text.append(clean_str)
             clean_str = '' 
@@ -64,8 +67,6 @@ def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
 
     for i, e in enumerate(list_from_dict):
         if e == None:
-            return {}
-        if type(e) != str:
             return {}
         if e in list_stop_words:
             list_from_dict.remove(e)
