@@ -7,6 +7,8 @@ dict_freq1 = {}
 
 def calculate_frequences(text: str) -> dict:
 
+    aliens = ['.', ',', ':', '"', '`', '[', ']', '?', '!', '@', '&', "'", '-', '$', '^', '*', '(', ')', '_', '“', '”', '’', '#',
+              '%', '<', '>', '*', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     if type(text) != str:
             return {}
 
@@ -20,9 +22,9 @@ def calculate_frequences(text: str) -> dict:
             if symbol.isalpha():
                 text2.append(symbol)
                 clean = ''
-            else:
-                return {}
-        
+            elif symbol.isdigit():
+                continue
+                
     if text2 == []:
         return {}
     else:
@@ -36,7 +38,7 @@ def filter_stop_words(dict_freq1: dict, stop_words: tuple) -> dict:
     stop_words_values = []
     
     if stop_words == None:
-        return {}
+        return dict_freq1
     if dict_freq1 == None:
         return {}
     else:
