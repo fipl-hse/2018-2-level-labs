@@ -12,7 +12,7 @@ def calculate_frequences(text):
         text1 = text.lower()
         signs = """^;:$`?№!%~<>/\.,[]{}()@"'#*&0123456789"""
         for c in signs:
-            text1 = text1.replaсe(c, " ")
+            text1 = text1.replace(c, " ")
 
         clean_text = text1.split()
 
