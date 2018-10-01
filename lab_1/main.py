@@ -1,24 +1,61 @@
-"""
-Labour work #1
+"""This module does blah blah."""
+import collections
+STOP_WORDS = ('a', 'an', 'is', 'are', 'am', 'the', 'of',
+'with', 'at', 'to', 'in', 'as')
+TOP_N = 5
+def read_from_file(path_to_file: str, lines_limit: int) -> str:
+    lines_limit = 4
+    path_to_file = 'data.txt'
+    text = []
+    ins = open(str(path_to_file), "r")
+    r_txt = ins.read()
+    r_txt = r_txt.split('\n')
+    for line in range(lines_limit):
+        text.append(r_txt[line])
+    return text
+def calculate_frequences(text: str) -> dict:
+    frequencies = {}
+    if text is None:
+        text = ''
+    c_elements = collections.Counter()
+    words = str(text).lower()
+    restr_chars = "~$%&^@*#\"{}[]\'/\n:;!?().,<>"
+    for i in restr_chars:
+        if i in words:
+            if i == '.':
+                words = words.replace(i, ' ')
+            else:
+                words = words.replace(i, '')
+    for k in words:
+        if k.isdigit() or k == '-' and k[1:].isdigit():
+            words = words.replace(k, '')
+    words = words.split()
+    for word in words:
+        c_elements[word] += 1
+    frequencies = dict(c_elements)
+    return frequencies
 
-Count frequencies dictionary by the given arbitrary text
-"""
+def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
+    if frequencies is None:
+        frequencies = {}
+    if stop_words is None:
+        stop_words = tuple()
+    filtered_w = {k: frequencies[k] for k in frequencies if (k not in stop_words) and (isinstance(k, str))}
+    return filtered_w
 
+def get_top_n(frequencies: dict, top_n: int) -> tuple:
+    if top_n is None or top_n < 0 or not isinstance(top_n, int):
+        top_n = 0
+    content = sorted(frequencies, key=frequencies.get, reverse=True)
+    content = ((tuple(content))[0:top_n])
+    return content
 
-def calculate_frequences() -> dict:
-    """
-    Calculates number of times each word appears in the text
-    """
-    pass
+def write_to_file(path_to_file: str, content: tuple):
 
-def filter_stop_words() -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    pass
-
-def get_top_n() -> tuple:
-    """
-    Takes first N popular words
-    """
-    pass
+    path_to_file = "report.txt"
+    rep = open(path_to_file, 'w')
+    wr_w = (z + '\n' for z in content)
+    for i in wr_w:
+        rep.write(str(i))
+    rep.close()
+    return rep
