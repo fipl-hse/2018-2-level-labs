@@ -3,7 +3,6 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
-
 from collections import Counter
 def calculate_frequences(text: str)-> dict:
     vocabulary = {}
