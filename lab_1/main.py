@@ -42,7 +42,7 @@ def filter_stop_words(vocabulary: dict, stop_words: tuple)-> dict:
     for element in del_list:
         vocabulary.pop(element)
     return vocabulary
-    
+
 def get_top_n(vocabulary: dict, n_top_words: int)-> tuple:
     if n_top_words < 0:
         return ()
@@ -55,4 +55,3 @@ def get_top_n(vocabulary: dict, n_top_words: int)-> tuple:
         temp_list.append(temp[0])
 
     return(tuple(temp_list))
-
