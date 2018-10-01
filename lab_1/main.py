@@ -9,8 +9,8 @@ large, powerful computer, shared by many users. The idea of the electronic
 mailbox was born when users looked for a way to talk to each other electronically.
 By 1984,the Internet had begun to develop into the form we know today.'''
 
-freq = {}
-fsw = {}
+freq_dict = {}
+filtered_dict = {}
 stop_words = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
               'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
 l=[ ]
@@ -23,8 +23,7 @@ def calculate_frequences(text) -> dict:
         return {}
 
     text_l = text.lower()
-    
-    punct = '''.,!?;:'"<>/\[]{}()1234567890*-+$%@#&^~`''' #знаки препинания для исключения из текста
+    punct = '''.,!?;:'"<>/\[]{}()1234567890*-+$%@#&^~`'''  # знаки препинания для исключения из текста
     punct = list(punct)
     for i in punct:
         text_l = text_l.replace(i, ' ') #заменяем знаки препинания на пробелы
@@ -38,9 +37,10 @@ def calculate_frequences(text) -> dict:
     text_f=[ ]                      #а это список для частот слов в исх.тексте
     for i in text_u:                # слова берем из списка без повторов
         text_f.append(text_s.count(i))
-    freq = dict(zip(text_u, text_f))
+    freq_dict = dict(zip(text_u, text_f))
   
-    return freq
+    return freq_dict
+
 
 def filter_stop_words(freq_dict, stop_words) -> dict:
     """
@@ -60,6 +60,8 @@ def filter_stop_words(freq_dict, stop_words) -> dict:
             filtered_dict[i] = freq_dict[i]
 
     return filtered_dict
+    
+
 
 def get_top_n(filtered_dict, top_n) -> tuple:
     """
@@ -83,25 +85,4 @@ def get_top_n(filtered_dict, top_n) -> tuple:
     popular = popular[0:top_n]
     popular = tuple(popular)
     return popular
-
-
-    # Вот пошла программа
-
-    print ("Это частоты по всем словам.")
-    f = calculate_frequences(text)
-    for key, value in f.items():
-            print (key, " ", value)
-
-    print (" ")        
-    print ("Это частоты слов, за исключением стопов.")    
-    ff = filter_stop_words (f, stop_words)    
-    for key, value in filtered_dict.items():
-            print (key, " ", value)
-
-    top_n = 3
-    fff = get_top_n(filtered_dict, top_n)
-    print (" ")
-    print ("Это самые популярные слова.") 
-    print (fff)
-
 
