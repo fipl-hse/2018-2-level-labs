@@ -16,6 +16,7 @@ def calculate_frequences(text) -> dict:
                 clean_str = ''
             elif s.isdigit():
                 continue
+            
             elif s in ost:
                 continue
                 
