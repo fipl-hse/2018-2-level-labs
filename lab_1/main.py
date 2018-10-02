@@ -17,12 +17,6 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
         text_data += temp_str
     text_f.close()
     return text_data
-
-def write_to_file(path_to_file: str, content: tuple):
-    result_f = open(path_to_file + 'report.txt', 'w')
-    for temp_str in content:
-        result_f.write(temp_str + '\n')
-    result_f.close()
     
 def calculate_frequences(text: str)-> dict:
     vocabulary = {}
@@ -70,3 +64,9 @@ def get_top_n(vocabulary: dict, n_top_words: int)-> tuple:
     for temp in top_n:
         temp_list.append(temp[0])
     return tuple(temp_list)
+
+def write_to_file(path_to_file: str, content: tuple):
+    result_f = open(path_to_file + 'report.txt', 'w')
+    for temp_str in content:
+        result_f.write(temp_str + '\n')
+    result_f.close()
