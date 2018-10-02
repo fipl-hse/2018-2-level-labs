@@ -7,7 +7,7 @@ from collections import Counter
 
 def read_from_file(path_to_file: str, lines_limit: int) -> str:
     text_data = None
-    text_f = open(path_to_file, 'r')
+    text_f = open(path_to_file + 'data.txt', 'r')
     counter = 0
     for temp_str in text_f.read():
         if counter == lines_limit:
@@ -18,6 +18,12 @@ def read_from_file(path_to_file: str, lines_limit: int) -> str:
     text_f.close()
     return text_data
 
+def write_to_file(path_to_file: str, content: tuple):
+    result_f = open(path_to_file + 'report.txt', 'w')
+    for temp_str in content:
+        result_f.write(temp_str + '\n')
+    result_f.close()
+    
 def calculate_frequences(text: str)-> dict:
     vocabulary = {}
     if isinstance(text, str):
