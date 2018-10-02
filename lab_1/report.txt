@@ -119,4 +119,4 @@ need:2
 place:2
 hide:2
 Результат работы функции get_top_n
-yesterday; now; oh; she; away; believe; a; in; 
+yesterday; now; oh; she; away; 
