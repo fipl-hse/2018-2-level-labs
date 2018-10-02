@@ -14,7 +14,7 @@ def calculate_frequences(text):
     counted_words = {}
     current_word = []
     for current_word in text:
-        value =  text.count(current_word)  # берет эл-т из списка и считает сколько раз этот эл=т встр в этом списке
+        value =  text.count(current_word)  
         counted_words[current_word] = value # на каждом шагу по этому циклу запишет в ключ сколько это слов употребл в тексте
     return counted_words
 res = calculate_frequences(text)
