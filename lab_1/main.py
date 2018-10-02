@@ -34,7 +34,7 @@ def filter_stop_words(d_freq, stop_words):
             d_freq_copy.pop(e)
         for key in d_freq_copy:
             if type(key) != str:
-                d_freq_copy.pop(e)
+                d_freq_copy.pop(key)
     return d_freq_copy
 
 
