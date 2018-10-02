@@ -4,6 +4,20 @@ Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
 from collections import Counter
+
+def read_from_file(path_to_file: str, lines_limit: int) -> str:
+    text_data = None
+    text_file = open(path_to_file, 'r')
+    counter = 0
+    for temp_str in my_file.read():
+        if counter == lines_limit:
+            text_file.close()
+            return text_data
+        counter += 1
+        text_data += temp_str
+    text_file.close()
+    return text_data
+
 def calculate_frequences(text: str)-> dict:
     vocabulary = {}
     if type(text) == str:
