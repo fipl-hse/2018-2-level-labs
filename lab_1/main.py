@@ -8,25 +8,27 @@ final_dict = {}
 
 
 def calculate_frequences(text: str) -> dict:
-    aliens = ['.', ',', ':', '"', '`', '[', ']', '?', '!', '@', '&', "'", '-', '$', '^', '*', '(', ')', '_', '“', '”',
-              '’', '#', '%', '<', '\n', '"', '>', '*', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    aliens = ['.', ',', ':', '"', '`', '[', ']', '?', '!', '@', '&', "'",
+              '-', '$', '^', '*', '(', ')', '_', '“', '”', '’', '#', '%',
+              '<', '\n', '"', '>', '*', '~', '0', '1', '2', '3', '4', '5',
+              '6', '7', '8', '9']
+
     if type(text) != str:
         return {}
 
-    for i in text:
-        for i in aliens:
-            text = text.replace(i, '')
+    text2 = text.split(' ')
 
-    text = text.lower()
-    text_split = text.split(' ')
-    while '' in text_split:
-        text_split.remove('')
+    for word in text2:
+        for sym in aliens:
+            if sym in word:
+                loc = word.find(sym)
+                word = word[:loc] + word[loc + 1:]
+            word = word.strip(sym)
+        word = word.lower()
+        dict_freq1[word] = dict_freq1.get(word, 0) + 1
 
-    if text == []:
-        return {}
-    else:
-        for i in text_split:
-            dict_freq1[i] = text_split.count(i)
+    if '' in dict_freq1.keys():
+        dict_freq1.pop('')
 
     return dict_freq1
 
@@ -67,9 +69,9 @@ def get_top_n(final_dict: dict, top_n: int) -> tuple:
     list_sort = []
     list_with_keys = []
 
-    if final_dict.keys():
-        if key != str:
-            return ()
+    # for i in final_dict.keys():
+    #     if i != str:
+    #         return final_dict
 
     if top_n < 0:
         return ()
@@ -93,18 +95,3 @@ def get_top_n(final_dict: dict, top_n: int) -> tuple:
 
     max_n_words = tuple(list_with_keys[:top_n])
     return max_n_words
-
-
-
-text = """Th0e " lazy quick, quick 7brown \n
-                f:ox jumps \n
-               o*ver t77he quick lazy \n
-                $^dog quick&"""
-
-
-a = calculate_frequences(text)
-b = filter_stop_words(dict_freq1,('fox', 'dog', 'the',))
-c = get_top_n(final_dict, 2)
-print(a)
-print(b)
-print(c)
