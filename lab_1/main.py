@@ -11,23 +11,18 @@ def calculate_frequences(text: str) -> dict:
               '%', '<', '>', '*', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     if type(text) != str:
             return {}
+        
+    for i in text:
+        for i in aliens:
+            text = text.remove(i. '')
 
     text = text.lower()
-    text_split = text.split(" ")
-    text2 = []
-    clean = ''
-    for i in text_split:
-        for symbol in i:
-            if symbol.isalpha():
-                text2.append(symbol)
-                clean = ''
-            elif symbol.isdigit():
-                continue
-                
-    if text2 == []:
+    text_split = text.split(' ')
+  
+    if text == []:
         return {}
     else:
-        dict_freq1[i] = text2.count(i)
+        dict_freq1[i] = text_split.count(i)
         
     return dict_freq1
 
