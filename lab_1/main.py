@@ -39,7 +39,7 @@ def filter_stop_words(dict_freq1: dict, stop_words: tuple) -> dict:
     if stop_words == None:
         return dict_freq1
     if dict_freq1 == None:
-        return {}
+        return dict_freq1
     else:
         dict_as_list = list(dict_freq1)
         stop_words_list = list(stop_words)
@@ -69,10 +69,10 @@ def get_top_n(final_dict: dict, top_n: int) -> tuple:
     list_sort = []
     list_with_keys = []
 
-    # for i in final_dict.keys():
-    #     if i != str:
-    #         return final_dict
-
+    for key in final_dict.keys():
+        if key != str:
+            return 
+        
     if top_n < 0:
         return ()
 
