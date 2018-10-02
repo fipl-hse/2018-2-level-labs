@@ -7,8 +7,8 @@ Count frequencies dictionary by the given arbitrary text
 def calculate_frequences(text: str):
     alph = ' abcdefghijklmnopqrstuvwxyz'
     d_freq = {}
-    if text == None:
-      return {}
+    if text is None:
+        return {}
     text = str(text)
     text = text.lower()
     for e in text:
@@ -29,12 +29,12 @@ def filter_stop_words(d_freq, stop_words):
     if d_freq is None or stop_words is None:
         return d_freq
     d_freq_copy = d_freq.copy()
-    for e in stop_words:
-        if e in d_freq_copy.keys():
-            d_freq_copy.pop(e)
-        for key in d_freq_copy:
-            if type(key) != str:
-                d_freq_copy.pop(key)
+    for stop_word in stop_words:
+        if stop_word in d_freq_copy.keys():
+            d_freq_copy.pop(stop_word)
+    for word in d_freq.keys():
+        if not isinstance(word, str):
+            d_freq_copy.pop(word)
     return d_freq_copy
 
 
