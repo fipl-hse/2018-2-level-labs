@@ -81,7 +81,13 @@ def read_from_file(path_to_file, lines_limit):
 
     text = ''
     counter = 0
-
+    
+    # доп.задание: проверим, существует ли файл
+    import os
+    if not os.path.isfile(path_to_file):
+        print('The file does not exist')
+        return None
+    
     with open(path_to_file, encoding='utf-8') as file_opened:
         for line in file_opened:
             if counter != lines_limit:
