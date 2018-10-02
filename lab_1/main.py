@@ -22,19 +22,19 @@ def calculate_frequences(text: str) -> dict:
         return frequencies
     
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
-    frequencies1 = {}
-    for i in frequencies.keys():
-        if type(i) == str:
+    if not frequencies:
+        return frequencies
+    if frequencies != None :
+        frequencies1 = frequencies.copy()
+        for k in frequencies.keys():
+            if type(k) != str:
+                frequencies1.pop(k)
             if type(stop_words) == tuple:
-                dct1 = dict(frequencies)
-                for k, v in dct1.items():
-                    if k in stop_words:
-                        del frequencies[k]
-                return frequencies
-            elif stop_words != tuple:
-                return frequencies1
-        else:
-            return frequencies1
+                for word in stop_words:
+                    if word in frequencies1:
+                        frequencies1.pop(word)
+
+    return frequencies1
    
     
     
