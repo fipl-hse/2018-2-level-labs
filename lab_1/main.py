@@ -15,7 +15,6 @@ def calculate_frequences(text: str) -> dict:
     for i in text:
         for i in aliens:
             text = text.remove(i. '')
-
     text = text.lower()
     text_split = text.split(' ')
   
@@ -63,6 +62,10 @@ def filter_stop_words(dict_freq1: dict, stop_words: tuple) -> dict:
 def get_top_n(final_dict: dict, top_n: int) -> tuple:
     list_sort = []
     list_with_keys = []
+    
+    if final_dict.keys():
+        if key != str:
+            return dict_freq1
     
     if top_n < 0:
         return()
