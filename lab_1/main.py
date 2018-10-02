@@ -35,7 +35,7 @@ def calculate_frequences(text: str)-> dict:
                 vocabulary[i] += 1
             else:
                 vocabulary[i] = 1
-    elif:
+    else:
         return vocabulary
     return vocabulary
 
