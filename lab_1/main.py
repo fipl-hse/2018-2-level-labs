@@ -1,6 +1,6 @@
 
 #Labour work #1
-def calculate_frequences() -> dict:
+def calculate_frequences(text) -> dict:
     text = re.sub(r'[^\w\s]+|[\d]+','', text)
     text = text.lower()
     text = text.split()
