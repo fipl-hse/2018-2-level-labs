@@ -7,20 +7,20 @@ from collections import Counter
 
 def read_from_file(path_to_file: str, lines_limit: int) -> str:
     text_data = None
-    text_file = open(path_to_file, 'r')
+    text_f = open(path_to_file, 'r')
     counter = 0
-    for temp_str in my_file.read():
+    for temp_str in text_f.read():
         if counter == lines_limit:
-            text_file.close()
+            text_f.close()
             return text_data
         counter += 1
         text_data += temp_str
-    text_file.close()
+    text_f.close()
     return text_data
 
 def calculate_frequences(text: str)-> dict:
     vocabulary = {}
-    if type(text) == str:
+    if isinstance(text, str):
         text = text.lower()
         text_list = []
         marks_and_numbers = """['0','1','2','3','4','5','6','7','8','9','.',','!',','?',
@@ -35,7 +35,7 @@ def calculate_frequences(text: str)-> dict:
                 vocabulary[i] += 1
             else:
                 vocabulary[i] = 1
-    elif text is None or type(text) != str:
+    elif:
         return vocabulary
     return vocabulary
 
@@ -64,4 +64,3 @@ def get_top_n(vocabulary: dict, n_top_words: int)-> tuple:
     for temp in top_n:
         temp_list.append(temp[0])
     return tuple(temp_list)
-
