@@ -5,7 +5,7 @@ Checks the first lab. Part about the creation of the frequencies dictionary
 
 import unittest
 
-from lab_1 import lab
+from lab_1 import main
 
 
 STOP_WORDS = ('ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there', 'about',
@@ -51,7 +51,7 @@ class FilterStopWordsTest(unittest.TestCase):
             'lazy': 1,
             'dog': 1
         }
-        res = lab.filter_stop_words(freq_dict, STOP_WORDS)
+        res = main.filter_stop_words(freq_dict, STOP_WORDS)
         self.assertEqual(expected_result, res)
 
     def test_filter_words_stop_dublicate(self):
@@ -77,7 +77,7 @@ class FilterStopWordsTest(unittest.TestCase):
             'lazy': 1,
             'dog': 1
         }
-        res = lab.filter_stop_words(freq_dict, ('the', 'the', 'over'))
+        res = main.filter_stop_words(freq_dict, ('the', 'the', 'over'))
         self.assertEqual(expected_result, res)
 
     def test_filter_words_stop_numbers(self):
@@ -103,7 +103,7 @@ class FilterStopWordsTest(unittest.TestCase):
             'lazy': 1,
             'dog': 1
         }
-        res = lab.filter_stop_words(freq_dict, ('the', 1, 'over', 4))
+        res = main.filter_stop_words(freq_dict, ('the', 1, 'over', 4))
         self.assertEqual(expected_result, res)
 
     def test_filter_words_empty(self):
@@ -120,7 +120,7 @@ class FilterStopWordsTest(unittest.TestCase):
             'lazy': 1,
             'dog': 1
         }
-        res = lab.filter_stop_words(expected_result, ())
+        res = main.filter_stop_words(expected_result, ())
         self.assertEqual(expected_result, res)
 
     def test_filter_words_dict_empty(self):
@@ -128,7 +128,7 @@ class FilterStopWordsTest(unittest.TestCase):
         Filter stop words when stop words tuple is empty
     	"""
         expected_result = {}
-        res = lab.filter_stop_words({}, STOP_WORDS)
+        res = main.filter_stop_words({}, STOP_WORDS)
         self.assertEqual(expected_result, res)
 
     def test_filter_words__dict_no_str(self):
@@ -136,7 +136,7 @@ class FilterStopWordsTest(unittest.TestCase):
         Filter stop words when dict has keys - not strs
     	"""
         expected_result = {'fox': 2}
-        res = lab.filter_stop_words({1: 1, 'fox': 2}, STOP_WORDS)
+        res = main.filter_stop_words({1: 1, 'fox': 2}, STOP_WORDS)
         self.assertEqual(expected_result, res)
 
     def test_filter_words_copy(self):
@@ -155,7 +155,7 @@ class FilterStopWordsTest(unittest.TestCase):
         }
 
         freq_dict = expected_result
-        lab.filter_stop_words(freq_dict, STOP_WORDS)
+        main.filter_stop_words(freq_dict, STOP_WORDS)
         self.assertEqual(expected_result, freq_dict)
 
     def test_filter_words_stop_none(self):
@@ -174,7 +174,7 @@ class FilterStopWordsTest(unittest.TestCase):
         }
 
         freq_dict = expected_result
-        lab.filter_stop_words(freq_dict, None)
+        main.filter_stop_words(freq_dict, None)
         self.assertEqual(expected_result, freq_dict)
 
     def test_filter_words_dict_none(self):
@@ -184,7 +184,7 @@ class FilterStopWordsTest(unittest.TestCase):
         expected_result = {}
 
         freq_dict = expected_result
-        lab.filter_stop_words(None, STOP_WORDS)
+        main.filter_stop_words(None, STOP_WORDS)
         self.assertEqual(expected_result, freq_dict)
 
     def test_filter_words_both_none(self):
@@ -194,5 +194,5 @@ class FilterStopWordsTest(unittest.TestCase):
         expected_result = {}
 
         freq_dict = expected_result
-        lab.filter_stop_words(None, None)
+        main.filter_stop_words(None, None)
         self.assertEqual(expected_result, freq_dict)
