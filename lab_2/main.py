@@ -56,7 +56,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     return list(candidates_list)
 
 
-def keep_known(candidates: tuple, as_is_words: tuple, frequencies: dict) -> list:
+def keep_known(candidates: list, as_is_words: tuple, frequencies: dict) -> list:
     future_candidates = set()
     as_is_words_new = []
 
@@ -69,20 +69,18 @@ def keep_known(candidates: tuple, as_is_words: tuple, frequencies: dict) -> list
         return []
 
     for element in as_is_words:
-        element = str(element)
-        element = element.lower()
+        element = str(element).lower()
         as_is_words_new.append(element)
 
     for word in candidates:
-        if word in as_is_words_new:
-            future_candidates.add(word)
-        if word in frequencies.keys():
+        if word in as_is_words_new or word in frequencies.keys():
             future_candidates.add(word)
     return list(future_candidates)
 
 
-def choose_best(frequencies: dict, candidates: tuple) -> str:
+def choose_best(frequencies: dict, candidates: list) -> str:
     list_of_value_key = []
+    list_of_words = []
     new_freq_dict = {}
 
     if (
@@ -93,22 +91,34 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     if len(candidates) <= 0 or len(frequencies) <= 0:
         return 'UNK'
 
-    for key in frequencies:
-        if type(key) is not str:
+    for element in candidates:
+        if type(element) is not str:
             continue
-        new_freq_dict[key] = frequencies[key]
+        if element in frequencies:
+            list_of_words.append(element)
+
+    if len(list_of_words) == 0:
+        return 'UNK'
+
+    for word in list_of_words:
+        new_freq_dict[word] = frequencies[word]
     for key, value in new_freq_dict.items():
         list_of_value_key.append([value, key])
     list_of_value_key.sort(reverse=True)
+
     return list_of_value_key[0][1]
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-    pass
+    if word in frequencies.keys():
+        return word
+    first_list_of_candidates = propose_candidates(word, 1)
+    second_list_of_candidates = keep_known(first_list_of_candidates, as_is_words, frequencies)
+    new_word = choose_best(frequencies, second_list_of_candidates)
+    return new_word
 
 
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
 
-print(calculate_frequences(REFERENCE_TEXT))
