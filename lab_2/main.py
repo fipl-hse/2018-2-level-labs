@@ -23,6 +23,10 @@ w_from_text = TEXT.split()
 max_depth_permutations = 1
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
+    if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
+      max_depth_permutations = 1
+    if word is None:
+      word = ''
     candidates = set()
     for i in LETTERS:
         for ch in range(len(word) + 1):
@@ -43,6 +47,10 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
         
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
+    if frequencies is None:
+      frequencies = {}
+    if canidates is None or isinstance(candidates, tuple) != True:
+      candidates = ()
     kn_w = set()
     for i in candidates:
         if i in frequencies:
@@ -53,6 +61,10 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
 def choose_best(frequencies: dict, candidates: tuple) -> str:
     word = ''
     best = {}
+    if frequencies is None:
+      frequencies = {}
+    if candidates is None:
+      candidates = ()
     for wd in candidates:
       for w, fr in frequencies.items():
         if wd == w:
@@ -64,7 +76,12 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     return word
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-  
+  if as_is_words is None:
+    as_is_words = ()
+  if frequencies is None:
+      frequencies = {}
+  if word is None:
+      word = ''
   word = choose_best(frequencies, keep_known(propose_candidates(word, max_depth_permutations), as_is_words))
   return word
 
