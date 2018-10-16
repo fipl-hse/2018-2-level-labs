@@ -14,6 +14,14 @@ class ChooseBestTest(unittest.TestCase):
         result = choose_best(freq_dict, candidates)
         self.assertEqual(expected_word, result)
 
+    def test_choose_best_equal_freq(self):
+        """Some words have the same freq - return sorted in alphabetical order"""
+        expected_word = 'last'
+        freq_dict = dict(list=1, lust=2, last=2)
+        candidates = ('lwst', 'lrst', 'list', 'lust', 'lyst', 'last')
+        result = choose_best(freq_dict, candidates)
+        self.assertEqual(expected_word, result)
+
     def test_choose_best_candidates_empty(self):
         """Candidates is empty"""
         expected_word = 'UNK'

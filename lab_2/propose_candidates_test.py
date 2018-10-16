@@ -46,12 +46,8 @@ class ProposeCandidatesTest(unittest.TestCase):
     def test_propose_candidates_duplicates(self):
         test_word = 'cat'
         counter = 0
-        expected_counter = 1
         modifications = propose_candidates(test_word)
-        for word in modifications:
-            if word == 'cat':
-                counter += 1
-        self.assertEqual(expected_counter, counter)
+        self.assertEqual(len(modifications), len(set(modifications)))
 
     def test_propose_candidates_one_symbol(self):
         test_word = 'c'
@@ -73,12 +69,8 @@ class ProposeCandidatesTest(unittest.TestCase):
         modifications = propose_candidates('cat', -1)
         self.assertEqual(expected, modifications)
 
-    def test_propose_candidates_depth_permutations_none(self):
-        expected = []
-        modifications = propose_candidates('cat', None)
-        self.assertEqual(expected, modifications)
-
-    def test_propose_candidates_depth_permutations_ideal(self):
-        expected_len = 14352
-        modifications = propose_candidates('cat', 2)
-        self.assertEqual(expected_len, len(modifications))
+        
+    # def test_propose_candidates_depth_permutations_ideal(self):
+    #     expected_len = 14352
+    #     modifications = propose_candidates('cat', 2)
+    #     self.assertEqual(expected_len, len(modifications))
