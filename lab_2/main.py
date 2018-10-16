@@ -54,24 +54,18 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     return list(candidates_list)
 
 
-def keep_known(candidates: list, as_is_words: tuple, frequencies: dict) -> list:
+def keep_known(candidates: list, frequencies: dict) -> list:
     future_candidates = set()
-    as_is_words_new = []
 
     # Checking if the args are correct
     if (
         type(candidates) is not tuple or
-        type(as_is_words) is not tuple or
         type(frequencies) is not dict
     ):
         return []
 
-    for element in as_is_words:
-        element = str(element).lower()
-        as_is_words_new.append(element)
-
     for word in candidates:
-        if word in as_is_words_new or word in frequencies.keys():
+        if word in frequencies.keys():
             future_candidates.add(word)
     return list(future_candidates)
 
@@ -122,4 +116,3 @@ if __name__ == '__main__':
 
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 REFERENCE_TEXT = ''
-
