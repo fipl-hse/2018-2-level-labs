@@ -5,50 +5,86 @@ Count frequencies dictionary by the given arbitrary text
 """
 
 
+def read_from_file(path_to_file, lines_limit: int) -> str:
+    my_text = ''
+    count_lines = 0
+    my_file = open(path_to_file, 'r')
+    for line in my_file.read():
+        if count_lines == lines_limit:
+            return my_text
+        my_text += line
+        count_lines += 1
+    my_file.close()
+    return my_text
+
+
 def calculate_frequences(text: str) -> dict:
-    """
-    Calculates number of times each word appears in the text
-    """
-    dict = {}
-    if isinstance(text,str):
-
-        new_text = text.lower()
-        punctuation = "~$%&^@*#1234567890\"{}[]\'/\n:;!?().,<>"
-
-        for symb in punctuation:
-            new_text = new_text.replace(symb, "")
-
-        new_text1 = new_text.split()
-
-        for i in range (0,len(new_text1)):
-            dict[new_text1[i]] = new_text1.count(new_text1[i])
-
-    return dict
-
-
-
-def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    sorted_words = {}
-
-    if not stop_words:
-        stop_words = tuple()
-    if frequencies:
-        sorted_words = {k: frequencies[k] for k in frequencies if (k not in stop_words) and (type(k) is str)}
-
-    return sorted_words
+    first_dict = {}
+    list_of_marks = [
+                    '.', ',', ':', '"', '`', '[', ']',
+                    '?', '!', '@', '&', "'", '-',
+                    '$', '^', '*', '(', ')',
+                    '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+                    ]
+    try:
+        elements = text.split()
+    except AttributeError:
+        return first_dict
+    for thing in elements:
+        if thing.isdigit():
+            continue
+        for mark in list_of_marks:
+            if mark in thing:
+                pos_mark = thing.find(mark)
+                thing = thing[:pos_mark] + thing[pos_mark + 1:]
+            thing = thing.strip(mark)
+        thing = thing.lower()
+        first_dict[thing] = first_dict.get(thing, 0) + 1
+    if '' in first_dict.keys():
+        first_dict.pop('')
+    return first_dict
 
 
+def filter_stop_words(first_dict: dict, stop_words: list) -> dict:
+    third_dict = {}
+    try:
+        second_dict = first_dict.copy()
+    except AttributeError:
+        return {}
+    if first_dict is None or stop_words is None:
+        return {}
+    for stop_word in stop_words:
+        if stop_word in second_dict.keys():
+            second_dict.pop(stop_word)
+    for key in second_dict.keys():
+        try:
+            if 0 <= key < 0:
+                continue
+        except TypeError:
+            third_dict[key] = first_dict[key]
+    return third_dict
 
-def get_top_n(frequencies: dict, top_n: int) -> tuple:
-    """
-    Takes first N popular words
-    """
 
-    sorted_list = sorted(frequencies.items(), key=lambda item: item[1], reverse=True)
-    if top_n > len(sorted_list):
-        top_n = len(sorted_list)
-    top_n_words = tuple(sorted_list[i][0] for i in range (top_n))
-    return top_n_words
+def get_top_n(third_dict: dict, top_n: int) -> tuple:
+    list_of_value_key = []
+    list_of_top_words = []
+    count = 0
+    if top_n < 0:
+        return ()
+    for key, value in third_dict.items():
+        list_of_value_key.append([value, key])
+    list_of_value_key.sort(reverse=True)
+    for item in list_of_value_key:
+        if count == top_n:
+            break
+        list_of_top_words.append(item[1])
+        count += 1
+    return tuple(list_of_top_words)
+
+
+def write_to_file(path_to_file: str, content: tuple):
+    my_file = open(path_to_file, 'w')
+    for word in content:
+        my_file.write(word + '\n')
+    my_file.close()
