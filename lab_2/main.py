@@ -34,3 +34,13 @@ def propose_candidates(word, max_depth_permutations: int=1) -> list:
         final_result = list(set(variations))
         return final_result
 
+
+def keep_known(candidates: tuple, frequencies: dict) -> list:
+    possible_words = []
+    if candidates is None or frequencies is None or not candidates == tuple(candidates):
+        return possible_words
+    else:
+        for key in frequencies.keys():
+            if key in candidates:
+                possible_words.append(key)
+        return possible_words
