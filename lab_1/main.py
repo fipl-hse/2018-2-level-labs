@@ -1,97 +1,90 @@
-dict_freq = {}
-def calculate_frequences(text) -> dict:
-    
-    ost = """'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',', ':', '"', '`', '[', ']', '?', '!', '@', '&', "'", '-', '$', '^', '*', '(', ')', '_', '“', '”', '’', '#', '%', '<', '>', '*', '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'"""
-    if type(text) != str:
+"""
+Labour work #1
+
+Count frequencies dictionary by the given arbitrary text
+"""
+
+
+def read_from_file(path_to_file, lines_limit: int) -> str:
+    my_text = ''
+    count_lines = 0
+    my_file = open(path_to_file, 'r')
+    for line in my_file.read():
+        if count_lines == lines_limit:
+            return my_text
+        my_text += line
+        count_lines += 1
+    my_file.close()
+    return my_text
+
+
+def calculate_frequences(text: str) -> dict:
+    first_dict = {}
+    list_of_marks = [
+                    '.', ',', ':', '"', '`', '[', ']',
+                    '?', '!', '@', '&', "'", '-',
+                    '$', '^', '*', '(', ')',
+                    '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+                    ]
+    try:
+        elements = text.split()
+    except AttributeError:
+        return first_dict
+    for thing in elements:
+        if thing.isdigit():
+            continue
+        for mark in list_of_marks:
+            if mark in thing:
+                pos_mark = thing.find(mark)
+                thing = thing[:pos_mark] + thing[pos_mark + 1:]
+            thing = thing.strip(mark)
+        thing = thing.lower()
+        first_dict[thing] = first_dict.get(thing, 0) + 1
+    if '' in first_dict.keys():
+        first_dict.pop('')
+    return first_dict
+
+
+def filter_stop_words(first_dict: dict, stop_words: list) -> dict:
+    third_dict = {}
+    try:
+        second_dict = first_dict.copy()
+    except AttributeError:
         return {}
-    text = text.lower()
-    text_split = text.split(" ")
-    clean_text = []
-    clean_str = ''
-    
-    for i in text_split:
-        for s in i:
-            if s.isalpha():
-                clean_text.append(s)
-                clean_str = ''
-            elif s.isdigit():
+    if first_dict is None or stop_words is None:
+        return {}
+    for stop_word in stop_words:
+        if stop_word in second_dict.keys():
+            second_dict.pop(stop_word)
+    for key in second_dict.keys():
+        try:
+            if 0 <= key < 0:
                 continue
-            
-            elif s in ost:
-                continue
-                
-    if clean_text == []:
-        return {}
-    else:
-        for i in clean_text:
-            dict_freq[i] = clean_text.count(i)
-    
-    return dict_freq
-
-def filter_stop_words(dict_freq: dict, stop_words: tuple) -> dict:
-    list_from_dict_with_values = []
-    
-    
-    if stop_words == None:
-        return dict_freq
-    if dict_freq == None:
-        return {}
-    else:
-        list_stop_words = list(stop_words)
-        for i in list_stop_words: 
-            if type(i) != str:
-                return dict_freq
-
-        for key in dict_freq.keys():
-            if type(key) != str:
-                return {}
-
-        list_from_dict = list(dict_freq)
-        for i in list_from_dict:
-            if type(i) != str:
-                return {}
-        
-    for value in dict_freq.values():
-        list_from_dict_with_values.append(value)
-
-    
-
-    for i, e in enumerate(list_from_dict):
-        if e == None:
-            return {}
-        if e in list_stop_words:
-            list_from_dict.remove(e)
-            del list_from_dict_with_values[i]
-    
-    dict_without_stop_words = dict(zip(list_from_dict, list_from_dict_with_values))
-    return dict_without_stop_words
-    
+        except TypeError:
+            third_dict[key] = first_dict[key]
+    return third_dict
 
 
+def get_top_n(third_dict: dict, top_n: int) -> tuple:
+    list_of_value_key = []
+    list_of_top_words = []
+    count = 0
+    if top_n < 0:
+        return ()
+    for key, value in third_dict.items():
+        list_of_value_key.append([value, key])
+    list_of_value_key.sort(reverse=True)
+    for item in list_of_value_key:
+        if count == top_n:
+            break
+        list_of_top_words.append(item[1])
+        count += 1
+    return tuple(list_of_top_words)
 
-def get_top_n(dict_without_stop_words: dict, n: int) -> tuple:
-    sorted_and_reversed_list = []
-    list_with_max = []
-    new_list = []
-    if type(n) != int:
-        return()
-        
-    for value in dict_without_stop_words.values():
-        sorted_and_reversed_list.append(value)
-        sorted_and_reversed_list.sort(reverse = True)
 
-    for i in sorted_and_reversed_list:
-        for key, value in dict_without_stop_words.items():
-            if value == i:
-                list_with_max.append(key)
-                dict_without_stop_words[key] = ''
-                break
-    if n > len(sorted_and_reversed_list):
-        return tuple(list_with_max)
-    if n < 0:
-        return()
-    
-    list_with_n_max = list_with_max[: n]
-    tuple_with_max = tuple(list_with_n_max)
-    return tuple_with_max
-  
+def write_to_file(path_to_file: str, content: tuple):
+    my_file = open(path_to_file, 'w')
+    for word in content:
+        my_file.write(word + '\n')
+    my_file.close()
