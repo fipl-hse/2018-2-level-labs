@@ -49,7 +49,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
 def keep_known(candidates: tuple, frequencies: dict) -> list:
     if frequencies is None:
       frequencies = {}
-    if canidates is None or isinstance(candidates, tuple) != True:
+    if candidates is None or isinstance(candidates, tuple) != True:
       candidates = ()
     kn_w = set()
     for i in candidates:
