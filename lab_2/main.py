@@ -2,6 +2,8 @@
 Labour work #2
  Check spelling of words in the given  text
 """
+import sys
+sys.path.append("2018-level-labs\lab_1\ ")
 import operator
 import re
 from lab_1.main import calculate_frequences
@@ -15,9 +17,10 @@ Occasionnal continuing possession we insensible an sentiments as is.
 Law but reasonaby motionless principles she. Has six worse downs far blush rooms above stood. 
 '''
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-
+as_is_words = ('famiies')           
 w_from_text = TEXT.split()
 max_depth_permutations = 1
+
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     candidates = set()
     for i in LETTERS:
@@ -37,13 +40,10 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
         candidates.add(word.replace(ch,'',1))
     return candidates
         
-as_is_words = ('famiies')           
 
-def keep_known(candidates: tuple, as_is_words: tuple) -> list:
+def keep_known(candidates: tuple, frequencies: dict) -> list:
     kn_w = set()
     for i in candidates:
-        if i in as_is_words:
-            kn_w.add(i)
         if i in frequencies:
             kn_w.add(i)
     candidates = kn_w
@@ -70,10 +70,13 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
 def spell_check_text(frequencies: dict, as_is_words: tuple, TEXT: str):
   w_out = re.findall(r"[\w']+|[.,!?;]", TEXT)
   for word in w_out:
+    if word in as_is_words:
+        pass
     if word.isalnum() == True:
       w_out[w_out.index(word)] = spell_check_word(frequencies, as_is_words, word)
     else:
-      pass     
+      pass
+    
   w_out = re.sub(r'\s([?.!"](?:\s|$))', r'\1', ' '.join(w_out))
   print(w_out)
 
