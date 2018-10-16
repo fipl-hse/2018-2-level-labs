@@ -10,6 +10,7 @@ from lab_1.main import calculate_frequences
 if __name__ == '__main__':
   with open('very_big_reference_text.txt', 'r') as f:
     REFERENCE_TEXT = f.read()
+REFERENCE_TEXT = ''
 frequencies = calculate_frequences(REFERENCE_TEXT)
 TEXT = '''Extemity directiion existence ase dashwoods do upt. Securing marianne led welcomed offended but offering six raptures.
 Conveying concluded newspaper rapturous oh at. Two indeed suffer saw beyond far former mrs remain.
