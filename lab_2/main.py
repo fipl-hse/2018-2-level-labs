@@ -15,7 +15,11 @@ if __name__ == '__main__':
 
 def propose_candidates(word, max_depth_permutations: int=1) -> list:
     variations = []
-    if not word == '' and None:
+    if word == '' or word is None or max_depth_permutations is None or max_depth_permutations == str(
+            max_depth_permutations) \
+            or not max_depth_permutations > 0:
+        return variations
+    else:
         for i in range(len(word) + 1):
             for a in LETTERS:
                 the_word = word[:i] + a + word[i:]
@@ -27,5 +31,6 @@ def propose_candidates(word, max_depth_permutations: int=1) -> list:
                 variations.append(new_word)
         for i in range(len(word) - 1):
             variations.append(word[0:i] + word[i + 1] + word[i] + word[i + 2:])
-    final_result = list(set(variations))
-    return final_result
+        final_result = list(set(variations))
+        return final_result
+
