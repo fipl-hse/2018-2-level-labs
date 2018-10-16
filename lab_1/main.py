@@ -3,81 +3,88 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
-TEXT = '''The Internet was invented in the late 1960s by the US Defense
-Department’s Advanced Research Projects Agency. A mainframe computer is a
-large, powerful computer, shared by many users. The idea of the electronic
-mailbox was born when users looked for a way to talk to each other electronically.
-By 1984,the Internet had begun to develop into the form we know today.'''
 
-FREQ_DICT = {}
-STOP_WORDS = ('large', 'way', 'just', 'to', 'when', 'other', 'mainframe', 'us', 'today',
-              'form', 'develop', 'know', 'a', 'each', 'talk', 'looked', 'invented')
-finish_list = []
 
-def calculate_frequences(TEXT) -> dict:
-    """
-    Calculates number of times each word appears in the text
-    """
-    if not isinstance(TEXT, str):
+def read_from_file(path_to_file, lines_limit: int) -> str:
+    my_text = ''
+    count_lines = 0
+    my_file = open(path_to_file, 'r')
+    for line in my_file.read():
+        if count_lines == lines_limit:
+            return my_text
+        my_text += line
+        count_lines += 1
+    my_file.close()
+    return my_text
+
+
+def calculate_frequences(text: str) -> dict:
+    first_dict = {}
+    list_of_marks = [
+                    '.', ',', ':', '"', '`', '[', ']',
+                    '?', '!', '@', '&', "'", '-',
+                    '$', '^', '*', '(', ')',
+                    '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+                    ]
+    try:
+        elements = text.split()
+    except AttributeError:
+        return first_dict
+    for thing in elements:
+        if thing.isdigit():
+            continue
+        for mark in list_of_marks:
+            if mark in thing:
+                pos_mark = thing.find(mark)
+                thing = thing[:pos_mark] + thing[pos_mark + 1:]
+            thing = thing.strip(mark)
+        thing = thing.lower()
+        first_dict[thing] = first_dict.get(thing, 0) + 1
+    if '' in first_dict.keys():
+        first_dict.pop('')
+    return first_dict
+
+
+def filter_stop_words(first_dict: dict, stop_words: list) -> dict:
+    third_dict = {}
+    try:
+        second_dict = first_dict.copy()
+    except AttributeError:
         return {}
-
-    text_l = TEXT.lower()
-    punct = '''.,!?;:'"<>/[]{}()1234567890*-+$%@#&^~`'''
-    punct = list(punct)
-    for i in punct:
-        text_l = text_l.replace(i, ' ')
-
-    text_s = text_l.split()
-    text_u = []
-    for i in text_s:
-        if not i in text_u:
-            text_u.append(i)
-
-    text_f = []
-    for i in text_u:
-        text_f.append(text_s.count(i))
-    FREQ_DICT = dict(zip(text_u, text_f))
-    return FREQ_DICT
+    if first_dict is None or stop_words is None:
+        return {}
+    for stop_word in stop_words:
+        if stop_word in second_dict.keys():
+            second_dict.pop(stop_word)
+    for key in second_dict.keys():
+        try:
+            if 0 <= key < 0:
+                continue
+        except TypeError:
+            third_dict[key] = first_dict[key]
+    return third_dict
 
 
-def filter_stop_words(FREQ_DICT, STOP_WORDS) -> dict:
-    """
-    Removes all stop words from the given frequencies dictionary
-    """
-    filtered_dict = {}
-    if (FREQ_DICT is None or STOP_WORDS is None or FREQ_DICT == {}):
-        return{}
-      
-    if STOP_WORDS == ():
-        return FREQ_DICT
-      
-    STOP_WORDS = (STOP_WORDS + (1, 2, 3, 4, 5, 6, 7, 8, 9, 0))
-    sw_l = list(STOP_WORDS)
+def get_top_n(third_dict: dict, top_n: int) -> tuple:
+    list_of_value_key = []
+    list_of_top_words = []
+    count = 0
+    if top_n < 0:
+        return ()
+    for key, value in third_dict.items():
+        list_of_value_key.append([value, key])
+    list_of_value_key.sort(reverse=True)
+    for item in list_of_value_key:
+        if count == top_n:
+            break
+        list_of_top_words.append(item[1])
+        count += 1
+    return tuple(list_of_top_words)
 
-    for i in FREQ_DICT.keys():
-        if not i in sw_l:
-            filtered_dict[i] = FREQ_DICT[i]
 
-    return filtered_dict
-  
-
-def get_top_n(filtered_dict, top_n) -> tuple:
-    """
-    Takes first N popular words
-    """
-    finish_list = filtered_dict.values()
-    finish_list = list(finish_list)
-    finish_list = sorted(finish_list)
-
-    if top_n > len(finish_list):
-        top_n = len(finish_list)
-
-    popular = []
-    for k in range(top_n):
-        i = finish_list[-(k+1)]
-        for key, value in filtered_dict.items():
-            if value == i:
-                popular.append(key)
-    popular = popular[0:top_n]
-    popular = tuple(popular)
-    return popular
+def write_to_file(path_to_file: str, content: tuple):
+    my_file = open(path_to_file, 'w')
+    for word in content:
+        my_file.write(word + '\n')
+    my_file.close()
