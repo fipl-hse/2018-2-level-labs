@@ -6,83 +6,86 @@ def read_from_file():
 
 text = read_from_file()
 
+def read_from_file(path_to_file, lines_limit: int) -> str:
+    my_text = ''
+    count_lines = 0
+    my_file = open(path_to_file, 'r')
+    for line in my_file.read():
+        if count_lines == lines_limit:
+            return my_text
+        my_text += line
+        count_lines += 1
+    my_file.close()
+    return my_text
 
-def calculate_frequences(text):
-    if text == '':
+
+def calculate_frequences(text: str) -> dict:
+    first_dict = {}
+    list_of_marks = [
+                    '.', ',', ':', '"', '`', '[', ']',
+                    '?', '!', '@', '&', "'", '-',
+                    '$', '^', '*', '(', ')',
+                    '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+                    ]
+    try:
+        elements = text.split()
+    except AttributeError:
+        return first_dict
+    for thing in elements:
+        if thing.isdigit():
+            continue
+        for mark in list_of_marks:
+            if mark in thing:
+                pos_mark = thing.find(mark)
+                thing = thing[:pos_mark] + thing[pos_mark + 1:]
+            thing = thing.strip(mark)
+        thing = thing.lower()
+        first_dict[thing] = first_dict.get(thing, 0) + 1
+    if '' in first_dict.keys():
+        first_dict.pop('')
+    return first_dict
+
+
+def filter_stop_words(first_dict: dict, stop_words: list) -> dict:
+    third_dict = {}
+    try:
+        second_dict = first_dict.copy()
+    except AttributeError:
         return {}
-    elif type(text) != str:
+    if first_dict is None or stop_words is None:
         return {}
-    else:
-        text = text.lower()
-        prom1 = text.split()
-        punct_marks = '''@#$%^&*()+-~1234567890:;!(){}[]"',?/.<>\n'''
-        for i in range(0, len(prom1)):
-            for c in prom1[i]:
-                if c in punct_marks and c in prom1[i]:
-                    prom1[i] = prom1[i].replace(c, "")
-        for i in range(0, len(prom1)):
-            for c in prom1:
-                if c == '':
-                    prom1.remove(c)
-        frequency = {}
-        for i in range(0, len(prom1)):
-            frequency[prom1[i]] = prom1.count(prom1[i])
-            if prom1[i] in prom1[i - 1::-1]:
+    for stop_word in stop_words:
+        if stop_word in second_dict.keys():
+            second_dict.pop(stop_word)
+    for key in second_dict.keys():
+        try:
+            if 0 <= key < 0:
                 continue
-    return frequency
-res = calculate_frequences(text)
-stop_words = ["i", "do", "an", "not", "to", "on", "the"]
-def filter_stop_words(res, stop_words):
-    if res == None or stop_words == None:
-        return None
-    res = {k: res[k] for k in res if k not in stop_words and type(k) == str}
-    return res
-filtered_dict = filter_stop_words(res, stop_words)
-n = 5
-def get_top_n(filtered_dict, n):
-    final_top = ()
-    list_res = []
-    if filtered_dict == {}:
+        except TypeError:
+            third_dict[key] = first_dict[key]
+    return third_dict
+
+
+def get_top_n(third_dict: dict, top_n: int) -> tuple:
+    list_of_value_key = []
+    list_of_top_words = []
+    count = 0
+    if top_n < 0:
         return ()
-    elif filtered_dict == None or n == None or type(n) != int:
-        return None
-    else:
-        if n >= len(filtered_dict):
-           final_top = tuple(filtered_dict.keys())
-        else:
-           slova = []
-           chastoty = []
-           for k,v in filtered_dict.items():
-               slova.append(k)
-               chastoty.append(v)
-           while len(list_res) < n:
-                 maxi = max(chastoty)
-                 for c in slova:
-                     if filtered_dict[c] == maxi:
-                        list_res.append(c)
-                        slova.remove(c)
-                 chastoty.remove(maxi)
-                 if len(list_res)> n:
-                    list_res = list_res[0:n]
-                    break
-           final_top = tuple(list_res)
-        return final_top
-final = get_top_n(filtered_dict, n)
-def write_into_file():
-    with open('report.txt', 'w') as op:
-        op.write("Результат работы функции calculate_frequences" + "\n")
-        for k, v in res.items():
-            op.write(k + ":" + str(v))
-            op.write("\n")
-        op.write("Результат работы функции filter_stop_words" + "\n")
-        for k, v in filtered_dict.items():
-            op.write(k + ":" + str(v))
-            op.write("\n")
-        op.write("Результат работы функции get_top_n" + '\n')
-        for c in final:
-            op.write(c + ";" + " ")
-    with open("report.txt", "r") as re:
-        m = re.read()
-        return m
-chit = write_into_file()
-print(chit)
+    for key, value in third_dict.items():
+        list_of_value_key.append([value, key])
+    list_of_value_key.sort(reverse=True)
+    for item in list_of_value_key:
+        if count == top_n:
+            break
+        list_of_top_words.append(item[1])
+        count += 1
+    return tuple(list_of_top_words)
+
+
+def write_to_file(path_to_file: str, content: tuple):
+    my_file = open(path_to_file, 'w')
+    for word in content:
+        my_file.write(word + '\n')
+    my_file.close()
