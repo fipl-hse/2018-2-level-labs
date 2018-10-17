@@ -20,6 +20,7 @@ Law but reasonaby motionless principles she. Has six worse downs far blush rooms
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 as_is_words = ('famiies')           
 w_from_text = TEXT.split()
+max_depth_permutations = 1
 
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
