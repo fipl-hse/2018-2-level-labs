@@ -21,10 +21,10 @@ LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 as_is_words = ('famiies')           
 w_from_text = TEXT.split()
 max_depth_permutations = 1
+if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
+      max_depth_permutations = 1
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
-    if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
-      max_depth_permutations = 1
     if word is None:
       word = ''
     candidates = set()
