@@ -18,9 +18,9 @@ max_depth_permutations = 1
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
-      return None
+      return []
     if word is None:
-      return None
+      return []
     candidates = set()
     for i in LETTERS:
         for ch in range(len(word) + 1):
@@ -83,7 +83,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
   if word is None:
       word = ''
   if word in as_is_words:  
-      pass  
+      return word  
   word = choose_best(frequencies, keep_known(propose_candidates(word, max_depth_permutations), frequencies))
   return word
 
