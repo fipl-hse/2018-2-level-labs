@@ -37,7 +37,6 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
              candidates.add(word.replace(ch, i, 1))
     for ch in word:
         candidates.add(word.replace(ch,'',1))
-    print(max_depth_permutations)
     return candidates
         
 
