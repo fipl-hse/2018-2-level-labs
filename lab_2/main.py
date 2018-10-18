@@ -15,14 +15,12 @@ frequencies = calculate_frequences(REFERENCE_TEXT)
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 as_is_words = ()
 max_depth_permutations = 1
-if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
-  max_depth_permutations = 1
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
-      max_depth_permutations = 1
+      return None
     if word is None:
-      word = ''
+      return None
     candidates = set()
     for i in LETTERS:
         for ch in range(len(word) + 1):
