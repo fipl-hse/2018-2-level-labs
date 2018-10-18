@@ -60,10 +60,10 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
       frequencies = {}
     if candidates is None:
       candidates = ()
-    for wd in candidates:
-      for w, fr in frequencies.items():
-        if wd == w:
-          best[w] = fr
+    for w, fr in frequencies.items():    
+      for wd in candidates:     
+          if wd == w:
+            best[w] = fr
     if len(best) == 0:
       word = 'UNK'
     else:
@@ -76,9 +76,9 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
   if as_is_words is None:
-    return []
+    as_is_words = ()
   if frequencies is None:
-      return []
+      return 'UNK'
   if word is None:
       word = ''
   if word in as_is_words:  
