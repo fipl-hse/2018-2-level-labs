@@ -21,7 +21,8 @@ LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 as_is_words = ('famiies')           
 w_from_text = TEXT.split()
 max_depth_permutations = 1
-
+if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
+  max_depth_permutations = 1
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
@@ -63,6 +64,7 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
 def choose_best(frequencies: dict, candidates: tuple) -> str:
     word = ''
     best = {}
+    out_best = []
     if frequencies is None:
       frequencies = {}
     if candidates is None:
@@ -74,7 +76,11 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     if len(best) == 0:
       word = 'UNK'
     else:
-      word = max(best.items(), key=operator.itemgetter(1))[0]
+      al_eq = max(best.items(), key=operator.itemgetter(1))[0]
+      for k, v in best.items():
+        if v >= best.get(al_eq):
+          out_best.append(k)
+      word = sorted(out_best)[0] 
     return word
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
