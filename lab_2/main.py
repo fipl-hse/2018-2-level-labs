@@ -12,14 +12,8 @@ if __name__ == '__main__':
     REFERENCE_TEXT = f.read()
 REFERENCE_TEXT = ''
 frequencies = calculate_frequences(REFERENCE_TEXT)
-TEXT = '''Extemity directiion existence ase dashwoods do upt. Securing marianne led welcomed offended but offering six raptures.
-Conveying concluded newspaper rapturous oh at. Two indeed suffer saw beyond far former mrs remain.
-Occasionnal continuing possession we insensible an sentiments as is.
-Law but reasonaby motionless principles she. Has six worse downs far blush rooms above stood. 
-'''
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-as_is_words = ('famiies')           
-w_from_text = TEXT.split()
+as_is_words = ()
 max_depth_permutations = 1
 if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
   max_depth_permutations = 1
@@ -90,7 +84,10 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
       frequencies = {}
   if word is None:
       word = ''
-  word = choose_best(frequencies, keep_known(propose_candidates(word, max_depth_permutations), as_is_words))
+  if word in as_is_words:  
+      pass  
+  word = choose_best(frequencies, keep_known(propose_candidates(word, max_depth_permutations)))
+  as_is_words.add(word)
   return word
 
 def spell_check_text(frequencies: dict, as_is_words: tuple, TEXT: str):
@@ -104,6 +101,4 @@ def spell_check_text(frequencies: dict, as_is_words: tuple, TEXT: str):
       pass
     
   w_out = re.sub(r'\s([?.!"](?:\s|$))', r'\1', ' '.join(w_out))
-  print(w_out)
 
-spell_check_text(frequencies, as_is_words, TEXT)
