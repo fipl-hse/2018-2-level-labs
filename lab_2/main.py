@@ -86,8 +86,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
       word = ''
   if word in as_is_words:  
       pass  
-  word = choose_best(frequencies, keep_known(propose_candidates(word, max_depth_permutations)))
-  as_is_words.add(word)
+  word = choose_best(frequencies, keep_known(propose_candidates(word, max_depth_permutations), frequencies))
   return word
 
 def spell_check_text(frequencies: dict, as_is_words: tuple, TEXT: str):
