@@ -13,7 +13,6 @@ class ChooseBestTest(unittest.TestCase):
         candidates = ('lwst', 'lrst', 'list', 'lust', 'lyst')
         result = choose_best(freq_dict, candidates)
         self.assertEqual(expected_word, result)
-        
 
     def test_choose_best_equal_freq(self):
         """Some words have the same freq - return sorted in alphabetical order"""

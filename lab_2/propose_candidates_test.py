@@ -73,7 +73,7 @@ class ProposeCandidatesTest(unittest.TestCase):
         expected = []
         modifications = propose_candidates('cat', None)
         self.assertEqual(expected, modifications)
-        
+
     # def test_propose_candidates_depth_permutations_ideal(self):
     #     expected_len = 14352
     #     modifications = propose_candidates('cat', 2)

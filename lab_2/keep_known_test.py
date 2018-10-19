@@ -14,7 +14,6 @@ class KeepKnownTest(unittest.TestCase):
         candidates = ('lwst', 'lrst', 'list', 'lust', 'lyst')
         expected = ['list', 'lust']
         known = keep_known(candidates, freq_dict)
-
         self.assertCountEqual(expected, known)
 
     def test_keep_known_candidate_empty(self):
