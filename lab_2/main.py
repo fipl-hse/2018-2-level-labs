@@ -10,10 +10,9 @@ REFERENCE_TEXT = ''
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     # Checking if the args are correct
-    if (
-        type(word) is not str or
+    if (not isinstance(word, str) or
         word is '' or
-        type(max_depth_permutations) is not int
+        not isinstance(max_depth_permutations, int)
     ):
         return []
     try:
@@ -61,9 +60,8 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     future_candidates = set()
 
     # Checking if the args are correct
-    if (
-        type(candidates) is not tuple or
-        type(frequencies) is not dict
+    if (not isinstance(candidates, tuple) or
+        not isinstance(frequencies, dict)
     ):
         return []
     for word in candidates:
@@ -79,20 +77,19 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     new_freq_dict = {}
 
     # Checking if the args are correct
-    if (
-        type(frequencies) is not dict or
-        candidates is None
+    if (not isinstance(frequencies, dict) or
+        not isinstance(candidates, tuple)
     ):
         return 'UNK'
-    if len(candidates) <= 0 or len(frequencies) <= 0:
+    if candidates is () or len(frequencies) <= 0:
         return 'UNK'
 
     for element in candidates:
-        if type(element) is not str:
+        if not isinstance(element, str):
             continue
         if element in frequencies:
             list_of_words.append(element)
-    if len(list_of_words) == 0:
+    if list_of_words is []:
         return 'UNK'
 
     for word in list_of_words:
@@ -112,9 +109,9 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-    if frequencies is None or word is None:
+    if not isinstance(frequencies, dict) or not isinstance(word, str):
         return 'UNK'
-    if as_is_words is None:
+    if not isinstance(as_is_words, tuple):
         pass
     else:
         if word.upper() in as_is_words:
