@@ -54,7 +54,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     return list(candidates_list)
 
 
-def keep_known(candidates: list, frequencies: dict) -> list:
+def keep_known(candidates: list, frequencies: dict, word: str) -> list:
     future_candidates = set()
 
     # Checking if the args are correct
