@@ -57,7 +57,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     return list(candidates_list)
 
 
-def keep_known(candidates: list, frequencies: dict) -> list:
+def keep_known(candidates: tuple, frequencies: dict) -> list:
     future_candidates = set()
 
     # Checking if the args are correct
@@ -66,22 +66,22 @@ def keep_known(candidates: list, frequencies: dict) -> list:
         type(frequencies) is not dict
     ):
         return []
-
     for word in candidates:
-        if word in frequencies.keys():
+        if word in frequencies:
             future_candidates.add(word)
     return list(future_candidates)
 
 
-def choose_best(frequencies: dict, candidates: list) -> str:
+def choose_best(frequencies: dict, candidates: tuple) -> str:
     list_of_value_key = []
     list_of_words = []
     final_list = []
     new_freq_dict = {}
 
+    # Checking if the args are correct
     if (
         type(frequencies) is not dict or
-        type(candidates) is not tuple
+        candidates is None
     ):
         return 'UNK'
     if len(candidates) <= 0 or len(frequencies) <= 0:
@@ -92,7 +92,6 @@ def choose_best(frequencies: dict, candidates: list) -> str:
             continue
         if element in frequencies:
             list_of_words.append(element)
-
     if len(list_of_words) == 0:
         return 'UNK'
 
@@ -108,17 +107,23 @@ def choose_best(frequencies: dict, candidates: list) -> str:
         else:
             continue
     final_list.sort()
+
     return final_list[0]
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-    if type(frequencies) is not dict or type(word) is not str or type(as_is_words) is not tuple:
+    if frequencies is None or word is None:
         return 'UNK'
-    if word in frequencies.keys():
+    if as_is_words is None:
+        pass
+    else:
+        if word.upper() in as_is_words:
+            return word
+    if word in frequencies:
         return word
     first_list_of_candidates = propose_candidates(word, 1)
-    second_list_of_candidates = keep_known(first_list_of_candidates, frequencies)
-    new_word = choose_best(frequencies, second_list_of_candidates)
+    second_list_of_candidates = keep_known(tuple(first_list_of_candidates), frequencies)
+    new_word = choose_best(frequencies, tuple(second_list_of_candidates))
     return new_word
 
 
