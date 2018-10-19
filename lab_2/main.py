@@ -14,7 +14,8 @@ if __name__ == '__main__':
 
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
  
- if word != '' and word != None:
+ if (word != '' and word != None and max_depth_permutations != None 
+        and type(max_depth_permutations) == int and max_depth_permutations > 0):
      l_word = word.lower()
      splits = []
      for i in range(len(l_word)+1):
