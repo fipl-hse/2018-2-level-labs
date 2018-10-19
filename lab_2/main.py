@@ -14,10 +14,11 @@ if __name__ == '__main__':
      
 def propose_candidates(word: str, max_depth_permutations: int = 1):
     candidates_list = []
+  
     if word == '' or word is None:
-        return candidates_list
+        return []
     if isinstance(max_depth_permutations, int) is False or max_depth_permutations <= 0:
-        return candidates_list
+        return []
 
     candidates_list.append(word[1:])
     for i in range(len(word) - 1):
