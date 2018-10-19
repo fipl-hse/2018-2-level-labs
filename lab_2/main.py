@@ -57,15 +57,15 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     best = {}
     out_best = []
     if frequencies is None:
-      frequencies = {}
+      return {}
     if candidates is None:
-      candidates = ()
+      return ()
     for w, fr in frequencies.items():    
       for wd in candidates:     
           if wd == w:
             best[w] = fr
     if len(best) == 0:
-      word = 'UNK'
+      return 'UNK'
     else:
       al_eq = max(best.items(), key=operator.itemgetter(1))[0]
       for k, v in best.items():
