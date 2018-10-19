@@ -4,6 +4,9 @@ Labour work #2
 """
 from lab_1.main import calculate_frequences
 
+LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+REFERENCE_TEXT = ''
+
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     # Checking if the args are correct
@@ -54,7 +57,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     return list(candidates_list)
 
 
-def keep_known(candidates: list, frequencies: dict, word: str) -> list:
+def keep_known(candidates: list, frequencies: dict) -> list:
     future_candidates = set()
 
     # Checking if the args are correct
@@ -73,6 +76,7 @@ def keep_known(candidates: list, frequencies: dict, word: str) -> list:
 def choose_best(frequencies: dict, candidates: list) -> str:
     list_of_value_key = []
     list_of_words = []
+    final_list = []
     new_freq_dict = {}
 
     if (
@@ -98,14 +102,22 @@ def choose_best(frequencies: dict, candidates: list) -> str:
         list_of_value_key.append([value, key])
     list_of_value_key.sort(reverse=True)
 
-    return list_of_value_key[0][1]
+    for pair in list_of_value_key:
+        if pair[0] == list_of_value_key[0][0]:
+            final_list.append(pair[1])
+        else:
+            continue
+    final_list.sort()
+    return final_list[0]
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
+    if type(frequencies) is not dict or type(word) is not str or type(as_is_words) is not tuple:
+        return 'UNK'
     if word in frequencies.keys():
         return word
     first_list_of_candidates = propose_candidates(word, 1)
-    second_list_of_candidates = keep_known(first_list_of_candidates, as_is_words, frequencies)
+    second_list_of_candidates = keep_known(first_list_of_candidates, frequencies)
     new_word = choose_best(frequencies, second_list_of_candidates)
     return new_word
 
@@ -113,6 +125,3 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
-
-LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-REFERENCE_TEXT = ''
