@@ -33,7 +33,7 @@ def propose_candidates(word, max_depth_permutations):
             for i in range(len(low_word)):
                 changed.append(low_word[:i] + symbol + low_word[i + 1:])
         fully_changed = changed + pasted + inside_change + delete_list
-        fully_changes_set = set(fully_changed)
-        result_changes = list(fully_changes_set)
+        fully_changed_set = set(fully_changed)
+        result_changes = list(fully_changed_set)
     else:
         result_changes = []
