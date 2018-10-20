@@ -10,16 +10,14 @@ REFERENCE_TEXT = ''
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
-        freq_dict = calculate_frequences(REFERENCE_TEXT)
+        FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
      
 def propose_candidates(word: str, max_depth_permutations: int = 1):
     candidates_list = []
-  
     if word == '' or word is None:
         return []
     if isinstance(max_depth_permutations, int) is False or max_depth_permutations <= 0:
         return []
-
     candidates_list.append(word[1:])
     for i in range(len(word) - 1):
         candidate = word[:i] + word[i + 1:]
@@ -27,7 +25,6 @@ def propose_candidates(word: str, max_depth_permutations: int = 1):
             candidates_list.append(candidate)
     if word[:len(word) - 1] not in candidates_list:
         candidates_list.append(word[:len(word) - 1])
-
     for letter in LETTERS:
         candidate = letter + word
         if candidate not in candidates_list:
@@ -41,13 +38,11 @@ def propose_candidates(word: str, max_depth_permutations: int = 1):
         candidate = word + letter
         if candidate not in candidates_list:
             candidates_list.append(candidate)
-
     for symbol in word:
         for letter in LETTERS:
             candidate = word.replace(symbol, letter)
             if candidate not in candidates_list:
                 candidates_list.append(candidate)
-
     for i in range(len(word) - 1):
         candidate = word[:i] + word[i + 1] + word[i] + word[i + 2:]
         if candidate not in candidates_list:
