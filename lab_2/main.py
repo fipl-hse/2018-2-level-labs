@@ -10,8 +10,8 @@ REFERENCE_TEXT = ''
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
-        FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
-     
+        freq_dict = calculate_frequences(REFERENCE_TEXT)
+
 def propose_candidates(word: str, max_depth_permutations: int = 1):
     candidates_list = []
     if word == '' or word is None:
@@ -48,10 +48,10 @@ def propose_candidates(word: str, max_depth_permutations: int = 1):
         if candidate not in candidates_list:
             candidates_list.append(candidate)
     return candidates_list
-   
-   
+
+
 def keep_known(candidates: tuple, frequencies: dict):
-    known_candidates = [] 
+    known_candidates = []
     if isinstance(candidates, tuple) is False or candidates is None:
         return []
     if frequencies is None:
@@ -84,8 +84,8 @@ def choose_best(frequencies: dict, candidates: tuple):
                 best_candidate = alphabet_sorting[0]
             else:
                 best_candidate = candidates_to_sort[i + 1]
-    return best_candidate  
-   
+    return best_candidate
+
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     if frequencies is None or word is None:
