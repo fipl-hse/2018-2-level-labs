@@ -67,3 +67,31 @@ def keep_known(candidates: tuple, frequencies: dict):
                 if word in frequencies:
                     known_candidates.append(word)
     return known_candidates
+
+   
+def choose_best(frequencies: dict, candidates: tuple):
+    best_candidate = ''
+    if candidates == () or candidates is None:
+        return 'UNK'
+    else:
+        if frequencies == {} or frequencies is None:
+            return 'UNK'
+        else:
+            candidates_to_sort = []
+            for i in range(len(candidates)):
+                if candidates[i] in frequencies:
+                    candidates_to_sort.append(candidates[i])
+            if len(candidates_to_sort) == 1:
+                best_candidate = candidates_to_sort[0]
+            else:
+                for i in range(len(candidates_to_sort) - 1):
+                    if frequencies[candidates_to_sort[i]] > frequencies[candidates_to_sort[i + 1]]:
+                        best_candidate = candidates[i]
+                    elif frequencies[candidates_to_sort[i]] == frequencies[candidates_to_sort[i + 1]]:
+                        alphabet_sorting = [candidates_to_sort[i], candidates_to_sort[i + 1]]
+                        alphabet_sorting.sort()
+                        best_candidate = alphabet_sorting[0]
+                    else:
+                        best_candidate = candidates_to_sort[i + 1]
+    return best_candidate   
+   
