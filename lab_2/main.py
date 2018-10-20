@@ -56,6 +56,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1):
    
    
 def keep_known(candidates: tuple, frequencies: dict):
+    known_candidates = [] 
     if isinstance(candidates, tuple) is False or candidates is None:
         return []
     if frequencies is None:
