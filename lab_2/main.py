@@ -60,9 +60,9 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
     if candidates == None:
         return 'UNK'
-    if frequencies == ()
+    if frequencies == dict()
         return 'UNK'
-    if candidates == {}:
+    if candidates == tuple([]):
         return 'UNK'
     result_word = None
     times_in_dict = 0
