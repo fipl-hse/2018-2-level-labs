@@ -11,9 +11,8 @@ REFERENCE_TEXT = ''
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     # Checking if the args are correct
     if (not isinstance(word, str) or
-        word is '' or
-        not isinstance(max_depth_permutations, int)
-    ):
+        not isinstance(max_depth_permutations, int) or
+            word is ''):
         return []
     try:
         if max_depth_permutations <= 0:
@@ -58,7 +57,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
     # Checking if the args are correct
-    if not isinstance(candidates, tuple) or not isinstance(frequencies, dict):
+    if (not isinstance(candidates, tuple)) or (not isinstance(frequencies, dict)):
         return []
 
     future_candidates = []
@@ -71,7 +70,7 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
     # Checking if the args are correct
-    if not isinstance(frequencies, dict) or not isinstance(candidates, tuple):
+    if (not isinstance(frequencies, dict)) or (not isinstance(candidates, tuple)):
         return 'UNK'
     if candidates is () or len(frequencies) <= 0:
         return 'UNK'
@@ -108,7 +107,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     # Checking if the args are correct
-    if not isinstance(frequencies, dict) or not isinstance(word, str):
+    if (not isinstance(frequencies, dict)) or (not isinstance(word, str)):
         return 'UNK'
     if not isinstance(as_is_words, tuple):
         pass
