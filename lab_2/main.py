@@ -60,7 +60,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
     if candidates == None:
         return 'UNK'
-    if frequencies == dict()
+    if frequencies == dict():
         return 'UNK'
     if candidates == tuple([]):
         return 'UNK'
