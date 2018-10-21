@@ -56,7 +56,26 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     return known_word
  
 def choose_best(frequencies: dict, candidates: tuple) -> str:
-  pass
+    if frequencies == None:
+        return 'UNK'
+    if candidates == None:
+        return 'UNK'
+    if frequencies == tuple([]):
+        return 'UNK'
+    if candidates == dict():
+        return 'UNK'
+    result_word = None
+    times_in_dict = 0
+    for i in candidates:
+        if i in frequencies:
+            value = frequencies.get(i)
+        else:
+            value = 0
+        if value > times_in_dict:
+            times_in_dict = value
+            result_word = i
+
+    return result_word
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
   pass
