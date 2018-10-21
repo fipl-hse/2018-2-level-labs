@@ -11,6 +11,7 @@ if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
+     
 def propose_candidates(word, max_depth_permutations):
     if word != '' and word != None:
         low_word = word.lower()
@@ -37,3 +38,13 @@ def propose_candidates(word, max_depth_permutations):
         result_changes = list(fully_changed_set)
     else:
         result_changes = []
+      
+def keep_known(candidates, as_is_words, frequencies):
+    all_filtered_words = []
+    iа frequencies != None and candidates != None and type(candidates) != tuple:
+        for cand_key in frequencies.keys():
+            if cand_key in candidates:
+                all_filtered_words.append(cand_key)
+        return all_filtered_words
+    else:
+        return all_filtered_words
