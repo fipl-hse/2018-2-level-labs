@@ -81,6 +81,12 @@ def choose_best(frequencies: dict, candidates: tuple):# не работает, �
         if value > max_num:
             max_num = value
             result_word = candidate
+        
+         if value == max_num:
+            temp_list = [result_word, candidate]
+            temp_list.sort()
+            result_word = temp_list[0]
+
     
     return result_word
 
