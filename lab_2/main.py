@@ -12,6 +12,7 @@ if __name__ == '__main__':
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
+     
 def propose_candidates(word, max_depth_permutations: int=1):
 
     if (word != '' and word is not None and max_depth_permutations is not None
@@ -52,8 +53,7 @@ def propose_candidates(word, max_depth_permutations: int=1):
 
 pass
 
-   
-   
+
 def keep_known(candidates, as_is_words):
     filtered_d = []
     filtered_w = []
@@ -86,7 +86,8 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
 
 pass
-    
+  
+ 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if word in frequencies or word in as_is_words:
         return word
