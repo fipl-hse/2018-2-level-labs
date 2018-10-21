@@ -46,6 +46,10 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
 
 
 def keep_known(candidates: tuple, frequencies: dict):
+    if candidates == None:
+        return None
+    if frequencies == None:
+        return None
     candidates2 = []
     for dict_words in frequencies:
         if dict_words in candidates:
