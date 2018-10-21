@@ -13,10 +13,10 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
      
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
-    candidates = []
-    let = 'abcdefghijklmnopqrstuvwxyz'
     if word == None:
         return []
+    candidates = []
+    let = 'abcdefghijklmnopqrstuvwxyz'
 
     for i in range(len(word)): #delete the character
         no_letter = word[:i] + word[i + 1:]
