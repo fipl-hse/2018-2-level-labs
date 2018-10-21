@@ -61,10 +61,10 @@ def keep_known(candidates: tuple, frequencies: dict):
 
 def choose_best(frequencies: dict, candidates: tuple):
     if frequencies == None:
-        return []
+        return 'UNK'
     
     if candidates == None:
-        return []
+        return 'UNK'
     result_word = None
     max_num = 0
     for candidate in candidates:
