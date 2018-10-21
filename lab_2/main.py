@@ -12,41 +12,46 @@ if __name__ == '__main__':
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
-def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
- 
- if (word != '' and word != None and max_depth_permutations != None 
-        and type(max_depth_permutations) == int and max_depth_permutations > 0):
-     l_word = word.lower()
-     splits = []
-     for i in range(len(l_word)+1):
-         splits.append([l_word[:i], l_word[i:]])
+def propose_candidates(word, max_depth_permutations: int=1):
 
-     deletes = []
-     for left, right in splits:
-         if right != '':
-             deletes.append(left + right[1:])
+    if (word != '' and word is not None and max_depth_permutations is not None
+            and type(max_depth_permutations) == int and max_depth_permutations > 0):
+        l_word = word.lower()
+        splits = []
+        for i in range(len(l_word)+1):
+            splits.append([l_word[:i], l_word[i:]])
 
-     interchange = []
-     for i in range(len(l_word)-1):
-         interchange.append(l_word[:i] + l_word[i + 1] + l_word[i] + l_word[i + 2:])
+        deletes = []
+        for left, right in splits:
+            if right != '':
+                deletes.append(left + right[1:])
 
-     inserted = []
-     for letter in LETTERS:
-         for i in range(len(l_word) + 1):
-             inserted.append(l_word[:i] + letter + l_word[i:])
+        interchange = []
+        for i in range(len(l_word)-1):
+            interchange.append(l_word[:i] + l_word[i + 1] + l_word[i] + l_word[i + 2:])
 
-     changed_to_new = []
-     for letter in LETTERS:
-         for i in range(len(l_word)):
-             changed_to_new.append(l_word[:i] + letter + l_word[i+1:])
+        inserted = []
+        for letter in LETTERS:
+            for i in range(len(l_word) + 1):
+                inserted.append(l_word[:i] + letter + l_word[i:])
 
-     all_changes = changed_to_new + inserted + interchange + deletes
-     permutations = len(changed_to_new) + len(inserted) + len(interchange) + len(deletes)
-     all_changes_set = set(all_changes)
-     clear_changes = list(all_changes_set)
+        changed_to_new = []
+        for letter in LETTERS:
+            for i in range(len(l_word)):
+                changed_to_new.append(l_word[:i] + letter + l_word[i+1:])
 
- else:
-     clear_changes = []
+        all_changes = changed_to_new + inserted + interchange + deletes
+        #permutations = len(changed_to_new) + len(inserted) + len(interchange) + len(deletes)
+        all_changes_set = set(all_changes)
+        clear_changes = list(all_changes_set)
+        return clear_changes
+
+    else:
+        return []
+
+
+pass
+
    
    
 def keep_known(candidates, as_is_words):
