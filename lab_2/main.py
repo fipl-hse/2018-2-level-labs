@@ -52,6 +52,8 @@ def keep_known(candidates: tuple, frequencies: dict):
         return []
     if frequencies == None:
         return []
+    if type(candidates) != tuple:  #last change
+        return []
     candidates2 = []
     for dict_words in frequencies:
         if dict_words in candidates:
