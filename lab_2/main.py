@@ -31,7 +31,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
         candidates.append(candidate)
         pos += 1
 
-    for letter in string.ascii_lowercase:
+    for letter in LETTERS:
         pos = 0
         for i in word:
             candidate = word[0:pos] + letter + word[pos:]
@@ -40,7 +40,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
         candidate = word + letter
         candidates.append(candidate)
 
-    for letter in string.ascii_lowercase:
+    for letter in LETTERS:
         pos = 0
         for i in word:
             candidate = word[0:pos] + letter + word[pos + 1:len(word)]
