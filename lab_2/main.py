@@ -54,15 +54,23 @@ def keep_known(candidates: tuple, frequencies: dict):
 
 
 def choose_best(frequencies: dict, candidates: tuple):
+    if frequencies == None:
+        return None
+    
+    if candidates == None:
+        return None
+
     max_num = 0
     for candidate in candidates:
         if candidate in frequencies:
             value = frequencies.get(candidate)
         else:
             value = 0
+    
         if value > max_num:
             max_num = value
             result_word = candidate
+    
     return result_word
 
 
