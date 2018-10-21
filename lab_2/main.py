@@ -49,15 +49,12 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
      clear_changes = []
    
    
-def keep_known(candidates, as_is_words, frequencies):
+def keep_known(candidates, as_is_words):
     filtered_d = []
     filtered_w = []
     if (as_is_words != [] and as_is_words != None and candidates != []
         and candidates != None and type(candidates) != tuple and
         freq_dict != {} and freq_dict != None):
-        for candidate_key in frequencies.keys:
-            if candidate_key in candidates:
-                filtered_d.appened(candidate_key)
         for candidate in as_is_words:
             if candidate in candidates:
                 filtered_w.append(candidate)
