@@ -92,7 +92,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     most_frequent_candidate = word
     if word not in frequencies.keys() or word not in as_is_words:
         candidates = propose_candidates(word)
-        known_candidates = keep_known(frequencies, candidates)
+        known_candidates = keep_known(frequencies, tuple(candidates))
         most_frequent_candidate = choose_best(frequencies, known_candidates)
     return most_frequent_candidate
 
