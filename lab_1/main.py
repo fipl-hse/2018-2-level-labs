@@ -92,8 +92,6 @@ def write_to_file(path_to_file: str, content: tuple):
 Labour work #2
  Check spelling of words in the given  text
 """
-from typing import List, Any
-
 from lab_1.main import calculate_frequences
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 REFERENCE_TEXT = ' '
