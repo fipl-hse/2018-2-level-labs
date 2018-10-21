@@ -18,7 +18,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
 
     if word == '' or word is None:
         return []
-    if not (isinstance(max_depth_permutations, int) or max_depth_permutations < 1:
+    if not (isinstance(max_depth_permutations, int)) or max_depth_permutations < 1:
         return []
 
     word = word.lower()
