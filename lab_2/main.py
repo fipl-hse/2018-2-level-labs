@@ -58,4 +58,27 @@ def keep_known(candidates, as_is_words):
         for candidate in as_is_words:
             if candidate in candidates:
                 filtered_w.append(candidate)
+          
+def choose_best(frequencies: dict, candidates: tuple) -> str:
+    if frequencies != None:
+        sort_l = sorted(frequencies.items())
+        most_frequent = []
+
+        for pair in sort_l:
+            if pair[1] == sort_l[0][1]:
+                most_frequent.append(pair)
+
+        most_freq_list = []
+        for pair in most_frequent:
+            most_freq_list.append(pair[0])
+        if candidates != []:
+            for candidate in candidates:
+                if candidate in most_freq_list:
+                    return candidate
+        else:
+            return 'UNK'
+    else:
+        return 'UNK'
+
+pass
     
