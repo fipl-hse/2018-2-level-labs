@@ -86,22 +86,21 @@ def choose_best(frequencies: dict, candidates: tuple):# не работает, �
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
-    #if as_is_words == None:
-        #return 'UNK'# нам не нужно выходить из функции
     if frequencies == None:
         return 'UNK'
     if word == None:
         return 'UNK'
+    
     word = word.lower()
     if word in frequencies:
         return word
+    if as_is_words == None or type(as_is_words) == tuple:
+        if word != None and word in as_is_words:
+            return word
 
-    if word in as_is_words:
-        return word
-
-    candidates = propose_candidates(word)
-    candidates = keep_known(candidates, frequencies)
-    r_word = choose_best(frequencies, candidates)
-    return r_word
+        candidates = propose_candidates(word)
+        candidates = keep_known(candidates, frequencies)
+        r_word = choose_best(frequencies, candidates)
+        return r_word
 
 
