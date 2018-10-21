@@ -48,24 +48,26 @@ def transposition_two_letters(word):
 
 
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
-    list_1 = one_letter_to_another(word)
-    list_2 = add_one_letter(word)
-    list_3 = delete_one_letter(word)
-    list_4 = transposition_two_letters(word)
     final_list = []
-    not_sorted_list = list_1 + list_2 + list_3 + list_4
-    final_list = set(not_sorted_list)
+    if word:
+        list_1 = one_letter_to_another(word)
+        list_2 = add_one_letter(word)
+        list_3 = delete_one_letter(word)
+        list_4 = transposition_two_letters(word)
+        not_sorted_list = list_1 + list_2 + list_3 + list_4
+        final_list = set(not_sorted_list)
     return final_list
 
 
 def keep_known(candidates, frequent_dict) -> list:
     known_candidates = []
-    for word in frequent_dict.keys():
-        if word in candidates:
-            known_candidates.append(word)
+    if candidates and frequent_dict:
+        for word in frequent_dict.keys():
+            if word in candidates:
+                known_candidates.append(word)
     return(known_candidates)
 
-   
+
 def choose_best(frequent_dict, candidates) -> str:
     current_frequent_dict = {}
     finalists = []
@@ -89,14 +91,15 @@ def choose_best(frequent_dict, candidates) -> str:
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-    most_frequent_candidate = word
-    if word not in frequencies.keys() or word not in as_is_words:
-        candidates = propose_candidates(word)
-        known_candidates = keep_known(frequencies, tuple(candidates))
-        most_frequent_candidate = choose_best(frequencies, known_candidates)
+    most_frequent_candidate = 'UNK'
+    if word and frequencies and as_is_words:
+        most_frequent_candidate = word
+        if word not in frequencies.keys() or word not in as_is_words:
+            candidates = propose_candidates(word)
+            known_candidates = keep_known(frequencies, tuple(candidates))
+            most_frequent_candidate = choose_best(frequencies, known_candidates)
     return most_frequent_candidate
 
-   
 def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
     prepared_text = (text.split('.'))
     text_without_mistakes = ''
