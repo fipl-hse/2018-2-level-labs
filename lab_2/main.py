@@ -59,13 +59,14 @@ def keep_known(candidates: tuple, frequencies: dict):
     return candidates2
 
 
-def choose_best(frequencies: dict, candidates: tuple):
+def choose_best(frequencies: dict, candidates: tuple):# не работает, если частота у слов совпадает, осавляет только один варинат 
     if frequencies == None:
         return 'UNK'
-    
     if candidates == None:
         return 'UNK'
-    if candidates == tuple([]): #?
+    if candidates == tuple([]): 
+        return 'UNK'
+    if freq_dict == dict()
         return 'UNK'
     result_word = None
     max_num = 0
