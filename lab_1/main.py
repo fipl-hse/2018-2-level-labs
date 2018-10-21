@@ -87,3 +87,48 @@ def write_to_file(path_to_file: str, content: tuple):
     for word in content:
         my_file.write(word + '\n')
     my_file.close()
+
+    """
+Labour work #2
+ Check spelling of words in the given  text
+"""
+from typing import List, Any
+
+from lab_1.main import calculate_frequences
+LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+REFERENCE_TEXT = ' '
+
+if __name__ == '__main__':
+    with open('very_big_reference_text.txt', 'r') as f:
+        REFERENCE_TEXT = f.read()
+        freq_dict = calculate_frequences(REFERENCE_TEXT)
+        FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
+
+
+def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
+    if (not word) or if (not isinstance(max_depth_permutations, int)):
+        return[]
+    if max_depth_permutations <= 0:
+        return[]
+
+candidates_list = []
+
+    for position in enumerate(word):
+        position_word = position[0]
+        candidates_list.append(word[:position_word] + word[position_word + 1:])
+#   return candidates_list
+
+    for position in range(len(word) + 1):
+        for symbol in LETTERS:
+            candidates_list.append(word[:position] + symbol + word[position:])
+#   return candidates_list
+
+    for position in enumerate(word):
+        position_word = position[0]
+        for symbol in LETTERS:
+            candidates_list.append(word[:position_word] + symbol + word[position_word + 1:])
+#   return candidates_list
+
+    for position in range(len(word) - 1):
+        candidates_list.append(word[:position] + word[position + 1] + word[position] + word[position + 2:])
+    return candidates_list
