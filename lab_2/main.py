@@ -70,7 +70,7 @@ def choose_best(frequencies: dict, candidates: tuple):# не работает, �
         return 'UNK'
     if frequencies == dict():
         return 'UNK'
-    result_word = None
+    result_word = ''
     max_num = 0
     for candidate in candidates:
         if candidate in frequencies:
