@@ -71,9 +71,14 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
             value = frequencies.get(i)
         else:
             value = 0
+          
         if value > times_in_dict:
             times_in_dict = value
             result_word = i
+           
+        if value == times_in_dict:
+            lst = sorted(candidates)
+            result_word = lst[1]
 
     return result_word
 
