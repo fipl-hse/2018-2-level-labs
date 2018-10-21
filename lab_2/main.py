@@ -59,7 +59,7 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
     return final_list
 
 
-def keep_known(frequent_dict, candidates) -> list:
+def keep_known(candidates, frequent_dict) -> list:
     known_candidates = []
     if candidates and frequent_dict:
         for word in frequent_dict.keys():
@@ -96,7 +96,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
         most_frequent_candidate = word
         if word not in frequencies.keys() or word not in as_is_words:
             candidates = propose_candidates(word)
-            known_candidates = keep_known(frequencies, tuple(candidates))
+            known_candidates = keep_known(tuple(candidates), frequencies,)
             most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
     return most_frequent_candidate
    
