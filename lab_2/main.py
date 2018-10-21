@@ -47,9 +47,9 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
 
 def keep_known(candidates: tuple, frequencies: dict):
     if candidates == None:
-        return None
+        return []
     if frequencies == None:
-        return None
+        return []
     candidates2 = []
     for dict_words in frequencies:
         if dict_words in candidates:
@@ -59,10 +59,10 @@ def keep_known(candidates: tuple, frequencies: dict):
 
 def choose_best(frequencies: dict, candidates: tuple):
     if frequencies == None:
-        return None
+        return []
     
     if candidates == None:
-        return None
+        return []
     result_word = None
     max_num = 0
     for candidate in candidates:
