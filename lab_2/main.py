@@ -69,7 +69,10 @@ def keep_known(frequent_dict, candidates) -> list:
 def choose_best(frequent_dict, candidates) -> str:
     current_frequent_dict = {}
     for word in candidates:
-        current_frequent_dict[word] = frequent_dict[word]
+        if word in frequent_dict.keys():
+            current_frequent_dict[word] = frequent_dict[word]
+        else:
+            current_frequent_dict[word] = 0
     max_frequency = max(current_frequent_dict.values())
     finalists = []
     for word, frequency in current_frequent_dict.items():
