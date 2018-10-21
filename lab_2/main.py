@@ -14,10 +14,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
         not isinstance(max_depth_permutations, int) or
             word is ''):
         return []
-    try:
-        if max_depth_permutations <= 0:
-            return []
-    except TypeError:
+    if max_depth_permutations <= 0:
         return []
 
     candidates_list = set()
