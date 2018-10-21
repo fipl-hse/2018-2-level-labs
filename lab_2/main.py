@@ -59,7 +59,7 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
     return final_list
 
 
-def keep_known(candidates, frequent_dict) -> list:
+def keep_known(frequent_dict, candidates) -> list:
     known_candidates = []
     if candidates and frequent_dict:
         for word in frequent_dict.keys():
