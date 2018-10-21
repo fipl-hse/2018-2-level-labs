@@ -47,6 +47,8 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
         return []
     if candidates == None:
         return []
+    if type(candidates) != tuple:
+        return []
     known_word = []
     for words in candidates:
         if words in frequencies:
