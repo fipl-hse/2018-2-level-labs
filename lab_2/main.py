@@ -87,3 +87,14 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 pass
     
+def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
+    if word in frequencies or word in as_is_words:
+        return word
+    else:
+        modifications = propose_candidates(word)
+        clean = keep_known(modifications, frequencies)
+        winner = choose_best(frequencies, clean)
+        return winner
+    
+
+pass
