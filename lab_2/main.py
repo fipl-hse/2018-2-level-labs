@@ -95,7 +95,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     if word in frequencies:
         return word
     if as_is_words == None or type(as_is_words) == tuple:
-        if word != None and word in as_is_words:
+        if as_is_word != None and word in as_is_words:
             return word
 
         candidates = propose_candidates(word)
