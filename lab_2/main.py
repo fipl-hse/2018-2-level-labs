@@ -18,7 +18,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
 
     if word == '' or word is None:
         return []
-    if not (isinstace(max_depth_permutations) is int) or max_depth_permutations < 1:
+    if not (isinstace(max_depth_permutations, int) or max_depth_permutations < 1:
         return []
 
     word = word.lower()
@@ -58,9 +58,9 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
 
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
-    if not isinstance(candidates) is tuple or candidates is None or candidates == ():
+    if not isinstance(candidates, tuple) or candidates is None or candidates == ():
         return []
-    if not isinstance(frequencies) is dict or frequencies is None or frequencies == {}:
+    if not isinstance(frequencies, dict) or frequencies is None or frequencies == {}:
         return []
 
     new_candidates = []
@@ -71,18 +71,18 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
 
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
-    if not isinstance(candidates) is tuple or candidates is None or candidates == ():
+    if not isinstance(candidates, tuple) or candidates is None or candidates == ():
         return 'UNK'
-    if not isinstance(frequencies) is dict or frequencies is None or frequencies == {}:
+    if not isinstance(frequencies, dict) or frequencies is None or frequencies == {}:
         return 'UNK'
 
     for candidate in candidates:
-        if isinstance(candidate) is str:
+        if isinstance(candidate, str):
             cur_candidate = candidate
 
     sorted(frequencies, key=lambda x: str(x))
     for candidate in candidates:
-        if isinstance(candidate) is str:
+        if isinstance(candidate, str):
             if frequencies.get(candidate) is not None and frequencies.get(candidate, 0) > \
                     frequencies.get(cur_candidate, 0):
                 cur_candidate = candidate
@@ -90,13 +90,13 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-    if not isinstance(frequencies) is dict:
+    if not isinstance(frequencies, dict):
         return 'UNK'
 
-    if isinstance(as_is_words) is tuple:
+    if isinstance(as_is_words, tuple):
         for i in as_is_words:
 
-            if isinstance(i) is str and i.lower() == word:
+            if isinstance(i, str) and i.lower() == word:
                 return word
 
         if frequencies.get(word) is not None:
