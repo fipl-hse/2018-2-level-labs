@@ -2,6 +2,7 @@
 Labour work #2
  Check spelling of words in the given  text
 """
+
 from lab_1.main import calculate_frequences
 
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
@@ -12,7 +13,7 @@ if __name__ == '__main__':
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
-     
+
 def propose_candidates(word, max_depth_permutations: int=1):
 
     if (word != '' and word is not None and max_depth_permutations is not None
@@ -55,15 +56,21 @@ pass
 
 
 def keep_known(candidates, as_is_words):
-    filtered_d = []
+    #filtered_d = []
     filtered_w = []
-    if (as_is_words != [] and as_is_words != None and candidates != []
-        and candidates != None and type(candidates) != tuple and
-        freq_dict != {} and freq_dict != None):
+    if (as_is_words != [] and as_is_words is not None and candidates != []
+            and candidates is not None and type(candidates) != tuple):
+        """for candidate_key in frequencies.keys:
+            if candidate_key in candidates:
+                filtered_d.appened(candidate_key)"""
         for candidate in as_is_words:
             if candidate in candidates:
                 filtered_w.append(candidate)
-          
+
+
+pass
+
+
 def choose_best(frequencies: dict, candidates: tuple) -> str:
     if frequencies != None:
         sort_l = sorted(frequencies.items())
@@ -85,9 +92,10 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     else:
         return 'UNK'
 
+
 pass
-  
- 
+
+
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if word in frequencies or word in as_is_words:
         return word
@@ -96,6 +104,23 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
         clean = keep_known(modifications, frequencies)
         winner = choose_best(frequencies, clean)
         return winner
+
+
+pass
+
+
+def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
+    for old_word in text:
+        if old_word.isalpha():
+            word = old_word.lower()
+            if word in frequencies or word in as_is_words:
+                return word
+            else:
+                modifications = propose_candidates(word)
+                clean = keep_known(modifications, frequencies)
+                winner = choose_best(frequencies, clean)
+                return winner
+
     
 
 pass
