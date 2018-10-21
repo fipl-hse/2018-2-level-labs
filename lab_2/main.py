@@ -83,7 +83,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     sorted(frequencies, key=lambda x: str(x))
     for candidate in candidates:
         if isinstance(candidate) is str:
-            if frequencies.get(candidate) is not None and frequencies.get(candidate, 0) > 
+            if frequencies.get(candidate) is not None and frequencies.get(candidate, 0) > \
                     frequencies.get(cur_candidate, 0):
                 cur_candidate = candidate
     return cur_candidate
