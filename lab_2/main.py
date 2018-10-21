@@ -18,7 +18,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
 
     if word == '' or word is None:
         return []
-    if not (type(max_depth_permutations) is int) or max_depth_permutations < 1:
+    if not (isinstace(max_depth_permutations) is int) or max_depth_permutations < 1:
         return []
 
     word = word.lower()
@@ -77,7 +77,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
 
     for candidate in candidates:
-        if type(candidate) is str:
+        if isinstance(candidate) is str:
             cur_candidate = candidate
 
     sorted(frequencies, key=lambda x: str(x))
