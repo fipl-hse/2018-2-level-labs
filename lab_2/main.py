@@ -81,6 +81,10 @@ def choose_best(frequencies: dict, candidates: tuple):
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
+    if as_is_words == None:
+        return []
+    if frequencies == None:
+        return []
     if word == None:
         return []
     word = word.lower()
