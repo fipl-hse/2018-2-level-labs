@@ -44,3 +44,25 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
             if key in candidates:
                 possible_words.append(key)
         return possible_words
+
+
+def choose_best(frequencies: dict, candidates: tuple) -> str:
+    needed_keys = []
+    dict_value = []
+    if frequencies is None or candidates is None or candidates == tuple([]) or frequencies == dict():
+        return 'UNK'
+    for key in list(frequencies.keys()):
+        if key not in candidates:
+            frequencies.pop(key)
+    for value in frequencies.values():
+        dict_value.append(value)
+    max_value = max(dict_value)
+    for key, value in frequencies.items():
+        if value == max_value:
+            needed_keys.append(key)
+    needed_keys.sort()
+    needed_word = needed_keys[0]
+    return needed_word
+
+
+
