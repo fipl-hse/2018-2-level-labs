@@ -63,7 +63,7 @@ def keep_known(candidates, frequent_dict) -> list:
     known_candidates = []
     if candidates and frequent_dict:
         for word in frequent_dict.keys():
-            if word in candidates:
+            if word in tuple(candidates):
                 known_candidates.append(word)
     return(known_candidates)
 
@@ -97,12 +97,12 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
         if as_is_words:
             if (word.upper() in as_is_words) or (word.lower() in as_is_words):
                 most_frequent_candidate = word
-        elif word not in frequencies.keys():
-            candidates = propose_candidates(word)
-            known_candidates = keep_known(tuple(candidates), frequencies)
-            most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
+            elif word not in frequencies.keys():
+                candidates = propose_candidates(word)
+                known_candidates = keep_known(tuple(candidates), frequencies)
+                most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
     return most_frequent_candidate
-   
+
 
 def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
     prepared_text = (text.split('.'))
