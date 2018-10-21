@@ -59,7 +59,7 @@ def choose_best(frequencies: dict, candidates: tuple):
     
     if candidates == None:
         return None
-
+    result_word = None
     max_num = 0
     for candidate in candidates:
         if candidate in frequencies:
