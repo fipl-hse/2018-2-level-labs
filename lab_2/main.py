@@ -55,7 +55,7 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
         list_3 = delete_one_letter(word)
         list_4 = transposition_two_letters(word)
         not_sorted_list = list_1 + list_2 + list_3 + list_4
-        final_list = set(not_sorted_list)
+        final_list = list(set(not_sorted_list))
     return final_list
 
 
