@@ -16,7 +16,7 @@ if __name__ == '__main__':
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
     if word == None:
         return []
-    if max_depth_permutations == None:
+    if max_depth_permutations != 1:
         return []  
     candidates = []
     alhpabet = 'abcdefghijklmnopqrstuvwxyz'
