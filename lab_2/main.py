@@ -2,7 +2,6 @@
 Labour work #2
  Check spelling of words in the given  text
 """
-from typing import List, Any
 
 from lab_1.main import calculate_frequences
 
@@ -81,3 +80,18 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     true_word = itog_list[0]
     return true_word
 
+def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
+    if (not isinstance(word, str)) or (not isinstance(frequencies, dict)):
+        return 'UNK'
+    if word in frequencies:
+        return word
+    if not isinstance(as_is_words, tuple):
+        pass
+    else:
+        if word.upper() in as_is_words:
+            return word
+
+    first_candidates = propose_candidates(word)
+    famous_candidates = keep_known(tuple(first_candidates), frequencies)
+    itog_candidate = choose_best(frequencies, tuple(famous_candidates))
+    return itog_candidate
