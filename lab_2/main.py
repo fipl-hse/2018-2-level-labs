@@ -193,5 +193,5 @@ def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
             our_text_str = our_text_str[:-1] + str_text[symbol]
             continue
     our_text_str += str_text[symbol]
-    return our_text_str
+    return our_text_str 
 
