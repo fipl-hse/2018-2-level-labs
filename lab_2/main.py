@@ -68,7 +68,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
     if candidates == tuple([]):
         return 'UNK'
-    result_candidate = None
+    result_candidate = ''
     times_in_dict = 0
     for i in candidates:
         if i in frequencies:
@@ -79,9 +79,8 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         if value > times_in_dict:
             times_in_dict = value
             result_candidate = i
-            break
            
-        if value == times_in_dict or times_in_dict > 0:
+        if value == times_in_dict and times_in_dict > 0:
             lst = [result_candidate, i]
             lst.sort()
             result_candidate = lst[0]
