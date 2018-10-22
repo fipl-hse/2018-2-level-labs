@@ -15,6 +15,8 @@ if __name__ == '__main__':
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
     if word == None:
         return []
+    if max_depth_permutations != 1:
+        return []  
     candidates = []
     let = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -64,7 +66,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
     if candidates == tuple([]):
         return 'UNK'
-    result_word = None
+    result_candidate = None
     times_in_dict = 0
     for i in candidates:
         if i in frequencies:
@@ -74,14 +76,15 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
           
         if value > times_in_dict:
             times_in_dict = value
-            result_word = i
+            result_candidate = i
             break
            
-        if value == times_in_dict:
-            lst = sorted(candidates)
-            result_word = lst[0]
+        if value == times_in_dict or times_in_dict > 0:
+            lst = [result_candidate, i]
+            lst.sort()
+            result_candidate = lst[0]
 
-    return result_word
+    return result_candidate
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
   pass
