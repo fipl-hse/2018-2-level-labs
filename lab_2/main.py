@@ -67,11 +67,11 @@ def choose_best(frequencies: dict, candidates: tuple):
     if frequencies == None:
         return 'UNK'
     if candidates == None:
-        return 'UNK1'
+        return 'UNK'
     if candidates == (): 
-        return 'UNK2'
+        return 'UNK'
     if frequencies == dict():
-        return 'UNK3'
+        return 'UNK'
     result_word = ''
     max_num = 0
     for candidate in candidates:
@@ -108,6 +108,6 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
             return word#
 
     candidates = propose_candidates(word)
-    candidates = keep_known(tuple(candidates), frequencies)
-    r_word = choose_best(frequencies, tuple(candidates))#+tuple
+    candidates1 = keep_known(tuple(candidates), frequencies)
+    r_word = choose_best(frequencies, tuple(candidates1))#+tuple
     return r_word
