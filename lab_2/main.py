@@ -57,18 +57,15 @@ def propose_candidates(word, max_depth_permutations: int=1):
 
 pass
 
-
-def keep_known(candidates, as_is_words):
-    #filtered_d = []
+def keep_known(candidates: tuple, frequencies: dict) -> list:
     filtered_w = []
-    if (as_is_words != [] and as_is_words is not None and candidates != []
-            and candidates is not None and type(candidates) != tuple):
-        """for candidate_key in frequencies.keys:
-            if candidate_key in candidates:
-                filtered_d.appened(candidate_key)"""
-        for candidate in as_is_words:
-            if candidate in candidates:
-                filtered_w.append(candidate)
+    if (type(candidates) == tuple and candidates is not None and candidates != ()
+        and frequencies is not None and frequencies != {}):
+        for candidate in candidates:
+            if candidate in frequencies.keys():
+                return filtered_w.append(candidate)
+    else:
+        return []
 
 
 pass
