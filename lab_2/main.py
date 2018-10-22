@@ -90,7 +90,6 @@ def choose_best(frequencies: dict, candidates: tuple):# не работает, �
             result_word = temp_list[0]
     return result_word
 
-
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     if frequencies == None:
         return 'UNK'
