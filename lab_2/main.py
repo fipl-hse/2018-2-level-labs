@@ -50,3 +50,24 @@ def keep_known(candidates, as_is_words, frequencies):
             if cand in candidates:
                 all_filtered_words.append(cand)
         return all_filtered_words
+
+def choose_best(frequencies, candidates):
+    if frequencies is None or frequencies == {}:
+        return 'UNK'
+    if candidates is None or candidates == []:
+        return 'UNK'
+    if frequencies is not None:
+        max_frequent = []
+        sorted_frequencies = sorted(frequencies)
+        for match in sorted_frequencies:
+            if match[1] == sorted_frequencies[0][1]:
+                max_frequent.append(match)
+        list_of_max_freq = []
+        for match in max_frequent:
+            list_of_max_freq.append(match[0])
+        if candidates != []:
+            for cand in candidates:
+                if cand in list_of_max_freq:
+                    return cand
+        else:
+            return 'UNK'
