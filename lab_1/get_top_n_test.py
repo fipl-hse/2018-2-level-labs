@@ -53,7 +53,7 @@ class GetTopNTest(unittest.TestCase):
         Check that we get top n words ideal case
         """
         expected_result = ('fox', 'dog', 'cat')
-        filtered_dict = {'fox': 1, 'dog': 1, 'cat': 1,}
+        filtered_dict = {'fox': 1, 'dog': 1, 'cat': 1, }
         top_words = main.get_top_n(filtered_dict, 3)
         self.assertEqual(expected_result, top_words)
 
@@ -62,7 +62,7 @@ class GetTopNTest(unittest.TestCase):
         Check that we get top n words ideal case
         """
         expected_result = ('dog', 'fox', 'cat')
-        filtered_dict = {'fox': 1, 'dog': 1, 'cat': 1,}
+        filtered_dict = {'fox': 1, 'dog': 1, 'cat': 1, }
         top_words = main.get_top_n(filtered_dict, 3)
         self.assertCountEqual(expected_result, top_words)
 
