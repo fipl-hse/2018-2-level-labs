@@ -119,7 +119,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
             and frequencies != {} and word != ''):
         if as_is_words is None:
             as_is_words = []
-        if word in frequencies or word in as_is_words:
+        if word in frequencies or word.upper() in as_is_words:
             return word
         else:
             modifications = propose_candidates(word)
