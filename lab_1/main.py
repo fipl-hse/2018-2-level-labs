@@ -95,7 +95,6 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
         FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
 
-
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     if (not word) or (not isinstance(max_depth_permutations, int)):
         return[]
