@@ -64,7 +64,7 @@ def keep_known(candidates, frequent_dict) -> list:
     if isinstance(candidates, tuple):
         if candidates and frequent_dict:
             for word in frequent_dict.keys():
-                if word in tuple(candidates):
+                if word in candidates:
                     known_candidates.append(word)
     return(known_candidates)
 
