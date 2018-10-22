@@ -57,6 +57,7 @@ def propose_candidates(word, max_depth_permutations: int=1):
 
 pass
 
+
 def keep_known(candidates: tuple, frequencies: dict) -> list:
     filtered_w = []
     if (type(candidates) == tuple and candidates is not None and candidates != ()
