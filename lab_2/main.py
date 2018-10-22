@@ -62,7 +62,7 @@ def keep_known(candidates: tuple, frequencies: dict):
     return candidates2
 
 
-def choose_best(frequencies: dict, candidates: tuple):# не работает, если частота у слов совпадает, осавляет только один варинат 
+def choose_best(frequencies: dict, candidates: tuple):
     if frequencies == None:
         return 'UNK'
     if candidates == None:
