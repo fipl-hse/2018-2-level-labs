@@ -48,7 +48,6 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
             candidates.append(temp_word)
     return candidates
 
-
 def keep_known(candidates: tuple, frequencies: dict):
     if candidates == None:
         return []
