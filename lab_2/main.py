@@ -52,6 +52,39 @@ def keep_known(candidates, frequencies):
         return all_filtered_words
 
 def choose_best(frequencies, candidates):
+    if frequencies is None or frequencies == {} or candidates is None:
+        return 'UNK'
+    else:
+        for cand in candidates:
+            if type(cand) != str:
+                list(candidates).pop(cand)
+        new_dictionary = {}
+        for object in frequencies.items():
+            if type(object[0]) == str:
+                new_dictionary[object[0]] = object[1]
+        if candidates == ():
+            return 'UNK'
+        else:
+            max_freq = []
+            max_freq_key_value = []
+            for value in sorted(new_dictionary.values()):
+                if value == max(sorted(new_dictionary.values())):
+                    max_freq.append(value)
+            for object in new_dictionary.items():
+                if object[1] == value:
+                    max_freq_key_value.append(object)
+            max_freq_key = []
+            for object in max_freq_key_value:
+                max_freq_key.append(object[0])
+            the_best = []
+            if type(candidates) != tuple:
+                candidates = tuple(candidates)
+            for cand in candidates:
+                if cand in max_freq_key:
+                    the_best.append(cand)
+            selected = sorted(the_best)
+            the_chosen = selected[0]
+            return the_chosen
 
 
 def spell_check_word(frequencies, as_is_words, word):
