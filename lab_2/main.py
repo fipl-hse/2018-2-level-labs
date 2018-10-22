@@ -10,8 +10,8 @@ letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 our_text = str()
 
 if __name__ == '__main__':
-    with open('very_big_reference_text.txt', 'r') as f:
-        our_text = f.read()
+    # with open('very_big_reference_text.txt', 'r') as f:
+    #     our_text = f.read()
 
 
 def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
