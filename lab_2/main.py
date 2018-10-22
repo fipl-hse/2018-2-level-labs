@@ -64,7 +64,8 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
         and frequencies is not None and frequencies != {}):
         for candidate in candidates:
             if candidate in frequencies.keys():
-                return filtered_w.append(candidate)
+                filtered_w.append(candidate)
+                return filtered_w
     else:
         return []
 
