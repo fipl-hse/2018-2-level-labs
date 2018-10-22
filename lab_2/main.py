@@ -15,6 +15,8 @@ if __name__ == '__main__':
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
     if word == None:
         return []
+    if word == '':
+        return []
     if max_depth_permutations != 1:
         return []  
     candidates = []
@@ -25,7 +27,7 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
         if no_letter not in candidates:
             candidates.append(no_letter)
 
-    for i in range(len(word)): #add the letter between the characters
+    for i in range(len(word) + 1): #add the letter between the characters
         for el in let:
             add = word[:i] + el + word[i:]
             if add not in candidates:
@@ -37,7 +39,7 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
             if replace not in candidates:
                 candidates.append(replace)
 
-    for i in range(0, len(word)-1): #swap 2 characters
+    for i in range(0, len(word) - 1): #swap 2 characters
         swap = word[:i] + word[i + 1] + word[i] + word[i + 2:]
         if swap not in candidates:
             candidates.append(swap)
@@ -86,8 +88,30 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
     return result_candidate
 
-def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-  pass
- 
-def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
-  pass
+def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
+    if frequencies == None:
+        res = 'UNK'
+    if word == None:
+        res = 'UNK'
+    if type(frequencies) != dict:
+        res = 'UNK'
+    elif type(as_is_words) != tuple:
+        candidates = propose_candidates(word, 1)
+        candidates = tuple(candidates)
+        res = choose_best(frequencies, candidates)
+    elif type(word) != str:
+        res = 'UNK'
+    elif word in as_is_words:
+        res = word
+    elif word.lower() in as_is_words:
+        res = word
+    elif word.upper() in as_is_words:
+        res = word
+    elif word in frequencies:
+        res = word
+    else:
+        candidates = propose_candidates(word, 1)
+        candidates = tuple(candidates)
+        res = choose_best(frequencies, candidates)
+
+    return res
