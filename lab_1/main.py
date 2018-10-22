@@ -88,10 +88,11 @@ def write_to_file(path_to_file: str, content: tuple):
         my_file.write(word + '\n')
     my_file.close()
 
-    """
+"""
 Labour work #2
  Check spelling of words in the given  text
 """
+
 from lab_1.main import calculate_frequences
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 REFERENCE_TEXT = ' '
@@ -104,29 +105,33 @@ if __name__ == '__main__':
 
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
-    if (not word) or if (not isinstance(max_depth_permutations, int)):
+    if (not word) or (not isinstance(max_depth_permutations, int)):
         return[]
     if max_depth_permutations <= 0:
         return[]
 
-candidates_list = []
+#candidates_list = []
+candidates_list = set()
+    for position in range(len(word)):
+#        position_word = position[0]
+        candidates = (word[:position] + word[position + 1:])
+        candidates_list.add(candidates)
 
-    for position in enumerate(word):
-        position_word = position[0]
-        candidates_list.append(word[:position_word] + word[position_word + 1:])
-#   return candidates_list
+ #  for position in range(len(word) + 1):
+    for position in range(len(word)):
+        for symbol in LETTERS:
+            candidates = (word[:position] + symbol + word[position:])
+            candidates_list.add(candidates)
 
+ #  for position in enumerate(word):
     for position in range(len(word) + 1):
+  #     position_word = position[0]
         for symbol in LETTERS:
-            candidates_list.append(word[:position] + symbol + word[position:])
-#   return candidates_list
-
-    for position in enumerate(word):
-        position_word = position[0]
-        for symbol in LETTERS:
-            candidates_list.append(word[:position_word] + symbol + word[position_word + 1:])
-#   return candidates_list
+            candidates = (word[:position] + symbol + word[position + 1:])
+            candidates_list.add(candidates)
 
     for position in range(len(word) - 1):
-        candidates_list.append(word[:position] + word[position + 1] + word[position] + word[position + 2:])
-    return candidates_list
+        candidates = (word[:position] + word[position + 1] + word[position] + word[position + 2:])
+        candidates_list.add(candidates)
+
+    return list(candidates_list)
