@@ -61,10 +61,11 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
 
 def keep_known(candidates, frequent_dict) -> list:
     known_candidates = []
-    if candidates and frequent_dict:
-        for word in frequent_dict.keys():
-            if word in tuple(candidates):
-                known_candidates.append(word)
+    if isinstance(candidates, tuple):
+        if candidates and frequent_dict:
+            for word in frequent_dict.keys():
+                if word in tuple(candidates):
+                    known_candidates.append(word)
     return(known_candidates)
 
 
