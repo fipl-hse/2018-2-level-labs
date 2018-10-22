@@ -135,3 +135,10 @@ candidates_list = set()
         candidates_list.add(candidates)
 
     return list(candidates_list)
+
+
+
+def keep_known(candidates: tuple, frequencies: dict) -> list:
+
+known_candidates_list = []
+
