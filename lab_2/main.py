@@ -83,7 +83,7 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
     return list_of_versions
 
 
-   def keep_known(candidates: tuple, frequencies: dict) -> list:
+def keep_known(candidates: tuple, frequencies: dict) -> list:
     if candidates is None or type(candidates) is not tuple or frequencies is None:
         return []
 
