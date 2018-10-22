@@ -13,7 +13,7 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
      
 def propose_candidates(word, max_depth_permutations: int = 1):
-    if word != '' and word is not None and max_depth_permutations > 0 and type(max_depth_permutations) == int:
+    if word != '' and word is not None and isinstance(max_depth_permutations, int) and max_depth_permutations > 0 and max_depth_permutations is not None:
             low_word = word.lower()
             split_list = []
             for i in range(len(low_word) + 1):
