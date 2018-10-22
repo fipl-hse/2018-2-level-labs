@@ -105,20 +105,20 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     return most_frequent_candidate
 
 
-def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
-    prepared_text = (text.split('.'))
-    text_without_mistakes = ''
-    for sentence in prepared_text:
-        text_without_mistakes_list = []
-        sentence_without_mistakes = ''
-        sentence_to_set_of_words = sentence.split(' ')
-        for word in sentence_to_set_of_words:
-            if word not in frequencies.keys():
-                most_possible_word = spell_check_word(frequencies, as_is_words, word.lower())
-                text_without_mistakes_list.append(most_possible_word)
-            else:
-                text_without_mistakes_list.append(word)
-        sentence_without_mistakes += ' '.join(text_without_mistakes_list)
-        sentence_without_mistakes += '.'
-        text_without_mistakes = sentence_without_mistakes.capitalize() + ' '
-    return text_without_mistakes
+# def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
+#     prepared_text = (text.split('.'))
+#     text_without_mistakes = ''
+#     for sentence in prepared_text:
+#         text_without_mistakes_list = []
+#         sentence_without_mistakes = ''
+#         sentence_to_set_of_words = sentence.split(' ')
+#         for word in sentence_to_set_of_words:
+#             if word not in frequencies.keys():
+#                 most_possible_word = spell_check_word(frequencies, as_is_words, word.lower())
+#                 text_without_mistakes_list.append(most_possible_word)
+#             else:
+#                 text_without_mistakes_list.append(word)
+#         sentence_without_mistakes += ' '.join(text_without_mistakes_list)
+#         sentence_without_mistakes += '.'
+#         text_without_mistakes = sentence_without_mistakes.capitalize() + ' '
+#     return text_without_mistakes
