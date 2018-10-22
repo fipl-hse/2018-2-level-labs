@@ -106,3 +106,22 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         finalresult = lst1[0][0]
 
     return finalresult
+   
+ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
+    if type(frequencies) != dict:
+        result = 'UNK'
+    elif type(as_is_words) != tuple:
+        candidates = propose_candidates(word, 1)
+        candidates = tuple(candidates)
+        result = choose_best(frequencies, candidates)
+    elif type(word) != str:
+        result = 'UNK'
+    elif (word in as_is_words) or (word in frequencies) or (word.upper() in as_is_words) or (word.lower() in as_is_words):
+        result = word
+    else:
+        candidates = propose_candidates(word, 1)
+        candidates = tuple(candidates)
+        result = choose_best(frequencies, candidates)
+
+    return result
+
