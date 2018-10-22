@@ -28,7 +28,7 @@ def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
             candidates.append(temp_word)
 
     # вставка буквы
-    for num_of_letter in range(0, len(word)):
+    for num_of_letter in range(0, len(word)+1):
         for letter_for_change in alhpabet:
             temp_word = word[:num_of_letter] + letter_for_change + word[num_of_letter:]
             if (candidates.count(temp_word) == 0):
