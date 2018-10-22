@@ -77,15 +77,19 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         for candidate in candidates:
             if type(candidate) != str:
                 list(candidates).remove(candidate)
+        new_dict = {}
+        for item in frequencies.items():
+            if type(item[0]) == str:
+                new_dict[item[0]] = item[1]
         if candidates == ():
             return 'UNK'
         else:
             most_frequent = []
             m_freq_key_value = []
-            for value in sorted(frequencies.values()):
-                if value == max(sorted(frequencies.values())):
+            for value in sorted(new_dict.values()):
+                if value == max(sorted(new_dict.values())):
                     most_frequent.append(value)
-            for item in frequencies.items():
+            for item in new_dict.items():
                 if item[1] == value:
                     m_freq_key_value.append(item)
 
