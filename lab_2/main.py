@@ -115,14 +115,19 @@ pass
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-    if word in frequencies or word in as_is_words:
-        return word
+    if (frequencies is not None and word is not None
+            and frequencies != {} and word != ''):
+        if as_is_words is None:
+            as_is_words = []
+        if word in frequencies or word in as_is_words:
+            return word
+        else:
+            modifications = propose_candidates(word)
+            clean = keep_known(tuple(modifications), frequencies)
+            winner = choose_best(frequencies, tuple(clean))
+            return winner
     else:
-        modifications = propose_candidates(word)
-        clean = keep_known(modifications, frequencies)
-        winner = choose_best(frequencies, clean)
-        return winner
-
+        return 'UNK'
 
 pass
 
