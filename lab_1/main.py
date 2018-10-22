@@ -83,17 +83,21 @@ def write_to_file(path_to_file: str, content: tuple):
         my_file.write(word + '\n')
     my_file.close()
 
-  """Labour work2Check spelling of words in the given  text"""
+"""
+Labour work #2
+ Check spelling of words in the given  text
+"""
+from typing import List, Any
 
 from lab_1.main import calculate_frequences
+
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-REFERENCE_TEXT = ' '
+REFERENCE_TEXT = ''
 
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
-        FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     if (not word) or (not isinstance(max_depth_permutations, int)):
@@ -104,28 +108,60 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     for position in range(len(word)):
         candidates = (word[:position] + word[position + 1:])
         candidates_list.add(candidates)
-
     for position in range(len(word)):
         for symbol in LETTERS:
             candidates = (word[:position] + symbol + word[position:])
             candidates_list.add(candidates)
-
     for position in range(len(word) + 1):
         for symbol in LETTERS:
             candidates = (word[:position] + symbol + word[position + 1:])
             candidates_list.add(candidates)
-
     for position in range(len(word) - 1):
         candidates = (word[:position] + word[position + 1] + word[position] + word[position + 2:])
         candidates_list.add(candidates)
     return list(candidates_list)
-   
-  
+
 def keep_known(candidates: tuple, frequencies: dict) -> list:
     if (not isinstance(candidates, tuple)) or (not isinstance(frequencies, dict)):
         return[]
-    new_candidates = []
+    known_candidates = []
     for word in candidates:
         if word in frequencies:
-            new_candidates.append(word)
-    return new_candidates
+            known_candidates.append(word)
+    return known_candidates
+
+def choose_best(frequencies: dict, candidates: tuple) -> str:
+    if (not candidates) or (not frequencies):
+        return 'UNK'
+    if (candidates is ()) or (frequencies == dict()):
+        return 'UNK'
+
+    best_candidates = []
+    for candidate in candidates:
+        if not isinstance(candidate, str):
+            continue
+        if candidate not in frequencies:
+            continue
+        best_candidates.append(candidate)
+    if best_candidates is []:
+        return 'UNK'
+
+    new_freq_dict = {}
+    for best_candidate in best_candidates:
+        new_freq_dict[best_candidate] = frequencies[best_candidate]
+
+    for best_candidate in range(0, len(best_candidates) - 1):
+        if new_freq_dict[best_candidates[best_candidate]] < new_freq_dict[best_candidates[best_candidate + 1]]:
+            if best_candidates[best_candidate] in new_freq_dict:
+                new_freq_dict.pop(best_candidates[best_candidate])
+        if new_freq_dict[best_candidates[best_candidate]] > new_freq_dict[best_candidates[best_candidate + 1]]:
+            new_freq_dict.pop(best_candidates[best_candidate + 1])
+        if new_freq_dict[best_candidates[best_candidate]] == new_freq_dict[best_candidates[best_candidate + 1]]:
+            continue
+
+    itog_list = []
+    for word in new_freq_dict.keys():
+        itog_list.append(word)
+    itog_list.sort()
+    true_word = itog_list[0]
+    return true_word
