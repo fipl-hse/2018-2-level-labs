@@ -71,3 +71,12 @@ def choose_best(frequencies, candidates):
                     return cand
         else:
             return 'UNK'
+
+def spell_check_word(frequencies, as_is_words, word):
+    if word in frequencies or word in as_is_words:
+        return word
+    else:
+        changes = propose_candidates(word)
+        clear = keep_known(changes, frequencies)
+        the_best = choose_best(frequencies, clear)
+        return the_best
