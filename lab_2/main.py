@@ -14,6 +14,7 @@ if __name__ == '__main__':
 
 alphabet = 'abcdefghijklmnoprstquvwxyz'
 
+
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
     candidate_list = []
     if word is None or word == '' or max_depth_permutations != 1:
