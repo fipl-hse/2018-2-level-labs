@@ -67,11 +67,11 @@ def choose_best(frequencies: dict, candidates: tuple):
     if frequencies == None:
         return 'UNK'
     if candidates == None:
-        return 'UNK'
-    if candidates == tuple([]): 
-        return 'UNK'
+        return 'UNK1'
+    if candidates == (): 
+        return 'UNK2'
     if frequencies == dict():
-        return 'UNK'
+        return 'UNK3'
     result_word = ''
     max_num = 0
     for candidate in candidates:
