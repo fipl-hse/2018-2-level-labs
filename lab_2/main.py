@@ -41,13 +41,15 @@ def propose_candidates(word, max_depth_permutations: int = 1):
         result_changes = []
         return result_changes
       
-def keep_known(candidates, as_is_words, frequencies):
+def keep_known(candidates, frequencies):
     all_filtered_words = []
-    if candidates is None and as_is_words is None and type(candidates) == tuple and candidates == [] and as_is_words == []:
+    if frequencies is None:
+        return all_filtered_words
+    if candidates is None and type(candidates) != tuple:
         return all_filtered_words
     else:
-        for cand in as_is_words:
-            if cand in candidates:
+        for cand in candidates:
+            if cand in frequencies:
                 all_filtered_words.append(cand)
         return all_filtered_words
 
