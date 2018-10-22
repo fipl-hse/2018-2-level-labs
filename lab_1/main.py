@@ -85,4 +85,3 @@ def write_to_file(path_to_file: str, content: tuple):
     for word in content:
         my_file.write(word + '\n')
     my_file.close()
->>>>>>> upstream/master
