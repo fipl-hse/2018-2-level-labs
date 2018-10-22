@@ -66,3 +66,19 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     necessary_words.sort()
     right_word = necessary_words[0]
     return (right_word)
+   
+   
+   def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
+    if word is None:
+        return('UNK')
+    if frequencies is None:
+        return('UNK')
+    if as_is_words:
+        if word.upper() in as_is_words:
+            return(word)
+    if word in frequencies:
+        return(word)
+    all_candidates = propose_candidates(word)
+    new_candidates = tuple(keep_known(tuple(all_candidates), frequencies))
+    right_word = choose_best(frequencies, new_candidates)
+    return(right_word)
