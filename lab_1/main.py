@@ -1,10 +1,4 @@
-"""
-Labour work #1
-
-Count frequencies dictionary by the given arbitrary text
-"""
-
-def read_from_file(path_to_file, lines_limit: int) -> str:
+def read_from_file(path_to_file, lines_limit: int) -> str:              #Labour work1
     my_text = ''
     count_lines = 0
     my_file = open(path_to_file, 'r')
@@ -88,10 +82,7 @@ def write_to_file(path_to_file: str, content: tuple):
         my_file.write(word + '\n')
     my_file.close()
 
-"""
-Labour work #2
- Check spelling of words in the given  text
-"""
+ # """Labour work2Check spelling of words in the given  text"""
 
 from lab_1.main import calculate_frequences
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
@@ -109,23 +100,17 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
         return[]
     if max_depth_permutations <= 0:
         return[]
-
-#candidates_list = []
-candidates_list = set()
+    candidates_list = set()
     for position in range(len(word)):
-#        position_word = position[0]
         candidates = (word[:position] + word[position + 1:])
         candidates_list.add(candidates)
 
- #  for position in range(len(word) + 1):
     for position in range(len(word)):
         for symbol in LETTERS:
             candidates = (word[:position] + symbol + word[position:])
             candidates_list.add(candidates)
 
- #  for position in enumerate(word):
     for position in range(len(word) + 1):
-  #     position_word = position[0]
         for symbol in LETTERS:
             candidates = (word[:position] + symbol + word[position + 1:])
             candidates_list.add(candidates)
@@ -135,10 +120,3 @@ candidates_list = set()
         candidates_list.add(candidates)
 
     return list(candidates_list)
-
-
-
-def keep_known(candidates: tuple, frequencies: dict) -> list:
-
-known_candidates_list = []
-
