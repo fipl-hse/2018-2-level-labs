@@ -13,21 +13,21 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
 
-def propose_candidates(word, max_depth_permutations: int=1) -> list:
+def propose_candidates(word, max_depth_permutations: int = 1) -> list:
     variations = []
     if word == '' or word is None or max_depth_permutations is None or max_depth_permutations == str(
             max_depth_permutations) \
-            or not max_depth_permutations > 0:
+            or max_depth_permutations <= 0:
         return variations
     else:
         for i in range(len(word) + 1):
-            for a in LETTERS:
-                the_word = word[:i] + a + word[i:]
+            for letter in LETTERS:
+                the_word = word[:i] + letter + word[i:]
                 variations.append(the_word)
         for i in range(len(word)):
             variations.append(word[:i] + word[i + 1:])
-            for a in LETTERS:
-                new_word = word[:i] + a + word[i + 1:]
+            for letter in LETTERS:
+                new_word = word[:i] + letter + word[i + 1:]
                 variations.append(new_word)
         for i in range(len(word) - 1):
             variations.append(word[0:i] + word[i + 1] + word[i] + word[i + 2:])
@@ -39,11 +39,10 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     possible_words = []
     if candidates is None or frequencies is None or not candidates == tuple(candidates):
         return possible_words
-    else:
-        for key in frequencies.keys():
-            if key in candidates:
-                possible_words.append(key)
-        return possible_words
+    for key in frequencies.keys():
+        if key in candidates:
+            possible_words.append(key)
+    return possible_words
 
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
@@ -77,17 +76,14 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
         as_is_words = tuple(lower_as_is_words)
     if as_is_words is not None and word in as_is_words or word in frequencies:
         return word
+    new_as_is_words = propose_candidates(word, 1)
+    if as_is_words is not None:
+        for element in as_is_words:
+            element = element.lower()
+            new_as_is_words.append(element)
+        as_is_words = tuple(new_as_is_words)
     else:
-        new_as_is_words = propose_candidates(word, 1)
-        if as_is_words is not None:
-            for element in as_is_words:
-                element = element.lower()
-                new_as_is_words.append(element)
-            as_is_words = tuple(new_as_is_words)
-        else:
-            as_is_words = tuple(new_as_is_words)
-        final_tuple = tuple(keep_known(as_is_words, frequencies))
-        return choose_best(frequencies, final_tuple)
-
-
+        as_is_words = tuple(new_as_is_words)
+    final_tuple = tuple(keep_known(as_is_words, frequencies))
+    return choose_best(frequencies, final_tuple)
 
