@@ -1,4 +1,5 @@
-def read_from_file(path_to_file, lines_limit: int) -> str:              #Labour work1
+ '''Labour work1'''
+def read_from_file(path_to_file, lines_limit: int) -> str:             
     my_text = ''
     count_lines = 0
     my_file = open(path_to_file, 'r')
@@ -82,7 +83,7 @@ def write_to_file(path_to_file: str, content: tuple):
         my_file.write(word + '\n')
     my_file.close()
 
- # """Labour work2Check spelling of words in the given  text"""
+  """Labour work2Check spelling of words in the given  text"""
 
 from lab_1.main import calculate_frequences
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
