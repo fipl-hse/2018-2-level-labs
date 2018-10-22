@@ -106,7 +106,8 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
         if word in as_is_words:#
             word = word.lower()#
             return word#
-
+    word = word.lower()
+    
     candidates = tuple(propose_candidates(word))
     candidates1 = tuple(keep_known(candidates, frequencies))
     r_word = choose_best(frequencies, candidates1)#+tuple
