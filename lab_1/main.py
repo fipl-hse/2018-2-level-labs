@@ -120,3 +120,13 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
         candidates = (word[:position] + word[position + 1] + word[position] + word[position + 2:])
         candidates_list.add(candidates)
     return list(candidates_list)
+   
+  
+def keep_known(candidates: tuple, frequencies: dict) -> list:
+    if (not isinstance(candidates, tuple)) or (not isinstance(frequencies, dict)):
+        return[]
+    new_candidates = []
+    for word in candidates:
+        if word in frequencies:
+            new_candidates.append(word)
+    return new_candidates
