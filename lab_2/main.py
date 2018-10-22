@@ -17,36 +17,39 @@ if __name__ == '__main__':
 def propose_candidates(word, max_depth_permutations: int=1):
 
     if (word != '' and word is not None and max_depth_permutations is not None
-            and type(max_depth_permutations) == int and max_depth_permutations > 0):
-        l_word = word.lower()
-        splits = []
-        for i in range(len(l_word)+1):
-            splits.append([l_word[:i], l_word[i:]])
+            and type(max_depth_permutations) == int):
+        if max_depth_permutations <= 0:
+            return []
+        else:
+            l_word = word.lower()
+            splits = []
+            for i in range(len(l_word)+1):
+                splits.append([l_word[:i], l_word[i:]])
 
-        deletes = []
-        for left, right in splits:
-            if right != '':
-                deletes.append(left + right[1:])
+            deletes = []
+            for left, right in splits:
+                if right != '':
+                    deletes.append(left + right[1:])
 
-        interchange = []
-        for i in range(len(l_word)-1):
-            interchange.append(l_word[:i] + l_word[i + 1] + l_word[i] + l_word[i + 2:])
+            interchange = []
+            for i in range(len(l_word)-1):
+                interchange.append(l_word[:i] + l_word[i + 1] + l_word[i] + l_word[i + 2:])
 
-        inserted = []
-        for letter in LETTERS:
-            for i in range(len(l_word) + 1):
-                inserted.append(l_word[:i] + letter + l_word[i:])
+            inserted = []
+            for letter in LETTERS:
+                for i in range(len(l_word) + 1):
+                    inserted.append(l_word[:i] + letter + l_word[i:])
 
-        changed_to_new = []
-        for letter in LETTERS:
-            for i in range(len(l_word)):
-                changed_to_new.append(l_word[:i] + letter + l_word[i+1:])
+            changed_to_new = []
+            for letter in LETTERS:
+                for i in range(len(l_word)):
+                    changed_to_new.append(l_word[:i] + letter + l_word[i+1:])
 
-        all_changes = changed_to_new + inserted + interchange + deletes
-        #permutations = len(changed_to_new) + len(inserted) + len(interchange) + len(deletes)
-        all_changes_set = set(all_changes)
-        clear_changes = list(all_changes_set)
-        return clear_changes
+            all_changes = changed_to_new + inserted + interchange + deletes
+            #permutations = len(changed_to_new) + len(inserted) + len(interchange) + len(deletes)
+            all_changes_set = set(all_changes)
+            clear_changes = list(all_changes_set)
+            return clear_changes
 
     else:
         return []
