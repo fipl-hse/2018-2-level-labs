@@ -49,7 +49,7 @@ def transposition_two_letters(word):
 
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
     final_list = []
-    if word:
+    if word and isinstance(max_depth_permutations, int) and max_depth_permutations >= 1:
         list_1 = one_letter_to_another(word)
         list_2 = add_one_letter(word)
         list_3 = delete_one_letter(word)
@@ -98,7 +98,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
         if as_is_words:
             if (word.upper() in as_is_words) or (word.lower() in as_is_words):
                 most_frequent_candidate = word
-            elif word not in frequencies.keys():
+        elif word not in frequencies.keys():
                 candidates = propose_candidates(word)
                 known_candidates = keep_known(tuple(candidates), frequencies)
                 most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
