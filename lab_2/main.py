@@ -47,21 +47,21 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     if (not isinstance(candidates, tuple)) or (not isinstance(frequencies, dict)):
         return[]
     known_candidates = []
-    for word in candidates:
-        if word in frequencies:
-            known_candidates.append(word)
+    for candidate in candidates:
+        if candidate in frequencies:
+            known_candidates.append(candidate)
     return known_candidates
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
     if candidates is None or frequencies is None:
         return 'UNK'
-    if candidates is () or frequencies == dict():
+    if candidates is () or len(frequencies) <= 0:
         return 'UNK'
 
     best_candidates_list = []
     new_freq_dict = {}
-    for best_candidate in best_candidates_list:
-        new_freq_dict[best_candidate] = frequencies[best_candidate]
+    for candidate in best_candidates_list:
+        new_freq_dict[candidate] = frequencies[candidate]
 
     new_list = []
     itog_list = []
@@ -74,8 +74,8 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
             else:
                 continue
     itog_list.sort()
-    fine_word = itog_list[0]
-    return fine_word
+    good_candidate = itog_list[0]
+    return good_candidate
 
 #    for word in new_freq_dict_extra.keys():
   #      itog_list.append(word)
@@ -92,5 +92,5 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
             return word
     list_candidates = propose_candidates(word)
     list_known_candidates = keep_known(tuple(list_candidates), frequencies)
-    itog_word = choose_best(frequencies, tuple(list_known_candidates))
-    return itog_word
+    itog_candidate = choose_best(frequencies, tuple(list_known_candidates))
+    return itog_candidate
