@@ -54,34 +54,27 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
 
     best_candidates_list = []
-    for true_candidate in candidates:
-        if true_candidate not in frequencies:
-            continue
-        best_candidates_list.append(true_candidate)
-
     new_freq_dict = {}
-    new_freq_dict_extra = dict(new_freq_dict)
-
     for best_candidate in best_candidates_list:
         new_freq_dict[best_candidate] = frequencies[best_candidate]
 
-    for best_candidate in range(0, len(best_candidates_list) - 1):
-        if new_freq_dict[best_candidates_list[best_candidate]] < new_freq_dict[best_candidates_list[best_candidate + 1]]:
-            if best_candidates_list[best_candidate] in new_freq_dict_extra:
-                new_freq_dict_extra.pop(best_candidates_list[best_candidate])
-        if new_freq_dict[best_candidates_list[best_candidate]] > new_freq_dict[best_candidates_list[best_candidate + 1]]:
-            new_freq_dict_extra.pop(best_candidates_list[best_candidate + 1])
-        if new_freq_dict[best_candidates_list[best_candidate]] == new_freq_dict[best_candidates_list[best_candidate + 1]]:
-            continue
-
+    new_list = []
     itog_list = []
-    for word in new_freq_dict_extra.keys():
-        itog_list.append(word)
+    for key, value in new_freq_dict.items():
+        new_list.append([value, key])
+        new_list.sort(reverse=True)
+        for word in new_list:
+            if word[0] == new_list[0][0]:
+                itog_list.append(word[1])
+            else:
+                continue
     itog_list.sort()
-    return itog_list[0]
- #   fine_word = itog_list[0]
- #   return fine_word
+    fine_word = itog_list[0]
+    return fine_word
 
+#    for word in new_freq_dict_extra.keys():
+  #      itog_list.append(word)
+ 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if (not isinstance(word, str)) or (not isinstance(frequencies, dict)):
         return 'UNK'
