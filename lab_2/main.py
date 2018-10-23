@@ -16,35 +16,35 @@ if __name__ == '__main__':
 TEXT_WITH_MISTAKES = 'She has a dag.'
 
 def one_letter_to_another(word):
-    list = []
+    result = []
     for index in enumerate(word):
         index_word = index[0]
         for symbol in LETTERS:
             list.append(word[:index_word] + symbol + word[index_word + 1:])
-    return list
+    return result
 
 
 def add_one_letter(word):
-    list = []
+    result = []
     for index in range(len(word) + 1):
         for symbol in LETTERS:
             list.append(word[:index] + symbol + word[index:])
-    return list
+    return result
 
 
 def delete_one_letter(word):
-    list = []
+    result = []
     for index in enumerate(word):
         index_word = index[0]
         list.append(word[:index_word] + word[index_word + 1:])
-    return list
+    return result
 
 
 def transposition_two_letters(word):
-    list = []
+    result = []
     for index in range(len(word) - 1):
         list.append(word[:index] + word[index + 1] + word[index] + word[index + 2:])
-    return list
+    return result
 
 
 def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
@@ -66,7 +66,7 @@ def keep_known(candidates, frequent_dict) -> list:
             for word in frequent_dict.keys():
                 if word in candidates:
                     known_candidates.append(word)
-    return(known_candidates)
+    return (known_candidates)
 
 
 def choose_best(frequent_dict, candidates) -> str:
@@ -84,13 +84,13 @@ def choose_best(frequent_dict, candidates) -> str:
             if frequency == max_frequency:
                 finalists.append(word)
     if len(finalists) == 1:
-        return(finalists[0])
+        return finalists[0]
     elif len(finalists) >= 2:
-        return(min(finalists))
+        return min(finalists)
     else:
-        return('UNK')
+        return 'UNK'
 
-     
+
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     most_frequent_candidate = 'UNK'
     if word:
@@ -99,12 +99,14 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
                 most_frequent_candidate = word
             else:
                 if frequencies:
+                    most_frequent_candidate = word
                     if word not in frequencies.keys():
                         candidates = propose_candidates(word)
                         known_candidates = keep_known(tuple(candidates), frequencies)
                         most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
         else:
             if frequencies:
+                most_frequent_candidate = word
                 if word not in frequencies.keys():
                     candidates = propose_candidates(word)
                     known_candidates = keep_known(tuple(candidates), frequencies)
@@ -129,3 +131,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
 #         sentence_without_mistakes += '.'
 #         text_without_mistakes = sentence_without_mistakes.capitalize() + ' '
 #     return text_without_mistakes
+#
+#
+# res = spell_check_text(freq_dict, AS_IS_WORDS, TEXT_WITH_MISTAKES)
+# print(res)
