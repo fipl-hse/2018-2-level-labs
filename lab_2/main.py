@@ -22,9 +22,9 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
         return []
 
     deleting_list = list()
-     for index in range(len(word)):
-         new_word = word[:index] + word[(index + 1):]
-         deleting_list.append(new_word)
+    for index in range(len(word)):
+        new_word = word[:index] + word[(index + 1):]
+        deleting_list.append(new_word)
  
      adding_list = list()
      for index in range(len(word) + 1):
