@@ -125,7 +125,7 @@ def spell_check_text(frequencies: dict, as_is_words: tuple, text: str):
                 if temp_word[0].isupper():
                     flag = 1
 
-                temp_result = spell_check_word(frequencies,as_is_words,temp_word)
+                temp_result = spell_check_word(frequencies, as_is_words, temp_word)
                 if temp_result != 'UNK':
                     if flag:
                         temp_result = temp_result[0].upper() + temp_result[1:]
