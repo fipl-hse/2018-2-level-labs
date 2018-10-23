@@ -98,7 +98,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     word = word.lower()
     if word in frequencies:
         return word
-    if type(as_is_words) == tuple:
+    if isinstance(as_is_words, tuple) is True:
         if word in as_is_words:
             return word
         word = word.upper()#
