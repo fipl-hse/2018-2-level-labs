@@ -51,12 +51,12 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
 
     best_candidates = []
-    for candidate in candidates:
-        if not isinstance(candidate, str):
+    for true_candidate in candidates:
+        if not isinstance(true_candidate, str):
             continue
-        if candidate not in frequencies:
+        if true_candidate not in frequencies:
             continue
-        best_candidates.append(candidate)
+        best_candidates.append(true_candidate)
     if best_candidates is []:
         return 'UNK'
 
