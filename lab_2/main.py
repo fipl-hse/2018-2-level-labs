@@ -65,10 +65,10 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-    lower_as_is_words = []
     if word is None or frequencies is None:
         return 'UNK'
     if as_is_words is not None:
+        lower_as_is_words = []
         as_is_words = list(as_is_words)
         for element in as_is_words:
             element = str(element)
