@@ -21,62 +21,64 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
             or (max_depths_permutations is None) or (int(max_depths_permutations) <= 0):
         return []
 
-    deleting_list = []
-    for word_index in range(len(word)):
-        new_word = word[:word_index] + word[(word_index + 1):]
-        deleting_list.append(new_word)
-
-    adding_list = []
-    for word_index in range(len(word) + 1):
-        for letter in LETTERS:
-            new_word = word[:word_index] + letter + word[word_index:]
-            adding_list.append(new_word)
-
-    changing_list = []
-    for word_index in range(0, (len(word))):
-        for letter in LETTERS:
-            new_word = word[:word_index] + letter + word[(word_index + 1):]
-            changing_list.append(new_word)
-
-    replacing_list = []
-    for word_index in range(1, len(word)):
-        new_word = word[:(word_index - 1)] + word[word_index] + word[word_index - 1] + word[(word_index + 1):]
-        replacing_list.append(new_word)
-
-    all_words = deleting_list + adding_list + changing_list + replacing_list
-    set(all_words)
-
-    if max_depths_permutations > 1:
-        adding_cand = []
-        all_words_adding = []
-        while max_depths_permutations:
-            for element in all_words:
-                for index in range(len(element)):
-                    new_word = element[:index] + element[(index + 1):]
-                    adding_cand.append(new_word)
-
-                for index in range(len(element) + 1):
-                    for letter in LETTERS:
-                        new_word = element[:index] + letter + element[index:]
-                        adding_cand.append(new_word)
-
-                for word_index in range(0, (len(element))):
-                    for letter in LETTERS:
-                        new_word = element[:word_index] + letter + element[(word_index + 1):]
-                        adding_cand.append(new_word)
-
-                for word_index in range(1, len(element)):
-                    new_word = element[:(word_index - 1)] + element[word_index] + element[word_index - 1] + element[(word_index + 1):]
-                    adding_cand.append(new_word)
-
-                for variant in candidate_adding:
-                    if variant in all_words_adding:
-                        continue
-                    all_words_adding.append(variant)
-                adding_cand = []
-                max_depths_permutations -= 1
-        return all_words_adding
-    return all_words
+    deleting_list = list()
+     for index in range(len(word)):
+         new_word = word[:index] + word[(index + 1):]
+         deleting_list.append(new_word)
+ 
+     adding_list = list()
+     for index in range(len(word) + 1):
+         for letter in LETTERS:
+             new_word = word[:index] + letter + word[index:]
+             adding_list.append(new_word)
+ 
+     changing_list = list()
+     for index in range(0, (len(word))):
+         for letter in LETTERS:
+             new_word = word[:index] + letter + word[(index + 1):]
+             changing_list.append(new_word)
+ 
+     replacing_list = list()
+     for index in range(1, len(word)):
+         new_word = word[:(index - 1)] + word[index] + word[index - 1] + word[(index + 1):]
+         replaing_list.append(new_word)
+ 
+     all_words = deleting_list + adding_list + changing_list + replacing_list
+     all_words = set(all_words)
+ 
+     if max_depths_permutations > 1:
+         adding_cand = list()
+         all_words_adding = list()
+         while max_depths_permutations:
+             max_depths_permutations -= 1
+             for version in all_words:
+                 for word_index in range(len(version)):
+                     new_word = version[:word_index] + version[(word_index + 1):]
+                     add_candidate.append(new_word)
+ 
+             for word_ind in range(len(version) + 1):
+                 for letter in LETTERS:
+                     new_word = version[:word_ind] + letter + version[word_ind:]
+                     adding_cand.append(new_word)
+ 
+             for word_index in range(0, (len(version))):
+                 for letter in LETTERS:
+                     new_word = version[:word_index] + letter + version[(word_index + 1):]
+                     adding_cand.append(new_word)
+ 
+             for word_index in range(1, len(version)):
+                 new_word = version[:(word_index - 1)] + version[word_index] + version[word_index - 1] + \
+                                   version[(word_index + 1):]
+                 adding_cand.append(new_word)
+ 
+             for variant in adding_cand:
+                 if variant in all_words_adding:
+                     continue
+                 all_words_adding.append(variant)
+                 adding_cand = list()
+         return all_words_adding
+ 
+     return all_words
 
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
