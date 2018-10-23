@@ -65,7 +65,7 @@ def keep_known(candidates: tuple, frequencies: dict):
 def choose_best(frequencies: dict, candidates: tuple):
     if frequencies is None:
         return 'UNK'
-    if candidates == None:
+    if candidates is None:
         return 'UNK'
     if candidates == ():
         return 'UNK'
@@ -82,7 +82,7 @@ def choose_best(frequencies: dict, candidates: tuple):
         if value > max_num:
             max_num = value
             result_word = candidate
- 
+
         if value == max_num and max_num > 0:
             temp_list = [result_word, candidate]
             temp_list.sort()
