@@ -77,7 +77,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
                 itog_list.append(candidate[1])
             else:
                 continue
-    itog_list.sort()
+  #  itog_list.sort()
     good_candidate = itog_list
     return good_candidate
 
