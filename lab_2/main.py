@@ -1,7 +1,8 @@
 """
 Labour work #2
- Check spelling of words in the given  text
+Check spelling of words in the given  text
 """
+
 from lab_1.main import calculate_frequences
 
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
