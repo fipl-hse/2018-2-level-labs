@@ -105,7 +105,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
             new_candidates.append(variant)
 
     new_dict = {}
-    for c in new_candidates:
+    for can in new_candidates:
         new_dict[can] = frequencies[can]
     new_dict_add = dict(new_dict)
     for can in range(0, len(new_candidates) - 1):
