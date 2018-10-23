@@ -46,8 +46,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
 
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
-    # return [candidate for candidate in candidates if candidate in frequencies] if (type(candidates) is tuple) and (
-    #       type(frequencies) is dict) else []
+   
     if type(frequencies) is dict and type(candidates) is tuple:
         best_candidates = []
         for candidate in candidates:
