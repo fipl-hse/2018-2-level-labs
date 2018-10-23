@@ -90,18 +90,25 @@ def choose_best(frequent_dict, candidates) -> str:
     else:
         return('UNK')
 
-
+     
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     most_frequent_candidate = 'UNK'
-    if word and frequencies:
-        most_frequent_candidate = word
+    if word:
         if as_is_words:
             if (word.upper() in as_is_words) or (word.lower() in as_is_words):
                 most_frequent_candidate = word
-        elif word not in frequencies.keys():
-                candidates = propose_candidates(word)
-                known_candidates = keep_known(tuple(candidates), frequencies)
-                most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
+            else:
+                if frequencies:
+                    if word not in frequencies.keys():
+                        candidates = propose_candidates(word)
+                        known_candidates = keep_known(tuple(candidates), frequencies)
+                        most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
+        else:
+            if frequencies:
+                if word not in frequencies.keys():
+                    candidates = propose_candidates(word)
+                    known_candidates = keep_known(tuple(candidates), frequencies)
+                    most_frequent_candidate = choose_best(frequencies, tuple(known_candidates))
     return most_frequent_candidate
 
 
