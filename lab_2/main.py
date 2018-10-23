@@ -41,7 +41,7 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
     replacing_list = list()
     for index in range(1, len(word)):
         new_word = word[:(index - 1)] + word[index] + word[index - 1] + word[(index + 1):]
-        replaing_list.append(new_word)
+        replacing_list.append(new_word)
  
     all_words = deleting_list + adding_list + changing_list + replacing_list
     all_words = set(all_words)
