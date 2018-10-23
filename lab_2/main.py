@@ -126,7 +126,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         final_res.append(key)
     final_res.sort()
 
-return final_res[0]
+    return final_res[0]
 
 
 def checked_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
