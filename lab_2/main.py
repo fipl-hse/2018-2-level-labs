@@ -96,7 +96,6 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
             sp.sort()
             final = str(sp[0])
     return final
-
    
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     if frequencies == None or type(frequencies) != dict:
@@ -110,10 +109,6 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
         if word.upper() in as_is_words and type(word) == str:
             return word
     if type(as_is_words) != tuple or as_is_words == None:
-        candidates = tuple(propose_candidates(word, 1))
-        result = choose_best(frequencies, candidates)
-        return result
-    else:
         candidates = tuple(propose_candidates(word, 1))
         result = choose_best(frequencies, candidates)
     return result
