@@ -1,5 +1,5 @@
+'''Lab_2.main propose_candidates tests'''
 import unittest
-
 from lab_2.main import propose_candidates
 
 
@@ -45,7 +45,6 @@ class ProposeCandidatesTest(unittest.TestCase):
 
     def test_propose_candidates_duplicates(self):
         test_word = 'cat'
-        counter = 0
         modifications = propose_candidates(test_word)
         self.assertEqual(len(modifications), len(set(modifications)))
 

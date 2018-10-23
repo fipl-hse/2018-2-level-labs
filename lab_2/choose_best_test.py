@@ -1,5 +1,5 @@
+'''Lab_2.main choose_best tests'''
 import unittest
-
 from lab_2.main import choose_best
 
 
