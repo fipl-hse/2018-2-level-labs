@@ -17,34 +17,34 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
         return []
 
     if max_depth_permutations != 1:
-        return []  
+        return []
     candidates = []
     alhpabet = 'abcdefghijklmnopqrstuvwxyz'
 
     # удаление буквы
     for num_of_letter in range(0, len(word)):
         temp_word = word[:num_of_letter] + word[num_of_letter + 1:]
-        if(candidates.count(temp_word) == 0):
+        if candidates.count(temp_word) == 0:
             candidates.append(temp_word)
 
     # вставка буквы
     for num_of_letter in range(0, len(word)+1):
         for letter_for_change in alhpabet:
             temp_word = word[:num_of_letter] + letter_for_change + word[num_of_letter:]
-            if (candidates.count(temp_word) == 0):
+            if candidates.count(temp_word) == 0:
                 candidates.append(temp_word)
 
     # замена буквы
     for num_of_letter in range(0, len(word)):
         for changed_letter in alhpabet:
             temp_word = word[:num_of_letter] + changed_letter + word[num_of_letter + 1:]
-            if (candidates.count(temp_word) == 0):
+            if candidates.count(temp_word) == 0:
                 candidates.append(temp_word)
 
     # перестановка 2 соседних букв
     for num_of_letter in range(0, len(word) - 1):
         temp_word = word[:num_of_letter] + word[num_of_letter + 1] + word[num_of_letter] + word[num_of_letter + 2:]
-        if (candidates.count(temp_word) == 0):
+        if candidates.count(temp_word) == 0:
             candidates.append(temp_word)
     return candidates
 
@@ -53,7 +53,7 @@ def keep_known(candidates: tuple, frequencies: dict):
         return []
     if frequencies == None:
         return []
-    if type(candidates) != tuple:  #last change
+    if type(candidates) != tuple:
         return []
     candidates2 = []
     for dict_words in frequencies:
@@ -67,7 +67,7 @@ def choose_best(frequencies: dict, candidates: tuple):
         return 'UNK'
     if candidates == None:
         return 'UNK'
-    if candidates == (): 
+    if candidates == ():
         return 'UNK'
     if frequencies == dict():
         return 'UNK'
@@ -82,7 +82,7 @@ def choose_best(frequencies: dict, candidates: tuple):
         if value > max_num:
             max_num = value
             result_word = candidate
-        
+ 
         if value == max_num and max_num > 0:
             temp_list = [result_word, candidate]
             temp_list.sort()
