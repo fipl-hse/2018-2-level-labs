@@ -75,7 +75,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
                 continue
     itog_list.sort()
     good_candidate = itog_list[0]
-    return good_candidate
+    return(good_candidate)
 
 #    for word in new_freq_dict_extra.keys():
   #      itog_list.append(word)
@@ -93,4 +93,4 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     list_candidates = propose_candidates(word)
     list_known_candidates = keep_known(tuple(list_candidates), frequencies)
     itog_candidate = choose_best(frequencies, tuple(list_known_candidates))
-    return itog_candidate
+    return(itog_candidate)
