@@ -13,7 +13,7 @@ if __name__ == '__main__':
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
-def propose_candidates(word: str, max_depth_permutations: int = 1) -> Set[str]:
+def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     if not word or word == '' or not isinstance(max_depth_permutations, int):
         return []
     if max_depth_permutations <= 0:
