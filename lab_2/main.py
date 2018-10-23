@@ -13,10 +13,8 @@ if __name__ == '__main__':
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
-def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
-    if not word or word == '':
-        return[]
-    if (not isinstance(max_depth_permutations, int)):
+def propose_candidates(word: str, max_depth_permutations: int = 1) -> Set[str]:
+    if not word or word == '' or not isinstance(max_depth_permutations, int):
         return []
     if max_depth_permutations <= 0:
         return[]
@@ -28,6 +26,9 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
         for symbol in LETTERS:
             candidates = (word[:position] + symbol + word[position:])
             candidates_list.add(candidates)
+            if position == 0
+                candidates = symbol + word
+                candidates_list.add(candidates)
     for position in range(len(word) + 1):
         for symbol in LETTERS:
             candidates = (word[:position] + symbol + word[position + 1:])
@@ -76,8 +77,8 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     for word in new_freq_dict_extra.keys():
         itog_list.append(word)
     itog_list.sort()
-    fine_word = itog_list[0]
-    return fine_word
+ #   fine_word = itog_list[0]
+    return itog_list[0]
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if (not isinstance(word, str)) or (not isinstance(frequencies, dict)):
