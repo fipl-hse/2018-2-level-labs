@@ -25,7 +25,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
         return []
     if not isinstance(word, str) or word == '':
         return []
-    if isinstance(word, str):
+    if isinstance(word, str) and word != '':
         for i in LETTERS:
             for ch_r in range(len(word) + 1):
                 cnds.add(word[:ch_r] + i + word[ch_r:])
@@ -41,10 +41,9 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
                 cnds.add(word.replace(ch_r, i, 1))
         for ch_r in word:
             cnds.add(word.replace(ch_r, '', 1))
-    else:
-        return None
-    candidates = str(cnds)
-    return candidates
+        candidates = tuple(cnds)
+        return candidates
+    return None
 
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
