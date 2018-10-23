@@ -67,8 +67,8 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         if new_freq_dict[best_candidates[best_candidate]] == new_freq_dict[best_candidates[best_candidate + 1]]:
             continue
     itog_list = []
-    for word in new_freq_dict_extra.keys():
-        itog_list.append(word)
+    for key in new_freq_dict_extra.keys():
+        itog_list.append(key)
     itog_list.sort()
     return itog_list[0]
 
