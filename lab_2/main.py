@@ -53,7 +53,7 @@ def keep_known(candidates: tuple, frequencies: dict):
         return []
     if frequencies is None:
         return []
-    if isinstance(candidates, not tuple):#####
+    if type(candidates) != tuple:#####
         return []
     candidates2 = []
     for dict_words in frequencies:
