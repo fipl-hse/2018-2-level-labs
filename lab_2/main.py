@@ -68,7 +68,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
     new_list = []
     itog_list = []
-    itog_list = 0
+ #   itog_list = 0
     for key, value in new_freq_dict.items():
         new_list.append([value, key])
         new_list.sort(reverse=True)
