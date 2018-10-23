@@ -101,16 +101,17 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     if frequencies == None or type(frequencies) != dict:
         result = 'UNK'
+    else:
+        if word in frequencies:
+            return word
     if word == None or type(word) != str:
         result = 'UNK'
     else:
-        if word.upper() in as_is_words:
+        if word.upper() in as_is_words and type(word) == str:
             return word
-    if type(as_is_words) != tuple:
+    if type(as_is_words) != tuple or as_is_words == None:
         candidates = tuple(propose_candidates(word, 1))
         result = choose_best(frequencies, candidates)
-    elif word in frequencies:
-        return word
-
+        return result
 
     return result
