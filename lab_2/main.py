@@ -111,3 +111,41 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     candidates1 = tuple(keep_known(candidates, frequencies))
     r_word = choose_best(frequencies, candidates1)#+tuple
     return r_word
+
+def spell_check_text(frequencies: dict, as_is_words: tuple, text: str):
+    result = ''
+    temp_word = ''
+    for sim in text:
+        if sim.isalpha():
+            temp_word += sim
+
+        else:
+            if temp_word != '':
+                flag = 0
+                if temp_word[0].isupper():
+                    flag = 1
+
+                temp_result = spell_check_word(frequencies,as_is_words,temp_word)
+                if temp_result != 'UNK':
+                    if flag:
+                        temp_result = temp_result[0].upper() + temp_result[1:]
+                        flag = 0
+                    result += temp_result
+                else:
+                    result += temp_word
+                temp_word = ''
+            result += sim
+
+    if temp_word != '':
+        flag = 0
+        if temp_word[0].isupper():
+            flag = 1
+        temp_result = spell_check_word(frequencies, as_is_words, temp_word)
+        if temp_result != 'UNK':
+            if flag:
+                temp_result = temp_result[0].upper() + temp_result[1:]
+                flag = 0
+            result += temp_result
+        else:
+            result += temp_word
+    return result
