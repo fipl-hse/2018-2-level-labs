@@ -70,8 +70,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     for word in new_freq_dict_extra.keys():
         itog_list.append(word)
     itog_list.sort()
-    true_word = itog_list[0]
-    return true_word
+    return itog_list[0]
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if (not isinstance(word, str)) or (not isinstance(frequencies, dict)):
