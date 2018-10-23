@@ -7,13 +7,12 @@ from lab_1.main import calculate_frequences
 
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 REFERENCE_TEXT = ''
+if __name__ == '__main__':
+    with open('very_big_reference_text.txt', 'r') as f:
+        REFERENCE_TEXT = f.read()
+        freq_dict = calculate_frequences(REFERENCE_TEXT)
+        FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
 
- if __name__ == '__main__':
-  with open('very_big_reference_text.txt', 'r') as f:
-   REFERENCE_TEXT = f.read()
-   freq_dict = calculate_frequences(REFERENCE_TEXT)
-   FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
-     
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     if not word or word == '' or not isinstance(max_depth_permutations, int):
         return []
@@ -74,12 +73,13 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
             new_freq_dict_extra.pop(best_candidates_list[best_candidate + 1])
         if new_freq_dict[best_candidates_list[best_candidate]] == new_freq_dict[best_candidates_list[best_candidate + 1]]:
             continue
+
     itog_list = []
     for word in new_freq_dict_extra.keys():
         itog_list.append(word)
     itog_list.sort()
- #   fine_word = itog_list[0]
-    return itog_list
+    fine_word = itog_list[0]
+    return fine_word
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if (not isinstance(word, str)) or (not isinstance(frequencies, dict)):
@@ -95,5 +95,3 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     list_known_candidates = keep_known(tuple(list_candidates), frequencies)
     itog_word = choose_best(frequencies, tuple(list_known_candidates))
     return itog_word
-
-  
