@@ -43,7 +43,7 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     return known_candidates
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
-    if (not isinstance(candidates, tuple)) or (not isinstance(frequencies, dict)):
+    if candidates is None or frequencies is None:
         return 'UNK'
     if candidates is () or len(frequencies) <= 0:
         return 'UNK'
