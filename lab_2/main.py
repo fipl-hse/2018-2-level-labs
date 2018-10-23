@@ -165,7 +165,7 @@ if __name__ == '__main__':
         for symbol in clean_text:
             if symbol in symb:
                 correct_list.append(symbol)
-              continue
+                continue
             if symbol in frequencies:
                 correct_list.append(symbol)
                 continue
