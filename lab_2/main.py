@@ -1,6 +1,6 @@
 """
 Labour work #2
- Check spelling of words in the given  text
+Check spelling of words in the given  text
 """
 from lab_1.main import calculate_frequences
 
@@ -13,7 +13,7 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
-    if word == None or word == '':
+    if word is None or word == '':
         return []
 
     if max_depth_permutations != 1:
@@ -49,9 +49,9 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     return candidates
 
 def keep_known(candidates: tuple, frequencies: dict):
-    if candidates == None:
+    if candidates is None:
         return []
-    if frequencies == None:
+    if frequencies is None:
         return []
     if type(candidates) != tuple:
         return []
@@ -63,7 +63,7 @@ def keep_known(candidates: tuple, frequencies: dict):
 
 
 def choose_best(frequencies: dict, candidates: tuple):
-    if frequencies == None:
+    if frequencies is None:
         return 'UNK'
     if candidates == None:
         return 'UNK'
@@ -90,9 +90,9 @@ def choose_best(frequencies: dict, candidates: tuple):
     return result_word
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
-    if frequencies == None:
+    if frequencies is None:
         return 'UNK'
-    if word == None:
+    if word is None:
         return 'UNK'
 
     word = word.lower()
