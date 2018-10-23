@@ -4,14 +4,14 @@ Labour work #2
 """
 from lab_1.main import calculate_frequences
 
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-our_text = str()
+OUR_TEXT = str()
 
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
-        our_text = f.read()
+        OUR_TEXT = f.read()
 
 
 def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
@@ -26,13 +26,13 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
 
     add_list = list()
     for word_ind in range(len(word) + 1):
-        for letter in letters:
+        for letter in LETTERS:
             new_word = word[:word_ind] + letter + word[word_ind:]
             add_list.append(new_word)
 
     ch_list = list()
     for word_ind in range(0, (len(word))):
-        for letter in letters:
+        for letter in LETTERS:
             new_word = word[:word_ind] + letter + word[(word_ind + 1):]
             ch_list.append(new_word)
 
@@ -59,13 +59,13 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
                     add_candidate.append(new_word)
 
             for word_ind in range(len(version) + 1):
-                for letter in letters:
-                    new_word = version[:word_index] + letter + version[word_index:]
+                for letter in LETTERS:
+                    new_word = version[:word_ind] + letter + version[word_ind:]
                     add_candidate.append(new_word)
 
             for word_ind in range(0, (len(version))):
-                for letter in letters:
-                    new_word = version[:word_index] + letter + version[(word_index + 1):]
+                for letter in LETTERS:
+                    new_word = version[:word_ind] + letter + version[(word_ind + 1):]
                     add_candidate.append(new_word)
 
             for word_index in range(1, len(version)):
@@ -174,13 +174,13 @@ def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
             if new_symbol in frequencies:
                 correct_list.append(symbol)
                 continue
-            correct_word = checked_word(frequencies, as_is_words, new_symbol)
+            correct_word = spell_check_word(frequencies, as_is_words, new_symbol)
             for letter in correct_word:
                 new_symbol = letter.upper() + correct_word[1:]
                 correct_list.append(new_symbol)
                 break
         else:
-            correct_word = checked_word(frequencies, as_is_words, symbol)
+            correct_word = spell_check_word(frequencies, as_is_words, symbol)
             correct_list.append(correct_word)
 
         str_text = str()
@@ -193,5 +193,4 @@ def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
                 our_text_str = our_text_str[:-1] + str_text[symbol]
                 continue
         our_text_str += str_text[symbol]
-        return our_text_str 
-
+        return our_text_str
