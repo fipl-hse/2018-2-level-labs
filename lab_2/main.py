@@ -45,9 +45,9 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     return known_candidates
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
-    if (not candidates) or (not frequencies):
+    if (not isinstance(candidates, tuple)) or (not isinstance(frequencies, dict)):
         return 'UNK'
-    if (candidates is ()) or (frequencies == dict()):
+    if candidates is () or frequencies == dict():
         return 'UNK'
     best_candidates = []
     for true_candidate in candidates:
