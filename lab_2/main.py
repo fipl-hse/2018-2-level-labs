@@ -13,29 +13,34 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
         FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
 
-def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
-    if not word or word == '' or not isinstance(max_depth_permutations, int):
+def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
+    if not isinstance(word, str) or word == '' or not isinstance(max_depth_permutations, int):
         return []
     if max_depth_permutations <= 0:
         return[]
+
     candidates_list = set()
     for position in range(len(word)):
         candidates = (word[:position] + word[position + 1:])
         candidates_list.add(candidates)
-    for position in range(len(word)):
-        for symbol in LETTERS:
+
+    for symbol in LETTERS:
+        for position in range(len(word)):
             candidates = (word[:position] + symbol + word[position:])
             candidates_list.add(candidates)
             if position == 0:
                 candidates = symbol + word
                 candidates_list.add(candidates)
-    for position in range(len(word) + 1):
-        for symbol in LETTERS:
+
+    for symbol in LETTERS:
+        for position in range(len(word) + 1):
             candidates = (word[:position] + symbol + word[position + 1:])
             candidates_list.add(candidates)
+
     for position in range(len(word) - 1):
         candidates = (word[:position] + word[position + 1] + word[position] + word[position + 2:])
         candidates_list.add(candidates)
+
     return list(candidates_list)
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
@@ -74,7 +79,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 #    for word in new_freq_dict_extra.keys():
   #      itog_list.append(word)
- 
+
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if (not isinstance(word, str)) or (not isinstance(frequencies, dict)):
         return 'UNK'
