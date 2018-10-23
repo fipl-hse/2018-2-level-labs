@@ -52,9 +52,9 @@ def keep_known(candidates, frequencies):
         return all_filtered_words
 
 def choose_best(frequencies, candidates):
-    if frequencies is None or frequencies == {} or candidates is None:
+ if frequencies is None or frequencies == {} or candidates is None:
         return 'UNK'
-    else:
+   else:
         for cand in candidates:
             if type(cand) != str:
                 list(candidates).pop(cand)
