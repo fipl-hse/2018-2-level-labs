@@ -129,7 +129,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     return final_res[0]
 
 
-def checked_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
+def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if word is None:
         return 'UNK'
 
