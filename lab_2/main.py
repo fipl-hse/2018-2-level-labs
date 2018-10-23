@@ -9,10 +9,11 @@ LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 REFERENCE_TEXT = ''
 
  if __name__ == '__main__':
-    with open('very_big_reference_text.txt', 'r') as f:
-        REFERENCE_TEXT = f.read()
-        freq_dict = calculate_frequences(REFERENCE_TEXT)
-
+  with open('very_big_reference_text.txt', 'r') as f:
+   REFERENCE_TEXT = f.read()
+   freq_dict = calculate_frequences(REFERENCE_TEXT)
+   FREQ_DICT = calculate_frequences(REFERENCE_TEXT)
+     
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     if not word or word == '' or not isinstance(max_depth_permutations, int):
         return []
