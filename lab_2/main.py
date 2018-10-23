@@ -26,7 +26,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> Set[str]:
         for symbol in LETTERS:
             candidates = (word[:position] + symbol + word[position:])
             candidates_list.add(candidates)
-            if position == 0
+            if position == 0:
                 candidates = symbol + word
                 candidates_list.add(candidates)
     for position in range(len(word) + 1):
