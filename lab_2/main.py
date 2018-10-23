@@ -47,36 +47,34 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
     set(all_words)
 
     if max_depths_permutations > 1:
-        candidate_adding = []
+        adding_cand = []
         all_words_adding = []
         while max_depths_permutations:
-            max_depths_permutations -= 1
             for element in all_words:
-                for word_index in range(len(element)):
-                    new_word = element[:word_index] + element[(word_index + 1):]
-                    candidate_adding.append(new_word)
+                for index in range(len(element)):
+                    new_word = element[:index] + element[(index + 1):]
+                    adding_cand.append(new_word)
 
-                for word_index in range(len(element) + 1):
+                for index in range(len(element) + 1):
                     for letter in LETTERS:
-                        new_word = element[:word_index] + letter + element[word_index:]
-                        candidate_adding.append(new_word)
+                        new_word = element[:index] + letter + element[index:]
+                        adding_cand.append(new_word)
 
                 for word_index in range(0, (len(element))):
                     for letter in LETTERS:
                         new_word = element[:word_index] + letter + element[(word_index + 1):]
-                        candidate_adding.append(new_word)
+                        adding_cand.append(new_word)
 
                 for word_index in range(1, len(element)):
-                    new_word = element[:(word_index - 1)] + element[word_index] + element[word_index - 1] + \
-                               element[(word_index + 1):]
-                    candidate_adding.append(new_word)
+                    new_word = element[:(word_index - 1)] + element[word_index] + element[word_index - 1] + element[(word_index + 1):]
+                    adding_cand.append(new_word)
 
                 for variant in candidate_adding:
                     if variant in all_words_adding:
                         continue
-                    else:
-                        all_words_adding.append(variant)
-                candidate_adding = []
+                    all_words_adding.append(variant)
+                adding_cand = []
+                max_depths_permutations -= 1
         return all_words_adding
     return all_words
 
