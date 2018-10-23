@@ -78,15 +78,3 @@ if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
-    test_text = '''All afternoon his tractor pulls a flat wagon 
-with bales to the barn, then back to the waiting 
-chopped field. It trails a feather of smok. 
-Down the block we bend with the season: 
-shoes to polish for a big game, 
-storm windows to batten or patch. 
-And how like a fieldt is the whole sky now 
-that the maples have shed their laeves, too. 
-It makes us believers—stasioned in groups, 
-leaning on rakes, looking into space. We rub blisters 
-over billows of leaf smoke. Or stand alone, 
-bagging gold for the cold days to come.'''
