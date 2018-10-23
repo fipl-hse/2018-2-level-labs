@@ -53,19 +53,19 @@ def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
             for word in all_words:
                 for word_index in range(len(word)):
                     new_word = word[:word_index] + word[(word_index + 1):]
-                    add_candidate.append(new_word)
-
-            for word_index in range(len(version) + 1):
-                for letter in LETTERS:
-                    new_word = word[:word_ind] + letter + word[word_index:]
                     adding_cand.append(new_word)
 
-            for word_index in range(0, (len(version))):
+            for word_index in range(len(word) + 1):
+                for letter in LETTERS:
+                    new_word = word[:word_index] + letter + word[word_index:]
+                    adding_cand.append(new_word)
+
+            for word_index in range(0, (len(word))):
                 for letter in LETTERS:
                     new_word = word[:word_index] + letter + word[(word_index + 1):]
                     adding_cand.append(new_word)
 
-            for word_index in range(1, len(version)):
+            for word_index in range(1, len(word)):
                 new_word = word[:(word_index - 1)] + word[word_index] + word[word_index - 1] + \
                                    word[(word_index + 1):]
                 adding_cand.append(new_word)
@@ -110,7 +110,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     new_dict_add = dict(new_dict)
     for can in range(0, len(new_candidates) - 1):
         if new_dict[new_candidates[can]] > new_dict[new_candidates[can + 1]]:
-            new_dict_add.pop(new_candidates[c + 1])
+            new_dict_add.pop(new_candidates[can + 1])
         if new_dict[new_candidates[can]] < new_dict[new_candidates[can + 1]]:
             if new_candidates[can] in new_dict_add:
                 new_dict_add.pop(new_candidates[can])
@@ -168,9 +168,9 @@ def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
             symbol_lower = letter.upper() + correct_word[1:]
             correct_list.append(symbol_lower)
             break
-    else:
-        correct_word = spell_check_word(frequencies, as_is_words, symbol)
-        correct_list.append(correct_word)
+        else:
+            correct_word = spell_check_word(frequencies, as_is_words, symbol)
+            correct_list.append(correct_word)
 
     str_text = ''
     for symbol in correct_list:
