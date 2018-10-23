@@ -61,20 +61,21 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         return 'UNK'
 
     new_freq_dict = {}
+    new_freq_dict_extra = dict(new_freq_dict)
     for best_candidate in best_candidates:
         new_freq_dict[best_candidate] = frequencies[best_candidate]
 
     for best_candidate in range(0, len(best_candidates) - 1):
         if new_freq_dict[best_candidates[best_candidate]] < new_freq_dict[best_candidates[best_candidate + 1]]:
-            if best_candidates[best_candidate] in new_freq_dict:
-                new_freq_dict.pop(best_candidates[best_candidate])
+            if best_candidates[best_candidate] in new_freq_dict_extra:
+                new_freq_dict_extra.pop(best_candidates[best_candidate])
         if new_freq_dict[best_candidates[best_candidate]] > new_freq_dict[best_candidates[best_candidate + 1]]:
-            new_freq_dict.pop(best_candidates[best_candidate + 1])
+            new_freq_dict_extra.pop(best_candidates[best_candidate + 1])
         if new_freq_dict[best_candidates[best_candidate]] == new_freq_dict[best_candidates[best_candidate + 1]]:
             continue
 
     itog_list = []
-    for word in new_freq_dict.keys():
+    for word in new_freq_dict_extra.keys():
         itog_list.append(word)
     itog_list.sort()
     true_word = itog_list[0]
