@@ -3,98 +3,121 @@ Labour work #2
  Check spelling of words in the given  text
 """
 import sys
-sys.path.append("2018-level-labs\lab_1\ ")
 import operator
 import re
 from lab_1.main import calculate_frequences
-if __name__ == '__main__':
-  with open('very_big_reference_text.txt', 'r') as f:
-    REFERENCE_TEXT = f.read()
+sys.path.append("2018-level-labs.lab_1 r")
 REFERENCE_TEXT = ''
-frequencies = calculate_frequences(REFERENCE_TEXT)
+TEXT = ''
+if __name__ == '__main__':
+    with open('very_big_reference_text.txt', 'r') as f:
+        REFERENCE_TEXT = f.read()
+FREQUENCIES = calculate_frequences(REFERENCE_TEXT)
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-as_is_words = ()
-max_depth_permutations = 1
+AS_IS_WORDS = ()
+
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
-    if max_depth_permutations is None or isinstance(max_depth_permutations, int) != True or max_depth_permutations <= 0:
-      return []
+    cnds = set()
+    if max_depth_permutations is None or not isinstance(max_depth_permutations, int) or max_depth_permutations <= 0:
+        return []
     if word is None:
-      return []
-    candidates = set()
-    for i in LETTERS:
-        for ch in range(len(word) + 1):
-            candidates.add(word[:ch] + i + word[ch:])
-    for ch in range(len(word) - 1):
-        var = []
-        for i in word:
-            var.append(i)
-        var.insert(ch, var[ch + 1])
-        var.pop(ch + 2)
-        candidates.add(''.join(var))
-    for i in LETTERS:
-        for ch in word:
-             candidates.add(word.replace(ch, i, 1))
-    for ch in word:
-        candidates.add(word.replace(ch,'',1))
+        return []
+    if not isinstance(word, str) or word == '':
+        return []
+    if isinstance(word, str):
+        for i in LETTERS:
+            for ch_r in range(len(word) + 1):
+                cnds.add(word[:ch_r] + i + word[ch_r:])
+        for ch_r in range(len(word) - 1):
+            var = list()
+            for i in word:
+                var.append(i)
+            var.insert(ch_r, var[ch_r + 1])
+            var.pop(ch_r + 2)
+            cnds.add(''.join(var))
+        for i in LETTERS:
+            for ch_r in word:
+                cnds.add(word.replace(ch_r, i, 1))
+        for ch_r in word:
+            cnds.add(word.replace(ch_r, '', 1))
+    else:
+        return None
+    candidates = str(cnds)
     return candidates
-        
+
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
-    if frequencies is None:
-      frequencies = {}
-    if candidates is None or isinstance(candidates, tuple) != True:
-      candidates = ()
+    known_freq = frequencies
+    if known_freq is None:
+        return []
+    if candidates is None:
+        return []
+    if not isinstance(candidates, tuple):
+        return []
     kn_w = set()
     for i in candidates:
-        if i in frequencies:
+        if i in known_freq:
             kn_w.add(i)
-    candidates = kn_w
-    return candidates
+    new_candidates = list(kn_w)
+    return new_candidates
+
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
-    word = ''
-    best = {}
-    out_best = []
-    if frequencies is None:
-      return {}
-    if candidates is None:
-      return ()
-    for w, fr in frequencies.items():    
-      for wd in candidates:     
-          if wd == w:
-            best[w] = fr
-    if len(best) == 0:
-      return 'UNK'
-    else:
-      al_eq = max(best.items(), key=operator.itemgetter(1))[0]
-      for k, v in best.items():
-        if v >= best.get(al_eq):
-          out_best.append(k)
-      word = sorted(out_best)[0] 
+    if not frequencies:
+        return 'UNK'
+    adv_frequencies = frequencies.copy()
+    if not candidates or tuple([]):
+        return 'UNK'
+    out_best = dict()
+    best = []
+    for k in frequencies.keys():
+        if not isinstance(k, str):
+            adv_frequencies.pop(k)
+    for words in candidates:
+        if words in adv_frequencies:
+            out_best.update({words : int(adv_frequencies[words])})
+        else:
+            pass
+    al_eq = max(out_best.items(), key=operator.itemgetter(1))[0]
+    for k, value in out_best.items():
+        if value >= out_best.get(al_eq):
+            best.append(k)
+    word = sorted(best)[0]
     return word
 
+
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
-  if as_is_words is None:
-    as_is_words = ()
-  if frequencies is None:
-      return 'UNK'
-  if word is None:
-      word = ''
-  if word in as_is_words:  
-      return word  
-  word = choose_best(frequencies, keep_known(propose_candidates(word, max_depth_permutations), frequencies))
-  return word
+    if word is None:
+        return 'UNK'
+    if as_is_words is None:
+        as_is_words = tuple()
+    if frequencies is None:
+        return 'UNK'
+    if word in frequencies:
+        return word
+    new_t = []
+    for words in list(as_is_words):
+        new_t.append(str(words).lower())
+    as_is_words_new = tuple(new_t)
+    if word in as_is_words_new:
+        return word
+    candidates = propose_candidates(word)
+    filtered_candidates = tuple(keep_known(tuple(candidates), frequencies))
+    word = choose_best(frequencies, filtered_candidates)
+    return word
 
-def spell_check_text(frequencies: dict, as_is_words: tuple, TEXT: str):
-  w_out = re.findall(r"[\w']+|[.,!?;]", TEXT)
-  for word in w_out:
-    if word in as_is_words:
-        pass
-    if word.isalnum() == True:
-      w_out[w_out.index(word)] = spell_check_word(frequencies, as_is_words, word)
-    else:
-      pass
-    
-  w_out = re.sub(r'\s([?.!"](?:\s|$))', r'\1', ' '.join(w_out))
 
+def spell_check_text(frequencies: dict, as_is_words: tuple, text: str):
+    freq_dict = frequencies
+    check_text = text
+    w_out = re.findall(r"[\w']+|[.,!?;]", check_text)
+    for word in w_out:
+        if word in as_is_words:
+            pass
+        if word.isalnum():
+            w_out[w_out.index(word)] = spell_check_word(freq_dict, as_is_words, word)
+        else:
+            pass
+    w_out = re.sub(r'\s([?.!"](?:\s|$))', r'\1', ' '.join(w_out))
+    return w_out
