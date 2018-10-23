@@ -11,12 +11,11 @@ if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
         freq_dict = calculate_frequences(REFERENCE_TEXT)
-     
-     
-def propose_candidates(word: str, max_depth_permutations: int=1) -> list:
+
+def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     if word == None or word == '':
         return []
-   
+
     if max_depth_permutations != 1:
         return []  
     candidates = []
@@ -79,7 +78,7 @@ def choose_best(frequencies: dict, candidates: tuple):
             value = frequencies.get(candidate)
         else:
             value = 0
-    
+
         if value > max_num:
             max_num = value
             result_word = candidate
@@ -95,7 +94,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
         return 'UNK'
     if word == None:
         return 'UNK'
-    
+
     word = word.lower()
     if word in frequencies:
         return word
@@ -107,7 +106,7 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
             word = word.lower()#
             return word#
     word = word.lower()
-    
+
     candidates = tuple(propose_candidates(word))
     candidates1 = tuple(keep_known(candidates, frequencies))
     r_word = choose_best(frequencies, candidates1)#+tuple
