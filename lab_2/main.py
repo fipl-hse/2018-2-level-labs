@@ -20,7 +20,7 @@ def one_letter_to_another(word):
     for index in enumerate(word):
         index_word = index[0]
         for symbol in LETTERS:
-            list.append(word[:index_word] + symbol + word[index_word + 1:])
+            result.append(word[:index_word] + symbol + word[index_word + 1:])
     return result
 
 
@@ -28,7 +28,7 @@ def add_one_letter(word):
     result = []
     for index in range(len(word) + 1):
         for symbol in LETTERS:
-            list.append(word[:index] + symbol + word[index:])
+            result.append(word[:index] + symbol + word[index:])
     return result
 
 
@@ -36,14 +36,14 @@ def delete_one_letter(word):
     result = []
     for index in enumerate(word):
         index_word = index[0]
-        list.append(word[:index_word] + word[index_word + 1:])
+        result.append(word[:index_word] + word[index_word + 1:])
     return result
 
 
 def transposition_two_letters(word):
     result = []
     for index in range(len(word) - 1):
-        list.append(word[:index] + word[index + 1] + word[index] + word[index + 2:])
+        result.append(word[:index] + word[index + 1] + word[index] + word[index + 2:])
     return result
 
 
