@@ -14,7 +14,7 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
-    if (not word) or (not isinstance(max_depth_permutations, int)):
+    if (not isinstance(word, str)) or (word is '') or (not isinstance(max_depth_permutations, int)):
         return[]
     if max_depth_permutations <= 0:
         return[]
@@ -67,8 +67,8 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         if new_freq_dict[best_candidates[best_candidate]] == new_freq_dict[best_candidates[best_candidate + 1]]:
             continue
     itog_list = []
-    for key in new_freq_dict_extra.keys():
-        itog_list.append(key)
+    for word in new_freq_dict_extra.keys():
+        itog_list.append(word)
     itog_list.sort()
     return itog_list[0]
 
