@@ -109,8 +109,8 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
     elif word in frequencies:
         res = word
     else:
-        candidates = propose_candidates(word, 1)
-        candidates_2 = tuple(keep_known(candidates, frequencies)
+        candidates = tuple(propose_candidates(word, 1))
+        candidates_2 = tuple(keep_known(candidates, frequencies))
         res = choose_best(frequencies, candidates_2)
 
     return res
