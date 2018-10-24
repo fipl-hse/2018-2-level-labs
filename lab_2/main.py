@@ -5,7 +5,7 @@ Labour work #2
 from lab_1.main import calculate_frequences
 
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-REFERENCE_TEXT = ''
+REFERENCE_TEXT = 'Kate'
 
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
