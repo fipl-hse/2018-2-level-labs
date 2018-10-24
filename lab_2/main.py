@@ -21,23 +21,28 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
     cnds = set()
     if max_depth_permutations is None or not isinstance(max_depth_permutations, int) or max_depth_permutations <= 0:
         return []
-    if word is None:
-        return []
-    if not isinstance(word, str) or word == '':
+    if word is None or not isinstance(word, str) or word == '':
         return []
     if isinstance(word, str) and word != '':
         for i in LETTERS:
             for ch_r in range(len(word) + 1):
+                if word[ch_r - 1].isupper():
+                    cnds.add(word[:ch_r] + i.upper() + word[ch_r:])
                 cnds.add(word[:ch_r] + i + word[ch_r:])
+
         for ch_r in range(len(word) - 1):
             var = list()
             for i in word:
                 var.append(i)
+            #if var[ch_r + 1].isupper:
+                #var.insert(ch_r, var[ch_r + 1].upper())
             var.insert(ch_r, var[ch_r + 1])
             var.pop(ch_r + 2)
             cnds.add(''.join(var))
         for i in LETTERS:
             for ch_r in word:
+                if ch_r.isupper():
+                    cnds.add(word.replace(ch_r, i.upper(), 1))
                 cnds.add(word.replace(ch_r, i, 1))
         for ch_r in word:
             cnds.add(word.replace(ch_r, '', 1))
@@ -93,13 +98,19 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
         as_is_words = tuple()
     if frequencies is None:
         return 'UNK'
-    if word in frequencies:
-        return word
     new_t = []
     for words in list(as_is_words):
-        new_t.append(str(words).lower())
+        new_t.append(str(words))
     as_is_words_new = tuple(new_t)
-    if word in as_is_words_new:
+    for exc in as_is_words_new:
+        if exc.lower() == word.lower():
+            word = exc.lower()
+            return word
+        if exc == word:
+            word = exc
+            return word
+
+    if word in frequencies:
         return word
     candidates = propose_candidates(word)
     filtered_candidates = tuple(keep_known(tuple(candidates), frequencies))
