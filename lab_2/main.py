@@ -17,38 +17,59 @@ LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 AS_IS_WORDS = ()
 
 
-def propose_candidates(word: str, max_depth_permutations: int = 1) -> str:
+def propose_candidates(word: str, max_depth_permutations: int = 3) -> str:
     cnds = set()
+    mutables = set()
     if max_depth_permutations is None or not isinstance(max_depth_permutations, int) or max_depth_permutations <= 0:
         return []
-    if word is None or not isinstance(word, str) or word == '':
-        return []
-    if isinstance(word, str) and word != '':
-        for i in LETTERS:
-            for ch_r in range(len(word) + 1):
-                if word[ch_r - 1].isupper():
-                    cnds.add(word[:ch_r] + i.upper() + word[ch_r:])
-                cnds.add(word[:ch_r] + i + word[ch_r:])
-
-        for ch_r in range(len(word) - 1):
-            var = list()
-            for i in word:
-                var.append(i)
-            #if var[ch_r + 1].isupper:
-                #var.insert(ch_r, var[ch_r + 1].upper())
-            var.insert(ch_r, var[ch_r + 1])
-            var.pop(ch_r + 2)
-            cnds.add(''.join(var))
-        for i in LETTERS:
-            for ch_r in word:
-                if ch_r.isupper():
-                    cnds.add(word.replace(ch_r, i.upper(), 1))
-                cnds.add(word.replace(ch_r, i, 1))
-        for ch_r in word:
-            cnds.add(word.replace(ch_r, '', 1))
-        candidates = tuple(cnds)
-        return candidates
-    return None
+    if max_depth_permutations > 1:
+        for i in range(max_depth_permutations):
+            if word is None or not isinstance(word, str) or word == '':
+                return []
+            if isinstance(word, str) and word != '':
+                for d in LETTERS:
+                    for ch_r in range(len(word) + 1):
+                        if word[ch_r - 1].isupper():
+                            cnds.add(word[:ch_r] + d.upper() + word[ch_r:])
+                            mut = (word[:ch_r] + d.upper() + word[ch_r:])
+                        cnds.add(word[:ch_r] + d + word[ch_r:])
+                        mut = (word[:ch_r] + d + word[ch_r:])
+                    for ch_r in range(len(mut) + 1):
+                        if mut[ch_r - 1].isupper():
+                            mutables.add((mut[:ch_r] + d.upper() + mut[ch_r:]))
+                        mutables.add((mut[:ch_r] + d + mut[ch_r:]))
+                for ch_r in range(len(word) - 1):
+                    var = list()
+                    for chars in word:
+                        var.append(chars)
+                    var.insert(ch_r, var[ch_r + 1])
+                    var.pop(ch_r + 2)
+                    cnds.add(''.join(var))
+                    mut = (''.join(var))
+                for ch_r in range(len(mut) - 1):
+                    var1 = list()
+                    for i in mut:
+                        var1.append(i)
+                    var1.insert(ch_r, var1[ch_r + 1])
+                    var1.pop(ch_r + 2)
+                    mutables.add(''.join(var1))
+                for c in LETTERS:
+                    for ch_r in word:
+                        if ch_r.isupper():
+                            cnds.add(word.replace(ch_r, c.upper(), 1))
+                        cnds.add(word.replace(ch_r, c, 1))
+                        mut = word
+                    for ch_r in mut:
+                        if ch_r.isupper():
+                            mutables.add(mut.replace(ch_r, c.upper(), 1))
+                        mutables.add(mut.replace(ch_r, c, 1))
+                for ch_r in word:
+                    cnds.add(word.replace(ch_r, '', 1))
+                    mut = word
+                    mutables.add(mut.replace(ch_r, '', 1))
+                candidates = tuple(cnds)
+                return candidates
+            return None
 
 
 def keep_known(candidates: tuple, frequencies: dict) -> list:
