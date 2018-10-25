@@ -29,77 +29,102 @@ def calculate_frequencies(text: str) -> dict:
     if '' in first_dict.keys():
         first_dict.pop('')
     return first_dict
-LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+LETTERS = list('abcdefghijklmnopqrstuvwxyz')
 PUNCT_MARKS = ['.', ',', '"', ':', ';', '-', '"', '"', '?', ''', ''']
 REFERENCE_TEXT = ''
-
-if __name__ == '__main__':
-    with open('very_big_reference_text.txt', 'r') as f:
+if __name__=='__main__':
+   with open('very_big_reference_text','r')as f:
         REFERENCE_TEXT = f.read()
-        freq_dict = calculate_frequencies(REFERENCE_TEXT)
-candidates = []
-lst1 = []
-lst2 = []
-lst3 = []
-lst4 = []
-if __name__ == '__main__':
-    with open('migrants.txt', 'r') as g:
-        MY_TEXT = g.read()
-print(MY_TEXT)
-WTEXT = MY_TEXT
-WTEXT = list(WTEXT)
-for i in range(0, len(WTEXT)):
-    if (WTEXT[i].isalpha() and not WTEXT[i+1].isalpha() and not WTEXT[i+1] == " ") or (not WTEXT[i].isalpha() and not WTEXT[i+1].isalpha() and not WTEXT[i] == " "):
-        WTEXT.insert(i+1, " ")
-WTEXT = ''.join(WTEXT)
-WTEXT = WTEXT.split(" ")
-print(WTEXT)
-for i in range(0, len(WTEXT)):
-    if WTEXT == '':
-       WTEXT.remove(WTEXT[i])
-for item in WTEXT:
-    if item.isalpha():
-       lst1 = ((item + " ")*len(item)).split(" ")
+freq_dict = calculate_frequencies(REFERENCE_TEXT)
+depth_permutations = 1
+item = input("Enter a word")
+def propose_candidates(item: str, depth_permutations: int = 1) -> list:
+    candidates = list()
+    if item == None or item == " " or item == '' or depth_permutations == 'None' or type(depth_permutations) != int or depth_permutations <= 0:
+       candidates == []
+    else:
+       lst1 = []
+       lst2 = []
+       lst3 = []
+       lst4 = []
+       lst1 = ((item + " ") * len(item)).split(" ")
        lst1.remove(lst1[-1])
        for i in range(0, len(lst1)):
            lst1[i] = lst1[i].replace(lst1[i][i], '')
            candidates.append(lst1[i])
-       lst2 = ((item + " ")*(len(item)-1)).split(" ")
+       lst2 = ((item + " ") * (len(item) - 1)).split(" ")
        lst2.remove(lst2[-1])
        for k in range(0, len(lst2)):
            lst2[k] = list(lst2[k])
-       for k in range(0, len(lst2)):
-           lst2[k][k] = item[k+1]
-           lst2[k][k+1] = item[k]
+           lst2[k][k] = item[k + 1]
+           lst2[k][k + 1] = item[k]
            lst2[k] = ''.join(lst2[k])
            candidates.append(lst2[k])
        for j in range(0, len(LETTERS)):
-           for i in range(0, len(item)+1):
+           for i in range(0, len(item) + 1):
                word = list(item)
                word.insert(i, " ")
                lst3.append(word)
-               for k in range(0, len(lst3)):
-                   lst3[k] = ''.join(lst3[k])
-                   lst3[k] = lst3[k].replace(" ", LETTERS[j])
-                   candidates.append(lst3[k])
+           for k in range(0, len(lst3)):
+               lst3[k] = ''.join(lst3[k])
+               lst3[k] = lst3[k].replace(" ", LETTERS[j])
+               candidates.append(lst3[k])
            for i in range(0, len(item)):
-                word = list(item)
-                word[i] = " "
-                lst4.append(word)
-                for l in range(0,len(lst4)):
-                    lst4[l] = ''.join(lst4[l])
-                    lst4[l] = lst4[l].replace(" ", LETTERS[j])
-                    candidates.append(lst4[l])
+               word = list(item)
+               word[i] = " "
+               lst4.append(word)
+           for l in range(0, len(lst4)):
+               lst4[l] = ''.join(lst4[l])
+               lst4[l] = lst4[l].replace(" ", LETTERS[j])
+               candidates.append(lst4[l])
        can1 = list(filter(lambda x: candidates.count(x) == 1, candidates))
-       can2 =[]
+       can2 = []
        for c in candidates:
-           if candidates.count(c) > 1:
-              if c in can2:
-                 continue
-              else:
-                  can2.append(c)
-       candidates += (can1 + can2)
+           if candidates.count(c) > 1 and c in can2 or c in can1:
+              continue
+           else:
+              can2.append(c)
+       candidates = can1 + can2
+    return candidates
+candidates = tuple(propose_candidates(item))
+freq_dict = calculate_frequencies(REFERENCE_TEXT)
+def keep_known(candidates, freq_dict):
+    known = list()
+    if candidates == () or candidates is None or type(candidates) != tuple or freq_dict == '' or freq_dict is None:
+       known = []
     else:
-        continue
-print(candidates)
-
+       known = list(filter(lambda x: type(x) == str and x in freq_dict.keys(), candidates))
+    return known
+candidates = keep_known(candidates, freq_dict)
+candidates = tuple(candidates)
+def choose_best(freq_dict:dict,candidates:tuple)->str:
+    best = str()
+    if freq_dict == dict() or freq_dict is None or candidates == tuple() or candidates is None:
+       best = 'UNK'
+    else:
+       values = []
+       for c in candidates:
+           if c in freq_dict and type(c) == str:
+              values.append(freq_dict[c])
+       maxi = max(values)
+       most_freq = list(filter(lambda x: x in freq_dict and type(x) == str and freq_dict[x] == maxi, freq_dict))
+       if len(most_freq) == 1:
+          best = most_freq[0]
+       else:
+          lens = []
+          for i in range(0, len(most_freq)-2):
+              lens.append(len(most_freq[i]))
+          for i in range(0, len(most_freq)-1):
+              for k in range(0, maxi):
+                  if k > len(most_freq[i]):
+                     most_freq.remove(most_freq[i])
+                  if LETTERS.index(most_freq[i][k]) > LETTERS.index(most_freq[i+1][k]):
+                     most_freq.remove(most_freq[i])
+                  elif LETTERS.index(most_freq[i][k]) < LETTERS.index(most_freq[i+1][k]):
+                     most_freq.remove(most_freq[i+1])
+                  else:
+                     continue
+          most_freq = most_freq[:]
+          best = most_freq[0]
+    return best
+choose_best(freq_dict, candidates)
