@@ -83,15 +83,14 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     freq = 0
 
     for word in candidates:
-        for key, value in frequencies.items():
-            if word == key:
-                val = value
+        if word in frequences:
+                val = frequences.get(word)
             else:
                 val = 0
         if val > freq:
             freq += val
             final += word
-        else:
+        if val == freq and freq > 0:
             sp = [final, word]
             sp.sort()
             final = str(sp[0])
