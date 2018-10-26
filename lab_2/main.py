@@ -106,6 +106,8 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
         result = 'UNK'
     if word.upper() in as_is_words and type(word) == str:
         result = word
+    if as_is_words == ((),):
+        result = 'UNK'
     if type(as_is_words) != tuple:
         candidates = tuple(propose_candidates(word, 1))
         new = tuple(keep_known(candidates, frequences))
