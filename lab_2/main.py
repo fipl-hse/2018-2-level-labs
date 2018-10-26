@@ -14,10 +14,12 @@ if __name__ == '__main__':
         freq_dict = calculate_frequences(REFERENCE_TEXT)
 
 
-candidates = []
+
 
 
 def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
+    candidates = []
+  
     if word == None:
         return []
     if word == '':
