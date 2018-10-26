@@ -50,11 +50,9 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
             candidates.append(word4)
     return candidates
 
-
-further_candidates = []
-
-
 def keep_known(candidates: tuple, frequencies: dict) -> list:
+    further_candidates = []
+  
     if frequencies == None:
         return []
     if candidates == None:
