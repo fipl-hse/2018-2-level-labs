@@ -88,8 +88,8 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
         else:
             val = 0
         if val > freq:
-            freq += val
-            final += word
+            freq = val
+            final = word
         if val == freq and freq > 0:
             sp = [final, word]
             sp.sort()
