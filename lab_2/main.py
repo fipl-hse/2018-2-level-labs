@@ -84,9 +84,9 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
     for word in candidates:
         if word in frequences:
-                val = frequences.get(word)
-            else:
-                val = 0
+            val = frequences.get(word)
+        else:
+            val = 0
         if val > freq:
             freq += val
             final += word
