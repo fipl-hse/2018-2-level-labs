@@ -108,5 +108,6 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
         result = word
     if type(as_is_words) != tuple:
         candidates = tuple(propose_candidates(word, 1))
-        result = choose_best(frequencies, candidates)
+        new = tuple(keep_known(candidates, frequences))
+        result = choose_best(frequencies, new)
     return result
