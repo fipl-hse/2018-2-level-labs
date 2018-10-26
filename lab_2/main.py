@@ -61,10 +61,7 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
         return []
     if type(candidates) != tuple:
         return []
-    for key in frequencies.keys():
-        if type(key) != str:
-             return []
-
+    
     for i in candidates:
         if i in frequencies:
             further_candidates.append(i)
