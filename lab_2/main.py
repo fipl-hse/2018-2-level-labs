@@ -53,14 +53,33 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     return known_candidates
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
-    new_freq_dict = {}
-    for i in REFERENCE_TEXT.split('\n'):
-        for word in i.split():
-            new_freq_dict[word] = new_freq_dict.get(word, 0) + 1
+  #  new_freq_dict = {}
+   # for i in REFERENCE_TEXT.split('\n'):
+   #     for word in i.split():
+   #         new_freq_dict[word] = new_freq_dict.get(word, 0) + 1
 
-    max_frequency = new_freq_dict[max(new_freq_dict, key = lambda x: new_freq_dict[x])]
-    print(*sorted([x for x in new_freq_dict if new_freq_dict[x] == max_frequency]), sep = '\n')
+  #  max_frequency = new_freq_dict[max(new_freq_dict, key = lambda x: new_freq_dict[x])]
+  #  print(*sorted([x for x in new_freq_dict if new_freq_dict[x] == max_frequency]), sep = '\n')
 
+    new_frequent_dict = {}
+    best_candidates = []
+    if candidates and frequent_dict:
+        for word in candidates:
+            if word in frequent_dict.keys():
+                current_frequent_dict[word] = frequent_dict[word]
+            else:
+                new_frequent_dict[word] = 0
+    if new_frequent_dict:
+        max_frequency = max(new_frequent_dict.values())
+        for word, frequency in new_frequent_dict.items():
+            if frequency == max_frequency:
+                best_candidates.append(word)
+    if len(best_candidates) == 1:
+        return best_candidates[0]
+    elif len(best_candidates) >= 2:
+        return min(best_candidates)
+    else:
+        return 'UNK'
  #   if candidates is None or frequencies is None:
    #     return 'UNK'
   #  if candidates is () or len(frequencies) <= 0:
