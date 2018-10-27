@@ -54,14 +54,12 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
     new_freq_dict = {}
-    for i in range(int(input())):
-        line = input().split()
-        for word in line:
+    for i in REFERENCE_TEXT.split('\n'):
+        for word in i.split():
             new_freq_dict[word] = new_freq_dict.get(word, 0) + 1
 
-    max_count = max(new_freq_dict.values())
-    most_frequent = [key for key, value in new_freq_dict.items() if value == max_count]
-    return (min(most_frequent))
+    max_frequency = new_freq_dict[max(new_freq_dict, key = lambda x: new_freq_dict[x])]
+    print(*sorted([x for x in new_freq_dict if new_freq_dict[x] == max_frequency]), sep = '\n')
 
  #   if candidates is None or frequencies is None:
    #     return 'UNK'
