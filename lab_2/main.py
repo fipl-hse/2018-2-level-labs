@@ -53,20 +53,17 @@ def keep_known(candidates: tuple, frequencies: dict) -> list:
     return known_candidates
 
 def choose_best(frequencies: dict, candidates: tuple) -> str:
-    if candidates is None or frequencies is None:
-        return 'UNK'
-    if candidates is () or len(frequencies) <= 0:
-        return 'UNK'
-
-    best_candidates_list = []
-    new_freq_dict = {}
-
+ #   if candidates is None or frequencies is None:
+   #     return 'UNK'
+  #  if candidates is () or len(frequencies) <= 0:
+  #      return 'UNK'
+  #  best_candidates_list = []
+  #  new_freq_dict = {}
 #    good_candidate = ''
-    for candidate in best_candidates_list:
-        new_freq_dict[candidate] = frequencies[candidate]
+ #   for candidate in best_candidates_list:
+ #       new_freq_dict[candidate] = frequencies[candidate]
    #     good_candidate = candidate
-
-    new_list = []
+#    new_list = []
 #    itog_list = []
 
  #   for key, value in new_freq_dict.items():
@@ -80,8 +77,6 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
   #  itog_list.sort()
  #   good_candidate = itog_list[0]
   #  return good_candidate
-
-
 dict_new = {}
 for i in range(int(input())):
     line = input().split()
@@ -89,7 +84,7 @@ for i in range(int(input())):
         dict_new[word] = dict_new.get(word, 0) + 1
 
 max_count = max(dict_new.values())
-most_frequent = [k for k, v in dict_new.items() if v == max_count]
+most_frequent = [key for key, value in dict_new.items() if value == max_count]
 print(min(most_frequent))
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
@@ -106,5 +101,3 @@ def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     list_known_candidates = keep_known(tuple(list_candidates), frequencies)
     itog_candidate = choose_best(frequencies, tuple(list_known_candidates))
     return itog_candidate
-
-
