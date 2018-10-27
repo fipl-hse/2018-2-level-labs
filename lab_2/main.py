@@ -77,13 +77,13 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
   #  itog_list.sort()
  #   good_candidate = itog_list[0]
   #  return good_candidate
-dict_new = {}
+dict = {}
 for i in range(int(input())):
     line = input().split()
     for word in line:
-        dict_new[word] = dict_new.get(word, 0) + 1
+        dict[word] = dict.get(word, 0) + 1
 
-max_count = max(dict_new.values())
+max_count = max(dict.values())
 most_frequent = [key for key, value in dict_new.items() if value == max_count]
 print(min(most_frequent))
 
