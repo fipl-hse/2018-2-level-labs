@@ -66,7 +66,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
     if candidates and frequent_dict:
         for word in candidates:
             if word in frequent_dict.keys():
-                current_frequent_dict[word] = frequent_dict[word]
+                new_frequent_dict[word] = frequent_dict[word]
             else:
                 new_frequent_dict[word] = 0
     if new_frequent_dict:
