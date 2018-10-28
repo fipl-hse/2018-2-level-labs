@@ -52,7 +52,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
    #         new_freq_dict[word] = new_freq_dict.get(word, 0) + 1
    #  max_frequency = new_freq_dict[max(new_freq_dict, key = lambda x: new_freq_dict[x])]
   #  print(*sorted([x for x in new_freq_dict if new_freq_dict[x] == max_frequency]), sep = '\n')
-     new_frequent_dict = {}
+    new_frequent_dict = {}
     best_candidates = []
     if candidates and frequencies:
         for word in candidates:
