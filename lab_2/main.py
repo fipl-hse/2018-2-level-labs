@@ -1,1 +1,1 @@
-print 'Privet'
+print ('Privet')
