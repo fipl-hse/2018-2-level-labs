@@ -20,7 +20,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1) -> list:
     for position in range(len(word)):
         candidates = (word[:position] + word[position + 1:])
         candidates_list.add(candidates)
-        for symbol in LETTERS:
+    for symbol in LETTERS:
         for position in range(len(word)):
             candidates = (word[:position] + symbol + word[position:])
             candidates_list.add(candidates)
