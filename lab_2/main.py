@@ -37,8 +37,11 @@ if __name__=='__main__':
         REFERENCE_TEXT = f.read()
 freq_dict = calculate_frequencies(REFERENCE_TEXT)
 depth_permutations = 1
-item = input("Enter a word")
-def propose_candidates(item: str, depth_permutations: int = 1) -> list:
+item = "cat"
+as_is_words = ("CTA")
+freq_dict = calculate_frequencies(REFERENCE_TEXT)
+def spell_check_word(freq_dict: dict, as_is_words: tuple, item: str) -> str:
+    as_is_words = ("CTA").lower()
     candidates = list()
     if item == None or item == " " or item == '' or depth_permutations == 'None' or type(depth_permutations) != int or depth_permutations <= 0:
        candidates == []
@@ -84,29 +87,33 @@ def propose_candidates(item: str, depth_permutations: int = 1) -> list:
               continue
            else:
               can2.append(c)
-       candidates = can1 + can2
-    return candidates
-candidates = tuple(propose_candidates(item))
-freq_dict = calculate_frequencies(REFERENCE_TEXT)
-def keep_known(candidates, freq_dict):
+       candidates = tuple(can1 + can2)
+    if as_is_words is not None and as_is_words != []:
+        for i in range(0, len(as_is_words)):
+            if as_is_words[i].isalpha() is False:
+                as_is_words.remove(as_is_words[i])
+        as_is_words = [c.lower for c in as_is_words]
+        as_is_words = list(as_is_words)
     known = list()
     if candidates == () or candidates is None or type(candidates) != tuple or freq_dict == '' or freq_dict is None:
        known = []
     else:
-       known = list(filter(lambda x: type(x) == str and x in freq_dict.keys(), candidates))
-    return known
-candidates = keep_known(candidates, freq_dict)
-candidates = tuple(candidates)
-def choose_best(freq_dict:dict,candidates:tuple)->str:
+       known = list(filter(lambda x: type(x) == str and (x in freq_dict.keys() or x in as_is_words), candidates))
+       candidates = tuple(known)
     best = str()
-    if freq_dict == dict() or freq_dict is None or candidates == tuple() or candidates is None:
+    if freq_dict == dict() or freq_dict is None or candidates == tuple() or candidates is None or item is None:
        best = 'UNK'
     else:
        values = []
        for c in candidates:
            if c in freq_dict and type(c) == str:
               values.append(freq_dict[c])
-       maxi = max(values)
+       maxi = values[0]
+       for i in range(0, len(values)):
+           if values[i] > maxi:
+              maxi = values[i]
+           else:
+              continue
        most_freq = list(filter(lambda x: x in freq_dict and type(x) == str and freq_dict[x] == maxi, freq_dict))
        if len(most_freq) == 1:
           best = most_freq[0]
@@ -127,4 +134,4 @@ def choose_best(freq_dict:dict,candidates:tuple)->str:
           most_freq = most_freq[:]
           best = most_freq[0]
     return best
-choose_best(freq_dict, candidates)
+
