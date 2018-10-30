@@ -8,7 +8,7 @@ LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 REFERENCE_TEXT = ''
 
 
-def propose_candidates(word: str, max_depht_permutations: int = 1):
+def propose_candidates(word: str, max_depth_permutations: int = 1):
     if (not isinstance(word, str) or not isinstance(max_depth_permutations, int) or word is ''):
         return []
     if max_depth_permutations <= 0:
@@ -18,15 +18,17 @@ def propose_candidates(word: str, max_depht_permutations: int = 1):
     candidates_list = set()
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     word_len = len(word)
+    
 
     for syllable_i in range(word_len):
-        candidate = (word[:syllable_i]) + word[syllable_i + 1:])
+        candidate = (word[:syllable_i] + word[syllable_i + 1:])
         candidates_list.add(candidate)
+       
        
     for alphabet_symbol in alphabet:
         for syllable_i in range(word_len):
             candidate = (word[:syllable_i] + alphabet_symbol + word[syllable_i:])
-           candidates_list.add(candidate)
+            candidates_list.add(candidate)
 
    
     for alphabet_symbol in alphabet:
@@ -96,7 +98,7 @@ def choose_best(frequencies: dict, candidates: tuple):
 
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str):
-    if (not isinstance(frequensies, dict)) or (not isinstance(word, str)):
+    if (not isinstance(frequencies, dict)) or (not isinstance(word, str)):
         return 'UNK'
     if not isinstance(as_is_words, tuple):
         pass
