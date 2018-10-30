@@ -9,46 +9,35 @@ REFERENCE_TEXT = ' '
 
 
 def propose_candidates(word: str, max_depht_permutations: int = 1):
-    if (not isinstance(word, str) or
-        not isinstance(max_depth_permutations, int) or
-        word is ''):
+    if (not isinstance(word, str) or not isinstance(max_depth_permutations, int) or word is ''):
         return []
     if max_depth_permutations <= 0:
         return []
+     
 
     candidates_list = set()
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     word_len = len(word)
 
     for syllable_i in range(word_len):
-        candidate = (word[:syllable_i]) +
-                     word[syllable_i + 1:])
+        candidate = (word[:syllable_i]) + word[syllable_i + 1:])
         candidates_list.add(candidate)
-
+       
     for alphabet_symbol in alphabet:
         for syllable_i in range(word_len):
-           if syllable_i == 0:
-              candidate = alphabet_symbol + word
-              candidates_list.add(candidate)
-           candidate = (word[:syllable_i] +
-                        alphabet_symbol +
-                        word[syllable_i:])
+            candidate = (word[:syllable_i] + alphabet_symbol + word[syllable_i:])
            candidates_list.add(candidate)
 
-
+   
     for alphabet_symbol in alphabet:
         for syllable_i in range(word_len + 1):
-            candidate = (word[:syllable_i] +
-                        alphabet_symbol +
-                        word[syllable_i + 1:])
+            candidate = (word[:syllable_i] + alphabet_symbol + word[syllable_i + 1:])
             candidates_list.add(candidate)
-
-
+         
+         
+    
     for syllable_i in range(word_len - 1):
-        candidate = (word[syllable_i] +
-                     word[syllable_i + 1] +
-                     word[syllable_i] +
-                     word[syllable_i + 2:])
+        candidate = (word[syllable_i] + word[syllable_i + 1] + word[syllable_i] + word[syllable_i + 2:])
         candidates_list.add(candidate)
     return list(candidates_list)
 
@@ -63,6 +52,7 @@ def keep_known(candidates: tuple, frequencies: dict):
     for word in candidates:
         if word in frequencies:
             future_candidates.append(word)
+        
     return future_candidates
 
 
@@ -78,18 +68,19 @@ def choose_best(frequencies: dict, candidates: tuple):
     final_list = []
     new_freq_dict = {}
 
-    for element in candidates:
-        if not isinstance(element, str):
-            continue
-        if element in frequencies:
-            words_list.append(element)
+    
+    words_list = keep_known(candidates, frequencies)
+    
     if words_list is []:
         return 'UNK'
-
+     
     for word in words_list:
         new_freq_dict[word] = frequencies[word]
+
+ 
     for key, value in new_freq_dict.items():
         value_key_list.append([value, key])
+    
     value_key_list.sort(reverse=True)
 
     for pair in value_key_list:
@@ -97,6 +88,7 @@ def choose_best(frequencies: dict, candidates: tuple):
             final_list.append(pair[1])
         else:
             continue
+          
     final_list.sort()
 
     right_word = final_list[0]
