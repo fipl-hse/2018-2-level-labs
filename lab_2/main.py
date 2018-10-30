@@ -94,9 +94,9 @@ def keep_known(candidates, freq_dict):
     else:
        known = list(filter(lambda x: type(x) == str and x in freq_dict.keys(), candidates))
     return known
-def choose_best(freq_dict:dict,candidates:tuple)->str:
+def choose_best(freq_dict,candidates) ->str:
     best = str()
-    if freq_dict == dict() or freq_dict is None or candidates == tuple() or candidates is None or item is None:
+    if freq_dict == dict() or freq_dict is None or candidates == tuple() or candidates is None:
        best = 'UNK'
     else:
        values = []
@@ -125,19 +125,13 @@ def choose_best(freq_dict:dict,candidates:tuple)->str:
           best = most_freq[0]
     return best
 def spell_check_word(freq_dict, as_is_words, item):
-    if as_is_words is not None and as_is_words != ():
-       as_is_words = list(as_is_words)
-       for i in range(0, len(as_is_words)):
-           if as_is_words[i].isalpha() is False:
-              as_is_words.remove(as_is_words[i])
-       as_is_words = [c.lower() for c in as_is_words ]
-    if item in as_is_words or item in freq_dict.keys():
-       final = item
+    if item is None or freq_dict is None:
+       final = 'UNK'
     else:
-       candidates = propose_candidates(item, depth_permutations)
-       known = keep_known(candidates, freq_dict)
-       final = choose_best(freq_dict, candidates)
+        if as_is_words is not None and item in as_is_words or item in freq_dict.keys():
+           final = item
+        else:
+           candidates = propose_candidates(item, depth_permutations)
+           known = keep_known(candidates, freq_dict)
+           final = choose_best(freq_dict, candidates)
     return final
-
-
-
