@@ -1,10 +1,3 @@
-def read_from_file():
-    with open(r'C:\Users\admin\Downloads\2018-2-level-labs\Beatles - Yesterday.txt') as f:
-        t = f.read()
-        return t
-
-
-text = read_from_file()
 
 def read_from_file(path_to_file, lines_limit: int) -> str:
     my_text = ''
