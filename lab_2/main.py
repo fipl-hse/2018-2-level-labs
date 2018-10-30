@@ -39,7 +39,7 @@ def propose_candidates(word: str, max_depth_permutations: int = 1):
          
     
     for syllable_i in range(word_len - 1):
-        candidate = (word[syllable_i] + word[syllable_i + 1] + word[syllable_i] + word[syllable_i + 2:])
+        candidate = (word[:syllable_i] + word[syllable_i + 1] + word[syllable_i] + word[syllable_i + 2:])
         candidates_list.add(candidate)
     return list(candidates_list)
 
