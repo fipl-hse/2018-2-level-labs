@@ -26,13 +26,13 @@ def propose_candidates(word: str, max_depth_permutations: int = 1):
        
        
     for alphabet_symbol in alphabet:
-        for syllable_i in range(word_len):
+        for syllable_i in range(word_len+1):
             candidate = (word[:syllable_i] + alphabet_symbol + word[syllable_i:])
             candidates_list.add(candidate)
 
    
     for alphabet_symbol in alphabet:
-        for syllable_i in range(word_len + 1):
+        for syllable_i in range(word_len):
             candidate = (word[:syllable_i] + alphabet_symbol + word[syllable_i + 1:])
             candidates_list.add(candidate)
          
