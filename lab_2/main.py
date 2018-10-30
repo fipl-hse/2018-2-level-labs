@@ -11,7 +11,7 @@ REFERENCE_TEXT = ''
 
 # ШАГ 1 из Задания
 def propose_candidates(word: str, max_depth_permutations: int = 1):
-    if isinstance(word, str) or isinstance(max_depth_permutations, int) or word == '':
+    if isinstance(word, str)== False or isinstance(max_depth_permutations, int) == False or word == '':
         return []
     elif max_depth_permutations <= 0 or max_depth_permutations != 1:
         return []
