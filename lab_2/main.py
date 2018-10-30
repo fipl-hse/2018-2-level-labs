@@ -5,7 +5,7 @@ Labour work #2
 from lab_1.main import calculate_frequences
 
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-REFERENCE_TEXT = ' '
+REFERENCE_TEXT = ''
 
 
 def propose_candidates(word: str, max_depht_permutations: int = 1):
