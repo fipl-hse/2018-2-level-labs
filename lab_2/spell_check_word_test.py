@@ -1,6 +1,6 @@
-'''Lab_2.main spell_check_word tests'''
 import unittest
 from unittest.mock import patch
+
 from lab_2.main import spell_check_word
 
 
@@ -64,7 +64,7 @@ class SpellCheckWordsTest(unittest.TestCase):
         freq_dict = dict(list=1, lust=2)
         word = 'lwst'
         as_is_words = ((),)
-        spell_check_word(freq_dict, as_is_words, word)
+        res = spell_check_word(freq_dict, as_is_words, word)
         self.assertTrue(propose_candidates.called)
         self.assertTrue(keep_known.called)
         self.assertTrue(choose_best.called)
@@ -77,7 +77,7 @@ class SpellCheckWordsTest(unittest.TestCase):
         freq_dict = dict(list=1, lust=2)
         word = 'lwst'
         as_is_words = ('LWST',)
-        spell_check_word(freq_dict, as_is_words, word)
+        res = spell_check_word(freq_dict, as_is_words, word)
         self.assertFalse(propose_candidates.called)
         self.assertFalse(keep_known.called)
         self.assertFalse(choose_best.called)
@@ -90,7 +90,7 @@ class SpellCheckWordsTest(unittest.TestCase):
         freq_dict = dict(list=1, lust=2)
         word = 'list'
         as_is_words = ('LWST',)
-        spell_check_word(freq_dict, as_is_words, word)
+        res = spell_check_word(freq_dict, as_is_words, word)
         self.assertFalse(propose_candidates.called)
         self.assertFalse(keep_known.called)
         self.assertFalse(choose_best.called)

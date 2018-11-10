@@ -1,5 +1,5 @@
-'''Lab_2.main keep_known tests'''
 import unittest
+
 from lab_2.main import keep_known
 
 
