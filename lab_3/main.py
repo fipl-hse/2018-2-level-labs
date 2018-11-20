@@ -50,18 +50,93 @@ class WordStorage:
 
 
 class NGramTrie:
+    def __init__(self, size):
+        self.size = size
+        self.gram_frequencies = {}
+        self.gram_log_probabilities = {}
+
     def fill_from_sentence(self, sentence: tuple) -> str:
-        pass
+        if type(sentence) is not tuple:
+            return 'ERROR'
+
+        # N Grams.
+        list_of_n_grams = []
+        for element in range(0, (len(sentence)-1)):
+            list_of_n_grams.append(sentence[element:element+self.size])
+        res = []
+        for n_gram in list_of_n_grams:
+            if len(n_gram) == self.size:
+                res.append(n_gram)
+        for n_gram in res:
+            frequency = list_of_n_grams.count(n_gram)
+            self.gram_frequencies[tuple(n_gram)] = frequency
+        return 'OK'
 
     def calculate_log_probabilities(self):
-        pass
+        list_of_engrams = []
+        for key in self.gram_frequencies.keys():
+            list_of_engrams.append(key)
+            continue
+
+        # N Grams.
+        counter = 0
+        while counter <= (len(list_of_engrams)-1):
+            engrams_list = []
+            current_engram = list_of_engrams[counter]
+            w = current_engram[:-1]
+            for engram in list_of_engrams:
+                if w == engram[:-1]:
+                    engrams_list.append(engram)
+                continue
+            engrams_list_sum = 0
+            for engram in engrams_list:
+                engrams_list_sum += self.gram_frequencies[engram]
+            log = math.log(self.gram_frequencies[list_of_engrams[counter]] / engrams_list_sum)
+            self.gram_log_probabilities[list_of_engrams[counter]] = log
+            counter += 1
+            continue
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        pass
+
+        # Step 0. Test Processing.
+        if self.gram_log_probabilities == {}:
+            return []
+
+        # N Grams.
+        prefix_list = list(prefix)
+        length = len(prefix)
+        counter = len(self.gram_log_probabilities)
+        while counter:
+            engrams = []
+            for key, value in self.gram_log_probabilities.items():
+                a = list(key)
+                if prefix_list[-length:] == a[:length]:
+                    engrams.append(key)
+            logs = []
+            for engram in engrams:
+                logs.append(self.gram_log_probabilities[engram])
+            try:
+                res = max(logs)
+            except ValueError:
+                break
+            for key, value in self.gram_log_probabilities.items():
+                if res == value:
+                    prefix_list.append(key[-1])
+            counter -= 1
+        return prefix_list
 
 
 def encode(storage_instance, corpus) -> list:
-    pass
+    new_corpus = []
+    id_sentence = []
+    for sentence in corpus:
+        for word in sentence:
+            number = storage_instance.put(word)
+            id_sentence.append(number)
+        new_corpus.append(id_sentence)
+        id_sentence = []
+        continue
+    return new_corpus
 
 
 def split_by_sentence(text: str) -> list:
