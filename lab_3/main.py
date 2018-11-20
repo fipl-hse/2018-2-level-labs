@@ -18,9 +18,6 @@ def read_from_file(path_to_file, lines_limit: int) -> str:
     return my_text
 
 
-#REFERENCE_TEXT = read_from_file('C:\\Users\\Andrew\\Desktop\\2018-2-level-labs\\lab_3\\not_so_big_reference_text.txt',
-                                #100)
-#print(REFERENCE_TEXT)
 REFERENCE_TEXT = '''I love you, hope that you are alright you are the most of them, you feel it, don`t you?
 there are so much things that i want to say, but there is something i can`t overcome you are you are you are you are'''
 
@@ -60,11 +57,16 @@ def split_by_sentence(text: str) -> list:
 
     for sentence in sentences_list:
         sentence = sentence.lower()
-        splitted = sentence.split()
+        splitted = ['<s>', ]
+        raw_splitted = sentence.split()
+        for word in raw_splitted:
+            splitted.append(word)
+        splitted.append('</s>')
         result_list.append(splitted)
 
-    if [] in result_list:
+    if len(result_list[0]) == 2 or len(result_list[0]) == 3:
         return []
+
     return result_list
 
 
@@ -111,32 +113,17 @@ class WordStorage:
         #return 'OK'
 
 
-raw_storage = WordStorage()
-raw_storage.from_corpus(('<s>', 'mary', 'wanted', 'to', 'to', 'swim', '</s>'))
-print(raw_storage.storage)
-
-
 # ШАГ 3. Кодирование корпуса/списка предложений
-def encode(storage_instance, corpus) -> list:
-    encoded_list = list()
-    for sentence in corpus:
-        inner_list = list()
-        inner_list.append(raw_storage.get_id_of('<s>'))
-        for word in sentence:
-            inner_list.append(storage_instance[word])
-        inner_list.append(raw_storage.get_id_of('</s>'))
-        encoded_list.append(inner_list)
-    return encoded_list
-
-
-#raw_storage.from_corpus(tuple(split_by_sentence(REFERENCE_TEXT)))
-raw_storage.put('<s>')
-raw_storage.put('</s>')
-
-encoded_text = encode(raw_storage.storage, split_by_sentence(REFERENCE_TEXT))
-
-#print(raw_storage.word_id_dict)
-#print(encoded_text)
+#def encode(storage_instance, corpus) -> list:
+    #encoded_list = list()
+    #for sentence in corpus:
+        #inner_list = list()
+        #inner_list.append(raw_storage.get_id_of('<s>'))
+        #for word in sentence:
+            #inner_list.append(storage_instance[word])
+        #inner_list.append(raw_storage.get_id_of('</s>'))
+        #encoded_list.append(inner_list)
+    #return encoded_list
 
 
 class NGramTrie:
@@ -146,32 +133,19 @@ class NGramTrie:
         self.gram_log_probabilities = dict()
 
     def fill_from_sentence(self, sentence: tuple) -> str:
-        list_of_grams_text = list()
-        
-        for sentence in encoded_text:
-            for index, word in enumerate(sentence):
-                if len(sentence) <= 1:
-                    list_of_grams_text.append((raw_storage.get_id_of('<s>'), word))
-                    list_of_grams_text.append((word, raw_storage.get_id_of('</s>')))
-                    break
-                if index == 0:
-                    list_of_grams_text.append((raw_storage.get_id_of('<s>'), word))
-                    list_of_grams_text.append((word, sentence[index + 1]))
-                    continue
-                if index == len(sentence) - 1:
-                    list_of_grams_text.append((word, raw_storage.get_id_of('</s>')))
-                    break
-                list_of_grams_text.append((word, sentence[index + 1]))
+        if not isinstance(sentence, tuple):
+            return 'Error'
 
-        for gram in list_of_grams_text:
-            if gram in self.gram_frequencies:
-                continue
-            for encoded_sentence in encoded_text:
-                for index, encoded_word in enumerate(encoded_sentence):
-                    if index == len(encoded_sentence) - 1:
-                        break
-                    if (gram[0] == encoded_word) and (gram[1] == encoded_sentence[index + 1]):
-                        self.gram_frequencies[gram] = self.gram_frequencies.get(gram, 0) + 1
+        list_of_grams = list()
+
+        for index, encoded_word in enumerate(sentence):
+            if index == len(sentence) - 1:
+                break
+            list_of_grams.append((encoded_word, sentence[index + 1]))
+
+        for gram in list_of_grams:
+            self.gram_frequencies[gram] = self.gram_frequencies.get(gram, 0) + 1
+
         return 'OK'
 
     def calculate_log_probabilities(self):
@@ -187,10 +161,23 @@ class NGramTrie:
             self.gram_log_probabilities[gram] = gram_log_probability
         return 'OK'
 
+    def predict_next_sentence(self, prefix: tuple) -> list:
+        if not isinstance(prefix, tuple) or len(prefix) != self.size - 1:
+            return []
 
-#NGram_raw = NGramTrie(2)
-#NGram_raw.fill_from_sentence(encoded_text[0])
-#NGram_raw.calculate_log_probabilities()
-#print(raw_storage.word_id_dict)
-#print(NGram_raw.gram_frequencies)
-#print(NGram_raw.gram_log_probabilities)
+        predicted_sentence = [prefix[0], ]
+
+        word = prefix[0]
+        while True:
+            probable_grams = []
+            for gram, log_prob in self.gram_log_probabilities.items():
+                if gram[0] == word:
+                    probable_grams.append((log_prob, gram))
+
+            if len(probable_grams) == 0:
+                return predicted_sentence
+
+            probable_grams.sort(reverse=True)
+            predicted_sentence.append(probable_grams[0][1][1])
+            word = probable_grams[0][1][1]
+
