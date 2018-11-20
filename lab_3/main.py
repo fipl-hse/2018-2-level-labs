@@ -12,17 +12,41 @@ if __name__ == '__main__':
 
 
 class WordStorage:
+    def __init__(self):
+        self.storage = {}
+        self.counter = 0
+
     def put(self, word: str) -> int:
-        return 1
+        if type(word) != str:
+            return
+        if word in self.storage:
+            return self.storage[word]
+
+        for value in self.storage.values():
+            if value == self.counter:
+                self.counter += 1
+                continue
+        self.storage[word] = self.counter
+        return self.counter
 
     def get_id_of(self, word: str) -> int:
-        pass
+        if word is None or type(word) != str or word not in self.storage:
+            return -1
+        return self.storage[word]
 
-    def get_original_by(self, id: int) -> str:
-        pass
+    def get_original_by(self, number: int) -> str:
+        if type(number) != int:
+            return 'UNK'
+        for key, value in self.storage.items():
+            if value == number:
+                return key
+        return 'UNK'
 
-    def from_corpus(self, corpus: tuple):
-        pass
+    def from_corpus(self, sentence: tuple) -> str:
+        if type(sentence) is not tuple:
+            return {}
+        for element in sentence:
+            self.put(element)
 
 
 class NGramTrie:
@@ -64,7 +88,7 @@ def split_by_sentence(text: str) -> list:
         if element in alphabet_checker:
             new_text += element
     final = ''
-    for index in range(len(new_text)-1):
+    for index in range(0, len(new_text)-1):
         if new_text[index] is '.':
             if new_text[index+1] in alphabet_checker:
                 continue
