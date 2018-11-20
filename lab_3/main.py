@@ -17,8 +17,8 @@ class WordStorage:
         self.counter = 0
 
     def put(self, word: str) -> int:
-        if type(word) != str:
-            return
+        if not isinstance(word, str):
+            return 0
         if word in self.storage:
             return self.storage[word]
 
@@ -30,12 +30,12 @@ class WordStorage:
         return self.counter
 
     def get_id_of(self, word: str) -> int:
-        if word is None or type(word) != str or word not in self.storage:
+        if word is None or not isinstance(word, str) or word not in self.storage:
             return -1
         return self.storage[word]
 
     def get_original_by(self, number: int) -> str:
-        if type(number) != int:
+        if not isinstance(number, int):
             return 'UNK'
         for key, value in self.storage.items():
             if value == number:
@@ -43,8 +43,8 @@ class WordStorage:
         return 'UNK'
 
     def from_corpus(self, sentence: tuple) -> str:
-        if type(sentence) is not tuple:
-            return {}
+        if not isinstance(sentence, tuple):
+            return ''
         for element in sentence:
             self.put(element)
 
@@ -56,7 +56,7 @@ class NGramTrie:
         self.gram_log_probabilities = {}
 
     def fill_from_sentence(self, sentence: tuple) -> str:
-        if type(sentence) is not tuple:
+        if not isinstance(sentence, tuple):
             return 'ERROR'
 
         # N Grams.
@@ -74,7 +74,7 @@ class NGramTrie:
 
     def calculate_log_probabilities(self):
         list_of_engrams = []
-        for key in self.gram_frequencies.keys():
+        for key in self.gram_frequencies:  # .keys()
             list_of_engrams.append(key)
             continue
 
@@ -83,9 +83,9 @@ class NGramTrie:
         while counter <= (len(list_of_engrams)-1):
             engrams_list = []
             current_engram = list_of_engrams[counter]
-            w = current_engram[:-1]
+            w_engram = current_engram[:-1]
             for engram in list_of_engrams:
-                if w == engram[:-1]:
+                if w_engram == engram[:-1]:
                     engrams_list.append(engram)
                 continue
             engrams_list_sum = 0
@@ -109,8 +109,8 @@ class NGramTrie:
         while counter:
             engrams = []
             for key, value in self.gram_log_probabilities.items():
-                a = list(key)
-                if prefix_list[-length:] == a[:length]:
+                current_key = list(key)
+                if prefix_list[-length:] == current_key[:length]:
                     engrams.append(key)
             logs = []
             for engram in engrams:
@@ -142,7 +142,9 @@ def encode(storage_instance, corpus) -> list:
 def split_by_sentence(text: str) -> list:
 
     # Step 0. Test processing.
-    if text is '' or text is None:
+    space = ' '
+    non_space = ''
+    if text is non_space or text is None:
         return []
     if text[-1] not in ['.', '!', '?']:
         return []
@@ -158,16 +160,17 @@ def split_by_sentence(text: str) -> list:
     for element in text:
         if element in ['.', '!', '?']:
             new_text += '.'
-        if element is ' ':
+        if element is space:
             new_text += ' '
         if element in alphabet_checker:
             new_text += element
     final = ''
     for index in range(0, len(new_text)-1):
-        if new_text[index] is '.':
+        dot = '.'
+        if new_text[index] is dot:
             if new_text[index+1] in alphabet_checker:
                 continue
-            if new_text[index+1] is '.':
+            if new_text[index+1] is dot:
                 continue
         final += new_text[index]
     final = final.split('.')
