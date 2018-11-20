@@ -2,34 +2,6 @@
 Labour work #1
 Count frequencies dictionary by the given arbitrary text
 """
-def calculate_frequences(text) -> dict:
-    frequent_dict = {}
-    import re
-    if text and isinstance(text, str):
-        prepared_text = re.findall(r'[a-z]+', text.lower())
-        for element in prepared_text:
-            new_word = ''
-            count = 1
-            for el_element in enumerate(element): # вводим дополнительный цикл, где избавляемся от лишнего "мусора"
-                if el_element[1] in 'qwertyuioplkjhgfdsazxcvbnm':
-                    new_word += el_element[1]
-            if new_word not in frequent_dict:
-                frequent_dict[new_word] = count
-            else:
-                new_count = frequent_dict[new_word] + 1
-                frequent_dict[new_word] = new_count
-    return frequent_dict
-
-def filter_stop_words(frequent_dict, stop_words) -> dict: # Removes all stop words from the given frequencies dictionary
-    new_frequent_dict = {}
-    if frequent_dict and stop_words:
-        for word, frequency in frequent_dict.items():
-            if word not in stop_words and isinstance(word, str):
-                new_frequent_dict[word] = frequency
-        return new_frequent_dict
-    return frequent_dict
-
-
 def read_from_file(path_to_file, lines_limit: int) -> str:
     my_text = ''
     count_lines = 0
@@ -113,3 +85,4 @@ def write_to_file(path_to_file: str, content: tuple):
     for word in content:
         my_file.write(word + '\n')
     my_file.close()
+
