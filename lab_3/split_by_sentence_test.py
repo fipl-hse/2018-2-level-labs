@@ -1,3 +1,8 @@
+"""
+Labour work #3
+SplitBySentence tests
+"""
+
 import unittest
 
 from lab_3.main import split_by_sentence

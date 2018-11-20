@@ -27,6 +27,11 @@ there are so much things that i want to say, but there is something i can`t over
 
 # ШАГ 1. Разбиение текста и токенизация
 def split_by_sentence(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+    if text == '':
+        return []
+
     new_text = ''
     list_of_marks = [
         '.', ',', ':', '"', '`', '[', ']',
@@ -35,7 +40,7 @@ def split_by_sentence(text: str) -> list:
         '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\n'
     ]
-    good_marks = ['.', '!', '...', '?']
+    good_marks = ['.', '!', '...', '?', '\n']
     result_list = list()
 
     for index, element in enumerate(text):
@@ -58,6 +63,8 @@ def split_by_sentence(text: str) -> list:
         splitted = sentence.split()
         result_list.append(splitted)
 
+    if [] in result_list:
+        return []
     return result_list
 
 
@@ -65,36 +72,48 @@ def split_by_sentence(text: str) -> list:
 class WordStorage:
     def __init__(self):
         self.counter = 0
-        self.word_id_dict = dict()
+        self.storage = dict()
 
     def put(self, word: str) -> int:
-        self.word_id_dict[word] = self.counter
+        if not isinstance(word, str) or word in self.storage:
+            return 'Error'
+        self.storage[word] = self.counter
         self.counter += 1
-        return self.word_id_dict[word]
+        return self.storage[word]
 
     def get_id_of(self, word: str) -> int:
-        if word not in self.word_id_dict:
-            return None
-        return self.word_id_dict[word]
+        if word not in self.storage:
+            return -1
+        return self.storage[word]
 
     def get_original_by(self, id: int) -> str:
-        if id not in self.word_id_dict.values():
-            return None
-        for word, word_id in self.word_id_dict.items():
+        if id not in self.storage.values():
+            return 'UNK'
+        for word, word_id in self.storage.items():
             if word_id == id:
                 return word
 
     def from_corpus(self, corpus: tuple) -> str:
-        for sentence in corpus:
-            for word in sentence:
-                if word in self.word_id_dict:
-                    continue
-                self.word_id_dict[word] = self.counter
-                self.counter += 1
+        if not isinstance(corpus, tuple):
+            return 'Error'
+        for word in corpus:
+            if word in self.storage:
+                continue
+            self.storage[word] = self.counter
+            self.counter += 1
         return 'OK'
+        #for sentence in corpus:
+            #for word in sentence:
+                #if word in self.storage:
+                    #continue
+                #self.storage[word] = self.counter
+                #self.counter += 1
+        #return 'OK'
 
 
 raw_storage = WordStorage()
+raw_storage.from_corpus(('<s>', 'mary', 'wanted', 'to', 'to', 'swim', '</s>'))
+print(raw_storage.storage)
 
 
 # ШАГ 3. Кодирование корпуса/списка предложений
@@ -110,11 +129,11 @@ def encode(storage_instance, corpus) -> list:
     return encoded_list
 
 
-raw_storage.from_corpus(tuple(split_by_sentence(REFERENCE_TEXT)))
+#raw_storage.from_corpus(tuple(split_by_sentence(REFERENCE_TEXT)))
 raw_storage.put('<s>')
 raw_storage.put('</s>')
 
-encoded_text = encode(raw_storage.word_id_dict, split_by_sentence(REFERENCE_TEXT))
+encoded_text = encode(raw_storage.storage, split_by_sentence(REFERENCE_TEXT))
 
 #print(raw_storage.word_id_dict)
 #print(encoded_text)
@@ -169,10 +188,9 @@ class NGramTrie:
         return 'OK'
 
 
-
-NGram_raw = NGramTrie(2)
-NGram_raw.fill_from_sentence(encoded_text[0])
-NGram_raw.calculate_log_probabilities()
-print(raw_storage.word_id_dict)
-print(NGram_raw.gram_frequencies)
-print(NGram_raw.gram_log_probabilities)
+#NGram_raw = NGramTrie(2)
+#NGram_raw.fill_from_sentence(encoded_text[0])
+#NGram_raw.calculate_log_probabilities()
+#print(raw_storage.word_id_dict)
+#print(NGram_raw.gram_frequencies)
+#print(NGram_raw.gram_log_probabilities)
