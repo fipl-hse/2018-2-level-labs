@@ -41,4 +41,35 @@ def encode(storage_instance, corpus) -> list:
 
 
 def split_by_sentence(text: str) -> list:
-    pass
+    if text == '' or text is None:
+        return []
+    text = 'Mar#y wa$nted, to swim! However, she was afraid of sharks.'
+    list_of_marks = [
+        ',', ':', '"', '`', '[', ']', '@', '&', "'", '-',
+        '$', '^', '*', '(', ')',
+        '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    ]
+    new_text = ''
+    for element in text:
+        if element not in list_of_marks:
+            new_text += element
+    points = ['!', '?']
+    for element in new_text:
+        if element in points:
+            new_text = new_text.replace(element, '.')
+    new_text = new_text.lower()
+    splitted_text = new_text.split('.')
+    splitted_text.remove(splitted_text[-1])
+    final = []
+    for sentence in splitted_text:
+        new_list = ['<s>']
+        list_sent = sentence.split(' ')
+        for element in list_sent:
+            if element is not '':
+                new_list.append(element)
+        new_list.append('</s>')
+        final.append(new_list)
+        return final
+
+
