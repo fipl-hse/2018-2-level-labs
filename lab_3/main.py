@@ -77,13 +77,16 @@ class NGramTrie:
     def calculate_log_probabilities(self):
         import math
         for bi_gram in self.gram_frequencies.keys():
-            w = bi_gram[1]
+            w = bi_gram[0]
             denominator = 0
-            for bi_gram in self.gram_frequencies.keys():
-                if bi_gram[1] == w:
-                    denominator += 1
+            for bi_gram_2 in self.gram_frequencies.keys():
+                if bi_gram_2[0] == w:
+                    denominator += self.gram_frequencies[bi_gram_2]
             numerator = self.gram_frequencies[bi_gram]
-            log_probability = math.log(numerator / denominator)
+            if denominator > 0 and len(self.gram_frequencies.keys()) >= 2:
+                log_probability = math.log(numerator / denominator)
+            else:
+                log_probability = 0.0
             self.gram_log_probabilities[bi_gram] = log_probability
 
     def get_bi_gram_by_probability(self, probability: int, dictionary: dict) -> tuple:
@@ -119,7 +122,7 @@ class NGramTrie:
                     prefix = (next_word[1],)
         return result
 
-
+       
 def encode(storage_instance, corpus) -> list:
     id_matrix_of_sentences = []
     if storage_instance and corpus and ' ' not in corpus:
@@ -127,11 +130,11 @@ def encode(storage_instance, corpus) -> list:
             for sentence in corpus:
                 id_sentence = []
                 for word in sentence:
-                    id_sentence.append(get_id_of(word))
+                    id_sentence.append(WordStorage.get_id_of(self, word))
                 id_matrix_of_sentences.append(sentence)
         else:
             for word in corpus:
-                id_matrix_of_sentences.append(get_id_of(word))
+                id_matrix_of_sentences.append(WordStorage.get_id_of(self, word))
     return id_matrix_of_sentences
    
    
