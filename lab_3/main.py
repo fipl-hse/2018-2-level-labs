@@ -44,7 +44,7 @@ def split_by_sentence(text: str) -> list:
         try:
             if element in good_marks and text[index + 2].isupper():
                 try:
-                    new_text += '.' + text[index + 1]
+                    new_text += '.'
                     continue
                 except IndexError:
                     pass
@@ -57,12 +57,10 @@ def split_by_sentence(text: str) -> list:
 
     for sentence in sentences_list:
         sentence = sentence.lower()
-        splitted = ['<s>', ]
-        raw_splitted = sentence.split()
-        for word in raw_splitted:
-            splitted.append(word)
-        splitted.append('</s>')
-        result_list.append(splitted)
+        splitter = sentence.split()
+        splitter.insert(0, '<s>')
+        splitter.append('</s>')
+        result_list.append(splitter)
 
     if len(result_list[0]) == 2 or len(result_list[0]) == 3:
         return []
@@ -77,8 +75,9 @@ class WordStorage:
         self.storage = dict()
 
     def put(self, word: str) -> int:
-        if not isinstance(word, str) or word in self.storage:
-            return 'Error'
+        if not isinstance(word, str) or word in self.storage.keys():
+            return -1
+
         self.storage[word] = self.counter
         self.counter += 1
         return self.storage[word]
@@ -91,6 +90,7 @@ class WordStorage:
     def get_original_by(self, id: int) -> str:
         if id not in self.storage.values():
             return 'UNK'
+
         for word, word_id in self.storage.items():
             if word_id == id:
                 return word
@@ -98,34 +98,26 @@ class WordStorage:
     def from_corpus(self, corpus: tuple) -> str:
         if not isinstance(corpus, tuple):
             return 'Error'
+
         for word in corpus:
-            if word in self.storage:
-                continue
-            self.storage[word] = self.counter
-            self.counter += 1
+            self.put(word)
         return 'OK'
-        #for sentence in corpus:
-            #for word in sentence:
-                #if word in self.storage:
-                    #continue
-                #self.storage[word] = self.counter
-                #self.counter += 1
-        #return 'OK'
 
 
 # ШАГ 3. Кодирование корпуса/списка предложений
-#def encode(storage_instance, corpus) -> list:
+#def encode(storage_instance, corpus: tuple) -> list:
+    #if not isinstance(corpus, tuple):
+        #return []
+
     #encoded_list = list()
     #for sentence in corpus:
         #inner_list = list()
-        #inner_list.append(raw_storage.get_id_of('<s>'))
         #for word in sentence:
             #inner_list.append(storage_instance[word])
-        #inner_list.append(raw_storage.get_id_of('</s>'))
         #encoded_list.append(inner_list)
     #return encoded_list
 
-
+# Шаг 4. Реализация языковой модели
 class NGramTrie:
     def __init__(self, scale: int):
         self.size = scale
@@ -149,16 +141,17 @@ class NGramTrie:
         return 'OK'
 
     def calculate_log_probabilities(self):
-        for gram, freq in self.gram_frequencies.items():
-            general_probability = 0
-            for gram_2 , freq_2 in self.gram_frequencies.items():
-                if gram[0] == gram_2[0]:
-                    general_probability += freq_2
-                else:
-                    continue
-            gram_probability = freq / general_probability
-            gram_log_probability = log(gram_probability)
-            self.gram_log_probabilities[gram] = gram_log_probability
+        if self.size == 2:
+            for gram, freq in self.gram_frequencies.items():
+                general_probability = 0
+                for gram_2, freq_2 in self.gram_frequencies.items():
+                    if gram[0] == gram_2[0]:
+                        general_probability += freq_2
+                    else:
+                        continue
+                gram_probability = freq / general_probability
+                gram_log_probability = log(gram_probability)
+                self.gram_log_probabilities[gram] = gram_log_probability
         return 'OK'
 
     def predict_next_sentence(self, prefix: tuple) -> list:
