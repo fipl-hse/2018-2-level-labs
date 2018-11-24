@@ -114,7 +114,7 @@ class NGramTrie:
                 str_of_bi_grams += ' '
             while re.search(str(prefix), str_of_bi_grams):
                 next_word = NGramTrie.helper_for_prediction(self, prefix)
-                result += next_word[1]
+                result.append(next_word[1])
                 prefix = (next_word[1],)
         return result
 
