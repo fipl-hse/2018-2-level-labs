@@ -118,3 +118,40 @@ class NGramTrie:
                     result.append(next_word[1])
                     prefix = (next_word[1],)
         return result
+
+
+def encode(storage_instance, corpus) -> list:
+    id_matrix_of_sentences = []
+    if storage_instance and corpus and ' ' not in corpus:
+        if corpus[0] != '<s>':
+            for sentence in corpus:
+                id_sentence = []
+                for word in sentence:
+                    id_sentence.append(get_id_of(word))
+                id_matrix_of_sentences.append(sentence)
+        else:
+            for word in corpus:
+                id_matrix_of_sentences.append(get_id_of(word))
+    return id_matrix_of_sentences
+   
+   
+def split_by_sentence(text: str) -> list:
+    matrix_of_sentences = []
+    if text and isinstance(text, str) and ('.' in text or '?' in text or '!' in text) and ' ' in text:
+        import re
+        result = re.split(r'[.!?]', text)
+        reresult = result[:-1]#избавляемся от лишних пробелов и пустоты в конце
+        number_of_sentences = len(reresult)
+        for i in range(number_of_sentences):
+            sentence = ['<s>', ]
+            prepared_text = reresult[i].lower().split(' ')
+            for element in prepared_text:
+                new_word = ''
+                for el_element in enumerate(element):  # вводим дополнительный цикл, где избавляемся от лишнего "мусора"
+                    if el_element[1] in 'qwertyuioplkjhgfdsazxcvbnm':
+                        new_word += el_element[1]
+                if new_word:
+                    sentence.append(new_word)
+            sentence.append('</s>')
+            matrix_of_sentences.append(sentence)
+    return matrix_of_sentences
