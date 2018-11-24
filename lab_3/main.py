@@ -5,6 +5,7 @@ Labour work #3
 
 import math
 
+
 REFERENCE_TEXT = ''
 if __name__ == '__main__':
     with open('not_so_big_reference_text.txt', 'r') as f:
