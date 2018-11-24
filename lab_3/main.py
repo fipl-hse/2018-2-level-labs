@@ -12,33 +12,145 @@ if __name__ == '__main__':
 
 
 class WordStorage:
-    def put(self, word: str) -> int:
-        pass
+    def __init__(self):
+        self.storage = {}
+
+    def put(self, word:str) -> int:
+        id = 1
+        if word and isinstance(word, str):
+            if word not in self.storage.keys():
+                if self.storage:
+                    id = max(self.storage.values()) + 1
+                    self.storage[word] = id
+                else:
+                    self.storage[word] = id
+            return self.storage[word]
+        else:
+            return self.storage
 
     def get_id_of(self, word: str) -> int:
-        pass
+        if word in self.storage.keys():
+            return self.storage[word]
+        else:
+            return -1
 
     def get_original_by(self, id: int) -> str:
-        pass
+        if id in self.storage.values():
+            for word in self.storage.keys():
+                if id == self.storage[word]:
+                    return word
+        else:
+            return 'UNK'
 
     def from_corpus(self, corpus: tuple):
-        pass
+        if corpus and ' ' not in corpus:
+            if corpus[0] != '<s>':
+                for sentence in corpus:
+                    for word in sentence:
+                        WordStorage.put(self, word)
+            else:
+                for word in corpus:
+                    WordStorage.put(self, word)
+        else:
+            return {}
 
 
 class NGramTrie:
+    def __init__(self, size):
+        self.size = size
+        self.gram_frequencies = {}
+        self.gram_log_probabilities = {}
+
     def fill_from_sentence(self, sentence: tuple) -> str:
-        pass
+        if sentence and isinstance(sentence, tuple):
+            for index in range(len(sentence) - 1):
+                bi_gram = (sentence[index], sentence[index + 1])
+                if bi_gram not in self.gram_frequencies.keys():
+                    self.gram_frequencies[bi_gram] = 1
+                else:
+                    present_value = self.gram_frequencies[bi_gram]
+                    self.gram_frequencies[bi_gram] = present_value + 1
+            return 'OK'
+        else:
+            return 'ERROR'
 
     def calculate_log_probabilities(self):
-        pass
+        import math
+        for bi_gram in self.gram_frequencies.keys():
+            w = bi_gram[1]
+            denominator = 0
+            for bi_gram in self.gram_frequencies.keys():
+                if bi_gram[1] == w:
+                    denominator += 1
+            numerator = self.gram_frequencies[bi_gram]
+            log_probability = math.log(numerator / denominator)
+            self.gram_log_probabilities[bi_gram] = log_probability
+
+    def get_bi_gram_by_probability(self, probability: int, dictionary: dict) -> tuple:
+        if probability in dictionary.values():
+            for bi_gram in dictionary.keys():
+                if probability == dictionary[bi_gram]:
+                    return bi_gram
+        else:
+            return 'UNK'
+
+    def helper_for_prediction(self, prefix: tuple) -> tuple: #ищет максимальную вероятность из би-граммов вида (<число из префикса>, <что найдется в словаре>)
+        current_dict = {}
+        for bi_gram in self.gram_frequencies.keys():
+            if bi_gram[0] == prefix[0]:
+                current_dict[bi_gram] = self.gram_log_probabilities[bi_gram]
+        probability_of_most_probable_bi_gram = max(current_dict.values())
+        result = NGramTrie.get_bi_gram_by_probability(self, probability_of_most_probable_bi_gram, current_dict)
+        return result
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        pass
+        import re
+        result = []
+        if len(prefix) == 1:
+            result += prefix
+            str_of_bi_grams = ''
+            for bi_gram in self.gram_frequencies.keys():
+                str_of_bi_grams += str(bi_gram)
+                str_of_bi_grams += ' '
+            while re.search(str(prefix), str_of_bi_grams):
+                next_word = NGramTrie.helper_for_prediction(self, prefix)
+                result += next_word[1]
+                prefix = (next_word[1],)
+        return result
 
 
 def encode(storage_instance, corpus) -> list:
-    pass
+    id_matrix_of_sentences = []
+    if storage_instance and corpus and ' ' not in corpus:
+        if corpus[0] != '<s>':
+            for sentence in corpus:
+                id_sentence = []
+                for word in sentence:
+                    id_sentence.append(get_id_of(word))
+                id_matrix_of_sentences.append(sentence)
+        else:
+            for word in corpus:
+                id_matrix_of_sentences.append(get_id_of(word))
+    return id_matrix_of_sentences
 
 
 def split_by_sentence(text: str) -> list:
-    pass
+    matrix_of_sentences = []
+    if text and isinstance(text, str) and ('.' in text or '?' in text or '!' in text) and ' ' in text:
+        import re
+        result = re.split(r'[.!?]', text)
+        reresult = result[:-1]#избавляемся от лишних пробелов и пустоты в конце
+        number_of_sentences = len(reresult)
+        for i in range(number_of_sentences):
+            sentence = ['<s>', ]
+            prepared_text = reresult[i].lower().split(' ')
+            for element in prepared_text:
+                new_word = ''
+                for el_element in enumerate(element):  # вводим дополнительный цикл, где избавляемся от лишнего "мусора"
+                    if el_element[1] in 'qwertyuioplkjhgfdsazxcvbnm':
+                        new_word += el_element[1]
+                if new_word:
+                    sentence.append(new_word)
+            sentence.append('</s>')
+            matrix_of_sentences.append(sentence)
+    return matrix_of_sentences
