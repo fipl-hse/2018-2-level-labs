@@ -15,7 +15,7 @@ class WordStorage:
     def __init__(self):
         self.storage = {}
 
-    def put(self, word:str) -> int:
+    def put(self, word: str) -> int:
         id = 1
         if word and isinstance(word, str):
             if word not in self.storage.keys():
@@ -130,7 +130,8 @@ class NGramTrie:
         else:
             return 'UNK'
 
-    def helper_for_prediction_for_bi_gram(self, prefix: tuple) -> tuple: #ищет максимальную вероятность из би-граммов вида (<число из префикса>, <что найдется в словаре>)
+    def helper_for_prediction_for_bi_gram(self, prefix: tuple) -> tuple: #ищет максимальную вероятность из би-граммов 
+                                                                #вида (<число из префикса>, <что найдется в словаре>)
         current_dict = {}
         for bi_gram in self.gram_log_probabilities.keys():
             if bi_gram[0] == prefix[0]:
@@ -139,7 +140,7 @@ class NGramTrie:
         result = NGramTrie.get_bi_gram_by_probability(self, probability_of_most_probable_bi_gram, current_dict)
         return result
 
-    def helper_for_prediction_for_three_gram(self, prefix: tuple) -> tuple: #ищет максимальную вероятность из би-граммов вида (<число из префикса>, <что найдется в словаре>)
+    def helper_for_prediction_for_three_gram(self, prefix: tuple) -> tuple: #аналогичная для три-граммов
         current_dict = {}
         for three_gram in self.gram_log_probabilities.keys():
             if three_gram[0] == prefix[0] and three_gram[1] == prefix[1]:
@@ -179,6 +180,7 @@ class NGramTrie:
                     result.append(next_word[1])
                     prefix = (next_word[1],)
         return result
+       
        
 def encode(storage_instance, corpus) -> list:
     id_matrix_of_sentences = []
