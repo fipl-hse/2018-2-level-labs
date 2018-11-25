@@ -12,17 +12,69 @@ if __name__ == '__main__':
 
 
 class WordStorage:
+        def __init__(self):
+        self.word = ''
+        self.id_num = 0
+        self.storage = {}
+
     def put(self, word: str) -> int:
+        if word is None:
+            return None
+        elif type(word) != str:
+            return {}
+        else:
+            if word in self.storage.keys():
+                return self.storage[word]
+            else:
+                new_id = random.randint(1, 1000000)
+                while new_id in self.storage.values():
+                    new_id = random.randint(1, 1000000)
+                self.storage[word] = new_id
+                return self.storage[word]
         pass
 
     def get_id_of(self, word: str) -> int:
+        if word is None or type(word) != str:
+            return -1
+        else:
+            if word in self.storage.keys():
+                return self.storage[word]
+            else:
+                return -1
         pass
 
     def get_original_by(self, id: int) -> str:
+        list_of_words_id = []
+        for k, v in self.storage.items():
+            list_of_words_id.append([k, v])
+        for pair in list_of_words_id:
+            if id == pair[1]:
+                return pair[0]
+        else:
+            return 'UNK'
         pass
 
     def from_corpus(self, corpus: tuple):
+        if corpus is None or type(corpus) != tuple:
+            return {}
+        else:
+            just_words = []
+            for sent in corpus:
+                for w in sent:
+                    just_words.append(w)
+            no_duplicates = set(just_words)
+            clear_ordered = list(no_duplicates)
+            words = []
+            ids = []
+            for element in clear_ordered:
+                self.word = element
+                self.id_num += 1
+                words.append(self.word)
+                ids.append(self.id_num)
+            self.storage = dict(zip(words, ids))
+            return self.storage
         pass
+
 
 
 class NGramTrie:
