@@ -88,6 +88,15 @@ class NGramTrie:
 
 
 def encode(storage_instance, corpus) -> list:
+     if (storage_instance is None or corpus is None):
+        return []
+    else:
+        encoded = []
+        for sent in corpus:
+            for key, value in storage_instance.items():
+                if key in sent:
+                    encoded.append(storage_instance[key])
+        return encoded
     pass
 
 
