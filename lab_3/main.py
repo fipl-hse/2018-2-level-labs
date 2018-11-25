@@ -59,9 +59,8 @@ class WordStorage:
             return {}
         else:
             just_words = []
-            for sent in corpus:
-                for w in sent:
-                    just_words.append(w)
+            for word in corpus:
+                just_words.append(word)
             no_duplicates = set(just_words)
             clear_ordered = list(no_duplicates)
             words = []
