@@ -1,8 +1,12 @@
 """
 Labour work #3
- Building an own N-gram model
+Building an own N-gram model
 """
 from math import log
+
+if __name__ == '__main__':
+    with open('not_so_big_reference_text.txt', 'r') as f:
+        REFERENCE_TEXT = f.read()
 
 
 def read_from_file(path_to_file, lines_limit: int) -> str:
@@ -16,10 +20,6 @@ def read_from_file(path_to_file, lines_limit: int) -> str:
         count_lines += 1
     my_file.close()
     return my_text
-
-
-REFERENCE_TEXT = '''I love you, hope that you are alright you are the most of them, you feel it, don`t you?
-there are so much things that i want to say, but there is something i can`t overcome you are you are you are you are'''
 
 
 # ШАГ 1. Разбиение текста и токенизация
@@ -105,17 +105,18 @@ class WordStorage:
 
 
 # ШАГ 3. Кодирование корпуса/списка предложений
-#def encode(storage_instance, corpus: tuple) -> list:
-    #if not isinstance(corpus, tuple):
-        #return []
+def encode(storage_instance, corpus: tuple) -> list:
+    if not isinstance(corpus, tuple):
+        return []
 
-    #encoded_list = list()
-    #for sentence in corpus:
-        #inner_list = list()
-        #for word in sentence:
-            #inner_list.append(storage_instance[word])
-        #encoded_list.append(inner_list)
-    #return encoded_list
+    encoded_list = list()
+    for sentence in corpus:
+        inner_list = list()
+        for word in sentence:
+            inner_list.append(storage_instance[word])
+        encoded_list.append(inner_list)
+    return encoded_list
+
 
 # Шаг 4. Реализация языковой модели
 class NGramTrie:
@@ -130,10 +131,23 @@ class NGramTrie:
 
         list_of_grams = list()
 
-        for index, encoded_word in enumerate(sentence):
-            if index == len(sentence) - 1:
+        for index in range(0, (len(sentence) - 1)):
+            if index == len(sentence) - (self.size - 1):
                 break
-            list_of_grams.append((encoded_word, sentence[index + 1]))
+            gram = (sentence[index: index + self.size])
+            list_of_grams.append(gram)
+
+        #if self.size == 2:
+            #for index, encoded_word in enumerate(sentence):
+                #if index == len(sentence) - 1:
+                    #break
+                #list_of_grams.append((encoded_word, sentence[index + 1]))
+
+        #elif self.size == 3:
+            #for index, encoded_word in enumerate(sentence):
+                #if index == len(sentence) - 2:
+                    #break
+                #list_of_grams.append((encoded_word, sentence[index + 1], sentence[index + 2]))
 
         for gram in list_of_grams:
             self.gram_frequencies[gram] = self.gram_frequencies.get(gram, 0) + 1
@@ -149,28 +163,58 @@ class NGramTrie:
                         general_probability += freq_2
                     else:
                         continue
+
                 gram_probability = freq / general_probability
                 gram_log_probability = log(gram_probability)
                 self.gram_log_probabilities[gram] = gram_log_probability
+
+        elif self.size == 3:
+            for gram, freq in self.gram_frequencies.items():
+                general_probability = 0
+                for gram_2, freq_2 in self.gram_frequencies.items():
+                    if (gram[0] == gram_2[0]) and gram[1] == gram_2[1]:
+                        general_probability += freq_2
+                    else:
+                        continue
+
+                gram_probability = freq / general_probability
+                gram_log_probability = log(gram_probability)
+                self.gram_log_probabilities[gram] = gram_log_probability
+
         return 'OK'
 
     def predict_next_sentence(self, prefix: tuple) -> list:
         if not isinstance(prefix, tuple) or len(prefix) != self.size - 1:
             return []
 
-        predicted_sentence = [prefix[0], ]
+        if self.size == 2:
+            predicted_sentence = [prefix[0], ]
+            word = prefix[0]
+            while True:
+                probable_grams = []
+                for gram, log_prob in self.gram_log_probabilities.items():
+                    if gram[0] == word:
+                        probable_grams.append((log_prob, gram))
 
-        word = prefix[0]
-        while True:
-            probable_grams = []
-            for gram, log_prob in self.gram_log_probabilities.items():
-                if gram[0] == word:
-                    probable_grams.append((log_prob, gram))
+                if len(probable_grams) == 0:
+                    return predicted_sentence
 
-            if len(probable_grams) == 0:
-                return predicted_sentence
+                probable_grams.sort(reverse=True)
+                predicted_sentence.append(probable_grams[0][1][1])
+                word = probable_grams[0][1][1]
 
-            probable_grams.sort(reverse=True)
-            predicted_sentence.append(probable_grams[0][1][1])
-            word = probable_grams[0][1][1]
+        elif self.size == 3:
+            predicted_sentence = [prefix[0], prefix[1], ]
+            words = [prefix[0], prefix[1]]
+            while True:
+                probable_grams = []
+                for gram, log_prob in self.gram_log_probabilities.items():
+                    if gram[0] == words[0] and gram[1] == words[1]:
+                        probable_grams.append((log_prob, gram))
+                if len(probable_grams) == 0:
+                    return predicted_sentence
 
+                probable_grams.sort(reverse=True)
+                predicted_sentence.append(probable_grams[0][1][2])
+                words[0] = probable_grams[0][1][1]
+                words[1] = probable_grams[0][1][2]
