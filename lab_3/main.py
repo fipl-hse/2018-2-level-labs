@@ -64,12 +64,13 @@ class NGramTrie:
     def fill_from_sentence(self, sentence: tuple) -> str:
         if sentence and isinstance(sentence, tuple):
             if self.size == 2:
-                bi_gram = (sentence[index], sentence[index + 1])
-                if bi_gram not in self.gram_frequencies.keys():
-                    self.gram_frequencies[bi_gram] = 1
-                else:
-                    present_value = self.gram_frequencies[bi_gram]
-                    self.gram_frequencies[bi_gram] = present_value + 1
+                for index in range(len(sentence) - 1):
+                    bi_gram = (sentence[index], sentence[index + 1])
+                    if bi_gram not in self.gram_frequencies.keys():
+                        self.gram_frequencies[bi_gram] = 1
+                    else:
+                        present_value = self.gram_frequencies[bi_gram]
+                        self.gram_frequencies[bi_gram] = present_value + 1
             elif self.size == 3:
                 for index in range(len(sentence) - 2):
                     three_gram = (sentence[index], sentence[index + 1], sentence[index + 2])
@@ -154,7 +155,7 @@ class NGramTrie:
         import re
         result = []
         if prefix and isinstance(prefix, tuple):
-            if len(prefix) == 2:
+            if len(prefix) == 2 and self.size == 3:
                 result += prefix
                 str_of_three_grams = ''
                 for three_gram in self.gram_log_probabilities.keys():
@@ -167,7 +168,7 @@ class NGramTrie:
                         prefix = (next_word[1], next_word[2],)
                     else:
                         break
-            elif len(prefix) == 1:
+            elif len(prefix) == 1 and self.size == 2:
                 result += prefix
                 str_of_bi_grams = ''
                 for bi_gram in self.gram_log_probabilities.keys():
