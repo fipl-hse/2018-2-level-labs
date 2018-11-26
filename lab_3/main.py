@@ -125,7 +125,7 @@ class NGramTrie:
         pass
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-      probabilities_k = []
+        probabilities_k = []
         for key_p in self.gram_log_probabilities.keys():
             probabilities_k.append(key_p[self.size])
         print(probabilities_k)
