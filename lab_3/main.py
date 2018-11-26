@@ -60,6 +60,7 @@ def split_by_sentence(text: str) -> list:
                        a = text.split(i)
                        b = len(a) - 1
                        del a[b]
+
            lst1 = []
            for i in a:
                for k in i:
@@ -68,27 +69,24 @@ def split_by_sentence(text: str) -> list:
                        i = i.replace(k, c)
                lst = []
                lst = i.split(' ')
+               print(lst)
                lst1.append(lst)
 
-           for i in lst1:
-               b = i.copy()
-               for k in range(len(b)):
-                   if b[k] != '':
-                       pass
-                   else:
-                       del i[k]
-                   # if b[k] == '':
-
+           res = []
 
            for i in lst1:
+               res1 = []
+               for k in i:
+                   if k != '':
+                       res1.append(k)
+               res.append(res1)
+
+           for i in res:
                i.insert(0, '<s>')
                i.append('</s>')
 
-           return lst1
-       except UnboundLocalError:
-           return []
-       except TypeError:
-           return []
+           return res
+           
              
             
     
