@@ -40,7 +40,7 @@ def split_by_sentence(text):
         el_s = '<s> ' + el_l + ' </s>'
         el_fin = el_s.split()
         token.append(el_fin)
-     return token
+    return token
     
 class WordStorage:
     def __init__(self):
