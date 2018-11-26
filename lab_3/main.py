@@ -139,7 +139,17 @@ def split_by_sentence(text):
                 divided_sentence += word + ' '
             elif '#' in word:
                 divided_sentence += word + ' '
+            elif '-' in word:
+                divided_sentence += word + ' '
             elif "'" in word:
+                divided_sentence += word + ' '
+            elif ':' in word:
+                divided_sentence += word + ' '
+            elif '’' in word:
+                divided_sentence += word + ' '
+            elif '*' in word:
+                divided_sentence += word + ' '
+            elif '_' in word:
                 divided_sentence += word + ' '
             else:
                 divided_sentence += word + '</s>'
