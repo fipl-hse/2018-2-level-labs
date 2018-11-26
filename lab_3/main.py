@@ -40,7 +40,7 @@ class WordStorage:
                 return key
 
     def from_corpus(self, corpus: tuple):
-        if type(corpus) != tuple or corpus == None:
+        if type(corpus) != tuple or corpus is None:
             return self.storage
         for word in corpus:
             self.put(word)
@@ -125,9 +125,16 @@ def split_by_sentence(text: str) -> list:
     sentence_endings = [
         '!', '?', '\n'
     ]
+    if text is '' or text is None:
+        return []
+    if ' ' not in text:
+        return []
     for index, element in enumerate(text):
         if index == len(text) - 2:
-            new_text += text[index:]
+            for element_2 in text[index + 1:]:
+                if element in list_of_marks or element in sentence_endings:
+                    continue
+                new_text += element
             break
         if element in sentence_endings and text[index + 2].isupper():
             new_text += '.'
