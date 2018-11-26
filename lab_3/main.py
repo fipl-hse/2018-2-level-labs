@@ -45,30 +45,30 @@ def split_by_sentence(text):
 class WordStorage:
     def __init__(self):
         self.count = 111111
-        self.store = {}
+        self.storage = {}
 
     def put(self, word):
-        if word in self.store:
-            return self.store[word]
+        if word in self.storage:
+            return self.storage[word]
 
-        for value in self.store.values():
+        for value in self.storage.values():
             if value == self.count:
                 self.count += 1
                 continue
 
-        self.store[word] = self.count
+        self.storage[word] = self.count
         return self.count
 
     def get_id_of(self, word):
-        if word is None or not type(word) != str or word not in self.store:
+        if word is None or not type(word) != str or word not in self.storage:
             return None
-        return self.store[word]
+        return self.storage[word]
 
     def get_original_by(self, number):
         if type(number) != int or number < 111111:
             return 'UNK'
 
-        for key, value in self.store.items():
+        for key, value in self.storage.items():
             if value == number:
                 return key
         return 'UNK'
