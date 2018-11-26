@@ -12,17 +12,37 @@ if __name__ == '__main__':
 
 
 class WordStorage:
+
+    def __init__(self):
+        self.storage = {}
+        self.count = 0
+
     def put(self, word: str) -> int:
-        pass
+        if isinstance(word, str) is False or word in self.storage:
+            return {}
+        for element in self.storage.values():
+            if element == self.count:
+                self.count += 1
+        self.storage[word] = self.count
+        return self.count
 
     def get_id_of(self, word: str) -> int:
-        pass
+        if isinstance(word, str) is False or word not in self.storage:
+            return -1
+        return self.storage[word]
 
     def get_original_by(self, id: int) -> str:
-        pass
+        if isinstance(id, int) is False or id is None or id not in self.storage.values():
+            return 'UNK'
+        for word, number in self.storage.items():
+            if number == id:
+                return word
 
     def from_corpus(self, corpus: tuple):
-        pass
+        if isinstance(corpus, tuple) is False or corpus is None:
+            return {}
+        for word in corpus:
+            self.put(word)
 
 
 class NGramTrie:
