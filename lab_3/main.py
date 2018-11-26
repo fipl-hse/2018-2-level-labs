@@ -53,6 +53,8 @@ class WordStorage:
         for sentence in corpus:
             self.put(sentence)
 
+
+
 class NGramTrie:
     def __init__(self, size):
         self.size = size
@@ -95,7 +97,7 @@ class NGramTrie:
                     else:
                         continue
                 gram_probability = value / probability
-                gram_log_probability = log(gram_probability)
+                gram_log_probability = math.log(gram_probability)
                 self.gram_log_probabilities[key] = gram_log_probability
         elif self.size == 3:
             for key, value in self.gram_frequencies.items():
@@ -106,7 +108,7 @@ class NGramTrie:
                     else:
                         continue
                 gram_probability = value / probability
-                gram_log_probability = log(gram_probability)
+                gram_log_probability = math.log(gram_probability)
                 self.gram_log_probabilities[key] = gram_log_probability
         return 'OK'
 
@@ -164,4 +166,4 @@ def split_by_sentence(text: str) -> list:
                     sentence.append(new_word)
             sentence.append('</s>')
             all_of_sentences.append(sentence)
-    return all_of_sentences
+    return 
