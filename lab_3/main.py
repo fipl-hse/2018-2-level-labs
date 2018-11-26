@@ -12,22 +12,43 @@ if __name__ == '__main__':
 
 
 class WordStorage:
+    def __init__(self):
+        self.number_of_id = 0
+        self.keeping_storage = {}
     def put(self, word):
-
+        if isinstance(word, str) is False and word in self.keeping_storage:
+            return self.keeping_storage
+        for value in self.keeping_storage.values():
+            if value == self.number_of_id:
+                self.number_of_id += 1
+        self.keeping_storage[word] = self.number_of_id
+        return self.number_of_id
     def get_id_of(self, word):
-
+        if isinstance(word, str) and word in self.keeping_storage.keys():
+            return self.keeping_storage[word]
+        else:
+            return -1
     def get_original_by(self, id):
-
+        list_of_ids = []
+        for key, value in self.keeping_storage.items():
+            list_of_ids.append([key, value])
+        for two in list_of_ids:
+            if id == two[1]:
+                return two[0]
+        else:
+            return 'UNK'
     def from_corpus(self, corpus):
-
-
+        if corpus is None and isinstance(corpus, tuple) is False:
+            return {}
+        for word in corpus:
+            self.put(word)
+          
 class NGramTrie:
     def fill_from_sentence(self, sentence):
 
     def calculate_log_probabilities(self):
 
     def predict_next_sentence(self, prefix):
-
 
 def encode(storage_instance, corpus):
      if storage_instance is not None and corpus is not None:
@@ -39,6 +60,7 @@ def encode(storage_instance, corpus):
             return coded_list
     else:
         return []
+     
 def split_by_sentence(text):
      if text is not None and text != '':
         text_1 = text[:]
