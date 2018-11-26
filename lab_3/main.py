@@ -3,7 +3,6 @@ Labour work #3
  Building an own N-gram model
 """
 import collections
-import more_itertools
 import math
 import operator
 
@@ -27,14 +26,14 @@ def split_by_sentence(REFERENCE_TEXT):
                 l_text = l_text.replace(i, '.')
             else:
                 l_text = l_text.replace(i, '')
-    dots = tuple(more_itertools.locate(l_text, lambda x: x == '.'))
-    for ind in dots:
-        if ind + 1 >= len(l_text) or l_text[ind + 1] == ' ':
-            pass
-        elif l_text[ind + 1] != None:
-            l_text = l_text[:ind] + 'Ê' + l_text[ind + 1:]
-        else:
-            pass
+    for ind in range(len(l_text)):
+        if l_text[ind] == '.':
+            if ind + 1 >= len(l_text) or l_text[ind + 1] == ' ':
+                pass
+            elif l_text[ind + 1] is not None:
+                l_text = l_text[:ind] + 'Ê' + l_text[ind + 1:]
+            else:
+                pass
     l_text = l_text.replace('Ê', '')
     cut_text = l_text.split('.')
     for sentence in range(len(cut_text)):
@@ -54,7 +53,7 @@ def split_by_sentence(REFERENCE_TEXT):
 class WordStorage:
 
     def __init__(self):
-        self.storage = dict()
+        self.storage = {}
         self.counter = 0
 
     def put(self, word):
@@ -62,7 +61,7 @@ class WordStorage:
             return {}
         if word not in self.storage.values():
             self.counter = self.counter + 1
-            self.storage.update({word: self.counter})
+            self.storage[word] = self.counter
             return self.counter
         else:
             pass
