@@ -149,7 +149,7 @@ def encode(storage_instance, corpus) -> list:
 def split_by_sentence(text: str) -> list:
     pass
     all_of_sentences = []
-    if text and isinstance(text, str):
+    if text and isinstance(text, str) and ' ' in text and ('.' in text or '?' in text or '!' in text):
         import re
         itog = re.split(r'[!?.]', text)
         itogless = itog[:-1]
@@ -166,4 +166,4 @@ def split_by_sentence(text: str) -> list:
                     sentence.append(new_word)
             sentence.append('</s>')
             all_of_sentences.append(sentence)
-    return 
+    return all_of_sentences
