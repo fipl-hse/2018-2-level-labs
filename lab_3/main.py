@@ -146,4 +146,41 @@ class NGramTrie:
                 sentence.append(expected_res[0][1][2])
                 word[0] = expected_res[0][1][1]
                 word[1] = expected_res[0][1][2]
+
+
+def encode(storage_instance, corpus) -> list:
+    pass
+    corpus_of_sentences = []
+ #   id_sentence = []
+    for sentence in corpus:
+        id_sentence = []
+        for word in sentence:
+            quantity = storage_instance.put(word)
+            id_sentence.append(quantity)
+        corpus_of_sentences.append(id_sentence)
+    return corpus_of_sentences
+
+
+def split_by_sentence(text: str) -> list:
+    pass
+    all_of_sentences = []
+    if text and isinstance(text, str) and ' ' in text and ('.' in text or '?' in text or '!' in text):
+        import re
+        itog = re.split(r'[!?.]', text)
+        itogless = itog[:-1]
+        quantity_of_sentences = len(itogless)
+        for i in range(quantity_of_sentences):
+            sentence = ['<s>', ]
+            itog_text = itogless[i].lower().split(' ')
+            for thing in itog_text:
+                new_word = ''
+                for new_thing in enumerate(thing):
+                    if new_thing[1] in 'zxcvbnmasdfghjklpoiuytrewq':
+                        new_word += new_thing[1]
+                if new_word:
+                    sentence.append(new_word)
+            sentence.append('</s>')
+            all_of_sentences.append(sentence)
+    return all_of_sentences
+
                 
