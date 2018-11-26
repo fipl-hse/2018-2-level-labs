@@ -77,10 +77,51 @@ class WordStorage:
 
 
 class NGramTrie:
+    def __init__(self, size):
+        self.size = size
+        self.gram_frequencies = {}
+        self.gram_log_probabilities = {}
+
+ 
     def fill_from_sentence(self, sentence: tuple) -> str:
+        if sentence is None:
+            return 'ERROR'
+        else:
+            n = self.size
+            k = 0
+            ngram = []
+            while k != len(sentence) - n + 1:
+                ngram.append(sentence[k:k + n])
+                k += 1
+            for elmnt in ngram:
+                freq = ngram.count(elmnt)
+                self.gram_frequencies[elmnt] = freq
+            return 'OK'
         pass
 
     def calculate_log_probabilities(self):
+        if self.gram_frequencies == {}:
+            return {}
+        else:
+            ngrams = []
+            counter = 1
+            for key, value in self.gram_frequencies.items():
+                v = value
+                if v == 1:
+                    ngrams.append(key)
+                elif v > 1:
+                    while counter != v + 1:
+                        ngrams.append(key)
+                        counter += 1
+            for t in ngrams:
+                same_beginning = 0
+                for t2 in ngrams:
+                    if t[:-1] == t2[:-1]:
+                        same_beginning += 1
+                t_quantity = self.gram_frequencies[t]
+                probability = math.log(t_quantity / same_beginning)
+                self.gram_log_probabilities[t] = probability
+            return self.gram_log_probabilities
         pass
 
     def predict_next_sentence(self, prefix: tuple) -> list:
@@ -88,7 +129,7 @@ class NGramTrie:
 
 
 def encode(storage_instance, corpus) -> list:
-     if (storage_instance is None or corpus is None):
+    if (storage_instance is None or corpus is None):
         return []
     else:
         encoded = []
