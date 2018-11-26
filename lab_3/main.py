@@ -2,7 +2,7 @@
 Labour work #3
  Building an own N-gram model
 """
-
+import random
 import math
 
 REFERENCE_TEXT = ''
