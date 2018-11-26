@@ -56,25 +56,26 @@ class NGramTrie:
         combinations = []
         start = 0
         while start != len(sentence)-1:
-            double = [sentence[start], sentence[start+1]]
-            prefix = tuple(double)
-            combinations.append(prefix)
+            possible_variants = sentence[start:start+self.size]
+            possible_variants = tuple(possible_variants)
+            combinations.append(possible_variants)
             start += 1
         for element in combinations:
-            freq = combinations.count(element)
-            self.gram_frequencies[element] = freq
+            if len(element) == self.size:
+                freq = combinations.count(element)
+                self.gram_frequencies[element] = freq
         return 'OK'
 
     def calculate_log_probabilities(self):
-        pairs = []
+        variants = []
         for key in self.gram_frequencies.keys():
-            pairs.append(key)
+            variants.append(key)
         count = 0
-        while count != len(pairs):
-            for gram in pairs:
+        while count != len(variants):
+            for gram in variants:
                 all_gram = []
                 gram_count = self.gram_frequencies[gram]
-                for extra_gram in pairs:
+                for extra_gram in variants:
                     if gram[0] == extra_gram[0]:
                         all_gram.append(self.gram_frequencies[extra_gram])
                 count_all_gram = sum(all_gram)
@@ -88,12 +89,12 @@ class NGramTrie:
         prefix = list(prefix)
         count = 0
         values = []
-        pairs = []
+        variants = []
         for key in self.gram_log_probabilities.keys():
-            pairs.append(key)
-        while count != len(pairs):
-            for n_gram in pairs:
-                if n_gram[0] == prefix[-1]:
+            variants.append(key)
+        while count != len(variants):
+            for n_gram in variants:
+                if list(n_gram[:-1]) == prefix[1-self.size:]:
                     values.append(self.gram_log_probabilities[n_gram])
             if values == []:
                 return prefix
@@ -107,7 +108,14 @@ class NGramTrie:
 
 
 def encode(storage_instance, corpus) -> list:
-    pass
+    new_corpus = []
+    new_sentence = []
+    for sentence in corpus:
+        for word in sentence:
+            new_word = storage_instance[word]
+            new_sentence.append(new_word)
+        new_corpus.append(new_sentence)
+    return new_corpus
 
 
 def split_by_sentence(text: str) -> list:
