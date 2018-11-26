@@ -84,7 +84,7 @@ class NGramTrie:
 
  
     def fill_from_sentence(self, sentence: tuple) -> str:
-        if sentence is None or sentence = () or type(sentence) != list:
+        if sentence is None or sentence == () or type(sentence) != list:
             return 'ERROR'
         else:
             n = self.size
