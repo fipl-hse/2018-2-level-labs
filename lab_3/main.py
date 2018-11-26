@@ -14,7 +14,7 @@ if __name__ == '__main__':
 class WordStorage:
     def put(self, word: str) -> int:
         pass
-#changed
+
     def get_id_of(self, word: str) -> int:
         pass
 
@@ -37,8 +37,24 @@ class NGramTrie:
 
 
 def encode(storage_instance, corpus) -> list:
-        pass
- 
+        if type(corpus) == list:
+           dct = storage_instance.from_corpus(storage_instance, corpus)
+           for i in corpus:
+               n = i.copy()
+               for k in range(len(n)):
+                   id = dct.get(n[k])
+                   i.append(id)
+           for i in corpus:
+               n = i.copy()
+               mid = len(n) / 2
+               for k in range(len(n)):
+                   while mid:
+                       del i[k]
+                       mid = mid - 1
+           corpus = list(corpus)
+           return corpus
+       else:
+           return [] 
     
 def split_by_sentence(text: str) -> list:
         try:
