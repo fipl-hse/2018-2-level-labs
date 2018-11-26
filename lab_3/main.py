@@ -129,7 +129,7 @@ class NGramTrie:
         for key_p in self.gram_log_probabilities.keys():
             probabilities_k.append(key_p[:self.size])
         counter_prefix = 0
-        if prefix is None or len(prefix) != self.size or type(prefix) != tuple:
+        if prefix is None or len(prefix) != (self.size - 1) or type(prefix) != tuple:
             return []
         elif prefix[counter_prefix:] not in probabilities_k:
             return list(prefix)
