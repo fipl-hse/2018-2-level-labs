@@ -41,4 +41,26 @@ def encode(storage_instance, corpus) -> list:
 
 
 def split_by_sentence(text: str) -> list:
-    pass
+    if text == '' or text is None or ' ' not in text:
+        return []
+    text = text.lower()
+    text_accumulator = ''
+    for element in text:
+        if element in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' or element in ' .!?':
+            text_accumulator += element
+    words_list = text_accumulator.split(' ')
+    sentence_list = ['<s>']
+    text_list = []
+    for word in words_list:
+        if len(word) == 0:
+            continue
+        if word[-1] not in '.!?':
+            sentence_list.append(word)
+        else:
+            word = word.replace(word[-1], '')
+            sentence_list.append(word)
+            sentence_list.append('</s>')
+            text_list.append(sentence_list)
+            sentence_list = ['<s>']
+            continue
+    return text_list
