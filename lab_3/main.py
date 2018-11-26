@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
 
 class WordStorage:
-        def __init__(self):
+    def __init__(self):
         self.word = ''
         self.id_num = 0
         self.storage = {}
