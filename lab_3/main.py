@@ -115,16 +115,29 @@ class NGramTrie:
         return 'OK'
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        if not isinstance(prefix, tuple) or len(prefix) != self.size - 1:
+        if self.gram_log_probabilities == {}:
             return []
-        if self.size == 2:
-            predicted_sentence = [prefix[0], ]
-            word = prefix[0]
-            while True:
-                probable_grams = []
-                for gram, log_prob in self.gram_log_probabilities.items():
-                    if gram[0] == word:
-                        probable_grams.append((log_prob, gram))
+        prefix = list(prefix)
+        length = len(prefix)
+        count = len(self.gram_log_probabilities)
+        while count:
+            ngrams = []
+            for key, value in self.gram_log_probabilities.items():
+                current_key = list(key)
+                if prefix[-length:] == current_key[:length]:
+                    ngrams.append(key)
+            logs = []
+            for engram in ngrams:
+                logs.append(self.gram_log_probabilities[engram])
+            try:
+                res = max(logs)
+            except ValueError:
+                break
+            for key, value in self.gram_log_probabilities.items():
+                if res == value:
+                    prefix.append(key[-1])
+            count -= 1
+        return prefix
         pass
 
 
