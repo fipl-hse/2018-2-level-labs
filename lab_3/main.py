@@ -44,12 +44,70 @@ class WordStorage:
             self.put(word)
           
 class NGramTrie:
+        def __init__(self, size):
+        self.size = size
+        self.gram_log_probabilities = {}
+        self.gram_frequencies = {}
     def fill_from_sentence(self, sentence):
-
+        if sentence is not None and isinstance(sentence, tuple) is True and sentence != ():
+            ngram_listed = []
+            d = self.size
+            cntr = 0
+            while cntr != len(sentence) - d + 1:
+                ngram_listed.append(sentence[cntr:cntr] + d)
+                cntr += 1
+            for member in ngram_listed:
+                frequent = ngram_listed.count(member)
+                self.gram_frequencies[member] = frequent
+            return 'OK'
+        else:
+            return 'ERROR'
     def calculate_log_probabilities(self):
-
+        if self.gram_frequencies != {}:
+            list_of_ngrams = []
+            count_num = 1
+            for key, value in self.gram_frequencies.items():
+                val = value
+                if val == 1:
+                    list_of_ngrams.append(key)
+                elif val > 1:
+                    while count_num != val + 1:
+                        list_of_ngrams.append(key)
+                        count_num += 1
+            for b in list_of_ngrams:
+                start = 0
+                for b_2 in list_of_ngrams:
+                    if b[:-1] == b_2[:-1]:
+                        start += 1
+                b_number = self.gram_frequencies[b]
+                prob = math.log(b_number / start)
+                self.gram_log_probabilities[b] = prob
+            return self.gram_log_probabilities
+        else:
+            return {}
     def predict_next_sentence(self, prefix):
-
+        if self.gram_log_probabilities is None or self.gram_log_probabilities == {}:
+            return []
+        prefix = list(prefix)
+        counter = 0
+        list_of_values = []
+        list_of_two = []
+        for key in self.gram_log_probabilities.keys():
+            list_of_two.append(key)
+        while counter != len(list_of_two ):
+            for n_gram in list_of_two :
+                if n_gram[0] == prefix[-1]:
+                    list_of_values.append(self.gram_log_probabilities[n_gram])
+            if list_of_values == []:
+                return prefix
+            max_val = max(list_of_values)
+            for key, value in self.gram_log_probabilities.items():
+                if value == max_val:
+                    prefix.append(key[-1])
+            list_of_values = []
+            counter += 1
+        return prefix
+       
 def encode(storage_instance, corpus):
      if storage_instance is not None and corpus is not None:
         coded_list = []
