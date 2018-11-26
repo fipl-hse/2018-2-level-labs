@@ -63,25 +63,25 @@ class NGramTrie:
         return 'OK'
 
     def calculate_log_probabilities(self):
-        if not self.gram_frequencies == {}:
+        if self.gram_frequencies != {}:
 
-            for curGram in self.gram_frequencies:
+            for cur_gram in self.gram_frequencies:
                 # bi
                 if self.size == 2:
                     cur_sum = 0
                     for gram in self.gram_frequencies:
-                        if gram[0] == curGram[0]:
+                        if gram[0] == cur_gram[0]:
                             cur_sum += self.gram_frequencies[gram]
-                    self.gram_log_probabilities[curGram] = math.log(
-                        self.gram_frequencies[curGram] / cur_sum)
+                    self.gram_log_probabilities[cur_gram] = math.log(
+                        self.gram_frequencies[cur_gram] / cur_sum)
                 # tri
                 if self.size == 3:
                     cur_sum = 0
                     for gram in self.gram_frequencies:
-                        if gram[0] == curGram[0] and gram[1] == curGram[1]:
+                        if gram[0] == cur_gram[0] and gram[1] == cur_gram[1]:
                             cur_sum += self.gram_frequencies[gram]
-                    self.gram_log_probabilities[curGram] = math.log(
-                        self.gram_frequencies[curGram] / cur_sum)
+                    self.gram_log_probabilities[cur_gram] = math.log(
+                        self.gram_frequencies[cur_gram] / cur_sum)
 
     def predict_next_sentence(self, prefix: tuple) -> list:
         if prefix is None or prefix == () or not isinstance(prefix, tuple):
@@ -97,7 +97,7 @@ class NGramTrie:
                     if gram[0] == prefix[0]:
                         cur_log.append(
                             (self.gram_log_probabilities[gram], gram))
-                if not cur_log == []:
+                if cur_log != []:
                     prefix = ((max(cur_log)[1])[1],)
                     prefix_list.append(prefix[0])
                     cur_log.append(prefix)
@@ -112,7 +112,7 @@ class NGramTrie:
                     if gram[0] == prefix[0] and gram[1] == prefix[1]:
                         cur_log.append(
                             (self.gram_log_probabilities[gram], gram))
-                if not cur_log == []:
+                if cur_log != []:
                     prefix = (max(cur_log)[1])[1:3]
                     prefix_list.append(prefix[-1])
                     cur_log.append(prefix)
