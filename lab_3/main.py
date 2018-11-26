@@ -45,14 +45,65 @@ class WordStorage:
 
 
 class NGramTrie:
+    def __init__(self, size):
+        self.size = size
+        self.gram_frequencies = {}
+        self.gram_log_probabilities = {}
+
     def fill_from_sentence(self, sentence: tuple) -> str:
-        pass
+        if sentence is None or sentence != tuple(sentence) or sentence == ():
+            return 'ERROR'
+        combinations = []
+        start = 0
+        while start != len(sentence)-1:
+            double = [sentence[start], sentence[start+1]]
+            prefix = tuple(double)
+            combinations.append(prefix)
+            start += 1
+        for element in combinations:
+            freq = combinations.count(element)
+            self.gram_frequencies[element] = freq
+        return 'OK'
 
     def calculate_log_probabilities(self):
-        pass
+        pairs = []
+        for key in self.gram_frequencies.keys():
+            pairs.append(key)
+        count = 0
+        while count != len(pairs):
+            for gram in pairs:
+                all_gram = []
+                gram_count = self.gram_frequencies[gram]
+                for extra_gram in pairs:
+                    if gram[0] == extra_gram[0]:
+                        all_gram.append(self.gram_frequencies[extra_gram])
+                count_all_gram = sum(all_gram)
+                e_log = math.log(gram_count / count_all_gram)
+                self.gram_log_probabilities[gram] = e_log
+                count += 1
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        pass
+        if self.gram_log_probabilities is None or self.gram_log_probabilities == {}:
+            return []
+        prefix = list(prefix)
+        count = 0
+        values = []
+        pairs = []
+        for key in self.gram_log_probabilities.keys():
+            pairs.append(key)
+        while count != len(pairs):
+            for n_gram in pairs:
+                if n_gram[0] == prefix[-1]:
+                    values.append(self.gram_log_probabilities[n_gram])
+            if values == []:
+                return prefix
+            max_val = max(values)
+            for key, value in self.gram_log_probabilities.items():
+                if value == max_val:
+                    prefix.append(key[-1])
+            values = []
+            count += 1
+        return prefix
 
 
 def encode(storage_instance, corpus) -> list:
