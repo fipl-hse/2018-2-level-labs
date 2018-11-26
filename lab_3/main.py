@@ -12,28 +12,108 @@ if __name__ == '__main__':
 
 
 class WordStorage:
+    id = 0
+    storage = {}
     def put(self, word: str) -> int:
-        pass
+        if type(word) == str:
+            if word not in self.storage.keys():
+                self.id = self.id + 1
+                self.storage[word] = self.id
+            return self.id
+        else:
+            return {}
 
     def get_id_of(self, word: str) -> int:
-        pass
+        if word not in self.storage.keys():
+            return -1
+        else:
+            return self.storage.get(word)
 
     def get_original_by(self, id: int) -> str:
-        pass
+        if id in self.storage.values():
+            for k, v in self.storage.items():
+                if v == id:
+                    return k
+        else:
+            return 'UNK'
 
     def from_corpus(self, corpus: tuple):
-        pass
+        try:
+            if type(corpus) == tuple:
+                for i in corpus:
+                    st = WordStorage
+                    st.put(st, i)
+                return self.storage
+            else:
+                return {}
+        except TypeError:
+            return {}
 
 
 class NGramTrie:
+    gram_frequencies = {}
+    gram_log_probabilities = {}
+    def __init__(self, size):
+        self.size = size
+        self.length = size - 1
+       
     def fill_from_sentence(self, sentence: tuple) -> str:
-        pass
+        try:
+            if self.size == 2 and type(sentence)== tuple:
+                for i in range(len(sentence) - 1):
+                    t = ()
+                    t = (sentence[i], sentence[i + 1])
+                    if t in self.gram_frequencies.keys():
+                        i = self.gram_frequencies[t]
+                        self.gram_frequencies[t] = i + 1
+                    else:
+                        self.gram_frequencies[t] = 1
+                return self.gram_frequencies
+            else:
+                return {}
+        except TypeError:
+            return {}
 
     def calculate_log_probabilities(self):
-        pass
+        dct = {}
+        for k, v in self.gram_frequencies.items():
+            sum = 0
+            for k1, v1 in self.gram_frequencies.items():
+                if k[0] == k1[0]:
+                    sum += v1
+            dct[k] = sum
+        print(dct)
+        for k3, v3 in self.gram_frequencies.items():
+            v2 = dct.get(k3)
+            p = v3 / v2
+            res = math.log(p)
+            self.gram_log_probabilities[k3] = res
+        return self.gram_log_probabilities
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        pass
+        try:
+            if len(prefix) == self.length and type(prefix) == tuple:
+                lst = []
+                res1 = []
+                for i in self.gram_log_probabilities.keys():
+                    for n in i:
+                        for k in prefix:
+                            if n == k:
+                                p = self.gram_log_probabilities.get(i)
+                                lst.append(p)
+                res = max(lst)
+                for k1, v1 in self.gram_log_probabilities.items():
+                    if v1 == res:
+                        for b in k1:
+                            res1.append(b)
+                return res1
+            else:
+                return []
+        except TypeError:
+            return []
+        except ValueError:
+            prefix = list(prefix)
+            return prefix
 
 
 def encode(storage_instance, corpus) -> list:
