@@ -47,7 +47,7 @@ class WordStorage:
     def from_corpus(self, corpus: tuple) -> str:
         pass
         if not isinstance(corpus, tuple):
-            return ' '
+            return ''
         for sentence in corpus:
             self.put(sentence)
 
@@ -163,7 +163,7 @@ def split_by_sentence(text: str) -> list:
             sentence = ['<s>', ]
             itog_text = itogless[i].lower().split(' ')
             for thing in itog_text:
-                new_word = ' '
+                new_word = ''
                 for new_thing in enumerate(thing):
                     if new_thing[1] in 'zxcvbnmasdfghjklpoiuytrewq':
                         new_word += new_thing[1]
