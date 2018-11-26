@@ -42,53 +42,58 @@ def encode(storage_instance, corpus) -> list:
     
 def split_by_sentence(text: str) -> list:
         try:
-           spam = " @ $ % ^ & * ( ) _ - = + , / { [ } ] ; : < > ' / # \n "
-           spam = spam.split(' ')
+            spam = " @ $ % ^ & * ( ) _ - = + , / { [ } ] ; : < > ' / # \n "
+            spam = spam.split(' ')
 
-           spam1 = ['?', '!']
+            spam1 = ['?', '!']
 
-           for i in text:
-               if i in spam:
-                   text = text.replace(i, '')
-               if i in spam1:
-                   text = text.replace(i, '.')
+            for i in text:
+                if i in spam:
+                    text = text.replace(i, '')
+                if i in spam1:
+                    text = text.replace(i, '.')
 
-           for i in text:
-               for k in range(len(text) - 1):
-                   if i == '.' and text[k + 1].isupper():
-                       a = []
-                       a = text.split(i)
-                       b = len(a) - 1
-                       del a[b]
+            for i in text:
+                for k in range(len(text) - 1):
+                    if i == '.' and text[k + 1].isupper():
+                        a = []
+                        a = text.split(i)
+                        b = len(a) - 1
+                        del a[b]
 
-           lst1 = []
-           for i in a:
-               for k in i:
-                   if k.isupper():
-                       c = k.lower()
-                       i = i.replace(k, c)
-               lst = []
-               lst = i.split(' ')
-               print(lst)
-               lst1.append(lst)
+            lst1 = []
+            for i in a:
+                for k in i:
+                    if k.isupper():
+                        c = k.lower()
+                        i = i.replace(k, c)
+                lst = []
+                lst = i.split(' ')
+                print(lst)
+                lst1.append(lst)
 
-           res = []
+            res = []
 
-           for i in lst1:
-               res1 = []
-               for k in i:
-                   if k != '':
-                       res1.append(k)
-               res.append(res1)
+            for i in lst1:
+                res1 = []
+                for k in i:
+                    if k != '':
+                        res1.append(k)
+                res.append(res1)
 
-           for i in res:
-               i.insert(0, '<s>')
-               i.append('</s>')
+            for i in res:
+                i.insert(0, '<s>')
+                i.append('</s>')
 
-           return res
-           
-             
-            
-    
- 
-    
+            return res
+
+        except UnboundLocalError:
+            return []
+        except TypeError:
+            return []
+
+
+
+
+
+
