@@ -46,14 +46,57 @@ class WordStorage:
 
 
 class NGramTrie:
+
+    def __init__(self, size):
+        self.size = size
+        self.gram_frequencies = {}
+        self.gram_log_probabilities = {}
+
     def fill_from_sentence(self, sentence: tuple) -> str:
-        pass
+        if isinstance(sentence, tuple) is False or sentence is None:
+            return 'ERROR'
+        combinations = []
+        for i in range(len(sentence) - 1):
+            pair = [sentence[i], sentence[i + 1]]
+            combinations.append(tuple(pair))
+        for element in combinations:
+            frequency = combinations.count(element)
+            self.gram_frequencies[element] = frequency
+        return 'OK'
 
     def calculate_log_probabilities(self):
-        pass
+        combinations = []
+        for pair in self.gram_frequencies.keys():
+            combinations.append(pair)
+        for gram in combinations:
+            frequency_sum = 0
+            gram_frequency = self.gram_frequencies[gram]
+            for another_gram in combinations:
+                if another_gram[0] == gram[0]:
+                    frequency_sum += self.gram_frequencies[another_gram]
+            log_probability = math.log(gram_frequency / frequency_sum)
+            self.gram_log_probabilities[gram] = log_probability
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        pass
+        if isinstance(prefix, tuple) is False or prefix is None or len(prefix) != self.size - 1:
+            return []
+        prefix = list(prefix)
+        grams = []
+        log_probabilities = []
+        for key in self.gram_log_probabilities.keys():
+            grams.append(key)
+        for gram in grams:
+            if prefix[-1] not in gram:
+                continue
+            if prefix[-1] == gram[0]:
+                log_probabilities.append(self.gram_log_probabilities[gram])
+            max_probability = max(log_probabilities)
+            for key, value in self.gram_log_probabilities.items():
+                if value == max_probability and key[-1] not in prefix:
+                    prefix.append(key[-1])
+                    log_probabilities = []
+                    continue
+        return prefix
 
 
 def encode(storage_instance, corpus) -> list:
