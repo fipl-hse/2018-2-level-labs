@@ -12,33 +12,33 @@ if __name__ == '__main__':
 
 
 class WordStorage:
-    def put(self, word: str) -> int:
+    def put(self, word):
         pass
 
-    def get_id_of(self, word: str) -> int:
+    def get_id_of(self, word):
         pass
 
-    def get_original_by(self, id: int) -> str:
+    def get_original_by(self, id):
         pass
 
-    def from_corpus(self, corpus: tuple):
+    def from_corpus(self, corpus):
         pass
 
 
 class NGramTrie:
-    def fill_from_sentence(self, sentence: tuple) -> str:
+    def fill_from_sentence(self, sentence):
         pass
 
     def calculate_log_probabilities(self):
         pass
 
-    def predict_next_sentence(self, prefix: tuple) -> list:
+    def predict_next_sentence(self, prefix):
         pass
 
 
-def encode(storage_instance, corpus) -> list:
+def encode(storage_instance, corpus):
     pass
 
 
-def split_by_sentence(text: str) -> list:
+def split_by_sentence(text):
     pass
