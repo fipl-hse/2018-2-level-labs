@@ -13,13 +13,12 @@ if __name__ == '__main__':
 
 class WordStorage:
     def __init__(self):
-        self.size = 0
         self.storage = {}
         self.counter = 0
 
     def put(self, word: str) -> int:
         if type(word) != str:
-            return self.storage
+            return {}
         if word in self.storage.keys():
             return self.storage[word]
         self.storage[word] = self.counter
@@ -56,7 +55,7 @@ class NGramTrie:
     def fill_from_sentence(self, sentence: tuple) -> str:
         n_gram_list = []
         if type(sentence) is not tuple:
-            return self.gram_frequencies
+            return {}
         for index, word in enumerate(sentence):
             if index == len(sentence) - 1:
                 break
@@ -80,20 +79,25 @@ class NGramTrie:
         return 'OK'
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        storage_list = []
-        for gram, frequency in self.gram_log_probabilities.items():
-            if gram[0] == prefix[-1]:
-                storage_list.append((gram, frequency))
-            storage_list.sort(reverse=True)
-            prefix = storage_list[0][1][1]
-
-            while True:
-
-            if storage_list == []:
-                return predicted_sentence
-
+        predicted_sentence = []
+        if type(prefix) is not tuple:
+            return []
+        if prefix is None:
+            return []
         if len(prefix) != self.size - 1:
-            return {}
+            return []
+        word = prefix[0]
+        predicted_sentence.append(word)
+        while True:
+            storage_list = []
+            for gram, frequency in self.gram_log_probabilities.items():
+                if gram[0] == word:
+                    storage_list.append((frequency, gram))
+            if len(storage_list) == 0:
+                return predicted_sentence
+            storage_list.sort(reverse=True)
+            word = storage_list[0][1][1]
+            predicted_sentence.append(word)
 
 
 def encode(storage_instance, corpus) -> list:
@@ -135,8 +139,8 @@ def split_by_sentence(text: str) -> list:
     for sentence in sentences_list:
         sentence = sentence.lower()
         words = sentence.split()
+        words.insert(0, "<s>")
+        words.append("</s>")
         words_list.append(words)
-        sentences_list.insert(0, "<s>")
-        sentences_list.append("</s>")
     return words_list
 
