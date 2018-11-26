@@ -13,7 +13,6 @@ if __name__ == '__main__':
 class WordStorage:
     def __init__(self):
         self.storage = {}
- #       self.counter = 0
 
     def put(self, word: str) -> int:
         pass
@@ -28,7 +27,6 @@ class WordStorage:
             return self.storage[word]
         else:
             return self.storage
- #           return self.storage[word]
 
     def get_id_of(self, word: str) -> int:
         pass
@@ -49,11 +47,9 @@ class WordStorage:
     def from_corpus(self, corpus: tuple) -> str:
         pass
         if not isinstance(corpus, tuple):
-            return ''
+            return ' '
         for sentence in corpus:
             self.put(sentence)
-
-
 
 class NGramTrie:
     def __init__(self, size):
@@ -65,7 +61,6 @@ class NGramTrie:
         pass
         if not isinstance(sentence, tuple):
             return 'ERROR'
-
         if sentence and isinstance(sentence, tuple):
             if self.size == 2:
                 for i in range(len(sentence) - 1):
@@ -84,7 +79,6 @@ class NGramTrie:
                         value = self.gram_frequencies[three_gram]
                         self.gram_frequencies[three_gram] = value + 1
         return 'OK'
-
 
     def calculate_log_probabilities(self):
         pass
@@ -111,7 +105,6 @@ class NGramTrie:
                 gram_log_probability = math.log(gram_probability)
                 self.gram_log_probabilities[key] = gram_log_probability
         return 'OK'
-
 
     def predict_next_sentence(self, prefix: tuple) -> list:
         pass
@@ -142,16 +135,14 @@ class NGramTrie:
                         expected_res.append((value, key))
                 if len(expected_res) == 0:
                     return sentence
-                expected_res.sort(reverse=True)
+                expected_res.sort(reverse = True)
                 sentence.append(expected_res[0][1][2])
                 word[0] = expected_res[0][1][1]
                 word[1] = expected_res[0][1][2]
 
-
 def encode(storage_instance, corpus) -> list:
     pass
     corpus_of_sentences = []
- #   id_sentence = []
     for sentence in corpus:
         id_sentence = []
         for word in sentence:
@@ -159,7 +150,6 @@ def encode(storage_instance, corpus) -> list:
             id_sentence.append(quantity)
         corpus_of_sentences.append(id_sentence)
     return corpus_of_sentences
-
 
 def split_by_sentence(text: str) -> list:
     pass
@@ -173,7 +163,7 @@ def split_by_sentence(text: str) -> list:
             sentence = ['<s>', ]
             itog_text = itogless[i].lower().split(' ')
             for thing in itog_text:
-                new_word = ''
+                new_word = ' '
                 for new_thing in enumerate(thing):
                     if new_thing[1] in 'zxcvbnmasdfghjklpoiuytrewq':
                         new_word += new_thing[1]
@@ -182,5 +172,3 @@ def split_by_sentence(text: str) -> list:
             sentence.append('</s>')
             all_of_sentences.append(sentence)
     return all_of_sentences
-
-                
