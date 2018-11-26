@@ -14,7 +14,7 @@ if __name__ == '__main__':
 class WordStorage:
     def put(self, word: str) -> int:
         pass
-
+#changed
     def get_id_of(self, word: str) -> int:
         pass
 
