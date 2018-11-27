@@ -19,6 +19,7 @@ class WordStorage:
         pass
 
     def get_original_by(self, id: int) -> str:
+     change
         pass
 
     def from_corpus(self, corpus: tuple):
