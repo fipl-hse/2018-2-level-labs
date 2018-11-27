@@ -5,24 +5,47 @@ Labour work #3
 
 import math
 
-REFERENCE_TEXT = ''
-if __name__ == '__main__':
-    with open('not_so_big_reference_text.txt', 'r') as f:
-        REFERENCE_TEXT = f.read()
+#REFERENCE_TEXT = ''
+#if __name__ == '__main__':
+    #with open('not_so_big_reference_text.txt', 'r') as f:
+        #REFERENCE_TEXT = f.read()
 
+text = """Ma3ry # wan$ted to swim! Ho*&wever, sh5e w#as afra<id of shar>ks."""
+punct_marks = ['.', '!', '?']
+undesired = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "'", '"', "@", "#", "$", "%", "^", "&", "(", ")", "<", ">", "+", "-", "=", "_", "*",","]
 
 class WordStorage:
     def put(self, word: str) -> int:
-        pass
+        for i in range(0, len(corpus)):
+            for k in range(0, len(corpus[i])):
+                if word == corpus[i][k] and word not in self.storage.keys():
+                   num = 0
+                   for n in range(0, len(corpus[0:i])):
+                       num += len(corpus[n])
+                   num = num + len(corpus[i][0:k])
+                   self.storage[word] = num
+                   return num
 
     def get_id_of(self, word: str) -> int:
-        pass
+        if word in self.storage.keys():
+            return self.storage[word]
+        else:
+            return None
 
     def get_original_by(self, id: int) -> str:
-        pass
+        if num in self.storage.values():
+            for k in self.storage.keys():
+                if self.storage[k] == num:
+                    return k
+        else:
+            return None
 
     def from_corpus(self, corpus: tuple):
-        pass
+        for i in range(0, len(corpus)):
+            for k in range(0, len(corpus[i])):
+                word = corpus[i][k]
+                WordStorage.put(self, word)
+        return self.storage
 
 
 class NGramTrie:
@@ -41,4 +64,27 @@ def encode(storage_instance, corpus) -> list:
 
 
 def split_by_sentence(text: str) -> list:
-    pass
+    text = list(text)
+    text = list(filter(lambda x: x not in undesired, text))
+    text.remove(text[-1])
+    for i in range(1, len(text) - 1):
+        if text[i] == " " and text[i - 1] == " ":
+            text.remove(text[i])
+        if text[i] in punct_marks:
+            text[i] = '.'
+    text = ''.join(text)
+    text = text.split(".")
+    for i in range(0, len(text)):
+        if text[i].isalpha:
+            text[i] = text[i].lower()
+        text[i] = text[i].split(" ")
+        for k in range(0, len(text[i]) - 1):
+            if text[i][k] == '':
+                text[i].remove(text[i][k])
+            text[i][k].lower()
+        text[i].insert(0, "<s>")
+        text[i].insert(len(text[i]), "</s>")
+    return text
+
+corpus = tuple(split_by_sentence(text))
+
