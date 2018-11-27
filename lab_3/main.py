@@ -130,8 +130,9 @@ class NGramTrie:
             probabilities_k.append(key_p[self.size])
         print(probabilities_k)
         counter_prefix = 0
-        if len(prefix) >= self.size:
-            return []
+        if prefix is not None:
+            if len(prefix) >= self.size:
+                return []
         while counter_prefix < self.size:
             if prefix is None or len(prefix) != self.size or type(prefix) != tuple:
                 return []
