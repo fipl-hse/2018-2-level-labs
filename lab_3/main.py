@@ -16,7 +16,7 @@ class WordStorage:
         self.number_of_id = 0
         self.storage = {}
     def put(self, word):
-        if isinstance(word, str) is False and word in self.storage:
+        if isinstance(word, str) is False or word in self.storage:
             return self.storage
         for value in self.storage.values():
             if value == self.number_of_id:
