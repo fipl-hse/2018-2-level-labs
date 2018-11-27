@@ -126,36 +126,28 @@ class NGramTrie:
 
     def predict_next_sentence(self, prefix: tuple) -> list:
         probabilities_k = []
-        for key_p in self.gram_log_probabilities.keys():
-            probabilities_k.append(key_p[self.size])
-        print(probabilities_k)
-        counter_prefix = 0
-        if prefix is not None:
-            if len(prefix) >= self.size:
+        similar_beginning = {}
+        if prefix is None or type(prefix) != tuple:
+            return []
+        else:
+            predicted = list(prefix)
+            if len(prefix) != self.size - 1:
                 return []
-        while counter_prefix < self.size:
-            if prefix is None or len(prefix) != self.size or type(prefix) != tuple:
-                return []
-            elif prefix[counter_prefix:] not in probabilities_k:
-                return list(prefix)
             else:
-                predicted = list(prefix)
-                similar_beginning = {}
-                for gram in self.gram_log_probabilities.keys():
-                    if list(gram[:self.size]) == predicted[counter_prefix:]:
-                        for key, value in self.gram_log_probabilities.items():
-                            if list(key[:self.size]) == predicted[counter_prefix:]:
-                                similar_beginning[key] = value
-                        ks = []
-                        vs = []
-                        for k, v in similar_beginning.items():
-                            ks.append(k)
-                            vs.append(v)
+                for key_p in self.gram_log_probabilities.keys():
+                    probabilities_k.append(key_p[:self.size - 1])
+                for key, value in self.gram_log_probabilities.items():
+                    if list(key[:self.size - 1]) == predicted[:]:
+                        similar_beginning[key] = value
+                    ks = []
+                    vs = []
+                    for k, v in similar_beginning.items():
+                        ks.append(k)
+                        vs.append(v)
                         winner = max(vs)
                         w_ind = vs.index(winner)
                         predicted.append(ks[w_ind][-1])
-                        similar_beginning = {}
-                        counter_prefix += 1
+                    similar_beginning = {}
                 return predicted
         pass
 
