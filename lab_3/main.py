@@ -18,7 +18,7 @@ class WordStorage:
 
     def put(self, word: str) -> int:
         if type(word) != str:
-            return {}
+            return -1
         if word in self.storage.keys():
             return self.storage[word]
         self.storage[word] = self.counter
@@ -55,11 +55,16 @@ class NGramTrie:
     def fill_from_sentence(self, sentence: tuple) -> str:
         n_gram_list = []
         if type(sentence) is not tuple:
-            return {}
+            return 'ERROR'
         for index, word in enumerate(sentence):
-            if index == len(sentence) - 1:
-                break
-            n_gram_list.append((sentence[index], sentence[index + 1]))
+            if self.size == 2:
+                if index == len(sentence) - 1:
+                    break
+                n_gram_list.append((sentence[index], sentence[index + 1]))
+            if self.size == 3:
+                if index == len(sentence) - 2:
+                    break
+                n_gram_list.append((sentence[index], sentence[index + 1], sentence[index + 2]))
         for couple in n_gram_list:
             if couple in self.gram_frequencies.keys():
                 self.gram_frequencies[couple] += 1
@@ -72,8 +77,12 @@ class NGramTrie:
                 word_n_1 = bi_gram[0]
                 frequency = 0
                 for bi_gram_second, bi_gram_freq_second in self.gram_frequencies.items():
-                    if bi_gram_second[0] == word_n_1:
-                        frequency += bi_gram_freq_second
+                    if self.size == 2:
+                        if bi_gram_second[0] == word_n_1:
+                            frequency += bi_gram_freq_second
+                    if self.size == 3:
+                        if bi_gram_second[0] == bi_gram[0] and bi_gram_second[1] == bi_gram[1]:
+                            frequency += bi_gram_freq_second
                 log_frequency = bi_gram_freq / frequency
                 self.gram_log_probabilities[bi_gram] = math.log(log_frequency)
         return 'OK'
@@ -86,18 +95,37 @@ class NGramTrie:
             return []
         if len(prefix) != self.size - 1:
             return []
-        word = prefix[0]
-        predicted_sentence.append(word)
-        while True:
-            storage_list = []
-            for gram, frequency in self.gram_log_probabilities.items():
-                if gram[0] == word:
-                    storage_list.append((frequency, gram))
-            if len(storage_list) == 0:
-                return predicted_sentence
-            storage_list.sort(reverse=True)
-            word = storage_list[0][1][1]
+        if self.size == 2:
+            word = prefix[0]
             predicted_sentence.append(word)
+            while True:
+                storage_list = []
+                for gram, frequency in self.gram_log_probabilities.items():
+                    if gram[0] == word:
+                        storage_list.append((frequency, gram))
+                if len(storage_list) == 0:
+                    return predicted_sentence
+                storage_list.sort(reverse=True)
+                word = storage_list[0][1][1]
+                predicted_sentence.append(word)
+        if self.size == 3:
+            words = [prefix[0], prefix[1]]
+            predicted_sentence.append(words[0])
+            predicted_sentence.append(words[1])
+            while True:
+                storage_list = []
+                for gram, frequency in self.gram_log_probabilities.items():
+                    if gram[0] == words[0] and gram[1] == words[1]:
+                        storage_list.append((frequency, gram))
+
+                if len(storage_list) == 0:
+                    return predicted_sentence
+
+                storage_list.sort(reverse=True)
+                word = storage_list[0][1][2]
+                predicted_sentence.append(word)
+                words[0] = storage_list[0][1][1]
+                words[1] = word
 
 
 def encode(storage_instance, corpus) -> list:
