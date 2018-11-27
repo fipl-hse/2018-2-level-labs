@@ -138,7 +138,7 @@ class NGramTrie:
             helper = []
             helper.append(predicted[-1])
             if len(prefix) != self.size - 1:
-                return None
+                return []
             else:
                 for key_p in self.gram_log_probabilities.keys():
                     probabilities_k.append(key_p[:self.size - 1])
