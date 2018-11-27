@@ -14,31 +14,27 @@ if __name__ == '__main__':
 class WordStorage:
     def __init__(self):
         self.number_of_id = 0
-        self.keeping_storage = {}
+        self.storage = {}
     def put(self, word):
-        if isinstance(word, str) is False and word in self.keeping_storage:
-            return self.keeping_storage
-        for value in self.keeping_storage.values():
+        if isinstance(word, str) is False and word in self.storage:
+            return self.storage
+        for value in self.storage.values():
             if value == self.number_of_id:
                 self.number_of_id += 1
-        self.keeping_storage[word] = self.number_of_id
+        self.storage[word] = self.number_of_id
         return self.number_of_id
     def get_id_of(self, word):
-        if isinstance(word, str) and word in self.keeping_storage.keys():
-            return self.keeping_storage[word]
-        else:
+        if word not in self.storage.keys():
             return -1
+        return self.storage[word]
     def get_original_by(self, id):
-        list_of_ids = []
-        for key, value in self.keeping_storage.items():
-            list_of_ids.append([key, value])
-        for two in list_of_ids:
-            if id == two[1]:
-                return two[0]
-        else:
+        for number_of_id, word in self.storage.items():
+            if number_of_id == id:
+                return word
+        if id not in self.storage.values():
             return 'UNK'
     def from_corpus(self, corpus):
-        if corpus is None and isinstance(corpus, tuple) is False:
+        if corpus is None or isinstance(corpus, tuple) is False:
             return {}
         for word in corpus:
             self.put(word)
