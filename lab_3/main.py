@@ -185,15 +185,11 @@ class NGramTrie:
 def encode(storage_instance, corpus) -> list:
     id_matrix_of_sentences = []
     if storage_instance and corpus and ' ' not in corpus:
-        if corpus[0] != '<s>':
-            for sentence in corpus:
-                id_sentence = []
-                for word in sentence:
-                    id_sentence.append(WordStorage.get_id_of(self, word))
-                id_matrix_of_sentences.append(sentence)
-        else:
-            for word in corpus:
-                id_matrix_of_sentences.append(WordStorage.get_id_of(self, word))
+        for sentence in corpus:
+            id_sentence = []
+            for word in sentence:
+                id_sentence.append(storage_instance.get_id_of(word))
+            id_matrix_of_sentences.append(id_sentence)
     return id_matrix_of_sentences
    
    
