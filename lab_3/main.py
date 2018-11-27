@@ -6,9 +6,9 @@ Labour work #3
 import math
 
 REFERENCE_TEXT = ''
-if __name__ == '__main__':
-    with open('not_so_big_reference_text.txt', 'r') as f:
-        REFERENCE_TEXT = f.read()
+# if __name__ == '__main__':
+    # with open('not_so_big_reference_text.txt', 'r') as f:
+        # REFERENCE_TEXT = f.read()
 
 
 class WordStorage:
@@ -68,8 +68,12 @@ class NGramTrie:
             if len(n_gram) == self.size:
                 res.append(n_gram)
         for n_gram in res:
-            frequency = list_of_n_grams.count(n_gram)
-            self.gram_frequencies[tuple(n_gram)] = frequency
+            if n_gram in self.gram_frequencies:
+                frequency_n = self.gram_frequencies[n_gram]
+                self.gram_frequencies[n_gram] = frequency_n + 1
+                continue
+            # frequency = list_of_n_grams.count(n_gram)
+            self.gram_frequencies[tuple(n_gram)] = 1
         return 'OK'
 
     def calculate_log_probabilities(self):
@@ -113,16 +117,21 @@ class NGramTrie:
                 if prefix_list[-length:] == current_key[:length]:
                     engrams.append(key)
             logs = []
+            # print(engrams)
             for engram in engrams:
                 logs.append(self.gram_log_probabilities[engram])
             try:
                 res = max(logs)
             except ValueError:
                 break
+            # print(logs)
             for key, value in self.gram_log_probabilities.items():
                 if res == value:
-                    prefix_list.append(key[-1])
+                    if key in engrams:
+                        prefix_list.append(key[-1])
+                        break  # because one element during one iteration
             counter -= 1
+            # print(tuple(prefix_list))
         return prefix_list
 
 
@@ -146,8 +155,9 @@ def split_by_sentence(text: str) -> list:
     non_space = ''
     if text is non_space or text is None:
         return []
-    if text[-1] not in ['.', '!', '?']:
-        return []
+
+    # if text[-1] not in ['.', '!', '?', ']']:
+        # return []
 
     # Step 1. Making tokens.
     alphabet_checker = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -156,6 +166,12 @@ def split_by_sentence(text: str) -> list:
                         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                         'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
                         'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+    if text[-1] not in ['.', '!', '?', ']']:
+        return []
+    if text[-1] in alphabet_checker:
+        return []
+
     new_text = ''
     for element in text:
         if element in ['.', '!', '?']:
@@ -181,3 +197,33 @@ def split_by_sentence(text: str) -> list:
         element = element.split()
         my_tokens.append(element)
     return my_tokens
+
+
+test_text = "Mar#y wa$nted, to swim! \n However, she  \n was afraid of sharks. However, she  \n afraid of dogs. She afraid of dogs."
+sentences = split_by_sentence(test_text)
+ws = WordStorage()
+for sentence in sentences:
+    ws.from_corpus(tuple(sentence))
+
+# print(sentences)
+ngram = NGramTrie(3)
+
+for sentence in sentences:
+    encoded = encode(ws, sentences)
+# print(encoded)
+
+for enc in encoded:
+    # print(enc)
+    ngram.fill_from_sentence(tuple(enc))
+
+ngram.calculate_log_probabilities()
+
+# print(ngram.gram_log_probabilities)
+# print(ngram.gram_frequencies)
+# print(word_storage.storage)
+word1 = ws.get_id_of('afraid')
+word2 = ws.get_id_of('of')
+# word3 = ws.get_id_of('not')
+words = ngram.predict_next_sentence((word1, word2,))
+for word in words:
+    print(ws.get_original_by(word))
