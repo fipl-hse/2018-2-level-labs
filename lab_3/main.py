@@ -17,7 +17,7 @@ class WordStorage:
         self.counter = 0
 
     def put(self, word: str) -> int:
-        if type(word) != str:
+        if not isinstance(word, str):
             return -1
         if word in self.storage.keys():
             return self.storage[word]
@@ -89,9 +89,7 @@ class NGramTrie:
 
     def predict_next_sentence(self, prefix: tuple) -> list:
         predicted_sentence = []
-        if type(prefix) is not tuple:
-            return []
-        if prefix is None:
+        if not isinstance(prefix, tuple):
             return []
         if len(prefix) != self.size - 1:
             return []
