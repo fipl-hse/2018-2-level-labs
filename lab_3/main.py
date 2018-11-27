@@ -110,7 +110,7 @@ class NGramTrie:
                 if v == 1:
                     ngrams.append(key)
                 elif v > 1:
-                    while counter != v + 1:
+                    while counter < v + 1:
                         ngrams.append(key)
                         counter += 1
             for t in ngrams:
