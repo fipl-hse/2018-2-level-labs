@@ -151,21 +151,21 @@ def split_by_sentence(text):
                 divided_sentence += word + '</s>'
                 all_sentences.append(divided_sentence)
                 divided_sentence = '<s> '
-   else:
-       return []
-   list_of_sents = []
-   for sentence in all_sentences:
-       list_of_sents.append(list(sentence))
-   for sentence in list_of_sents:
-       for symbol in sentence[4:-4]:
-           if symbol.isalnum() is False and symbol != ' ':
-               sentence.remove(symbol)
-   clear_sentences = []
-   for symbol_1 in list_of_sents:
-       clear_sentences.append(''.join(symbol_1))
-   tok_sents = []
-   for symbol_2 in clear_sentences:
-       tok_sent = symbol_2.split(' ')
-       if tok_sent != ['<s>', '', '</s>']:
-           tok_sents.append(tok_sent)
-   return tok_sents
+    else:
+        return []
+    list_of_sents = []
+    for sentence in all_sentences:
+        list_of_sents.append(list(sentence))
+    for sentence in list_of_sents:
+        for symbol in sentence[4:-4]:
+            if symbol.isalnum() is False and symbol != ' ':
+                sentence.remove(symbol)
+    clear_sentences = []
+    for symbol_1 in list_of_sents:
+        clear_sentences.append(''.join(symbol_1))
+    tok_sents = []
+    for symbol_2 in clear_sentences:
+        tok_sent = symbol_2.split(' ')
+        if tok_sent != ['<s>', '', '</s>']:
+            tok_sents.append(tok_sent)
+    return tok_sents
