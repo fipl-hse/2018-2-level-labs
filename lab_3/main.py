@@ -116,11 +116,12 @@ class NGramTrie:
                     counter = 0
             same_beginning = 0
             for t in ngrams:
-                if t[-1] == ngrams[0][-1]:
+                if t[:-1] == ngrams[0][:-1]:
                     same_beginning += 1
                 else:
                     continue
-                t_quantity = self.gram_frequencies[ngrams[0]]
+            for t in ngrams:
+                t_quantity = self.gram_frequencies[t]
                 probability = math.log(t_quantity / same_beginning)
                 self.gram_log_probabilities[t] = probability
             return self.gram_log_probabilities
