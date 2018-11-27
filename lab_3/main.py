@@ -40,7 +40,7 @@ class WordStorage:
             self.put(word)
           
 class NGramTrie:
-        def __init__(self, size):
+    def __init__(self, size):
         self.size = size
         self.gram_log_probabilities = {}
         self.gram_frequencies = {}
