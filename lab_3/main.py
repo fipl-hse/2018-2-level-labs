@@ -135,23 +135,33 @@ class NGramTrie:
             return []
         else:
             predicted = list(prefix)
+            helper = []
+            helper.append(predicted[-1])
             if len(prefix) != self.size - 1:
-                return []
+                return None
             else:
                 for key_p in self.gram_log_probabilities.keys():
                     probabilities_k.append(key_p[:self.size - 1])
-                for key, value in self.gram_log_probabilities.items():
-                    if list(key[:self.size - 1]) == predicted[:]:
-                        similar_beginning[key] = value
-                    ks = []
-                    vs = []
+                    probabilities_k2 = set(probabilities_k)
+                while tuple(helper) in probabilities_k2:
+                    for key, value in self.gram_log_probabilities.items():
+                        helper2 = []
+                        helper2.append(predicted[-1])
+                        if list(key[:self.size - 1]) == helper2:
+                            similar_beginning[key] = value
+                        ks = []
+                        vs = []
                     for k, v in similar_beginning.items():
                         ks.append(k)
                         vs.append(v)
                         winner = max(vs)
                         w_ind = vs.index(winner)
-                        predicted.append(ks[w_ind][-1])
-                    similar_beginning = {}
+                        if ks[w_ind][-1] not in predicted:
+                            predicted.append(ks[w_ind][-1])
+                        similar_beginning = {}
+                    probabilities_k2.remove(tuple(helper))
+                    helper = []
+                    helper.append(predicted[-1])
                 return predicted
         pass
 
