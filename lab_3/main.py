@@ -100,28 +100,34 @@ class NGramTrie:
         pass
 
     def calculate_log_probabilities(self):
-        if self.gram_frequencies == {}:
+        ngrams = []
+        counter = 0
+        if self.gram_frequencies == {} or self.gram_frequencies is None:
+            print({})
             return {}
         else:
-            ngrams = []
-            counter = 1
             for key, value in self.gram_frequencies.items():
                 v = value
                 if v == 1:
                     ngrams.append(key)
+                    print(ngrams)
                 elif v > 1:
-                    while counter < v + 1:
+                    while counter < v:
                         ngrams.append(key)
                         counter += 1
+                    counter = 0
+            same_beginning = 0
             for t in ngrams:
-                same_beginning = 0
-                for t2 in ngrams:
-                    if t[:-1] == t2[:-1]:
-                        same_beginning += 1
-                t_quantity = self.gram_frequencies[t]
+                if t[-1] == ngrams[0][-1]:
+                    same_beginning += 1
+                    print(same_beginning)
+                else:
+                    continue
+                t_quantity = self.gram_frequencies[ngrams[0]]
                 probability = math.log(t_quantity / same_beginning)
                 self.gram_log_probabilities[t] = probability
             return self.gram_log_probabilities
+
         pass
 
     def predict_next_sentence(self, prefix: tuple) -> list:
