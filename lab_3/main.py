@@ -107,9 +107,9 @@ class NGramTrie:
 def encode(storage_instance, corpus):
     if storage_instance is not None and corpus is not None:
         coded_list = []
-            for sentence in corpus:
+            for sents in corpus:
                 for key, value in storage_instance.items():
-                    if key in sentence:
+                    if key in sents:
                         coded_list.append(storage_instance[key])
                 return coded_list
     else:
