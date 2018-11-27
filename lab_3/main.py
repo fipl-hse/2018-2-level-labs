@@ -103,14 +103,12 @@ class NGramTrie:
         ngrams = []
         counter = 0
         if self.gram_frequencies == {} or self.gram_frequencies is None:
-            print({})
             return {}
         else:
             for key, value in self.gram_frequencies.items():
                 v = value
                 if v == 1:
                     ngrams.append(key)
-                    print(ngrams)
                 elif v > 1:
                     while counter < v:
                         ngrams.append(key)
@@ -120,7 +118,6 @@ class NGramTrie:
             for t in ngrams:
                 if t[-1] == ngrams[0][-1]:
                     same_beginning += 1
-                    print(same_beginning)
                 else:
                     continue
                 t_quantity = self.gram_frequencies[ngrams[0]]
