@@ -123,19 +123,56 @@ class NGramTrie:
             counter -= 1
         return prefix_list
 
-
-
-def encode(storage_instance, corpus) -> list:
-    new_corpus = []
-    id_sentence = []
-    for sentence in corpus:
-        for word in sentence:
-            number = storage_instance.put(word)
-            id_sentence.append(number)
-        new_corpus.append(id_sentence)
+    def encode(storage_instance, corpus) -> list:
+        new_corpus = []
         id_sentence = []
-        continue
-    return new_corpus
+        for sentence in corpus:
+            for word in sentence:
+                number = storage_instance.put(word)
+                id_sentence.append(number)
+            new_corpus.append(id_sentence)
+            id_sentence = []
+            continue
+        return new_corpus
+    def split_by_sentence(text: str) -> list:
+        with_space = ' '
+        no_space = ''
+        if text is no_space or text is None:
+            return []
+        if text[-1] not in ['.', '!', '?']:
+            return []
+        abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+               'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+               'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+                                                       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+               'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+               'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+        new_text = ''
+        for el in text:
+            if el in ['.', '!', '?']:
+                new_text += '.'
+            if el is with_space:
+                new_text += ' '
+            if el in abc:
+                new_text += el
+        final = ''
+        for index in range(0, len(new_text) - 1):
+            point = '.'
+            if new_text[index] is point:
+                if new_text[index + 1] in abc:
+                    continue
+                if new_text[index + 1] is point:
+                    continue
+            final += new_text[index]
+        final = final.split('.')
+        tokens = []
+        for element in final:
+            element = element.lower()
+            element = '<s> ' + element + ' </s>'
+            element = element.split()
+            tokens.append(element)
+        return tokens
 
 
 
