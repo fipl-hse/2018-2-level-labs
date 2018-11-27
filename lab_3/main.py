@@ -105,13 +105,13 @@ class NGramTrie:
         return prefix
        
 def encode(storage_instance, corpus):
-     if storage_instance is not None and corpus is not None:
+    if storage_instance is not None and corpus is not None:
         coded_list = []
-        for sentence in corpus:
-            for key, value in storage_instance.items():
-                if key in sentence:
-                    coded_list.append(storage_instance[key])
-            return coded_list
+            for sentence in corpus:
+                for key, value in storage_instance.items():
+                    if key in sentence:
+                        coded_list.append(storage_instance[key])
+                return coded_list
     else:
         return []
      
