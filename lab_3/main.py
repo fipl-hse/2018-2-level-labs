@@ -113,7 +113,7 @@ def encode(storage_instance, corpus: tuple) -> list:
     for sentence in corpus:
         inner_list = list()
         for word in sentence:
-            inner_list.append(storage_instance[word])
+            inner_list.append(storage_instance.storage[word])
         encoded_list.append(inner_list)
     return encoded_list
 
@@ -211,6 +211,7 @@ class NGramTrie:
                 for gram, log_prob in self.gram_log_probabilities.items():
                     if gram[0] == words[0] and gram[1] == words[1]:
                         probable_grams.append((log_prob, gram))
+
                 if len(probable_grams) == 0:
                     return predicted_sentence
 
