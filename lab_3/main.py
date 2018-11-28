@@ -122,14 +122,8 @@ class NGramTrie:
 
 def encode(storage_instance, corpus) -> list:
     new_list = []
-    new_line = []
     for line in corpus:
-        new_line.append('<s>')
-        new_line += [storage_instance.get_id_of(word)
-                    for word in line[1:len(line) - 1]]
-        new_line.append('</s>')
-        new_list.append(new_line)
-        new_line = []
+        new_list.append([storage_instance.get_id_of(word) for word in line])
     return new_list
 
 
