@@ -146,7 +146,7 @@ def encode(storage_instance, corpus) -> list:
     for sentence in corpus:
         lst = list()
         for word in sentence:
-            lst.append(storage_instance[word])
+            lst.append(storage_instance.storage[word])
         encoded.append(lst)
     return encoded
 
