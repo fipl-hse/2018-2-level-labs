@@ -67,77 +67,75 @@ class NGramTrie:
         self.gram_log_probabilities = {}
 
     def fill_from_sentence(self, sentence: tuple) -> str:
-        if sentence and type(sentence) == tuple:
-            if self.size == 2:
-                for index in range(len(sentence) - 1):
-                    gramm_2 = (sentence[index], sentence[index + 1])
-                    if gramm_2 not in self.gram_frequencies.keys():
-                        self.gram_frequencies[gramm_2] = 1
-                    else:
-                        new_value = self.gram_frequencies[gramm_2]
-                        self.gram_frequencies[gramm_2] = new_value + 1
-            elif self.size == 3:
-                for index in range(len(sentence) - 2):
-                    gramm_3 = (sentence[index], sentence[index + 1], sentence[index + 2])
-                    if gramm_3 not in self.gram_frequencies.keys():
-                        self.gram_frequencies[gramm_3] = 1
-                    else:
-                        new_value = self.gram_frequencies[gramm_3]
-                        self.gram_frequencies[gramm_3] = new_value + 1
-            return 'OK'
-        else:
+        ngram_list = []
+        if not isinstance(sentence, tuple):
             return 'ERROR'
-        pass
+        for i, word in enumerate(sentence):
+            if self.size == 2:
+                if i == len(sentence) - 1:
+                    break
+                ngram_list.append((sentence[i], sentence[i + 1]))
+            if self.size == 3:
+                if i == len(sentence) - 2:
+                    break
+                ngram_list.append((sentence[i], sentence[i + 1], sentence[i + 2]))
+        for both in ngram_list:
+            if both in self.gram_frequencies.keys():
+                self.gram_frequencies[both] += 1
+            else:
+                self.gram_frequencies[both] = 1
+        return 'OK'
 
     def calculate_log_probabilities(self):
-        if self.size == 2:
-            for gram, frequency in self.gram_frequencies.keys():
-                general_probability = 0
-                for gram_2, frequency_2 in self.gram_frequencies.keys():
-                    if gram[0] == gram_2[0]:
-                        general_probability += frequency_2
-                    else:
-                        continue
-                gram_probability = frequency / general_probability
-                gram_log_probability = log(gram_probability)
-                self.gram_log_probabilities[gram] = gram_log_probability
-        elif self.size == 3:
-            for gram, frequency in self.gram_frequencies.keys():
-                general_probability = 0
-                for gram_2, frequency_2 in self.gram_frequencies.keys():
-                    if (gram[0] == gram_2[0]) and gram[1] == gram_2[1]:
-                        general_probability += frequency_2
-                    else:
-                        continue
-                gram_probability = frequency / general_probability
-                gram_log_probability = log(gram_probability)
-                self.gram_log_probabilities[gram] = gram_log_probability
+        for bigram, bigram_freq in self.gram_frequencies.items():
+            word_n_1 = bigram[0]
+            frequency = 0
+            for bigram_second, bigram_freq_second in self.gram_frequencies.items():
+                if self.size == 2:
+                    if bigram_second[0] == word_n_1:
+                        frequency += bigram_freq_second
+                if self.size == 3:
+                    if bigram_second[0] == bigram[0] and bigram_second[1] == bigram[1]:
+                        frequency += bigram_freq_second
+            log_frequency = bigram_freq / frequency
+            self.gram_log_probabilities[bigram] = math.log(log_frequency)
         return 'OK'
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        if self.gram_log_probabilities == {}:
+        predict_sentence = []
+        if type(prefix) is not tuple:
             return []
-        prefix = list(prefix)
-        length = len(prefix)
-        count = len(self.gram_log_probabilities)
-        while count:
-            ngrams = []
-            for key, value in self.gram_log_probabilities.items():
-                current_key = list(key)
-                if prefix[-length:] == current_key[:length]:
-                    ngrams.append(key)
-            logs = []
-            for engram in ngrams:
-                logs.append(self.gram_log_probabilities[engram])
-            try:
-                res = max(logs)
-            except ValueError:
-                break
-            for key, value in self.gram_log_probabilities.items():
-                if res == value:
-                    prefix.append(key[-1])
-            count -= 1
-        return prefix
+        if len(prefix) != self.size - 1:
+            return []
+        if self.size == 2:
+            word = prefix[0]
+            predict_sentence.append(word)
+            while True:
+                storagelist = []
+                for gram, frequency in self.gram_log_probabilities.items():
+                    if gram[0] == word:
+                        storagelist.append((frequency, gram))
+                if len(storagelist) == 0:
+                    return predict_sentence
+                storagelist.sort(reverse=True)
+                word = storagelist[0][1][1]
+                predict_sentence.append(word)
+        if self.size == 3:
+            words = [prefix[0], prefix[1]]
+            predict_sentence.append(words[0])
+            predict_sentence.append(words[1])
+            while True:
+                storagelist = []
+                for gram, frequency in self.gram_log_probabilities.items():
+                    if gram[0] == words[0] and gram[1] == words[1]:
+                        storagelist.append((frequency, gram))
+                if len(storagelist) == 0:
+                    return predict_sentence
+                storagelist.sort(reverse=True)
+                word = storagelist[0][1][2]
+                predict_sentence.append(word)
+                words[0] = storagelist[0][1][1]
+                words[1] = word
         pass
 
 
