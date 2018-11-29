@@ -20,39 +20,55 @@ class WordStorage:
        self.storage = {}
 
     def put(self, word: str) -> int:
-        if word == None or type(word) != 'str' or word in self.storage.keys():
+        if word == None or type(word) != str:
            return {}
         else:
-           self.storage[word] = num
-           return num
+           keys = []
+           for k in self.storage.keys():
+               keys.append(k)
+           if word in keys:
+              return keys.index(word)
+           else:
+              keys.append(word)
+              num = keys.index(word)
+              self.storage[word] = num
+              return num
 
     def get_id_of(self, word: str) -> int:
-        if word in self.storage.keys() and word != '' and word != None and type(word) == "str":
-            return self.storage[word]
-        elif word == '' or word == None or type(word) != "str":
-            return -1
+        if word == None or type(word) != str or word not in self.storage.keys():
+           return -1
         else:
-            return None
+           return self.storage[word]
 
     def get_original_by(self, num: int) -> str:
-        if num == None or type(num) != 'int' or num not in self.storage.values():
+        if num == None or type(num) != int or num not in self.storage.values():
            return 'UNK'
-        elif num in self.storage.values():
+        else:
            for k in self.storage.keys():
                if self.storage[k] == num:
                   return k
-        else:
-            return None
+
 
     def from_corpus(self, corpus: tuple):
-        for i in range(0, len(corpus)):
-            for k in range(0, len(corpus[i])):
-                word = corpus[i][k]
-                WordStorage.put(self, word)
-        return self.storage
+        if corpus == None or type(corpus) != tuple or corpus == ():
+                return {}
+        else:
+           corpus1 = []
+           for i in range(0, len(corpus)):
+               if corpus[i] not in self.storage.keys():
+                  corpus1.append(corpus[i])
+           for c in corpus1:
+               self.storage[c] = corpus1.index(c)
+           return self.storage
 
 
 class NGramTrie:
+
+    def __init__(self, size):
+       self.gram_frequencies = {}
+       self.log_probabilities = {}
+       self.size = size
+
     def fill_from_sentence(self, sentence: tuple) -> str:
         pass
 
@@ -64,32 +80,40 @@ class NGramTrie:
 
 
 def encode(storage_instance, corpus) -> list:
-    pass
-
+    storage_instance = WordStorage.from_corpus(corpus)
+    corpus = list(corpus)
+    for i in range(0, len(corpus)):
+        for k in range(0, len(corpus[i])):
+            corpus[i][k] = storage_instance[corpus[i][k]]
+    return corpus
 
 def split_by_sentence(text: str) -> list:
     if text == '' or text == None:
-       return []
+        return []
     else:
-       text = list(text)
-       text = list(filter(lambda x: x not in undesired, text))
-       text.remove(text[-1])
-       for i in range(1, len(text) - 1):
-           if text[i] == " " and text[i - 1] == " ":
-              text.remove(text[i])
-           if text[i] in punct_marks:
-              text[i] = '.'
-       text = ''.join(text)
-       text = text.split(".")
-       for i in range(0, len(text)):
-           if text[i].isalpha:
-              text[i] = text[i].lower()
-           text[i] = text[i].split(" ")
-           for k in range(0, len(text[i]) - 1):
-               if text[i][k] == '':
-                  text[i].remove(text[i][k])
-               text[i][k].lower()
-           text[i].insert(0, "<s>")
-           text[i].insert(len(text[i]), "</s>")
-    return text
-
+        if "\n" in text:
+            text = text.replace("\n", " ")
+        while "  " in text:
+            text = text.replace("  ", " ")
+        text = list(text)
+        text = list(filter(lambda x: x not in undesired, text))
+        text.remove(text[-1])
+        for i in range(len(text)):
+            if text[i] in punct_marks:
+                text[i] = '.'
+        text = ''.join(text)
+        text = text.split(".")
+        for i in range(0, len(text)):
+            if text[i].isalpha:
+                text[i] = text[i].lower()
+        if len(text) == 1:
+            return []
+        for i in range(0, len(text)):
+            text[i] = text[i].split(" ")
+            for k in range(0, len(text[i]) - 1):
+                if text[i][k] == '':
+                    text[i].remove(text[i][k])
+                text[i][k].lower()
+            text[i].insert(0, "<s>")
+            text[i].insert(len(text[i]), "</s>")
+        return text
