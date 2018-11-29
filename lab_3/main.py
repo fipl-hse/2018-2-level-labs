@@ -41,5 +41,29 @@ def encode(storage_instance, corpus) -> list:
 
 
 def split_by_sentence(text: str) -> list:
-    pass
+    alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    new_text = []
+    final_list = []
+    word = ''
+    text = text.lower()
+    flag = 0
+    for element in text:
+        if element in alph:
+            if flag == 0:
+                new_text.append('<s>')
+                flag = 1
+            word += element
+
+        else:
+            if word != '':
+                new_text.append(word)
+            word = ''
+            if element == '.' or element == '!' or element == '?':
+                new_text.append('</s>')
+                final_list.append(new_text)
+                new_text = []
+                flag = 0
+    if word != '':        
+        new_text.append(word)
+    return final_list
  
