@@ -70,7 +70,20 @@ class NGramTrie:
        self.size = size
 
     def fill_from_sentence(self, sentence: tuple) -> str:
-        pass
+        keys = []
+        if self.size == 2:
+           if sentence == () or type(sentence) != tuple or sentence == None:
+              self.gram_frequencies = {}
+           else:
+              for i in range(0, len(sentence)-1):
+                  k = tuple(sentence[i: i+2])
+                  keys.append(k)
+                  if k[-1] == '</s>':
+                     keys.append(k)
+                     break
+              for i in range(len(keys)):
+                  self.gram_frequencies[keys[i]] = keys.count(keys[i])
+              return'OK'
 
     def calculate_log_probabilities(self):
         pass
