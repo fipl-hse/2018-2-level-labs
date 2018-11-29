@@ -10,7 +10,7 @@ if __name__ == '__main__':
     with open('not_so_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
 
-def split_by_sentence(text):
+def split_by_sentence(text: str) -> list:
     punctuation = ['.', '?', '!']
     if text is '' or text is None:
         return []
@@ -47,7 +47,7 @@ class WordStorage:
         self.count = 111111
         self.storage = {}
 
-    def put(self, word):
+    def put(self, word:str) -> int:
         if word in self.storage:
             return self.storage[word]
 
@@ -59,21 +59,21 @@ class WordStorage:
         self.storage[word] = self.count
         return self.count
 
-    def get_id_of(self, word):
+    def get_id_of(self, word:str) -> int:
         if word is None or not type(word) != str or word not in self.storage:
             return None
         return self.storage[word]
 
-    def get_original_by(self, number):
-        if type(number) != int or number < 111111:
+    def get_original_by(self, id:int) -> str:
+        if type(id) != int or id < 111111:
             return 'UNK'
 
         for key, value in self.storage.items():
-            if value == number:
+            if value == id:
                 return key
         return 'UNK'
 
-    def from_corpus(self, sentence):
+    def from_corpus(self, corpus: tuple):
         if type(sentence) == tuple:
             return ''
 
@@ -81,7 +81,7 @@ class WordStorage:
             self.put(el)
 
 
-def encode(store_instance, corpus):
+def encode(storage_instance, corpus) -> list:
     corpus_n = []
     sentence_id = []
 
@@ -101,7 +101,7 @@ class NGramTrie:
         self.log_prob = {}
         self.frequency = {}
 
-    def fill_from_sentence(self, sentence):
+    def fill_from_sentence(self, sentence: tuple) -> str:
         if type(sentence) != tuple:
             return 'ERROR'
 
@@ -119,7 +119,7 @@ class NGramTrie:
             self.frequency[tuple(n_gram)] = frequency
         return 'OK'
 
-    def calculate_log_probabilities(self):
+     def calculate_log_probabilities(self):
         engram_list = []
         for key in self.frequency:
             engram_list.append(key)
@@ -141,7 +141,7 @@ class NGramTrie:
             count += 1
             continue
 
-    def predict_next_sentence(self, prefix):
+     def predict_next_sentence(self, prefix: tuple) -> list:
         if self.log_prob == {}:
             return []
 
