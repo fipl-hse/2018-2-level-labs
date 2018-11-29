@@ -141,7 +141,7 @@ class NGramTrie:
             count += 1
             continue
 
-     def predict_next_sentence(self, prefix: tuple) -> list:
+    def predict_next_sentence(self, prefix: tuple) -> list:
         if self.log_prob == {}:
             return []
 
