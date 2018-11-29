@@ -119,7 +119,7 @@ class NGramTrie:
             self.frequency[tuple(n_gram)] = frequency
         return 'OK'
 
-     def calculate_log_probabilities(self):
+    def calculate_log_probabilities(self):
         engram_list = []
         for key in self.frequency:
             engram_list.append(key)
