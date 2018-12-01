@@ -58,8 +58,16 @@ class NGramTrie:
         pass
 
 
-def encode(storage_instance, corpus) -> list:
-    pass
+ def encode(storage_instance, corpus) -> list:
+        if (storage_instance is None or corpus is None):
+            return []
+        encoded = []
+        for sen in corpus:
+            id_of_word = []
+            for word in sen:
+                id_of_word.append(storage_instance.get_id_of(word))
+            encoded.append(id_of_word)
+        return encoded
 
 
 def split_by_sentence(text: str) -> list:
