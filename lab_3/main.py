@@ -85,8 +85,10 @@ def split_by_sentence(text: str) -> list:
             new_text.append(word)
         
         if element != ' ':
-            new_text.append('</s>')
-            final_list.append(new_text)
+            if flag:
+                new_text.append('</s>')
+            if new_text != []:
+                final_list.append(new_text)
             new_text = []
             flag = 0
                         
