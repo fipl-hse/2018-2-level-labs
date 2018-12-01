@@ -33,7 +33,7 @@ class WordStorage:
 
     def get_original_by(self, id: int) -> str:
         if id not in self.storage.values():
-            return None
+            return 'UNK'
         for word in self.storage.keys():
             if self.storage[word] == id:
                 return word
