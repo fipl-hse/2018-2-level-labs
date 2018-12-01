@@ -94,5 +94,5 @@ def split_by_sentence(text: str) -> list:
         word = ''
     if word != '':        
         new_text.append(word)
-return final_list
+    return final_list
  
