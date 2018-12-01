@@ -12,17 +12,39 @@ if __name__ == '__main__':
 
 
 class WordStorage:
+ 
+    def __init__(self):
+        self.storage = {}
+        self.id_counter = 0
+     
     def put(self, word: str) -> int:
-        pass
+        if not isinstance(word, str):
+            return -1
+        if word in self.storage:
+            return -1
+        self.storage[word] = self.id_counter
+        self.id_counter += 1
+        return self.storage[word]
 
     def get_id_of(self, word: str) -> int:
-        pass
+        if word not in self.storage.keys():
+            return -1
+        return self.storage[word]
 
     def get_original_by(self, id: int) -> str:
-        pass
+        if id not in self.storage.values():
+            return None
+        for word in self.storage.keys():
+            if self.storage[word] == id:
+                return word
 
     def from_corpus(self, corpus: tuple):
-        pass
+        if not isinstance(corpus, tuple):
+            return {}
+        for word in corpus:
+            if word not in self.storage:
+                self.storage[word] = self.counter
+                self.counter += 1
 
 
 class NGramTrie:
@@ -45,8 +67,10 @@ def split_by_sentence(text: str) -> list:
     new_text = []
     final_list = []
     word = ''
-    text = text.lower()
     flag = 0
+    if text == None:
+        return []
+    text = text.lower()
     for element in text:
         if element in alph:
             if flag == 0:
@@ -54,17 +78,21 @@ def split_by_sentence(text: str) -> list:
                 flag = 1
             word += element
 
-        else:
-            if word != '':
-                new_text.append(word)
+        if element != '.' and element != '!' and element != '?' and element != ' ':
+            continue
+
+        if word != '':
+            new_text.append(word)
         
-                if element == '.' or element == '!' or element == '?':
-                    new_text.append('</s>')
-                    final_list.append(new_text)
-                    new_text = []
-                    flag = 0
-            word = ''   
+        if element != ' ':
+            new_text.append('</s>')
+            final_list.append(new_text)
+            new_text = []
+            flag = 0
+                        
+                        
+        word = ''
     if word != '':        
         new_text.append(word)
-    return final_list
+return final_list
  
