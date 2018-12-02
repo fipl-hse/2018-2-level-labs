@@ -59,26 +59,26 @@ class NGramTrie:
 
 
        def fill_from_sentence(self, sentence: tuple) -> str:
-        if not isinstance(sentence, tuple):
-            return 'ERROR'
-        list_of_grams = list()
-        if self.size == 2:
-            for i, e in enumerate(sentence):
-                if len(sentence) == i + 1:
-                    break
-                list_of_grams.append((e, sentence[i + 1]))
-        if self.size == 3:
-            for i, e in enumerate(sentence):
-                if len(sentence) == i + 2:
-                    break
-                list_of_grams.append((e, sentence[i + 1], sentence[i + 2]))
+           if not isinstance(sentence, tuple):
+               return 'ERROR'
+           list_of_grams = list()
+           if self.size == 2:
+               for i, e in enumerate(sentence):
+                   if len(sentence) == i + 1:
+                       break
+                   list_of_grams.append((e, sentence[i + 1]))
+           if self.size == 3:
+               for i, e in enumerate(sentence):
+                   if len(sentence) == i + 2:
+                       break
+                   list_of_grams.append((e, sentence[i + 1], sentence[i + 2]))
 
-        for gram in list_of_grams:
-            if gram in self.gram_frequencies:
-                self.gram_frequencies[gram] += 1
-            else:
-                self.gram_frequencies[gram] = 1
-        return 'OK'
+           for gram in list_of_grams:
+               if gram in self.gram_frequencies:
+                   self.gram_frequencies[gram] += 1
+               else:
+                   self.gram_frequencies[gram] = 1
+           return 'OK'
 
 
     def calculate_log_probabilities(self):
