@@ -172,7 +172,7 @@ def split_by_sentence(text):
                 continue
             if new_text[sym + 1] is '.':
                 continue
-        sentences += new_text[el]
+        sentences += new_text[sym]
 
     sentences = sentences.split('.')
 
