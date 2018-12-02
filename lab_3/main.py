@@ -81,13 +81,6 @@ class NGramTrie:
                 self.gram_frequencies[gram] = 1
         return 'OK'
 
-           for gram in list_of_grams:
-               if gram in self.gram_frequencies:
-                   self.gram_frequencies[gram] += 1
-               else:
-                   self.gram_frequencies[gram] = 1
-           return 'OK'
-
 
     def calculate_log_probabilities(self):
 
