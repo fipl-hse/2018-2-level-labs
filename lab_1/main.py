@@ -3,8 +3,6 @@ Labour work #1
 
 Count frequencies dictionary by the given arbitrary text
 """
-
-
 def read_from_file(path_to_file, lines_limit: int) -> str:
     my_text = ''
     count_lines = 0
