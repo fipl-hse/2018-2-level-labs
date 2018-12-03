@@ -109,39 +109,43 @@ class NGramTrie:
         return 'OK'
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        if prefix is None:
-            return []
-        if not isinstance(prefix, tuple) or not prefix:
+        if not isinstance(prefix, tuple):
             return []
         if len(prefix) != self.size - 1:
             return []
+        sentence = []
         if self.size == 2:
-            sentence = [prefix[0], ]
             word = prefix[0]
-            result = []
-            for key, value in self.gram_log_probabilities.items():
-                if key[0] == word:
-                    result.append((value, key))
-            if len(result) == 0:
-                return sentence
-            result.sort(reverse=True)
-            sentence.append(result[0][1][1])
-            word = result[0][1][1]
-        elif self.size == 3:
-
-            sentence = [prefix[0], prefix[1], ]
-            word = [prefix[0], prefix[1]]
+            sentence.append(word)
             while True:
-                result = []
-                for key, value in self.gram_log_probabilities.items():
-                    if key[0] == word[0] and key[1] == word[1]:
-                        result.append((value, key))
-                if len(result) == 0:
+                next_gram = list()
+                for gram, gram_prob in self.gram_log_probabilities.items():
+                    if gram[0] == word:
+                        next_gram.append((gram_prob, gram))
+
+                if len(next_gram) == 0:
                     return sentence
-                result.sort(reverse=True)
-                sentence.append(result[0][1][2])
-                word[0] = result[0][1][1]
-                word[1] = result[0][1][2]
+
+                next_gram.sort(reverse=True)
+                line.append(next_gram[0][1][1])
+                word = next_gram[0][1][1]
+
+        if self.size == 3:
+            words = [prefix[0], prefix[1]]
+            sentence = [prefix[0], prefix[1], ]
+            while True:
+                next_gram = list()
+                for gram, gram_prob in self.gram_log_probabilities.items():
+                    if (gram[0] == words[0]) and (gram[1] == words[1]):
+                        next_gram.append((gram_prob, gram))
+                if len(next_gram) == 0:
+                    return sentence
+                next_gram.sort(reverse=True)
+                sentence.append(next_gram[0][1][2])
+                words[0] = next_gram[0][1][1]
+                words[1] = next_gram[0][1][2]
+                
+                
 def encode(storage_instance, corpus) -> list:
     corpus_of_sentences = []
     for sentence in corpus:
