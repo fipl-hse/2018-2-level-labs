@@ -86,19 +86,26 @@ class NGramTrie:
         list_pref = []
         list_pref.append(prefix)
         P_ln = {}
+        predicted_sentence = []
+        predicted_sentence.extend(list_pref)
 
+        while(1):
+            print(list_pref)
+            for n_gram in list(self.gram_log_probabilities):
+               if list_pref == list(n_gram[:-1]):
+                   P_ln[self.gram_log_probabilities[n_gram]] = n_gram
 
-        for n_gram in list(self.gram_log_probabilities):
-
-            if list_pref == list(n_gram[:-1]):
-                P_ln[n_gram] = self.gram_log_probabilities[n_gram]
+            if P_ln == {}:
+                return predicted_sentence
+            m = max(P_ln)
+            list_pref.reverse()
+            if len(list_pref) > 0: list_pref.pop()
+            list_pref.reverse()
             
-        if P_ln == {}:
-            return []
-        m = max(P_ln)
-        
-        return m
-
+            list_pref.append(P_ln[m][len(P_ln[m])-1])
+            predicted_sentence.append(P_ln[m][len(P_ln[m])-1]
+            P_ln = {}
+        return predicted_sentence 
 
 def encode(storage_instance, corpus) -> list:
     if (storage_instance is None or corpus is None):
