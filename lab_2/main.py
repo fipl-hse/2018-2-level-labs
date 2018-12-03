@@ -162,7 +162,7 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if word is None:
->>>>>>> upstream/master
+>>>>>>>     upstream/master
         return 'UNK'
     if as_is_words is None:
         pass
