@@ -50,6 +50,9 @@ class WordStorage:
     def put(self, word:str) -> int:
         if word in self.storage:
             return self.storage[word]
+       
+       if not isinstance(word, str):
+             return 0
 
         for value in self.storage.values():
             if value == self.count:
