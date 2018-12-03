@@ -48,6 +48,11 @@ class WordStorage:
 
 
 class NGramTrie:
+    def __init__(self, size):
+        self.size = size
+        self.gram_frequencies = {}
+        self.gram_log_probabilities = {}
+      
     def fill_from_sentence(self, sentence: tuple) -> str:
         if not isinstance(sentence, tuple):
             return 'ERROR'
