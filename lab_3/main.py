@@ -129,6 +129,3 @@ def split_by_sentence(text: str) -> list:
     if word != '':        
         new_text.append(word)
     return final_list
- 
- 
- 
