@@ -92,7 +92,9 @@ class NGramTrie:
 
             if list_pref == list(n_gram[:-1]):
                 P_ln[n_gram] = self.gram_log_probabilities[n_gram]
-
+            
+        if P_ln == {}:
+            return []
         m = max(P_ln)
         
         return m
