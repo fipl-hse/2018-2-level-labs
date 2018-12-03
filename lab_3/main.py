@@ -26,11 +26,11 @@ def split_by_sentence(text: str) -> list:
         if el in punctuation:
             n_text += '.'
     result = ''
-    for index in range(0, len(new_text) - 1):
-        if new_text[index] is '.':
-            if new_text[index + 1] in alphabet_checker or new_text[index + 1] is '.':
+    for index in range(0, len(n_text) - 1):
+        if n_text[index] == '.':
+            if n_text[index + 1].isalpha() or n_text[index + 1] == '.':
                 continue
-        result += new_text[index]
+        result += n_text[index]
     result = result.split('.')
     token = []
     for el in result:
@@ -126,7 +126,7 @@ class NGramTrie:
             for el in engrams_list:
                 sum_engram += self.gram_frequencies[el]
             logarithm = math.log(self.gram_frequencies[engram_list[counter]]/sum_engram)
-            self.gram_log_probabilitiesy[engram_list[counter]] = logarithm
+            self.gram_log_probabilities[engram_list[counter]] = logarithm
             counter += 1
             continue
 
