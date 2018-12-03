@@ -68,7 +68,15 @@ class NGramTrie:
         return 'OK'
 
     def calculate_log_probabilities(self):
-        pass
+        for gram in list(self.gram_frequencies):
+            all_grams = []
+            gram_freq = self.gram_frequencies[gram]
+            for gr in list(self.gram_frequencies):
+                if gram[0] == gr[0]:
+                    all_grams.append(self.gram_frequencies[gr])
+            final_all_grams = sum(all_grams)
+            natur_log = math.log(gram_freq / final_all_grams)
+            self.gram_log_probabilities[gram] = natur_log
 
     def predict_next_sentence(self, prefix: tuple) -> list:
         pass
