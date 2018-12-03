@@ -77,9 +77,8 @@ class WordStorage:
         return 'UNK'
 
     def from_corpus(self, sentence: tuple):
-        if type(sentence) == tuple:
+        if type(sentence) != tuple:
             return ''
-
         for el in sentence:
             self.put(el)
 
