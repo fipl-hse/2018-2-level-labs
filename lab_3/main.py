@@ -98,8 +98,8 @@ def encode(storage_instance, corpus) -> list:
 class NGramTrie:
     def __init__(self, size):
         self.size = size
-        self.log_prob = {}
-        self.frequency = {}
+        self.gram_log_probabilities = {}
+        self.gram_frequencies = {}
 
     def fill_from_sentence(self, sentence: tuple) -> str:
         if type(sentence) != tuple:
@@ -116,12 +116,12 @@ class NGramTrie:
 
         for n_gram in result:
             frequency = n_gram_list.count(n_gram)
-            self.frequency[tuple(n_gram)] = frequency
+            self.gram_frequencies[tuple(n_gram)] = frequency
         return 'OK'
 
     def calculate_log_probabilities(self):
         engram_list = []
-        for key in self.frequency:
+        for key in self.gram_frequencies:
             engram_list.append(key)
             continue
 
@@ -135,31 +135,31 @@ class NGramTrie:
             sum_elist = 0
 
             for engram in engrams_list:
-                sum_elist += self.frequency[engram]
-            log = math.log(self.frequency[engram_list[count]] / sum_elist)
-            self.log_prob[engram_list[count]] = log
+                sum_elist += self.gram_frequencies[engram]
+            log = math.log(self.gram_frequencies[engram_list[count]] / sum_elist)
+            self.gram_log_probabilities[engram_list[count]] = log
             count += 1
             continue
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        if self.log_prob == {}:
+        if self.gram_log_probabilities == {}:
             return []
 
         prefix_list = list(prefix)
         length = len(prefix)
-        count = len(self.log_prob)
+        count = len(self.gram_log_probabilities)
         while count:
             engrams = []
-            for key, value in self.log_prob.items():
+            for key, value in self.gram_log_probabilities.items():
                 if prefix_list[-length:] == list(key)[:length]:
                     engrams.append(key)
             logs = []
 
             for engram in engrams:
-                logs.append(self.log_prob[engram])
+                logs.append(self.gram_log_probabilities[engram])
                 res = max(logs)
 
-            for key, value in self.log_prob.items():
+            for key, value in self.gram_log_probabilities.items():
                 if res == value:
                     prefix_list.append(key[-1])
             count -= 1
