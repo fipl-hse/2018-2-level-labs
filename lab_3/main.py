@@ -63,7 +63,7 @@ class WordStorage:
         return self.count
 
     def get_id_of(self, word: str) -> int:
-        if word is None or isinstance(word, str) or word not in self.storage:
+        if word is None or not isinstance(word, str) or word not in self.storage:
             return -1
         else:
             return self.storage[word]
