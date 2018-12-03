@@ -56,7 +56,7 @@ class NGramTrie:
 
 
         for el in sentence:
-            if el >= len(sentence) - n + 1:
+            if el <= len(sentence) - n + 1:
                 grams.append(sentence[el:el+n])
 
         for ngram in grams:
