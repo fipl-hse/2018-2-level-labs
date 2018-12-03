@@ -86,7 +86,7 @@ def encode(storage_instance, corpus) -> list:
     corpus_n = []
     sentence_id = []
 
-   for sentence in corpus:
+    for sentence in corpus:
         for word in sentence:
             number = store_instance.put(word)
             sentence_id.append(number)
