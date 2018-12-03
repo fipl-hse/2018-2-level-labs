@@ -78,8 +78,24 @@ class NGramTrie:
             natur_log = math.log(gram_freq / final_all_grams)
             self.gram_log_probabilities[gram] = natur_log
 
+                
     def predict_next_sentence(self, prefix: tuple) -> list:
-        pass
+        
+        if self.gram_log_probabilities is None or self.gram_log_probabilities == {}:
+            return []
+        list_pref = []
+        list_pref.append(prefix)
+        P_ln = {}
+
+
+        for n_gram in list(self.gram_log_probabilities):
+
+            if list_pref == list(n_gram[:-1]):
+                P_ln[n_gram] = self.gram_log_probabilities[n_gram]
+
+        m = max(P_ln)
+        
+        return m
 
 
 def encode(storage_instance, corpus) -> list:
