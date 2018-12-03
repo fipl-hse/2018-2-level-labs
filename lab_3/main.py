@@ -21,7 +21,7 @@ def split_by_sentence(text: str) -> list:
 
     n_text = ''
     for el in text:
-        if el in alphabet_checker or el == ' ':
+        if el.isalpha() or el == ' ':
             n_text += el
         if el in punctuation:
             n_text += '.'
@@ -44,31 +44,31 @@ def split_by_sentence(text: str) -> list:
 class WordStorage:
     def __init__(self):
         self.count = 100000
-        self.store = {}
+        self.storage = {}
 
     def put(self, word: str) -> int:
-        if word in self.store:
-            return self.store[word]
+        if word in self.storage:
+            return self.storage[word]
         
         if not isinstance(word, str):
             return 0
 
-        for value in self.store.values():
+        for value in self.storage.values():
             if value == self.count:
                 self.count += 1
                 continue
-        self.store[word] = self.count
+        self.storage[word] = self.count
         return self.count
 
     def get_id_of(self, word: str) -> int:
-        if word is None or not isinstance(word, str) or word not in self.store:
+        if word is None or not isinstance(word, str) or word not in self.storage:
             return -1
         else:
-            return self.store[word]
+            return self.storage[word]
 
     def get_original_by(self, num: int) -> str:
         if not isinstance(num, int):
-            for key, value in self.store.items():
+            for key, value in self.storage.items():
                 if value == num:
                     return key
         return 'UNK'
@@ -83,8 +83,8 @@ class WordStorage:
 class NGramTrie:
     def __init__(self, size):
         self.size = size
-        self.log_probability = {}
-        self.frequency = {}
+        self.gram_log_probabilities = {}
+        self.gram_frequencies = {}
 
     def fill_from_sentence(self, sentence: tuple) -> str:
         if not isinstance(sentence, tuple):
@@ -99,18 +99,18 @@ class NGramTrie:
             if len(element) == self.size:
                 result.append(element)
         for res in result:
-            if res in self.frequency:
-                frequency_n = self.frequency[res]
-                self.frequency[res] = frequency_n + 1
+            if res in self.gram_frequencies:
+                frequency_n = self.gram_frequencies[res]
+                self.gram_frequencies[res] = frequency_n + 1
                 continue
-            self.frequency[tuple(res)] = 1
+            self.gram_frequencies[tuple(res)] = 1
         return 'OK'
 
     def calculate_log_probabilities(self):
         engram_list = []
         counter = 0
 
-        for key in self.frequency:
+        for key in self.gram_frequencies:
             engram_list.append(key)
             continue
 
@@ -125,32 +125,32 @@ class NGramTrie:
                 continue
             
             for el in engrams_list:
-                sum_engram += self.frequency[el]
-            logarithm = math.log(self.frequency[engram_list[counter]]/sum_engram)
-            self.log_probability[engram_list[counter]] = logarithm
+                sum_engram += self.gram_frequencies[el]
+            logarithm = math.log(self.gram_frequencies[engram_list[counter]]/sum_engram)
+            self.gram_log_probabilitiesy[engram_list[counter]] = logarithm
             counter += 1
             continue
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        if self.log_probability == {}:
+        if self.gram_log_probabilities == {}:
             return []
         prefix_list = list(prefix)
         length = len(prefix)
-        counter = len(self.log_probability)
+        counter = len(self.gram_log_probabilities)
         while counter:
             engrams = []
-            for key in self.log_probability.keys():
+            for key in self.gram_log_probabilities.keys():
                 if prefix_list[-length:] == list(key)[:length]:
                     engrams.append(key)
 
             logarithm = []
             for el in engrams:
-                logarithm.append(self.log_probability[el])
+                logarithm.append(self.gram_log_probabilities[el])
             try:
                 result = max(logarithm)
             except ValueError:
                 break
-            for key, value in self.log_probability.items():
+            for key, value in self.gram_log_probabilities.items():
                     if result == value:
                         if key in engrams:
                             prefix_list.append(key[-1])
