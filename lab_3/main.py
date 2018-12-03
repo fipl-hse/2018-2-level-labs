@@ -118,7 +118,6 @@ class NGramTrie:
             engrams_list = []
             sum_engram = 0
             engram_now = engram_list[counter]
-            engram_now[:-1] = engram_now[:-1]
             for el in engram_list:
                 if engram_now[:-1] == el[:-1]:
                     engrams_list.append(el)
