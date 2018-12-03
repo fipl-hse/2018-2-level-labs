@@ -71,7 +71,8 @@ class WordStorage:
             for key, value in self.storage.items():
                 if value == num:
                     return key
-        return 'UNK'
+        else:
+            return 'UNK'
 
     def from_corpus(self, sentence: tuple) -> str:
         if not isinstance(sentence, tuple):
