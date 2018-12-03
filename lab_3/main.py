@@ -3,17 +3,13 @@ Labour work #3
  Building an own N-gram model
 """
 
-"""
-Labour work #3
- Building an own N-gram model
-"""
-
 import math
 
 REFERENCE_TEXT = ''
 if __name__ == '__main__':
     with open('not_so_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
+
 
 class WordStorage:
     def __init__(self):
@@ -59,48 +55,51 @@ class WordStorage:
         return newlist
 
 
-t_split = []
+#t_split = []
 
 text = REFERENCE_TEXT
 text = text.replace('! ', '. ')
 text = text.replace('? ', '. ')  # унифицировали все разделители предложениев
 
-
 def split_by_sentence(text: str) -> list:
     n = 0  # это будет счетчик вхождений точки с пробелом
+    if not isinstance(text, str) or text == '':
+        return []
 
+    t_split = []
+    l = len(text)
+    while n != -1:              # ищем, где после ". " идет маленькая буква
+        n = text.find('. ', n, l - 2)
+        if n > -1:
+            if not text[n + 2].isupper():
+                text = text[:n] + '*' + text[n + 1:]
+            n = n + 1
 
-l = len(text)
-while n != -1:  # ищем, где после ". " идет маленькая буква
-    n = text.find('. ', n, l - 2)
-    if n > -1:
-        if not text[n + 2].isupper():
-            text = text[:n] + '*' + text[n + 1:]
-        n = n + 1
+    t_split = text.split('. ')  # сплитнули текст на предложения
 
-t_split = text.split('. ')  # сплитнули текст на предложения
-
-n = -1  # это будет индекс строк нашего списка
-list_of_marks = [
+    n = -1  # это будет индекс строк нашего списка
+    list_of_marks = [
     '.', ',', ':', '"', '`', '[', ']', '@', '&', "'", '-',
     '$', '^', '*', '(', ')', '_', '“', '”', '’', '#', '%',
-    '<', '>', '*', '~', '/', '\''
-]
-for stroka in t_split:  # проверим каждую строчку в списке
-    n = n + 1
-    for mark in list_of_marks:  # проверим каждую марочку на наличие
-        stroka = stroka.strip(mark)
-        if mark in stroka:
-            pos_mark = stroka.find(mark)
-            stroka = stroka[:pos_mark] + stroka[pos_mark + 1:]
-    stroka = stroka.lower()
-    t_split[n] = '<s> ' + stroka + ' </s>'
-    t_split[n] = t_split[n].split(' ')
+    '<', '>', '*', '~', '/', '\\'
+    ]
+    for stroka in t_split:  # проверим каждую строчку в списке
+        n = n + 1
+        for mark in list_of_marks:  # проверим каждую марочку на наличие
+            stroka = stroka.strip(mark)
+            if mark in stroka:
+                pos_mark = stroka.find(mark)
+                stroka = stroka[:pos_mark] + stroka[pos_mark + 1:]
+        stroka = stroka.lower()
+        t_split[n] = '<s> ' + stroka + ' </s>'
+        t_split[n] = t_split[n].split(' ')
+    return t_split
 
 ltext = t_split
 
 h = WordStorage()
 h.from_corpus(ltext)
+
 class NGramTrie:
     def fill_from_sentence(self, sentence: tuple) -> str:
         pass
