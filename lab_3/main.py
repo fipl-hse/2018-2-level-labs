@@ -109,9 +109,9 @@ class NGramTrie:
         return 'OK'
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-      if prefix is None:
+        if prefix is None:
             return []
-      if not isinstance(prefix, tuple) or not prefix:
+        if not isinstance(prefix, tuple) or not prefix:
             return []
         if len(prefix) != self.size - 1:
             return []
