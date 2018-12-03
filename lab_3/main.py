@@ -58,14 +58,15 @@ class WordStorage:
 #t_split = []
 
 text = REFERENCE_TEXT
-text = text.replace('! ', '. ')
-text = text.replace('? ', '. ')  # унифицировали все разделители предложениев
+
 
 def split_by_sentence(text: str) -> list:
     n = 0  # это будет счетчик вхождений точки с пробелом
     if not isinstance(text, str) or text == '':
         return []
-
+    
+    text = text.replace('! ', '. ')
+    text = text.replace('? ', '. ')  # унифицировали все разделители предложений
     t_split = []
     l = len(text)
     while n != -1:              # ищем, где после ". " идет маленькая буква
@@ -79,7 +80,7 @@ def split_by_sentence(text: str) -> list:
 
     n = -1  # это будет индекс строк нашего списка
     list_of_marks = [
-    '.', ',', ':', '"', '`', '[', ']', '@', '&', "'", '-',
+    '.', ',', '!', '?', ':', '"', '`', '[', ']', '@', '&', "'", '-',
     '$', '^', '*', '(', ')', '_', '“', '”', '’', '#', '%',
     '<', '>', '*', '~', '/', '\\'
     ]
@@ -111,9 +112,5 @@ class NGramTrie:
         pass
 
 
-def encode(storage_instance, corpus) -> list:
-    pass
 
 
-def split_by_sentence(text: str) -> list:
-    pass 
