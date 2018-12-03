@@ -73,7 +73,7 @@ class WordStorage:
                 return key
         return 'UNK'
 
-    def from_corpus(self, corpus: tuple):
+    def from_corpus(self, sentence: tuple):
         if type(sentence) == tuple:
             return ''
 
@@ -157,7 +157,11 @@ class NGramTrie:
 
             for engram in engrams:
                 logs.append(self.gram_log_probabilities[engram])
+            try:
                 res = max(logs)
+            except ValueError:
+                break 
+               
 
             for key, value in self.gram_log_probabilities.items():
                 if res == value:
