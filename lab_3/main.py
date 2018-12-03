@@ -52,6 +52,7 @@ class NGramTrie:
         if not isinstance(sentence, tuple):
             return 'ERROR'
         grams = []
+        n = self.size
 
 
         for el in sentence:
