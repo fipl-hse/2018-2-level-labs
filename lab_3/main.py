@@ -15,7 +15,7 @@ class WordStorage:
  
     def __init__(self):
         self.storage = {}
-        self.id_counter = 0
+        self.counter = 0
      
     def put(self, word: str) -> int:
         if not isinstance(word, str):
