@@ -71,7 +71,7 @@ class WordStorage:
     def get_original_by(self, id:int) -> str:
         if type(id) != int or id < 111111:
             for key, value in self.storage.items():
-                 if value == num:
+                 if value == id:
                      return key
         return 'UNK'
 
