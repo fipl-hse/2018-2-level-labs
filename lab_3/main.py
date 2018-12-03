@@ -65,15 +65,14 @@ class WordStorage:
     def get_id_of(self, word:str) -> int:
         if word is None or not type(word) != str or word not in self.storage:
             return None
-        return self.storage[word]
+        else:
+            return self.storage[word]
 
     def get_original_by(self, id:int) -> str:
         if type(id) != int or id < 111111:
-            return 'UNK'
-
-        for key, value in self.storage.items():
-            if value == id:
-                return key
+            for key, value in self.storage.items():
+                 if value == num:
+                     return key
         return 'UNK'
 
     def from_corpus(self, sentence: tuple):
