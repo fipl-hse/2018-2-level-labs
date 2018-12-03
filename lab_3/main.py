@@ -22,7 +22,7 @@ class WordStorage:
             return -1
         if word in self.storage:
             return -1
-        self.storage[word] = self.id_counter
+        self.storage[word] = self.counter
         self.id_counter += 1
         return self.storage[word]
 
