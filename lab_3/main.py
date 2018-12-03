@@ -23,7 +23,7 @@ class WordStorage:
         if word in self.storage:
             return -1
         self.storage[word] = self.counter
-        self.id_counter += 1
+        self.counter += 1
         return self.storage[word]
 
     def get_id_of(self, word: str) -> int:
