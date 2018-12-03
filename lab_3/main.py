@@ -55,47 +55,68 @@ class WordStorage:
         return newlist
 
 
-#t_split = []
-
 text = REFERENCE_TEXT
 
 
 def split_by_sentence(text: str) -> list:
-    n = 0  # это будет счетчик вхождений точки с пробелом
+
     if not isinstance(text, str) or text == '':
         return []
-    
+
+    text_div_n = text.split('\n')  # делим текст по \n, чтобы потом склеить уже без них
+    text = ''
+    for stroka in text_div_n:
+        if stroka.strip != '':
+            text = text + stroka
+
     text = text.replace('! ', '. ')
     text = text.replace('? ', '. ')  # унифицировали все разделители предложений
-    t_split = []
+
     l = len(text)
-    while n != -1:              # ищем, где после ". " идет маленькая буква
+
+    n = 0               # это будет счетчик вхождений точки с пробелом
+                        # ищем, где после ". " идет маленькая буква
+    while n != -1:
         n = text.find('. ', n, l - 2)
         if n > -1:
-            if not text[n + 2].isupper():
+            if not text[n + 2].isupper() and text[n + 2] != ' ':
                 text = text[:n] + '*' + text[n + 1:]
             n = n + 1
 
     t_split = text.split('. ')  # сплитнули текст на предложения
+                                # далее следует удаление "марок"
 
-    n = -1  # это будет индекс строк нашего списка
     list_of_marks = [
-    '.', ',', '!', '?', ':', '"', '`', '[', ']', '@', '&', "'", '-',
-    '$', '^', '*', '(', ')', '_', '“', '”', '’', '#', '%',
-    '<', '>', '*', '~', '/', '\\'
+        '.', ',', '!', '?', ':', '"', '`', '[', ']', '@', '&', "'",
+        '$', '^', '*', '(', ')', '_', '“', '’', '#', '%', '='
+        '<', '>', '~', '/', '\n', '\\'
     ]
+
+    n = -1                  # это будет индекс строк нашего списка
     for stroka in t_split:  # проверим каждую строчку в списке
         n = n + 1
         for mark in list_of_marks:  # проверим каждую марочку на наличие
             stroka = stroka.strip(mark)
             if mark in stroka:
-                pos_mark = stroka.find(mark)
-                stroka = stroka[:pos_mark] + stroka[pos_mark + 1:]
+                stroka = stroka.replace(mark, '')
         stroka = stroka.lower()
+        if stroka.find(' ', 0) == -1:  # проверка на строки из одного слова (not sentence)
+            stroka = []
+        t_split[n] = stroka
+
+    t_split = [element for element in t_split if element]   # убрали пустые строки из списка
+
+    n = -1
+    for stroka in t_split:
+        n = n + 1
         t_split[n] = '<s> ' + stroka + ' </s>'
         t_split[n] = t_split[n].split(' ')
-    return t_split
+        stroka = [element for element in t_split[n] if element]
+        t_split[n] = stroka
 
+    return t_split
+   
+   
 ltext = t_split
 
 h = WordStorage()
