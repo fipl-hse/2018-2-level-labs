@@ -54,14 +54,12 @@ class NGramTrie:
         grams = []
         n = self.size
 
-
         for el in sentence:
             if el <= len(sentence) - n + 1:
                 grams.append(sentence[el:el+n])
 
         for ngram in grams:
-            gram_freq = grams.count(ngram)
-            self.gram_frequencies[ngram] = gram_freq 
+            self.gram_frequencies[ngram] = grams.count(ngram)
         return 'OK'
 
     def calculate_log_probabilities(self):
