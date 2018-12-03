@@ -155,6 +155,8 @@ def split_by_sentence(text):
     punct = ['.', '?', '!']
     if text is '':
         return []
+    if text is None:
+        return []
     if text[-1] not in punct:
         return []
 
@@ -181,7 +183,7 @@ def split_by_sentence(text):
         s = k.lower()
         r = '<s> ' + s + ' </s>'
         r.split()
-        token.append(r)
+        list_with_words.append(r)
     if (len(list_with_words[0]) == 2) or (len(list_with_words[0]) == 3):
         return []
 
