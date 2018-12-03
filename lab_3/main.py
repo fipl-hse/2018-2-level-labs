@@ -64,7 +64,7 @@ class WordStorage:
 
     def get_id_of(self, word:str) -> int:
         if word is None or not type(word) != str or word not in self.storage:
-            return None
+            return -1
         else:
             return self.storage[word]
 
