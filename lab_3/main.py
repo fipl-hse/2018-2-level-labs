@@ -127,7 +127,7 @@ class NGramTrie:
                     return sentence
 
                 next_gram.sort(reverse=True)
-                line.append(next_gram[0][1][1])
+                sentence.append(next_gram[0][1][1])
                 word = next_gram[0][1][1]
 
         if self.size == 3:
