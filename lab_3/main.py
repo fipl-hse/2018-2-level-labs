@@ -49,7 +49,19 @@ class WordStorage:
 
 class NGramTrie:
     def fill_from_sentence(self, sentence: tuple) -> str:
-        pass
+        if not isinstance(sentence, tuple):
+            return 'ERROR'
+        grams = []
+
+
+        for el in sentence:
+            if el >= len(sentence) - n + 1:
+                grams.append(sentence[el:el+n])
+
+        for ngram in grams:
+            gram_freq = grams.count(ngram)
+            self.gram_frequencies[ngram] = gram_freq 
+        return 'OK'
 
     def calculate_log_probabilities(self):
         pass
