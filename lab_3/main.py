@@ -90,7 +90,7 @@ class NGramTrie:
         predicted_sentence = []
         predicted_sentence.extend(list_pref)
 
-        while(1)
+        while(1):
             for n_gram in list(self.gram_log_probabilities):
                if list_pref == list(n_gram[:-1]):
                    p_ln[self.gram_log_probabilities[n_gram]] = n_gram
