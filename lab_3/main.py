@@ -158,6 +158,10 @@ def encode(storage_instance, corpus) -> list:
    
    
 def split_by_sentence(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+    if text == None or text == '':
+        return []    
     text = text.lower()
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     new_text = []
@@ -173,19 +177,14 @@ def split_by_sentence(text: str) -> list:
                 new_text.append('<s>')
                 sign += 1
             word += sym
-
         if sym not in ['.', '!', '?', ' ']:
             continue
-
         if word != '':
-            new_text.append(word)
-        
+            new_text.append(word) 
         if sym != ' ':
-            new_text.append('</s>')
-          
+            new_text.append('</s>')   
         if new_text != []:
-            list_with_words.append(new_text)
-          
+            list_with_words.append(new_text)  
         new_text = []
         word = ''
         sign = 0
@@ -193,4 +192,4 @@ def split_by_sentence(text: str) -> list:
     if word != '':        
         new_text.append(word)
       
-    return final_list
+    return list_with_words
