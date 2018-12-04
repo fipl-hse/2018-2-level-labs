@@ -84,8 +84,9 @@ class NGramTrie:
         if self.gram_log_probabilities is None or self.gram_log_probabilities == {}:
             return []
         list_pref = []
-        list_pref.append(prefix)
         p_ln = {}
+        list_pref.append(prefix)
+        
         predicted_sentence = []
         predicted_sentence.extend(list_pref)
 
@@ -103,7 +104,7 @@ class NGramTrie:
             list_pref.reverse()
             
             list_pref.append(p_ln[m][len(p_ln[m])-1])
-            predicted_sentence.append(p_ln[m][len(p_ln[m])-1]
+            predicted_sentence.append(p_ln[m][len(p_ln[m])-1])
             p_ln = {}
         return predicted_sentence 
 
