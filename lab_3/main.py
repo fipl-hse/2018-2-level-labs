@@ -155,42 +155,42 @@ def encode(storage_instance, corpus) -> list:
             id_sentence.append(quantity)
         corpus_of_sentences.append(id_sentence)
     return corpus_of_sentences
-
-
-def split_by_sentence(text):
-    punct = ['.', '?', '!']
-    if text is '':
-        return []
-    if text is None:
-        return []
-    if text[-1] not in punct:
-        return []
-
-    new_text = ''
-    for sym in text:
-        if sym is ' ' or sym.isalpha():
-            new_text += sym
-        if sym in punct:
-            new_text += '.'
-
-    sentences = ''
-    for sym in range(0, len(new_text) - 1):
-        if new_text[sym] is '.':
-            if new_text[sym + 1].isalpha():
-                continue
-            if new_text[sym + 1] is '.':
-                continue
-        sentences += new_text[sym]
-
-    sentences = sentences.split('.')
-
+   
+   
+def split_by_sentence(text: str) -> list:
+    text = text.lower()
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    new_text = []
     list_with_words = []
-    for k in sentences:
-        s = k.lower()
-        r = '<s> ' + s + ' </s>'
-        r.split()
-        list_with_words.append(r)
-    if (len(list_with_words[0]) == 2) or (len(list_with_words[0]) == 3):
+    word = ''
+    sign = 0
+    if text == None or text == '':
         return []
+     
+    for sym in text:
+        if sym in alphabet:
+            if sign == 0:
+                new_text.append('<s>')
+                sign += 1
+            word += sym
 
-    return list_with_words
+        if sym not in ['.', '!', '?', ' ']:
+            continue
+
+        if word != '':
+            new_text.append(word)
+        
+        if sym != ' ':
+            new_text.append('</s>')
+          
+        if new_text != []:
+            list_with_words.append(new_text)
+          
+        new_text = []
+        word = ''
+        sign = 0
+        
+    if word != '':        
+        new_text.append(word)
+      
+    return final_list
