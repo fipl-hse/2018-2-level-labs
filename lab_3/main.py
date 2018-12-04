@@ -80,7 +80,7 @@ class NGramTrie:
             count = 0
             n_gram_parted = n_gram[:-1]
             for index, number in enumerate(list(self.gram_frequencies.keys())):
-                if n_gram_part == number[:-1]:
+                if n_gram_parted == number[:-1]:
                     count += list(self.gram_frequencies.values())[index]
             probability = self.gram_frequencies[n_gram] / count
             self.gram_log_probabilities[n_gram] = math.log(probability)
@@ -126,7 +126,7 @@ def encode(storage_instance, corpus) -> list:
             sentence_id = []
             continue
 
-    return corpus_n
+    return new_sentence_corpus
 
 
 
