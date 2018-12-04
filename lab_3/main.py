@@ -12,11 +12,11 @@ if __name__ == '__main__':
 
 
 class WordStorage:
- 
+
     def __init__(self):
         self.storage = {}
         self.counter = 0
-     
+
     def put(self, word: str) -> int:
         if not isinstance(word, str):
             return -1
@@ -52,7 +52,7 @@ class NGramTrie:
         self.size = size
         self.gram_frequencies = {}
         self.gram_log_probabilities = {}
-      
+
     def fill_from_sentence(self, sentence: tuple) -> str:
         if not isinstance(sentence, tuple):
             return 'ERROR'
@@ -78,15 +78,15 @@ class NGramTrie:
             natur_log = math.log(gram_freq / final_all_grams)
             self.gram_log_probabilities[gram] = natur_log
 
-                
+
     def predict_next_sentence(self, prefix: tuple) -> list:
-        
+
         if self.gram_log_probabilities is None or self.gram_log_probabilities == {}:
             return []
         list_pref = []
         p_ln = {}
         list_pref.extend(list(prefix))
-        
+
         predicted_sentence = []
         predicted_sentence.extend(list_pref)
 
@@ -101,11 +101,11 @@ class NGramTrie:
             list_pref.reverse()
             if len(list_pref) > 0: list_pref.pop()
             list_pref.reverse()
-            
+
             list_pref.append(p_ln[m][len(p_ln[m])-1])
             predicted_sentence.append(p_ln[m][len(p_ln[m])-1])
             p_ln = {}
-        return predicted_sentence 
+        return predicted_sentence
 
 def encode(storage_instance, corpus) -> list:
     if (storage_instance is None or corpus is None):
@@ -140,7 +140,7 @@ def split_by_sentence(text: str) -> list:
 
         if word != '':
             new_text.append(word)
-        
+
         if element != ' ':
             if flag:
                 new_text.append('</s>')
@@ -148,9 +148,8 @@ def split_by_sentence(text: str) -> list:
                 final_list.append(new_text)
             new_text = []
             flag = 0
-                        
-                        
+
         word = ''
-    if word != '':        
+    if word != '':
         new_text.append(word)
     return final_list
