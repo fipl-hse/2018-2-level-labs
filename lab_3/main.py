@@ -85,7 +85,7 @@ class NGramTrie:
             return []
         list_pref = []
         list_pref.append(prefix)
-        P_ln = {}
+        p_ln = {}
         predicted_sentence = []
         predicted_sentence.extend(list_pref)
 
@@ -93,18 +93,18 @@ class NGramTrie:
             print(list_pref)
             for n_gram in list(self.gram_log_probabilities):
                if list_pref == list(n_gram[:-1]):
-                   P_ln[self.gram_log_probabilities[n_gram]] = n_gram
+                   p_ln[self.gram_log_probabilities[n_gram]] = n_gram
 
-            if P_ln == {}:
+            if p_ln == {}:
                 return predicted_sentence
-            m = max(P_ln)
+            m = max(p_ln)
             list_pref.reverse()
             if len(list_pref) > 0: list_pref.pop()
             list_pref.reverse()
             
-            list_pref.append(P_ln[m][len(P_ln[m])-1])
-            predicted_sentence.append(P_ln[m][len(P_ln[m])-1]
-            P_ln = {}
+            list_pref.append(p_ln[m][len(p_ln[m])-1])
+            predicted_sentence.append(p_ln[m][len(p_ln[m])-1]
+            p_ln = {}
         return predicted_sentence 
 
 def encode(storage_instance, corpus) -> list:
