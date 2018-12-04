@@ -86,7 +86,6 @@ class NGramTrie:
         list_pref = []
         p_ln = {}
         list_pref.extend(list(prefix))
-
         predicted_sentence = []
         predicted_sentence.extend(list_pref)
 
