@@ -70,10 +70,11 @@ class WordStorage:
 
     def get_original_by(self, id: int) -> str:
         if not isinstance(id, int) or id < 111111:
-            for key, value in self.storage.items():
+            return 'UNK'     
+        
+        for key, value in self.storage.items():
                 if value == id:
                     return key
-        return 'UNK'
 
     def from_corpus(self, sentence: tuple):
         if not isinstance(sentence, tuple):
@@ -88,7 +89,7 @@ def encode(storage_instance, corpus) -> list:
 
     for sentence in corpus:
         for word in sentence:
-            number = store_instance.put(word)
+            number = store_instance.get_id_of(word)
             sentence_id.append(number)
         corpus_n.append(sentence_id)
         sentence_id = []
