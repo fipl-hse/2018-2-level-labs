@@ -176,7 +176,7 @@ def split_by_sentence(text: str) -> list:
     for i, e in enumerate(text):
         if e in end_marks:
             if text[i + 2].isupper():
-                new_text += '.' + text[sentence + 1]
+                new_text += '.' + text[i + 1]
                 continue
         if e in marks:
             continue
