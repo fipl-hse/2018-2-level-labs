@@ -68,10 +68,10 @@ class WordStorage:
 
     def get_original_by(self, num: int) -> str:
         if not isinstance(num, int) or num < 100000:
-            for key, value in self.storage.items():
+            return 'UNK'
+        for key, value in self.storage.items():
                 if value == num:
                     return key
-        return 'UNK'
 
     def from_corpus(self, sentence: tuple) -> str:
         if not isinstance(sentence, tuple):
