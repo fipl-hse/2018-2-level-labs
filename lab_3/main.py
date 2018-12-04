@@ -161,35 +161,35 @@ def split_by_sentence(text: str) -> list:
     if not isinstance(text, str):
         return []
     if text == None or text == '':
-        return []    
-    text = text.lower()
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
-    new_text = []
+        return []  
+     
+    new_text = ''
+    end_marks = ['.', '\n', '!', '?', '...']
+    marks = ['.', ',', ':', '"', '`', '[', ']',
+        '?', '!', '@', '&', "'", '-',
+        '$', '^', '*', '(', ')',
+        '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\n']
+    
+    sentences = []
     list_with_words = []
-    word = ''
-    sign = 0
-    if text == None or text == '':
+    for i, e in enumerate(text):
+        if e in end_marks:
+            if text[i + 2].isupper():
+                new_text += '.' + text[sentence + 1]
+                continue
+        if e in marks:
+            continue
+        new_text += e
+    new_text = new_text.lower()
+    sentences = new_text.split('. ')
+
+    for i in sentences:
+        i = i.split()
+        i.insert(0, '<s>')
+        i.append('</s>')
+        list_with_words.append(i)
+    if (len(list_with_words[0]) == 2) or (len(list_with_words[0]) == 3):
         return []
      
-    for sym in text:
-        if sym in alphabet:
-            if sign == 0:
-                new_text.append('<s>')
-                sign += 1
-            word += sym
-        if sym not in ['.', '!', '?', ' ']:
-            continue
-        if word != '':
-            new_text.append(word) 
-        if sym != ' ':
-            new_text.append('</s>')   
-        if new_text != []:
-            list_with_words.append(new_text)  
-        new_text = []
-        word = ''
-        sign = 0
-        
-    if word != '':        
-        new_text.append(word)
-      
     return list_with_words
