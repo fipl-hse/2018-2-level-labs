@@ -174,10 +174,16 @@ def split_by_sentence(text: str) -> list:
     sentences = []
     list_with_words = []
     for i, e in enumerate(text):
-        if e in end_marks:
-            if text[i + 2].isupper():
-                new_text += '.' + text[i + 1]
-                continue
+        try:
+            if e in end_marks:
+                try:
+                    if text[i + 2].isupper():
+                        new_text += '.' + text[i + 1]
+                        continue
+                except IndexError:
+                    pass
+        except IndexError:
+            pass
         if e in marks:
             continue
         new_text += e
