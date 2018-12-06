@@ -147,14 +147,13 @@ class NGramTrie:
                 
                 
 def encode(storage_instance, corpus) -> list:
-    corpus_of_sentences = []
-    for sentence in corpus:
-        id_sentence = []
-        for word in sentence:
-            quantity = storage_instance.put(word)
-            id_sentence.append(quantity)
-        corpus_of_sentences.append(id_sentence)
-    return corpus_of_sentences
+    encoded_list = []
+    new = []
+    for sent in corpus:
+        for word in sent:
+            new.append(storage_instance.get_id_of(word))
+        encoded_list.append(new)
+    return encoded_list
    
    
 def split_by_sentence(text: str) -> list:
