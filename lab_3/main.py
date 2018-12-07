@@ -3,11 +3,6 @@ Labour work #3
  Building an own N-gram model
 """
 
-"""
-Labour work #3
- Building an own N-gram model
-"""
-
 import math
 
 REFERENCE_TEXT = ''
