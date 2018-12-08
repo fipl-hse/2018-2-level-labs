@@ -141,10 +141,10 @@ class NGramTrie:
 
 def encode(storage_instance, corpus):
     encoded = list()
+    lst = list()
     for sentence in corpus:
-        lst = list()
         for word in sentence:
-            lst.append(storage_instance.storage[word])
+            lst.append(storage_instance.get_id_of(word))
             encoded.append(lst)
     return encoded
 
