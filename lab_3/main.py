@@ -9,23 +9,23 @@ import operator
 
 if __name__ == '__main__':
     with open('not_so_big_reference_text.txt', 'r') as f:
-        REFERENCE_TEXT = f.read()
-
+        reference_text = f.read()
+TEXT = reference_text
 N = 3
 
 
-def split_by_sentence(REFERENCE_TEXT):
-    if REFERENCE_TEXT is None or not isinstance(REFERENCE_TEXT, str):
+def split_by_sentence(TEXT):
+    if TEXT is None or not isinstance(TEXT, str):
         return []
     restr_chars = "~$%&^@*#\"{}[]\'/\n:.;!?(),<>"
-    l_text = REFERENCE_TEXT.lower()
+    l_text = TEXT.lower()
     for i in restr_chars:
         if i in l_text:
             if i in '.!?':
                 l_text = l_text.replace(i, '.')
             else:
                 l_text = l_text.replace(i, '')
-    for ind in range(len(l_text)):
+    for ind in enumerate(l_text):
         if l_text[ind] == '.':
             if ind + 1 >= len(l_text) or l_text[ind + 1] == ' ':
                 pass
@@ -35,17 +35,16 @@ def split_by_sentence(REFERENCE_TEXT):
                 pass
     l_text = l_text.replace('Ê', '')
     cut_text = l_text.split('.')
-    for sentence in range(len(cut_text)):
+    for sentence in enumerate(cut_text):
         cut_text[sentence] = cut_text[sentence].split()
     for element in cut_text:
         if len(element) == 0:
             cut_text.pop(cut_text.index(element))
     for element in cut_text:
         if len(element) <= 1:
-            return []
-        else:
-            element.append('</s>')
-            element.insert(0, '<s>')
+            element = []
+        element.append('</s>')
+        element.insert(0, '<s>')
     return cut_text
 
 
@@ -103,9 +102,9 @@ def encode(storage, cut_text):
 
 class NGramTrie:
 
-    def __init__(self, N):
+    def __init__(self, n):
         self.gram_frequencies = dict()
-        self.size = N
+        self.size = n
         self.gram_log_probabilities = dict()
         self.chaotic_grams = []
         # self.candidates = dict()
@@ -172,3 +171,6 @@ class NGramTrie:
 
 ws = WordStorage()
 ngr = NGramTrie(N)
+
+
+
