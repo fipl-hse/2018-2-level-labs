@@ -119,14 +119,13 @@ class NGramTrie:
 def encode(storage_instance, corpus) -> list:
     new_sentense_corpus = []
     for sentence in corpus:
+        sentence_id = []
         for word in sentence:
-            number = storage_instance.put(word)
+            number = storage_instance.get_id_of(word)
             sentence_id.append(number)
-            new_sentense_corpus.append(sentence_id)
-            sentence_id = []
-            continue
-
-    return new_sentence_corpus
+        new_sentense_corpus.append(sentence_id)
+            # continue
+    return new_sentense_corpus
 
 
 
