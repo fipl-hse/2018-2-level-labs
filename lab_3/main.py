@@ -176,7 +176,7 @@ class NGramTrie:
         while isinstance(n_gram, list) and n_gram != [] and n_gram != list(prefix):
             bricks.append(n_gram)
             hvost = tuple(n_gram[-len(prefix)::])
-            print(n_gram, 'это н-грамма', hvost, 'это хвост - будущий префикс', bricks, 'это кирпичики для сентенса')
+            #print(n_gram, 'это н-грамма', hvost, 'это хвост - будущий префикс', bricks, 'это кирпичики для сентенса')
             prefix = hvost
             n_gram = self.predict_next_n_gram(prefix)
         if bricks != []:
