@@ -6,9 +6,6 @@ Labour work #3
 import math
 
 REFERENCE_TEXT = ''
-#if __name__ == '__main__':
-#    with open('not_so_big_reference_text.txt', 'r') as f:
-#        REFERENCE_TEXT = f.read()
 
 def split_by_sentence(text: str) -> list:
 
@@ -27,7 +24,7 @@ def split_by_sentence(text: str) -> list:
     l = len(text)
 
     n = 0               # это будет счетчик вхождений точки с пробелом
-    #                     ищем, где после ". " идет маленькая буква
+                        # ищем, где после ". " идет маленькая буква
     while n != -1:
         n = text.find('. ', n, l - 2)
         if n > -1:
@@ -36,13 +33,13 @@ def split_by_sentence(text: str) -> list:
             n = n + 1
 
     t_split = text.split('. ')  # сплитнули текст на предложения
-    #                            далее следует удаление "марок"
+                                # далее следует удаление "марок"
 
     list_of_marks = [
         '.', ',', '!', '?', ':', '"', '`', '[', ']', '@', '&', "'",
         '$', '^', '*', '(', ')', '_', '“', '’', '#', '%', '='
-        '<', '>', '~', '/', '\n', '\\'
-    ]
+        '<', '>', '~', '/', '\\'
+        ]
 
     n = -1                  # это будет индекс строк нашего списка
     for stroka in t_split:  # проверим каждую строчку в списке
@@ -136,7 +133,7 @@ class NGramTrie:
         self.size = s                          # число слов в н-грамме
         self.gram_frequencies = {}          # словарь для н-грамм с частотами
         self.gram_log_probabilities = {}    # словарь для н-грамм с лог. вероятностями
-        self.gram_nelog_probabilities = {}  # словарь для н-грамм с просто вероятностями (для анализа)
+
 
     def fill_from_sentence(self, sentence: tuple) -> str:
         N = self.size
@@ -144,11 +141,11 @@ class NGramTrie:
             return ('ERROR')
         if not isinstance(sentence, tuple):                                         # ну мало ли, всякое бывает
             return ('ERROR')
-        if len(sentence) - 1 < N:                                                   # если предложение короткое
+        if len(sentence) - 1 < N:                                                   # если предложение коротковато
             return ('ERROR')
 
-        last_start = len(sentence) - N + 1
-        for i in range(0, last_start):
+        last_n_gram_start = len(sentence) - N + 1
+        for i in range(0, last_n_gram_start):
             n_gram_cur = sentence[i: i + N:]
             try:
                 self.gram_frequencies[n_gram_cur] += 1
@@ -173,7 +170,22 @@ class NGramTrie:
             self.gram_log_probabilities[n_gram] = math.log((self.gram_frequencies[n_gram] / prefix_freq[prefix]))
 
     def predict_next_sentence(self, prefix: tuple) -> list:
-        return self.predict_next_n_gram(prefix)
+        bricks = []
+        n_gram = self.predict_next_n_gram(prefix)
+        sentence = n_gram                               # на тот случай, если найдем не больше одной н-граммы
+        while isinstance(n_gram, list) and n_gram != [] and n_gram != list(prefix):
+            bricks.append(n_gram)
+            hvost = tuple(n_gram[-len(prefix)::])
+            print(n_gram, 'это н-грамма', hvost, 'это хвост - будущий префикс', bricks, 'это кирпичики для сентенса')
+            prefix = hvost
+            n_gram = self.predict_next_n_gram(prefix)
+        if bricks != []:
+            sentence = bricks[0]
+            for n_gram in bricks[1:]:
+                sentence.append(n_gram[-1])
+        print (sentence, 'это сентенс')
+        return sentence
+
 
     def predict_next_n_gram(self, prefix: tuple) -> list:
         if not isinstance(prefix, tuple) or prefix == None:
@@ -183,17 +195,14 @@ class NGramTrie:
             return []
         n_grams_on_prefix = {}
         for n_gram in self.gram_log_probabilities.keys():
-            print(prefix, n_gram[0: N-1:])
+            #print(prefix, n_gram[0: N-1:])
             if prefix == n_gram[0: N-1:]:
                 n_grams_on_prefix[n_gram] = self.gram_log_probabilities[n_gram]
         if n_grams_on_prefix == {}:
             return list(prefix)
         m = max(n_grams_on_prefix.values())
-        #print(n_grams_on_prefix)
-        qq = (get_key(n_grams_on_prefix, m))
-        #print(qq)
-        #print(list(qq))
-        return list(qq)
+        our_tuple = (get_key(n_grams_on_prefix, m))
+        return list(our_tuple)
 
 # ====== кончились коды класса NGramTrie ===============================
 
@@ -203,4 +212,3 @@ def get_key(our_dict: dict, our_id) -> tuple:
             if id == our_id:
                 return key
     return 'UNK'
-
