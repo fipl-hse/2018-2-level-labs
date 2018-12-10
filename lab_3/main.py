@@ -183,7 +183,7 @@ class NGramTrie:
             sentence = bricks[0]
             for n_gram in bricks[1:]:
                 sentence.append(n_gram[-1])
-        print (sentence, 'это сентенс')
+        #print (sentence, 'это сентенс')
         return sentence
 
 
