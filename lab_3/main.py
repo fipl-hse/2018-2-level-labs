@@ -6,6 +6,9 @@ Labour work #3
 import math
 
 REFERENCE_TEXT = ''
+if __name__ == '__main__':
+    with open('not_so_big_reference_text.txt', 'r') as f:
+        REFERENCE_TEXT = f.read()
 
 def split_by_sentence(text: str) -> list:
 
@@ -118,11 +121,15 @@ class WordStorage:
 
 def encode(storage_instance, corpus) -> list:
     newlist = []
+    id_of_word = []
     if corpus == None:
         return
-    for stroka in corpus:
-        newstroka = [storage_instance.get_id_of(word) for word in stroka]
-        newlist.append(newstroka)
+    for sentence in corpus:
+        for word in sentence:
+            id_of_word.append(storage_instance.put(word))
+        newlist.append(id_of_word)
+        id_of_word = []
+        continue
     return newlist
 
 # ==========================================================================
@@ -195,7 +202,7 @@ class NGramTrie:
             return []
         n_grams_on_prefix = {}
         for n_gram in self.gram_log_probabilities.keys():
-            #print(prefix, n_gram[0: N-1:])
+            print(prefix, n_gram[0: N-1:])
             if prefix == n_gram[0: N-1:]:
                 n_grams_on_prefix[n_gram] = self.gram_log_probabilities[n_gram]
         if n_grams_on_prefix == {}:
@@ -212,3 +219,23 @@ def get_key(our_dict: dict, our_id) -> tuple:
             if id == our_id:
                 return key
     return 'UNK'
+
+sentences = split_by_sentence(REFERENCE_TEXT)  # ref text is first 500 lines from original text
+print(sentences)
+ws = WordStorage()
+for sentence in sentences:
+    ws.from_corpus(tuple(sentence))
+ngram = NGramTrie(3)
+# for sentence in sentences:
+encoded = encode(ws, sentences)
+
+print(encoded)
+for enc in encoded:
+    ngram.fill_from_sentence(tuple(enc))
+ngram.calculate_log_probabilities()
+word1 = ws.get_id_of('she')
+word2 = ws.get_id_of('will')
+word3 = ws.get_id_of('not')
+words = ngram.predict_next_sentence((word1,))
+for word in words:
+    print(ws.get_original_by(word))
