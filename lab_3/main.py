@@ -113,7 +113,7 @@ def encode(storage_instance, corpus: tuple) -> list:
     for sentence in corpus:
         inner_list = list()
         for word in sentence:
-            inner_list.append(storage_instance.storage[word])
+            inner_list.append(storage_instance.get_id_of(word))
         encoded_list.append(inner_list)
     return encoded_list
 
@@ -172,7 +172,7 @@ class NGramTrie:
             for gram, freq in self.gram_frequencies.items():
                 general_probability = 0
                 for gram_2, freq_2 in self.gram_frequencies.items():
-                    if (gram[0] == gram_2[0]) and gram[1] == gram_2[1]:
+                    if (gram[0] == gram_2[0]) and (gram[1] == gram_2[1]):
                         general_probability += freq_2
                     else:
                         continue
