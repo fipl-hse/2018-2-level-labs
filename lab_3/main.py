@@ -89,17 +89,15 @@ class NGramTrie:
     def predict_next_sentence(self, prefix: tuple) -> list:
         if (not isinstance(prefix, tuple)) or (len(prefix) != self.size - 1) or (self.gram_log_probabilities == {}):
             return []
-        if len(prefix) > 1:
-            return []
         predicted_sentence = list(prefix)
         length = 0
         while length != len(predicted_sentence):
             length = len(predicted_sentence)
-        for key, value in sorted(self.gram_log_probabilities.items(), key=lambda item: -item[1]):
-            keys = list(key)
-            if keys[:-1] == predicted_sentence[-(self.size - 1):]:
-                predicted_sentence.append(key[-1])
-                break
+            for key, value in sorted(self.gram_log_probabilities.items(), key=lambda item: -item[1]):
+                keys = list(key)
+                if keys[:-1] == predicted_sentence[-(self.size - 1):]:
+                    predicted_sentence.append(key[-1])
+                    break
         return predicted_sentence
 
 
@@ -117,34 +115,24 @@ def encode(storage_instance, corpus) -> list:
 def split_by_sentence(text: str) -> list:
     if not isinstance(text, str) or text == '':
         return []
-    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    for a in alphabet:
-        if a not in text:
-            return []
-    if ' ' not in text:
+
+    if text[-1] not in ['.', '?', '!']:
         return []
 
-    text = text.replace('\n', '')
-    text = re.sub(r'[`~@#№/$%^&*+"_=\']', '', text)
-    text_causes = re.split(r'[.?!]+ ', text)
-    list_of_tokens = []
-    for sentence in text_causes:
-        token = re.split(r'\W+', sentence)
-        list_of_tokens.append(token)
+    new_text = ''
+    for index in range(len(text) - 1):
 
-    for sentence in list_of_tokens:
-        while '' in sentence:
-            sentence.remove('')
+        if text[index] in ['.', '?', '!'] and text[index+1] is ' ':
+            new_text += '.'
 
-    for sentence in list_of_tokens:
-        sentence.insert(0, '<s>')
+        if text[index].isalpha() or text[index] is ' ':
+            new_text += text[index]
 
-    for sentence in list_of_tokens:
-        sentence.append('</s>')
+    new_text = new_text.split('.')
+    sentence_list = []
 
-    clear_list = []
-    for sentence in list_of_tokens:
-        new_sentence = [token.lower() for token in sentence]
-        clear_list.append(new_sentence)
-    print(clear_list)
-    return clear_list
+    for sentence in new_text:
+        sentence = '<s> ' + sentence.lower() + ' </s>'
+        sentence_list.append(sentence.split())
+
+    return sentence_list
