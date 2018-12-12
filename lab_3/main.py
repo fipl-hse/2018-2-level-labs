@@ -19,7 +19,7 @@ def split_by_sentence(text: str) -> list:
     text = ''
     for stroka in text_div_n:
         if stroka.strip != '':
-            text = text + stroka
+            text = text + ' ' + stroka
 
     text = text.replace('! ', '. ')
     text = text.replace('? ', '. ')  # унифицировали все разделители предложений
@@ -127,8 +127,8 @@ def encode(storage_instance, corpus) -> list:
     for sentence in corpus:
         for word in sentence:
             id_of_word.append(storage_instance.put(word))
-        newlist.append(id_of_word)
-        id_of_word = []
+            newlist.append(id_of_word)
+            id_of_word = []
         continue
     return newlist
 
@@ -180,17 +180,18 @@ class NGramTrie:
         bricks = []
         n_gram = self.predict_next_n_gram(prefix)
         sentence = n_gram                               # на тот случай, если найдем не больше одной н-граммы
+
         while isinstance(n_gram, list) and n_gram != [] and n_gram != list(prefix):
             bricks.append(n_gram)
             hvost = tuple(n_gram[-len(prefix)::])
-            #print(n_gram, 'это н-грамма', hvost, 'это хвост - будущий префикс', bricks, 'это кирпичики для сентенса')
             prefix = hvost
             n_gram = self.predict_next_n_gram(prefix)
+
         if bricks != []:
             sentence = bricks[0]
             for n_gram in bricks[1:]:
                 sentence.append(n_gram[-1])
-        #print (sentence, 'это сентенс')
+        print (sentence, 'это сентенс')
         return sentence
 
 
@@ -202,12 +203,14 @@ class NGramTrie:
             return []
         n_grams_on_prefix = {}
         for n_gram in self.gram_log_probabilities.keys():
-            print(prefix, n_gram[0: N-1:])
             if prefix == n_gram[0: N-1:]:
+                print ('N_GRAM CATCHED!!!', n_gram, "     Log_prob. ", self.gram_log_probabilities[n_gram])
                 n_grams_on_prefix[n_gram] = self.gram_log_probabilities[n_gram]
+                #break
         if n_grams_on_prefix == {}:
             return list(prefix)
         m = max(n_grams_on_prefix.values())
+        print('Max.  log. probability - ', m)
         our_tuple = (get_key(n_grams_on_prefix, m))
         return list(our_tuple)
 
@@ -220,22 +223,41 @@ def get_key(our_dict: dict, our_id) -> tuple:
                 return key
     return 'UNK'
 
+# ======================================================================
+
+#n_symbols = 1000
+
 sentences = split_by_sentence(REFERENCE_TEXT)  # ref text is first 500 lines from original text
-print(sentences)
+#print(len(REFERENCE_TEXT))
+print ('Splitting completed')
+
 ws = WordStorage()
 for sentence in sentences:
     ws.from_corpus(tuple(sentence))
-ngram = NGramTrie(3)
+print ('Dict filling completed')
+
+ngram = NGramTrie(4)
 # for sentence in sentences:
 encoded = encode(ws, sentences)
+print ('Encoding completed')
+print()
 
-print(encoded)
 for enc in encoded:
     ngram.fill_from_sentence(tuple(enc))
 ngram.calculate_log_probabilities()
 word1 = ws.get_id_of('she')
 word2 = ws.get_id_of('will')
 word3 = ws.get_id_of('not')
-words = ngram.predict_next_sentence((word1,))
+#print(word1, word2, word3)
+prefix = (word1, word2, word3)
+print ('Префикс - ', prefix)
+
+words = ngram.predict_next_n_gram(prefix)
+print()
+print('words', words)
+predicted_sent = ''
 for word in words:
-    print(ws.get_original_by(word))
+    word_for_user = ws.get_original_by(word)
+    if word_for_user != '</s>':
+        predicted_sent = predicted_sent + ' ' + word_for_user
+print (predicted_sent[1:])
