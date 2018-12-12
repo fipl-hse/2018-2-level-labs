@@ -21,11 +21,11 @@ def split_by_sentence(text: str) -> list:
         if stroka.strip != '':
             text = text + ' ' + stroka
 
+    text = text.strip()
     text = text.replace('! ', '. ')
     text = text.replace('? ', '. ')  # унифицировали все разделители предложений
 
     l = len(text)
-
     n = 0               # это будет счетчик вхождений точки с пробелом
                         # ищем, где после ". " идет маленькая буква
     while n != -1:
@@ -41,7 +41,7 @@ def split_by_sentence(text: str) -> list:
     list_of_marks = [
         '.', ',', '!', '?', ':', '"', '`', '[', ']', '@', '&', "'",
         '$', '^', '*', '(', ')', '_', '“', '’', '#', '%', '='
-        '<', '>', '~', '/', '\\'
+        '<', '>', '~', '/'
         ]
 
     n = -1                  # это будет индекс строк нашего списка
@@ -121,15 +121,11 @@ class WordStorage:
 
 def encode(storage_instance, corpus) -> list:
     newlist = []
-    id_of_word = []
     if corpus == None:
         return
-    for sentence in corpus:
-        for word in sentence:
-            id_of_word.append(storage_instance.put(word))
-            newlist.append(id_of_word)
-            id_of_word = []
-        continue
+    for stroka in corpus:
+        newstroka = [storage_instance.get_id_of(word) for word in stroka]
+        newlist.append(newstroka)
     return newlist
 
 # ==========================================================================
@@ -184,6 +180,7 @@ class NGramTrie:
         while isinstance(n_gram, list) and n_gram != [] and n_gram != list(prefix):
             bricks.append(n_gram)
             hvost = tuple(n_gram[-len(prefix)::])
+            #print(n_gram, 'это н-грамма', hvost, 'это хвост - будущий префикс', bricks, 'это кирпичики для сентенса')
             prefix = hvost
             n_gram = self.predict_next_n_gram(prefix)
 
@@ -191,19 +188,21 @@ class NGramTrie:
             sentence = bricks[0]
             for n_gram in bricks[1:]:
                 sentence.append(n_gram[-1])
-        print (sentence, 'это сентенс')
+        #print (sentence, 'это сентенс')
         return sentence
 
 
     def predict_next_n_gram(self, prefix: tuple) -> list:
+        #print(self.size, len(prefix))
         if not isinstance(prefix, tuple) or prefix == None:
             return[]
-        N = len(prefix) + 1
-        if N != self.size:  # Если длина префикса не соответствует N-1
+        pref_size = len(prefix)
+        if pref_size >= self.size:  # Если длина префикса не соответствует N-1
             return []
         n_grams_on_prefix = {}
         for n_gram in self.gram_log_probabilities.keys():
-            if prefix == n_gram[0: N-1:]:
+            #print (n_gram, n_gram[0: pref_size - 1:])
+            if prefix == n_gram[0: pref_size:]:
                 print ('N_GRAM CATCHED!!!', n_gram, "     Log_prob. ", self.gram_log_probabilities[n_gram])
                 n_grams_on_prefix[n_gram] = self.gram_log_probabilities[n_gram]
                 #break
@@ -223,41 +222,42 @@ def get_key(our_dict: dict, our_id) -> tuple:
                 return key
     return 'UNK'
 
-# ======================================================================
+# ==========================================================
 
-#n_symbols = 1000
+n_symbols = 500000
+n_symbols = min (n_symbols, len(REFERENCE_TEXT))
+print('Taken into scope: ' + str(n_symbols) + ' symbols from REFERENCE_TEXT')
 
-sentences = split_by_sentence(REFERENCE_TEXT)  # ref text is first 500 lines from original text
-#print(len(REFERENCE_TEXT))
-print ('Splitting completed')
+sentences = split_by_sentence(REFERENCE_TEXT[:n_symbols])  # ref text is first 500 lines from original text
+print('Splitting completed')
 
 ws = WordStorage()
-for sentence in sentences:
-    ws.from_corpus(tuple(sentence))
-print ('Dict filling completed')
+ws.from_corpus(tuple(sentences))
+print('Dict filling completed')
 
 ngram = NGramTrie(4)
-# for sentence in sentences:
 encoded = encode(ws, sentences)
-print ('Encoding completed')
+print('Encoding completed')
 print()
 
 for enc in encoded:
     ngram.fill_from_sentence(tuple(enc))
 ngram.calculate_log_probabilities()
+
 word1 = ws.get_id_of('she')
 word2 = ws.get_id_of('will')
 word3 = ws.get_id_of('not')
-#print(word1, word2, word3)
 prefix = (word1, word2, word3)
-print ('Префикс - ', prefix)
-
-words = ngram.predict_next_n_gram(prefix)
+print('Префикс - ', prefix)
 print()
-print('words', words)
+
+our_n_gram = ngram.predict_next_n_gram(prefix)
+print()
+print('Our_n_gram', our_n_gram)
+
 predicted_sent = ''
-for word in words:
+for word in our_n_gram:
     word_for_user = ws.get_original_by(word)
     if word_for_user != '</s>':
         predicted_sent = predicted_sent + ' ' + word_for_user
-print (predicted_sent[1:])
+print(predicted_sent[1:])
