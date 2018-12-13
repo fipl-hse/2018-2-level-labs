@@ -8,8 +8,23 @@ if __name__ == '__main__':
             REFERENCE_TEXTS.append(f.read())
 
 
-def clean_tokenize_corpus(texts: list) -> list:
-    pass
+def clean_tokenize_corpus(REFERENCE_TEXTS) -> list:
+    corpus = []
+    for c in REFERENCE_TEXTS:
+        if "\n" in c:
+            c = c.replace("\n", " ")
+        if "<br />" in c:
+            c = c.replace("<br />", " ")
+        while "  " in c:
+            c = c.replace("  ", " ")
+        c = list(c)
+        c = list(filter(lambda x: x not in undesired, c))
+        for i in range(len(c)):
+            c[i] = c[i].lower()
+        c = ''.join(c)
+        c = c.split(" ")
+        corpus.append(c)
+    return corpus
 
 
 class TfIdfCalculator:
