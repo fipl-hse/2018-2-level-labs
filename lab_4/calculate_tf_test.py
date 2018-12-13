@@ -99,11 +99,11 @@ class CalculateTfTest(unittest.TestCase):
         self.assertCountEqual(tf_instance.tf_values, expected_res)
 
     def test_check_calculate_tf_elements_not_str(self):
-        """check tf calculation ideal case"""
+        """check tf calculation with non str elements"""
         clean_texts = [
             ['this', 'is', 'an', 'example', 'of', 'test', 'text', 'text', 'contains', 'two', 'sentences', 123, (),
-             [1, 2, 3], 2*4],
-            ['this', 'is', 'test', 'text', 'text', 'is', 'written', 'on', 'english', 'text', 'is', 'simple']
+             [1, 2, 3], 2 * 4],
+            ['this', 'is', 'test', 'text', 'text', 'is', 'written', 'on', 'english', 123, 'text', 'is', 'simple']
         ]
         tf_instance = TfIdfCalculator(clean_texts)
         tf_instance.calculate_tf()
@@ -131,5 +131,4 @@ class CalculateTfTest(unittest.TestCase):
                 'simple': 1 / 12
             },
         ]
-        self.assertCountEqual(tf_instance.tf_values[0], expected_res[0])
-        self.assertCountEqual(tf_instance.tf_values[1], expected_res[1])
+        self.assertCountEqual(tf_instance.tf_values, expected_res)
