@@ -141,7 +141,6 @@ def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
                 winner = choose_best(frequencies, clean)
                 return winner
 
-
 def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
     # Step 0. Test processing.
     if word is None or word == '' or max_depths_permutations == str(max_depths_permutations) \
