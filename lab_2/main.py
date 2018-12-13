@@ -4,7 +4,6 @@ Labour work #2
 """
 from lab_1.main import calculate_frequences
 
-
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 REFERENCE_TEXT = ''
@@ -12,7 +11,6 @@ REFERENCE_TEXT = ''
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
-        
 
 def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
     # Step 0. Test processing.
