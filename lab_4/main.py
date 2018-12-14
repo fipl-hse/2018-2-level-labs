@@ -1,4 +1,7 @@
-# ШАГ 1. Разбиение текста и токенизация
+import math
+
+
+# ШАГ 1. Разбиение корпуса и токенизация
 def clean_tokenize_corpus(texts) -> list:
     if not isinstance(texts, list) or (texts is []):
         return []
@@ -49,6 +52,7 @@ def clean_tokenize_corpus(texts) -> list:
     return corpus_list
 
 
+# Шаг 2. Объявление класса и методов. TF-IDF показатели.
 class TfIdfCalculator:
     def __init__(self, incoming_corpus):
 
@@ -57,9 +61,10 @@ class TfIdfCalculator:
         else:
             self.corpus = incoming_corpus
 
-        self.tf_values = list()  # Лист из словарей
-        self.idf_values = dict()  # Словарь из слова-значения
-        self.tf_idf_values = list()  # Лист из словарей
+        self.tf_values = list()
+        self.idf_values = dict()
+        self.tf_idf_values = list()
+        self.file_names = ['5_7', '15_2', '10547_3', '12230_7']
 
     def calculate_tf(self):
         for splitted_text in self.corpus:
@@ -68,20 +73,99 @@ class TfIdfCalculator:
                 continue
 
             one_text_tf_dict = dict()
+            total_words = 0
+
+            for word in splitted_text:
+                if isinstance(word, str):
+                    total_words += 1
 
             for word in splitted_text:
 
                 if not isinstance(word, str):
                     continue
 
-                amount_of_words = len(splitted_text)
                 word_count = 0
 
                 for word_2 in splitted_text:
                     if word == word_2:
                         word_count += 1
 
-                word_freq = word_count / amount_of_words
+                word_freq = word_count / total_words
                 one_text_tf_dict[word] = word_freq
 
             self.tf_values.append(one_text_tf_dict)
+
+    def calculate_idf(self):
+
+        amount_of_texts = 0
+        for splitted_text in self.corpus:
+            if isinstance(splitted_text, list):
+                amount_of_texts += 1
+
+        for splitted_text in self.corpus:
+
+            if not isinstance(splitted_text, list):
+                continue
+            for word in splitted_text:
+                if not isinstance(word, str):
+                    continue
+
+                word_counter = 0
+
+                for splitted_text_2 in self.corpus:
+
+                    if not isinstance(splitted_text_2, list):
+                        continue
+                    if word in splitted_text_2:
+                        word_counter += 1
+
+                self.idf_values[word] = math.log(amount_of_texts / word_counter)
+
+    def calculate(self):
+        if not isinstance(self.tf_values, list) or not isinstance(self.idf_values, dict) or (len(self.idf_values) == 0):
+            return []
+
+        for tf_dict in self.tf_values:
+
+            one_tf_idf_dict = dict()
+
+            for word, word_tf in tf_dict.items():
+
+                for word_2, word_idf in self.idf_values.items():
+                    if word == word_2:
+                        one_tf_idf_dict[word] = word_tf * word_idf
+
+            self.tf_idf_values.append(one_tf_idf_dict)
+
+    def report_on(self, word, document_index):
+        if not isinstance(self.tf_idf_values, list):
+            return ()
+        if (document_index > len(self.corpus) - 1) or (len(self.tf_idf_values) == 0):
+            return ()
+
+        current_text = self.corpus[document_index]
+        current_tf_idf_dict = self.tf_idf_values[document_index]
+        word_tf_idf_list = list()
+
+        if word not in current_tf_idf_dict.keys():
+            return ()
+
+        for word_2 in current_text:
+            if word_2 in current_tf_idf_dict:
+                word_tf_idf_list.append((current_tf_idf_dict[word_2], word_2))
+            else:
+                word_tf_idf_list.append((0, word_2))
+
+        word_tf_idf_list.sort(reverse=True)
+
+        for index, pair in enumerate(word_tf_idf_list):
+            if pair[1] == word:
+                position = index
+                break
+
+        result = (current_tf_idf_dict[word], position)
+        return result
+
+    def dump_report_csv(self):
+        pass
+
