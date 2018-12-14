@@ -24,7 +24,7 @@ def clean_tokenize_corpus(REFERENCE_TEXTS) -> list:
         c = ''.join(c)
         c = c.split(" ")
         corpus.append(c)
-    return corpus
+    return None
 
 
 class TfIdfCalculator:
