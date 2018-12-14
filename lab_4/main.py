@@ -14,12 +14,13 @@ def clean_tokenize_corpus(texts) -> list:
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '=', '/' '\n'
     ]
     good_marks = ['.', '!', '...', '?', '\n']
-    line_breakers = '<br />'
     corpus_list = list()
 
     for text in texts:
         if not isinstance(text, str):
             continue
+
+        text = text.replace('<br />', ' ')
         new_text = ''
         one_text_list = list()
 
@@ -96,8 +97,8 @@ class TfIdfCalculator:
             self.tf_values.append(one_text_tf_dict)
 
     def calculate_idf(self):
-
         amount_of_texts = 0
+
         for splitted_text in self.corpus:
             if isinstance(splitted_text, list):
                 amount_of_texts += 1
@@ -106,6 +107,7 @@ class TfIdfCalculator:
 
             if not isinstance(splitted_text, list):
                 continue
+
             for word in splitted_text:
                 if not isinstance(word, str):
                     continue
@@ -167,5 +169,7 @@ class TfIdfCalculator:
         return result
 
     def dump_report_csv(self):
-        pass
-
+        file = open(r'C:\Users\Andrew\Desktop\2018-2-level-labs\lab_4\report.csv', 'w', encoding='UTF-8')
+        first_line = 'word,tf_text_1,tf_text_2,idf,tf_idf_text_1,tf_idf_text_2'
+        file.write(first_line + '\n')
+        file.close()
