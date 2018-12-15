@@ -39,13 +39,46 @@ def clean_tokenize_corpus(REFERENCE_TEXTS) -> list:
 
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        pass
+        if self.corpus is None:
+           self.tf_values = []
+        else:
+           self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
+           for text in self.corpus:
+               text = list(filter(lambda x: type(x) == str, text))
+               dic = {}
+               for i in range(len(text)):
+                   num = 0
+                   for c in text:
+                       if text[i] == c:
+                          num += 1
+                   dic[text[i]] = num / len(text)
+               self.tf_values.append(dic)
+           return self.tf_values
 
     def calculate_idf(self):
-        pass
+        if self.corpus is None:
+           self.tf_values = []
+        else:
+           all_words = []
+           self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
+           for i in range(len(self.corpus)):
+               self.corpus[i] = list(filter(lambda x: type(x) == str, self.corpus[i]))
+               for word in self.corpus[i]:
+                   if word not in all_words:
+                       all_words.append(word)
+               for word in all_words:
+                   num = 0
+                   for i in range(len(self.corpus)):
+                       if word in self.corpus[i]:
+                           num += 1
+                   self.idf_values[word] = math.log(len(self.corpus) / num)
+        return self.idf_values
 
     def calculate(self):
         pass
