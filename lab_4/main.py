@@ -12,12 +12,14 @@ def clean_tokenize_corpus(texts: list) -> list:
     alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     sent_list = []
     final_list = []
+    Flag = 0
     word = ''
 
     if isinstance(texts,list) == False:
         return []
     for part in texts:
         if isinstance(part,str) == True:
+            Flag += 1
 
             part = part.lower()
             for element in part:
@@ -29,10 +31,13 @@ def clean_tokenize_corpus(texts: list) -> list:
                         sent_list.append(word)
                         word = ''
             
-        else:
-            return []
-        final_list.append(sent_list)
-        sent_list = []
+        if sent_list != []:
+            final_list.append(sent_list)
+            sent_list = []
+
+    if Flag == 0:
+        return []
+        print('flag был 0')
 
     return final_list
 
