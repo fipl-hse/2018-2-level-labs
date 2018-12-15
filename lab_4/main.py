@@ -2,22 +2,22 @@ import math
 
 REFERENCE_TEXTS = []
 if __name__ == '__main__':
-    texts = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
-    for text in texts:
+    TEXTS = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
+    for text in TEXTS:
         with open(text, 'r') as f:
             REFERENCE_TEXTS.append(f.read())
 
 
-def clean_tokenize_corpus(texts: list) -> list:
-    if not texts or not isinstance(texts, list):
+def clean_tokenize_corpus(texts_corpus: list) -> list:
+    if not texts_corpus or not isinstance(texts_corpus, list):
         return []
     clean_token_corpus = []
-    for text in texts:
-        if text and isinstance(text, str):
-            while '<br />' in text:
-                text = text.replace("<br />", " ")
+    for one_text in texts_corpus:
+        if one_text and isinstance(one_text, str):
+            while '<br />' in one_text:
+                one_text = one_text.replace("<br />", " ")
             clean_token_text = []
-            words = text.split(" ")
+            words = one_text.split(" ")
             for index, word in enumerate(words):
                 new_word = ""
                 if not word.isalpha():
@@ -42,27 +42,27 @@ class TfIdfCalculator:
 
     def calculate_tf(self):
         if self.corpus:
-            for text in self.corpus:
+            for part in self.corpus:
                 tf_values = {}
-                if text:
-                    len_text = len(text)
-                    for word in text:
+                if part:
+                    len_text = len(part)
+                    for word in part:
                         if not isinstance(word, str):
                             len_text -= 1
-                    for word in text:
+                    for word in part:
                         if isinstance(word, str) and word not in tf_values:
-                            count_word = text.count(word)
+                            count_word = part.count(word)
                             tf_values[word] = count_word / len_text
                     self.tf_values += [tf_values]
         return self.tf_values
 
     def calculate_idf(self):
         if self.corpus:
-            for index, text in enumerate(self.corpus):
-                if not text:
+            for part in self.corpus:
+                if not part:
                     continue
                 new_corpus = []
-                for word in text:
+                for word in part:
                     if word not in new_corpus and isinstance(word, str):
                         new_corpus += [word]
                 count_words = {}
@@ -79,10 +79,10 @@ class TfIdfCalculator:
 
     def calculate(self):
         if self.idf_values and self.tf_values:
-            for text in self.tf_values:
+            for part in self.tf_values:
                 tf_idf_values = {}
-                for word, tf in text.items():
-                    tf_idf_values[word] = tf * self.idf_values.get(word)
+                for word, tf_value in part.items():
+                    tf_idf_values[word] = tf_value * self.idf_values.get(word)
                 self.tf_idf_values += [tf_idf_values]
         return self.tf_idf_values
 
@@ -105,10 +105,10 @@ class TfIdfCalculator:
             dict_report = {}
             for index, text_dict in enumerate(self.tf_values):
                 if text_dict:
-                    for word, tf in text_dict.items():
+                    for word, tf_value in text_dict.items():
                         idf = self.idf_values.get(word)
-                        tf_idf = tf * idf
-                        dict_report[word+str(index)] = str(tf) + ','
+                        tf_idf = tf_value * idf
+                        dict_report[word+str(index)] = str(tf_value) + ','
                         dict_report[word+str(index)] += str(idf) + ","
                         dict_report[word+str(index)] += str(tf_idf)
             report_text = ["–" for i in range(len(self.corpus) * 2 + 2)]
@@ -116,7 +116,7 @@ class TfIdfCalculator:
             whole_report = sorted(dict_report.items())
             list_words = []
             for one_part in whole_report:
-                word_with_index =  one_part[0]
+                word_with_index = one_part[0]
                 value = one_part[1]
                 values = value.split(',')
                 word = word_with_index[:-1]
@@ -135,8 +135,8 @@ class TfIdfCalculator:
             for i in reports:
                 new_line = ",".join(i)
                 table += [new_line]
-            text = "\n".join(table)
-            report.write(text)
+            result = "\n".join(table)
+            report.write(result)
 
     def cosine_distance(self, index_text_1, index_text_2):
         if index_text_1 >= len(self.corpus) or index_text_2 >= len(self.corpus):
@@ -154,13 +154,17 @@ class TfIdfCalculator:
         vector_1 = [[] for i in range(len(new_words))]
         vector_2 = [[] for i in range(len(new_words))]
 
+        tf_idf_values = {}
+        for part in self.tf_idf_values:
+            tf_idf_values.update(part)
+
         for index, word in enumerate(new_words):
             if word in text_1:
-                vector_1[index] = self.tf_idf_values.get(word)
+                vector_1[index] = tf_idf_values.get(word)
             elif word not in text_1:
                 vector_1[index] = 0
             if word in text_2:
-                vector_2[index] = self.tf_idf_values.get(word)
+                vector_2[index] = tf_idf_values.get(word)
             elif word not in text_2:
                 vector_2[index] = 0
 
