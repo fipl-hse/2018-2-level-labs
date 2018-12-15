@@ -18,7 +18,7 @@ def clean_tokenize_corpus(texts_corpus: list) -> list:
                 one_text = one_text.replace("<br />", " ")
             clean_token_text = []
             words = one_text.split(" ")
-            for index, word in enumerate(words):
+            for word in words:
                 new_word = ""
                 if not word.isalpha():
                     for i in word.lower():
