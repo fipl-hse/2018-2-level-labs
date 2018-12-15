@@ -8,15 +8,16 @@ if __name__ == '__main__':
             REFERENCE_TEXTS.append(f.read())
 
 
-def clean_tokenize_corpus(texts: list) -> list:
+def clean_tokenize_corpus(texts: list) -> list:  
     alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     final_list = []
     word = ''
 
     if isinstance(texts,list) == False:
         return []
-    else:
-        for part in texts:
+    for part in texts:
+        if isinstance(part,str) == True:
+
             part = part.lower()
             for element in part:
                 if element in alph:
@@ -28,7 +29,11 @@ def clean_tokenize_corpus(texts: list) -> list:
                         word = ''
             if word != ' ':
                 final_list.append(word)
+        
                     
+            return final_list
+        else:
+            return []
 
 
 class TfIdfCalculator:
