@@ -31,7 +31,7 @@ def clean_tokenize_corpus(texts: list) -> list:
 
 class TfIdfCalculator:
     def __init__(self, corpus):
-        self.corpus = corpus_of_texts
+        self.corpus = corpus
         self.tf_values = []
         self.idf_values = {}
         self.tf_idf_values = []
