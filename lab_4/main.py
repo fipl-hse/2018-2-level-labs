@@ -10,6 +10,7 @@ if __name__ == '__main__':
 
 def clean_tokenize_corpus(texts: list) -> list:  
     alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    sent_list = []
     final_list = []
     word = ''
 
@@ -24,15 +25,18 @@ def clean_tokenize_corpus(texts: list) -> list:
                     word += element
 
                 else:
-                    if element == ' ':
-                        final_list.append(word)
+                    if element == ' ' and word != '':
+                        sent_list.append(word)
                         word = ''
             if word != ' ':
-                final_list.append(word)
-
+                sent_list.append(word)
+                                
         else:
             return []
-    return final_list        
+        final_list.append(sent_list)
+        sent_list = []
+
+    return final_list
 
 
 class TfIdfCalculator:
