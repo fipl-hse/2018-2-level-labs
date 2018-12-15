@@ -13,7 +13,7 @@ def clean_tokenize_corpus(texts: list) -> list:
     final_list = []
     word = ''
 
-    if type(texts) != []:
+    if isinstance(texts,list) == False:
         return []
     else:
         for part in texts:
