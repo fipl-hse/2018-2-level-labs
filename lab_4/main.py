@@ -31,7 +31,6 @@ def clean_tokenize_corpus(texts: list) -> list:
             
         else:
             return []
-        print(sent_list)
         final_list.append(sent_list)
         sent_list = []
 
