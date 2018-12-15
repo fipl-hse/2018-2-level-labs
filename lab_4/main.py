@@ -1,5 +1,6 @@
 import math
 
+undesired = list("1234567890/?<>,.()-+=&*^:;%$#@!'""")
 REFERENCE_TEXTS = []
 if __name__ == '__main__':
     texts = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
@@ -24,7 +25,9 @@ def clean_tokenize_corpus(REFERENCE_TEXTS) -> list:
         c = ''.join(c)
         c = c.split(" ")
         corpus.append(c)
-    return None
+        for i in range(len(corpus)):
+            corpus[i] = list(filter(lambda x: x != '', corpus[i]))
+    return corpus
 
 
 class TfIdfCalculator:
