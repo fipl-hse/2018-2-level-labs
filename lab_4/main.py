@@ -1,5 +1,6 @@
 import math
 
+
 REFERENCE_TEXTS = []
 if __name__ == '__main__':
     texts = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
@@ -9,7 +10,33 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    list_of_marks = [
+        '!', '?', '.', ',', ':', '"', '`', '[', ']', '@', '&', "'", '-',
+        '$', '^', '*', '(', ')', '=',
+        '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\n'
+    ]
+
+    new_list = []
+    if texts is None:
+        return new_list
+    for sentence in texts:
+        if sentence == str(sentence) and sentence is not None:
+            new_text = ''
+            sentence = sentence.lower()
+            sentence = sentence.replace('<br /><br />', ' ')
+            for element in sentence:
+                if element not in list_of_marks:
+                    new_text += element
+            new_text = new_text.lower()
+            splitted_text = new_text.split(' ')
+            for word in splitted_text:
+                if word == '' or word == 'br':
+                    splitted_text.remove(word)
+                print(splitted_text)
+            new_list.append(splitted_text)
+    return new_list
+
 
 
 class TfIdfCalculator:
