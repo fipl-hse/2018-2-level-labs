@@ -90,6 +90,8 @@ class TfIdfCalculator:
         if not self.tf_idf_values or document_index >= len(self.tf_idf_values):
             return ()
         tf_idf_dict = self.tf_idf_values[document_index]
+        if not word in tf_idf_dict:
+            return ()
         list_tf_idf = sorted(tf_idf_dict, key=tf_idf_dict.__getitem__, reverse=True)
         return tf_idf_dict.get(word.lower()), list_tf_idf.index(word.lower())
 
