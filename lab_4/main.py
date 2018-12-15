@@ -25,14 +25,13 @@ def clean_tokenize_corpus(texts: list) -> list:
                     word += element
 
                 else:
-                    if element == ' ' and word != '':
+                    if element == ' ' and word != '' or element == '.':
                         sent_list.append(word)
                         word = ''
-            if word != ' ':
-                sent_list.append(word)
-                                
+            
         else:
             return []
+        print(sent_list)
         final_list.append(sent_list)
         sent_list = []
 
