@@ -29,11 +29,10 @@ def clean_tokenize_corpus(texts: list) -> list:
                         word = ''
             if word != ' ':
                 final_list.append(word)
-        
-                    
-            return final_list
+
         else:
             return []
+    return final_list        
 
 
 class TfIdfCalculator:
