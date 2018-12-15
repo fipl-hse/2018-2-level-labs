@@ -11,22 +11,29 @@ if __name__ == '__main__':
 
 def clean_tokenize_corpus(REFERENCE_TEXTS) -> list:
     corpus = []
-    for c in REFERENCE_TEXTS:
-        if "\n" in c:
-            c = c.replace("\n", " ")
-        if "<br />" in c:
-            c = c.replace("<br />", " ")
-        while "  " in c:
-            c = c.replace("  ", " ")
-        c = list(c)
-        c = list(filter(lambda x: x not in undesired, c))
-        for i in range(len(c)):
-            c[i] = c[i].lower()
-        c = ''.join(c)
-        c = c.split(" ")
-        corpus.append(c)
-        for i in range(len(corpus)):
-            corpus[i] = list(filter(lambda x: x != '', corpus[i]))
+    if REFERENCE_TEXTS is None:
+       corpus = []
+    else:
+       REFERENCE_TEXTS = list(filter(lambda x: x is not None and type(x) == str, REFERENCE_TEXTS))
+       if REFERENCE_TEXTS == []:
+          corpus = []
+       else:
+          for c in REFERENCE_TEXTS:
+              if "\n" in c:
+                 c = c.replace("\n", " ")
+              if "<br />" in c:
+                 c = c.replace("<br />", " ")
+              while "  " in c:
+                 c = c.replace("  ", " ")
+              c = list(c)
+              c = list(filter(lambda x: x not in undesired, c))
+              for i in range(len(c)):
+                 c[i] = c[i].lower()
+              c = ''.join(c)
+              c = c.split(" ")
+              corpus.append(c)
+              for i in range(len(corpus)):
+                  corpus[i] = list(filter(lambda x: x != '', corpus[i]))
     return corpus
 
 
