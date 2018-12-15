@@ -31,9 +31,8 @@ def clean_tokenize_corpus(texts: list) -> list:
             new_text = new_text.lower()
             splitted_text = new_text.split(' ')
             for word in splitted_text:
-                if word == '' or word == 'br':
+                if word == '':
                     splitted_text.remove(word)
-                print(splitted_text)
             new_list.append(splitted_text)
     return new_list
 
