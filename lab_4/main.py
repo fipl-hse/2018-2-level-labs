@@ -141,6 +141,7 @@ class TfIdfCalculator:
         if (document_index > len(self.corpus) - 1) or (len(self.tf_idf_values) == 0):
             return ()
 
+        position = 0
         current_text = self.corpus[document_index]
         current_tf_idf_dict = self.tf_idf_values[document_index]
         word_tf_idf_list = list()
@@ -151,8 +152,6 @@ class TfIdfCalculator:
         for word_2 in current_text:
             if word_2 in current_tf_idf_dict:
                 word_tf_idf_list.append((current_tf_idf_dict[word_2], word_2))
-            else:
-                word_tf_idf_list.append((0, word_2))
 
         word_tf_idf_list.sort(reverse=True)
 
