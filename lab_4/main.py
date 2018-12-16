@@ -62,7 +62,7 @@ class TfIdfCalculator:
     tf_idf_values = []
     
     def __init__(self, corpus):
-        self.corpus = a_corpus
+        self.corpus = corpus
 
     def calculate_tf(self):
         vocub = {}
