@@ -59,7 +59,7 @@ class TfIdfCalculator:
                           num += 1
                    dic[text[i]] = num / len(text)
                self.tf_values.append(dic)
-           return self.tf_values
+        return self.tf_values
 
     def calculate_idf(self):
         if self.corpus is None:
@@ -81,7 +81,15 @@ class TfIdfCalculator:
         return self.idf_values
 
     def calculate(self):
-        pass
+        if self.tf_values == [] or self.idf_values == {} or self.tf_values is None or self.idf_values is None:
+           self.tf_idf_values = []
+        else:
+           for i in range(len(self.tf_values)):
+               dic = {}
+               for word in self.tf_values[i].keys():
+                   dic[word] = self.tf_values[i][word] * self.idf_values[word]
+               self.tf_idf_values.append(dic)
+        return self.tf_idf_values
 
     def report_on(self, word, document_index):
         pass
