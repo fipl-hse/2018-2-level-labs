@@ -92,7 +92,16 @@ class TfIdfCalculator:
         return self.tf_idf_values
 
     def report_on(self, word, document_index):
-        pass
+        val = []
+        for v in self.tf_idf_values[document_index].values():
+            if v not in val:
+               val.append(v)
+        ord_list = []
+        while len(val) != 0:
+              maxi = max(val)
+              ord_list.append(maxi)
+              val.remove(maxi)
+        return(self.tf_idf_values[document_index][word], ord_list.index(self.tf_idf_values[document_index][word]))
 
 
 # scenario to check your work
