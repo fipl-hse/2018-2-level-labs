@@ -25,7 +25,6 @@ def clean_tokenize_corpus(texts) -> list:
         one_text_list = list()
 
         for index, element in enumerate(text):
-
             try:
                 if element in good_marks and text[index + 2].isupper():
                     try:
@@ -40,6 +39,7 @@ def clean_tokenize_corpus(texts) -> list:
                 continue
 
             new_text += element
+
         sentences_list = new_text.split('. ')
 
         for sentence in sentences_list:
@@ -69,7 +69,6 @@ class TfIdfCalculator:
 
     def calculate_tf(self):
         for splitted_text in self.corpus:
-
             if not isinstance(splitted_text, list):
                 continue
 
@@ -81,7 +80,6 @@ class TfIdfCalculator:
                     total_words += 1
 
             for word in splitted_text:
-
                 if not isinstance(word, str):
                     continue
 
@@ -104,7 +102,6 @@ class TfIdfCalculator:
                 amount_of_texts += 1
 
         for splitted_text in self.corpus:
-
             if not isinstance(splitted_text, list):
                 continue
 
@@ -115,7 +112,6 @@ class TfIdfCalculator:
                 word_counter = 0
 
                 for splitted_text_2 in self.corpus:
-
                     if not isinstance(splitted_text_2, list):
                         continue
                     if word in splitted_text_2:
