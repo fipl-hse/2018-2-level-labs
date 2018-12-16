@@ -9,39 +9,42 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts):
+    if not isinstance(texts, list) or texts == None:
+        return []
     words = list()
     list_of_marks = [
          '.', ',', ':', '"', '`', '[', ']',
-         '?', '!', '@', '&', "'", '-', '/',
+         '?', '!', '@', '&', "'", '-',
          '$', '^', '*', '(', ')', '=',
          '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
          '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\n'
     ]
     for text in texts:
-        if isinstance(text, str):
+        if not isinstance(text, str):
             continue
-        new_text = ''
-        sentences = list()
-        for element in text:
-            try:
-                for e in element:
-                    if e not in list_of_marks:
-                        try:
-                            new_text += e
+        else:
+            new_text = ''
+            sentences = list()
+            for element in text:
+                try:
+                    for e in element:
+                        if e not in list_of_marks:
+                            try:
+                                new_text += e
+                                continue
+                            except IndexError:
+                                pass
+                        if e in list_of_marks:
                             continue
-                        except IndexError:
-                            pass
-                    if e in list_of_marks:
-                        continue
-            except IndexError:
-                pass
+                except IndexError:
+                    pass
 
-        new_text = new_text.lower()
-        sentences.append(new_text)
+            new_text = new_text.lower()
+            sentences.append(new_text)
 
-        for sentence in sentences:
-            split = sentence.split()
-            words.append(split)
+            for sentence in sentences:
+                split = sentence.split()
+                words.append(split)
     return words
 
 
