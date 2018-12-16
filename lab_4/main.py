@@ -8,7 +8,7 @@ if __name__ == '__main__':
             REFERENCE_TEXTS.append(f.read())
 
 
-def clean_tokenize_corpus(text):
+def clean_tokenize_corpus(texts):
     words = list()
     list_of_marks = [
          '.', ',', ':', '"', '`', '[', ']',
