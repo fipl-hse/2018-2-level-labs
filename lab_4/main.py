@@ -12,42 +12,85 @@ def clean_tokenize_corpus(texts: list) -> list:
     alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     sent_list = []
     final_list = []
-    Flag = 0
+    counter = 0
     word = ''
 
     if isinstance(texts,list) == False:
         return []
     for part in texts:
         if isinstance(part,str) == True:
-            Flag += 1
-
+            counter += 1
             part = part.lower()
+            for element in part:
+                if element == '<':
+                        new_part = part[part.find(element):]
+                        neces_part1 = part[:part.find(element)]
+                        for el in new_part:
+                            if el == '>':
+                                neces_part2 = new_part[1 + new_part.find(el):]
+                                res_part = neces_part1 + neces_part2
+                                part = res_part
+
+                                
             for element in part:
                 if element in alph:
                     word += element
-
                 else:
                     if element == ' ' and word != '' or element == '.':
                         sent_list.append(word)
                         word = ''
-            
+                                
+                               
+                        
+           
         if sent_list != []:
             final_list.append(sent_list)
             sent_list = []
+        
 
-    if Flag == 0:
+    if counter == 0:
         return []
-        print('flag был 0')
 
     return final_list
 
-
+from fractions import Fraction
 class TfIdfCalculator:
+    corpus = []
+    tf_values = []
+    tf_values_num = []
+    idf_values = []
+    tf_idf_values = []
+    
     def __init__(self, corpus):
-        pass
+        self.corpus = a_corpus
 
     def calculate_tf(self):
-        pass
+        vocub = {}
+        final_vocub = {}
+        final_vocub_num = {}
+        number_of_words_in_voc = 0
+        for part in self.corpus:
+            for word in part:
+                number_of_words_in_voc += 1
+                if word in vocub:
+                    vocub[word]+=1
+                else:
+                    vocub.update({word:1})
+            for key,value in vocub.items():
+                tf_value_num = value/number_of_words_in_voc
+                tf_value = str(value) + ' / ' + str(number_of_words_in_voc)
+                final_vocub[key] = tf_value
+                final_vocub_num[key] = tf_value_num
+
+
+            self.tf_values.append(final_vocub)
+            self.tf_values_num.append(final_vocub_num)
+            vocub = {}
+            final_vocub = {}
+            number_of_words_in_voc = 0
+
+
+
 
     def calculate_idf(self):
         pass
