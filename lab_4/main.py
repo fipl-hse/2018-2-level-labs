@@ -6,6 +6,7 @@ if __name__ == '__main__':
     for text in texts:
         with open(text, 'r') as f:
             REFERENCE_TEXTS.append(f.read())
+            
 def clean_tokenize_corpus(texts: list) -> list:
     if not isinstance(texts, list):
         return []
@@ -17,7 +18,7 @@ def clean_tokenize_corpus(texts: list) -> list:
         for ind in range(0, len(el)-1):
             if el[ind].isalpha():
                 ex_text += el[ind].lower()
-            if el[ind] == ' ' or el [ind] == "'":
+            if el[ind] is ' ' or el [ind] is "'":
                 ex_text += el[ind]
             if el[index] in ['.', ',', '!', '?']:
                 if el[index-1].isalpha() and el[index+1].isalpha():
@@ -27,7 +28,7 @@ def clean_tokenize_corpus(texts: list) -> list:
             if el[index] in '/':
                 if el[index-1].isalpha() and el[index+1].isalpha():
                     ex_text += ' '
-            if el[index] == '"' or el[index] == '<' or el[index] == '>':
+            if el[index] is '"' or el[index] is '<' or el[index] is '>':
                 if el[index-1].isalpha() and el[index+1].isalpha():
                     continue
                 else:
