@@ -1,6 +1,5 @@
 import math
 
-
 # ШАГ 1. Разбиение корпуса и токенизация
 def clean_tokenize_corpus(texts) -> list:
     if not isinstance(texts, list) or (texts is []):
