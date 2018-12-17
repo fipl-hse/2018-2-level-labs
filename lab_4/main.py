@@ -89,7 +89,26 @@ class TfIdfCalculator:
         return self.tf_idf_values
 
     def report_on(self, word, document_index):
-        pass
+        word_tf_idf = 0
+        if document_index >= len(self.corpus) or self.tf_idf_values == [] or self.tf_idf_values is None:
+            return ()
+        if word in self.corpus[document_index]:
+            for key, tf_idf in self.tf_idf_values[document_index].items():
+                if key == word:
+                    word_tf_idf = tf_idf
+        tf_idf_rating = []
+        words_rating = []
+        for tf_idf in self.tf_idf_values[document_index].values():
+            tf_idf_rating.append(tf_idf)
+        for key in self.tf_idf_values[document_index].keys():
+            if self.tf_idf_values[document_index][key] == max(tf_idf_rating):
+                words_rating.append(key)
+                tf_idf_rating.remove(max(tf_idf_rating))
+        word_position = words_rating.index(word)
+        if word_tf_idf != 0:
+            return tuple([word_tf_idf, word_position])
+        else:
+            return tuple([None, word_position])
 
 
 # scenario to check your work
