@@ -1,4 +1,5 @@
 import math
+import string
 
 REFERENCE_TEXTS = []
 if __name__ == '__main__':
@@ -9,24 +10,88 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    if texts is None or not isinstance(texts, list):
+        return []
+
+    punctuation = '"#$%&\'()*+,-/:;<=>@[\\]^_`{|}~!.?'
+    new_list = []
+    splited_text = []
+    for text in texts:
+        if isinstance(text, str) and not text is None:
+            text = text.replace('<br />', ' ')
+            text = text.lower()
+            splited_text = text.translate(str.maketrans('', '', punctuation)).split()
+            new_list.append(splited_text)
+    return new_list
 
 
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        pass
+        if self.corpus is not None or isinstance(self.corpus, list):
+            for line in self.corpus:
+                cur_dict = {}
+                sum = 0
+                len = 0
+                if isinstance(line, list) and line is not None and line is not []:
+                    for word in line:
+                        if isinstance(word, str):
+                            len += 1
+                    for word in line:
+                        if isinstance(word, str):
+                            for _word in line:
+                                if word is _word:
+                                    sum += 1
+                            if cur_dict.get(word) is None:
+                                cur_dict[word] = sum/len
+                        sum = 0
+                    self.tf_values.append(cur_dict)
 
     def calculate_idf(self):
-        pass
+        len = 0
+        if self.corpus is not None or isinstance(self.corpus, list):
+            for line in self.corpus:
+                if isinstance(line, list):
+                    len += 1
+            for line in self.corpus:
+                if isinstance(line, list) and line is not None and line is not []:
+                    for word in line:
+                        if isinstance(word, str) and word is not None:
+                            sum = 0
+                            if self.idf_values.get(word) is None:
+                                for _line in self.corpus:
+                                    if isinstance(_line, list) and _line is not None and _line is not []:
+                                        for _word in _line:
+                                            if word is _word:
+                                                sum += 1
+                                                break
+                                self.idf_values[word] = math.log(len/sum)
 
     def calculate(self):
-        pass
+        if self.tf_values is not None and isinstance(self.tf_values, list) and self.tf_values is not []:
+            if self.idf_values is not None and isinstance(self.idf_values, dict) and self.idf_values is not {}:
+                for line in self.tf_values:
+                    cur_dict = {}
+                    for word in line:
+                        cur_dict[word] = line.get(word)*self.idf_values.get(word)
+                    self.tf_idf_values.append(cur_dict)
 
     def report_on(self, word, document_index):
-        pass
+        if self.tf_idf_values is not None and isinstance(self.tf_idf_values, list) and self.tf_idf_values is not []:
+            if document_index <= len(self.tf_idf_values):
+                value = self.tf_idf_values[document_index].get(word)
+                position = 0
+                if value is not None:
+                    for val in self.tf_idf_values[document_index].values():
+                        if value < val:
+                            position += 1
+                return value, position
+        return ()
 
 
 # scenario to check your work
