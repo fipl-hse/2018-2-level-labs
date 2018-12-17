@@ -35,12 +35,12 @@ def clean_tokenize_corpus(texts: list) -> list:
         n_text = ex_text.split()
         result = []
     n_list = []
-        for elem in n_text:
-            if elem == 'br' or elem == 'n':
-                continue
-            else:
-                result.append(elem)
-        n_list.append(result)
+    for elem in n_text:
+        if elem == 'br' or elem == 'n':
+            continue
+        else:
+            result.append(elem)
+            n_list.append(result)
     return n_list
 
 
