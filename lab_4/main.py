@@ -9,6 +9,7 @@ if __name__ == '__main__':
 def clean_tokenize_corpus(texts: list) -> list:
     if not isinstance(texts, list):
         return []
+    n_list = []
     for el in texts:
         if not isinstance(el, str):
             continue
@@ -34,7 +35,6 @@ def clean_tokenize_corpus(texts: list) -> list:
                     ex_text += ' '
         n_text = ex_text.split()
         result = []
-    n_list = []
         for elem in n_text:
             if elem == 'br' or elem == 'n':
                 continue
