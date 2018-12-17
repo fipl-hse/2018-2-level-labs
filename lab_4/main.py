@@ -106,7 +106,31 @@ class TfIdfCalculator:
         
 
     def calculate(self):
-        pass
+        if self.corpus == None:
+            return []
+        for dict_tf in self.tf_values:
+            dict_of_tf_idf = dict()
+            for word in dict_tf:
+                tf_value = dict_tf[word]
+                idf_value = self.idf_values[word]
+                dict_of_tf_idf[word] = tf_value * idf_value
+            self.tf_idf_values.append(dict_of_tf_idf)
+            
 
     def report_on(self, word, document_index):
-        pass
+        if document_index > (len(self.corpus) - 1):
+            return ()
+        report_on_word = list()
+        text = self.corpus[document_index]
+        dict_tf_idf = self.tf_idf_values[document_index]
+        lst = list()
+        for token in text:
+            if token in dict_tf_idf:
+                lst.append((dict_tf_idf[token], token))
+        lst.sort(reverse=True)
+        for element in lst:
+            if word == element[1]:
+                tf_idf_value = element[0]
+                position = lst.index(element)
+                report_on_word.append((tf_idf_value, position))
+        return report_on_word[0]
