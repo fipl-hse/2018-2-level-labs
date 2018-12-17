@@ -9,7 +9,38 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    try:
+        res = []
+        res1 = []
+        spam =['<br />']
+        spam1 = '''' " @ $ % ^ & * ( ) _ - = + , / { [ } ] ; : < > ' / # . ! ? \n'''
+        spam1 = spam1.split(' ')
+        spam = spam+spam1
+        spam.append('  ')
+
+        texts1 = texts.copy()
+        texts = []
+
+        for i in texts1:
+            if type(i) == str:
+                texts.append(i)
+
+        for text in texts:
+            for i in spam:
+                if i in text:
+                    text = text.replace(i, '')
+                if i.isupper():
+                    text = text.replace(i, i.lower())
+            res1.append(text)
+
+        for i in res1:
+            res2 = i.split(' ')
+            res.append(res2)
+
+    except AttributeError:
+        return []
+
+    return res
 
 
 class TfIdfCalculator:
