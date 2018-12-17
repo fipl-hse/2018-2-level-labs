@@ -9,7 +9,25 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    texts_list = []
+    try:
+        for text in texts:
+            try:
+                if '<br />' in text:
+                    text = text.replace('<br />', ' ')
+                text = text.lower()
+                for symbol in text:
+                    if symbol not in 'abcdefghijklmnopqrstuvwxyz ':
+                        text = text.replace(symbol, '')
+                tokens_list = text.split()
+                texts_list.append(tokens_list)
+            except TypeError:
+                continue
+            except AttributeError:
+                continue
+    except TypeError:
+        pass
+    return texts_list
 
 
 class TfIdfCalculator:
@@ -17,7 +35,7 @@ class TfIdfCalculator:
         self.corpus = corpus
         self.tf_values = []
         self.idf_values = {}
-        self.tf_idf_values = []
+        self.tf_idf_values = {}
 
     def calculate_tf(self):
         try:
