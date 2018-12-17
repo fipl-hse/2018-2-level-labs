@@ -175,7 +175,71 @@ class TfIdfCalculator:
         self.tf_idf_values = tf_idf_list
 
     def report_on(self, word, document_index):
-        pass
+        no_duplicates_corpus = []
+        if document_index < len(self.corpus):
+            if word not in self.corpus[document_index]:
+                return ()
+        for text in self.corpus:
+            no_duplicates_text = []
+            try:
+                for token in text:
+                    if token not in no_duplicates_text and token != '' and type(token) is str:
+                        no_duplicates_text.append(token)
+            except:
+                no_duplicates_text = []
+            no_duplicates_corpus.append(no_duplicates_text)
+
+        freqs = []
+        freqs_list_all = []
+        for ind, text in enumerate(no_duplicates_corpus):
+            freqs_text = {}
+            freqs_list = []
+            for token in text:
+                i = 0
+                while i < len(self.corpus):
+                    freq = self.corpus[ind].count(token)
+                    i += 1
+                freqs_text[token] = freq
+                if freq not in freqs_list:
+                    freqs_list.append(freq)
+            freqs.append(freqs_text)
+            freqs_list_all.append(freqs_list)
+
+        big_helper = []
+        for text in freqs_list_all:
+            helper_d = {}
+            text.sort()
+            c = len(text)
+            while c != 0:
+                for i in text:
+                    helper_d[i] = c - 1
+                    c -= 1
+            big_helper.append(helper_d)
+
+        ratings = []
+        for ind, text in enumerate(freqs):
+            rating = {}
+            for el, v in text.items():
+                rating[el] = big_helper[ind][v]
+            ratings.append(rating)
+
+        try:
+            tf_idf = self.tf_idf_values[document_index][word]
+        except:
+            tf_idf = None
+        # print(ratings[document_index])
+        try:
+            rate = ratings[document_index][word]
+        except:
+            rate = None
+        # print(rate)
+        if tf_idf != None and rate != None:
+            report = (tf_idf, rate)
+        else:
+            report = ()
+
+
+        return report
 
 
 # scenario to check your work
