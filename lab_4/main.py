@@ -83,7 +83,7 @@ class TfIdfCalculator:
                     self.tf_idf_values.append(cur_dict)
 
     def report_on(self, word, document_index):
-        if self.tf_idf_values is not None and isinstance(self.tf_idf_values, list) and self.tf_idf_values == []:
+        if self.tf_idf_values is not None and isinstance(self.tf_idf_values, list) and not self.tf_idf_values == []:
             if document_index <= len(self.tf_idf_values):
                 value = self.tf_idf_values[document_index].get(word)
                 position = 0
