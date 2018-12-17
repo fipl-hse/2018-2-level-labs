@@ -23,7 +23,7 @@ def clean_tokenize_corpus(texts):
         for sent in texts:
             if isinstance(sent, str) and sent is not None:
                 sent = sent.lower()
-                sent = sent.replace('<br /><br />', ' ')
+                sent = sent.replace('<br />', ' ')
                 new_sents = ''
                 for symbol in sent:
                     if symbol not in list_of_not_words:
