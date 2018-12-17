@@ -95,7 +95,56 @@ class TfIdfCalculator:
 
 
     def calculate_idf(self):
-        pass
+                try:
+            num_of_docs = 0
+            for text in self.corpus:
+                if type(text) is list and text != []:
+                    num_of_docs += 1
+
+            no_duplicates_corpus = []
+            for text in self.corpus:
+                no_duplicates_text = []
+                try:
+                    for word in text:
+                        if word not in no_duplicates_text and word != '' and type(word) is str:
+                            no_duplicates_text.append(word)
+                except:
+                    no_duplicates_text = []
+                no_duplicates_corpus.append(no_duplicates_text)
+
+            frequencies_corpus = []
+            for text in no_duplicates_corpus:
+                frequencies_review = []
+                for token in text:
+                    frequency = 0
+                    for review in self.corpus:
+                        try:
+                            if token in review:
+                                frequency += 1
+                        except:
+                            frequency = 0
+                    frequencies_review.append(frequency)
+                frequencies_corpus.append(frequencies_review)
+
+            idf = []
+            for text in frequencies_corpus:
+                idf_text = []
+                for freq in text:
+                    idf_text.append(math.log(num_of_docs / freq))
+                idf.append(idf_text)
+
+            idf_for_each_text = []
+            for index, text in enumerate(no_duplicates_corpus):
+                dictionary = dict(zip(no_duplicates_corpus[index], idf[index]))
+                if dictionary != {}:
+                    idf_for_each_text.append(dictionary)
+            idf_dict = {}
+            for i in idf_for_each_text:
+                for key, value in i.items():
+                    idf_dict[key] = value
+        except:
+            idf_dict = {}
+        self.idf_values = idf_dict
 
     def calculate(self):
         pass
