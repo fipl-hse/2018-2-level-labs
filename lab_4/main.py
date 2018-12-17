@@ -26,7 +26,7 @@ def clean_tokenize_corpus(texts):
             new_text = ''
             sentences = list()
             extra_element = '<br />'
-            text = text.replce(extra_element, ' ')
+            text = text.replace(extra_element, ' ')
             for element in text:
                 try:
                     for e in element:
