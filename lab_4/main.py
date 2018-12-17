@@ -8,8 +8,61 @@ if __name__ == '__main__':
             REFERENCE_TEXTS.append(f.read())
 
 
-def clean_tokenize_corpus(texts: list) -> list:
-    pass
+def clean_tokenize_corpus(texts):
+  reviews = []  # a list of texts to clean
+
+  paragraphs = []  # getting rid of the break signs between paragraphs
+  try:
+      for t in texts:
+          if type(t) is not str:
+              texts.remove(t)
+  except:
+      return []
+  try:
+      for t in texts:
+          try:
+              paragraph = t.split('<br /><br />')
+              paragraphs.append(paragraph)
+          except:
+              paragraphs = []
+
+      raw_reviews = []  #joining them back
+      for p in paragraphs:
+          try:
+              raw_review = ' '.join(p)
+              raw_reviews.append(raw_review)
+          except:
+              raw_reviews = []
+
+      for r_r in raw_reviews:
+          try:
+              review = r_r.split(' ')
+              reviews.append(review)  #getting a list of lists
+          except:
+              reviews = []
+
+      clean_reviews = []
+      for r in reviews:
+          clean_review = []
+          for w in r:
+              try:
+                  w = w.lower()
+                  word = ''  #clean word iterable
+              except:
+                  word = ''
+              try:
+                  for symbol in w:
+                      if symbol.isalpha():
+                          word += symbol
+                  if word != '':
+                      clean_review.append(word)
+              except:
+                  clean_review = []
+          clean_reviews.append(clean_review)
+  except:
+      clean_reviews = []
+  return clean_reviews
+
 
 
 class TfIdfCalculator:
