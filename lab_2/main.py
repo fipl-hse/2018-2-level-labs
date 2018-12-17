@@ -235,3 +235,4 @@ string = 'Thas is My Tezt, to Chekc Punctyation. Tahank yuo for watching? Bapita
 big_dict = calculate_frequences(REFERENCE_TEXT)
 str_final = spell_check_text(big_dict, (), string)
 # print(str_final)
+# 
