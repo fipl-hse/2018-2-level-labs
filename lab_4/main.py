@@ -8,8 +8,34 @@ if __name__ == '__main__':
             REFERENCE_TEXTS.append(f.read())
 
 
-def clean_tokenize_corpus(texts: list) -> list:
-    pass
+def clean_tokenize_corpus(texts):
+    list_of_not_words = [
+        '!', '@', '#', '$', '%', '^',
+        '&', '*', '(', ')', '-', '_',
+        '=', '+', '{', '}', '[', ']',
+        ',', '.', '/', "'", '"', '<',
+        '>', '~', '1', '2', '3', '4',
+        '5', '6', '7', '8', '9', '0',
+        '\n'
+    ]
+    if texts is not None:
+        clean_list = []
+        for sent in texts:
+            if isinstance(sent, str) and sent is not None:
+                sent = sent.lower()
+                sent = sent.replace('<br /><br />', ' ')
+                new_sents = ''
+                for symbol in sent:
+                    if symbol not in list_of_not_words:
+                        new_sents += symbol
+                new_sents_split = new_sents.split(' ')
+                for symb_word in new_sents_split:
+                    if symb_word == '':
+                        new_sents_split.remove(symb_word)
+                clean_list.append(new_sents_split)
+        return clean_list
+    else:
+        return []
 
 
 class TfIdfCalculator:
