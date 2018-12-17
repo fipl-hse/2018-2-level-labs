@@ -147,7 +147,32 @@ class TfIdfCalculator:
         self.idf_values = idf_dict
 
     def calculate(self):
-        pass
+        try:
+            no_duplicates_corpus = []
+            for text in self.corpus:
+                no_duplicates_text = []
+                try:
+                    for word in text:
+                        if word not in no_duplicates_text and word != '' and type(word) is str:
+                            no_duplicates_text.append(word)
+                except:
+                    no_duplicates_text = []
+                no_duplicates_corpus.append(no_duplicates_text)
+
+            tf_idf_list = []
+            #print(self.tf_values)
+            for text in self.tf_values:
+                tf_idf_review = {}
+                for token, v in text.items():
+                    try:
+                        tf_idf_review[token] = v * self.idf_values[token]
+                    except:
+                        pass
+                if tf_idf_review != {}:
+                    tf_idf_list.append(tf_idf_review)
+        except:
+            tf_idf_list = []
+        self.tf_idf_values = tf_idf_list
 
     def report_on(self, word, document_index):
         pass
