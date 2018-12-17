@@ -35,25 +35,23 @@ class TfIdfCalculator:
         self.corpus = corpus
         self.tf_values = []
         self.idf_values = {}
-        self.tf_idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        try:
-            for text in self.corpus:
-                only_words_from_text = []
-                tf_one_text = {}
-                try:
-                    for word in text:
-                        if isinstance(word, str) is True:
-                            only_words_from_text.append(word)
-                    for new_word in only_words_from_text:
-                        term_frequency = only_words_from_text.count(new_word) / len(only_words_from_text)
-                        tf_one_text[new_word] = term_frequency
-                    self.tf_values.append(tf_one_text)
-                except TypeError:
-                    continue
-        except TypeError:
-            pass
+        if self.corpus is None:
+            return []
+        for text in self.corpus:
+            if text is None:
+                continue
+            only_words_from_text = []
+            tf_one_text = {}
+            for word in text:
+                if isinstance(word, str):
+                    only_words_from_text.append(word)
+            for new_word in only_words_from_text:
+                term_frequency = only_words_from_text.count(new_word) / len(only_words_from_text)
+                tf_one_text[new_word] = term_frequency
+            self.tf_values.append(tf_one_text)
         return self.tf_values
 
     def calculate_idf(self):
