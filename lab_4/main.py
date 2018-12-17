@@ -28,6 +28,13 @@ def clean_tokenize_corpus(texts: list) -> list:
     return matrix_of_tokenized_texts
 
 
+def len_of_texts(corpus):
+    len_of = 0
+    for text in corpus:
+        if text:
+            len_of += 1
+    return len_of
+
 
 class TfIdfCalculator:
     def __init__(self, corpus):
@@ -38,22 +45,25 @@ class TfIdfCalculator:
 
     def calculate_tf(self):
         if self.corpus and isinstance(self.corpus, list):
+            len_of_text = 0
             for text in self.corpus:
                 if text:
                     dict_of_freq = {}
                     for word in text:
                         if isinstance(word, str):
+                            len_of_text += 1
                             if word not in dict_of_freq:
                                 dict_of_freq[word] = 1
                             else:
                                 new_value = dict_of_freq[word] + 1
                                 dict_of_freq[word] = new_value
                     for word, value in dict_of_freq.items():
-                        dict_of_freq[word] = value / len(text)
+                        dict_of_freq[word] = value / len_of_text
                     self.tf_values.append(dict_of_freq)
 
     def calculate_idf(self):
         if self.corpus and isinstance(self.corpus, list):
+            len_of_text = len_of_texts(self.corpus)
             for text in self.corpus:
                 if text:
                     for word in text:
@@ -64,7 +74,7 @@ class TfIdfCalculator:
                                     if one_text:
                                         if word in one_text:
                                             counter += 1
-                                self.idf_values[word] = math.log(4 / counter)
+                                self.idf_values[word] = math.log(len_of_text / counter)
 
     def calculate(self):
         if self.tf_values and self.idf_values:
@@ -78,7 +88,7 @@ class TfIdfCalculator:
                 self.tf_idf_values.append(current_dict_of_tf_idf)
 
     def report_on(self, word, document_index):
-        result = None
+        result = ()
         if self.tf_idf_values:
             if document_index <= len(self.tf_idf_values):
                 if isinstance(self.tf_idf_values[document_index], dict):
@@ -87,14 +97,14 @@ class TfIdfCalculator:
                         rating_of_tf_idf = {}
                         tf_idf = set(self.tf_idf_values[document_index].values())
                         tf_idf = sorted(list(tf_idf))
-                        print(tf_idf)
                         counter = -1
                         for value in tf_idf:
                             counter += 1
                             rating_of_tf_idf[value] = len(tf_idf) - counter
                         place = rating_of_tf_idf[value_of_tf_idf]
                         result = value_of_tf_idf, place
-                    return result
+        return result
+
 
 
 # scenario to check your work
