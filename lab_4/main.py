@@ -99,7 +99,21 @@ class TfIdfCalculator:
             return self.tf_idf_values
 
     def report_on(self, word, document_index):
-        pass
+        if self.tf_idf_values == [] or self.tf_idf_values is None or document_index >= len(self.tf_idf_values):
+            return ()
+        else:
+            list_of_values = []
+            for v in self.tf_idf_values[document_index].values():
+                list_of_values.append(v)
+            sort_v = sorted(list_of_values)
+            for k, i in self.tf_idf_values[document_index].items():
+                if k == word:
+                    first_one = i
+                    for i in sort_v:
+                        if i == v:
+                            second_one = sort_v.index(i)
+            result = [first_one, second_one]
+            return tuple(result)
 
 
 # scenario to check your work
