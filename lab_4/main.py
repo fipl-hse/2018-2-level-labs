@@ -94,10 +94,23 @@ class TfIdfCalculator:
                 final_vocub = {}
                 number_of_words_in_voc = 0
 
-
-
-    def calculate_idf(self):
-        pass
+    def calculate(self):
+        vocub = {}
+        num_of_sent = 0
+        for part in self.corpus:
+            if not isinstance(part,list):
+                    continue
+            num_of_sent += 1            
+            part = list(set(part))
+            for word in part:
+                if not isinstance(word,str):
+                    continue
+                if word in vocub:
+                    vocub[word]+=1
+                else:
+                    vocub.update({word:1})
+        for key,value in vocub.items():
+            self.tf_idf_values[key] =  'math.log(' + str(num_of_sent) + ' / ' + str(value) + ')'
 
     def calculate(self):
         pass
