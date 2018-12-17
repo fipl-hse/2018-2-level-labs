@@ -112,7 +112,7 @@ class TfIdfCalculator:
         for key,value in vocub.items():
             self.tf_idf_values[key] =  'math.log(' + str(num_of_sent) + ' / ' + str(value) + ')'
 
-    def calculate(self):
+    def calculate_idf(self):
         pass
 
     def report_on(self, word, document_index):
