@@ -12,12 +12,11 @@ def clean_tokenize_corpus(texts: list) -> list:
     try:
         res = []
         res1 = []
-        spam =['<br />']
-        spam1 = '''' " @ $ % ^ & * ( ) _ - = + , / { [ } ] ; : < > ' / # . ! ? \n'''
-        spam1 = spam1.split(' ')
-        spam = spam+spam1
-        spam.append('  ')
-
+        garbage = '<br />'
+        spam = '''' " @ $ % ^ & * ( ) _ = + , / { [ } ] ; : < > ' / # . ! ? \n'''
+        spam = spam.split(' ')
+        spam.append('-')
+        trash = '  '
         texts1 = texts.copy()
         texts = []
 
@@ -26,21 +25,31 @@ def clean_tokenize_corpus(texts: list) -> list:
                 texts.append(i)
 
         for text in texts:
+            if garbage in text:
+                text = text.replace(garbage, ' ')
             for i in spam:
                 if i in text:
                     text = text.replace(i, '')
-                if i.isupper():
-                    text = text.replace(i, i.lower())
+            if trash in text:
+                text = text.replace(trash, ' ')
             res1.append(text)
+        print(res1)
 
         for i in res1:
-            res2 = i.split(' ')
-            res.append(res2)
+            res2 = []
+            for k in i:
+                if k.isupper():
+                    s = k.lower()
+                    i = i.replace(k, s)
+            res2.append(i)
+            for l in res2:
+                l = l.split(' ')
+                res.append(l)
+
+        return res
 
     except AttributeError:
         return []
-
-    return res
 
 
 class TfIdfCalculator:
