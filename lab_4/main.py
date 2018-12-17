@@ -26,7 +26,7 @@ class TfIdfCalculator:
         pass
 
     def report_on(self, word, document_index):
-        pass
+        return a
 
 
 # scenario to check your work
