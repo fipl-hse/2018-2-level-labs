@@ -59,7 +59,7 @@ class TfIdfCalculator:
     tf_values = []
     tf_values_num = []
     idf_values = []
-    tf_idf_values = []
+    tf_idf_values = {}
     
     def __init__(self, corpus):
         self.corpus = corpus
