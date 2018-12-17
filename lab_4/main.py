@@ -27,13 +27,3 @@ class TfIdfCalculator:
 
     def report_on(self, word, document_index):
         pass
-
-
-# scenario to check your work
-test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
-tf_idf = TfIdfCalculator(test_texts)
-tf_idf.calculate_tf()
-tf_idf.calculate_idf()
-tf_idf.calculate()
-print(tf_idf.report_on('good', 0))
-print(tf_idf.report_on('and', 1))
