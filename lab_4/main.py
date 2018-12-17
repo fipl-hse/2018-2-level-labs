@@ -6,8 +6,7 @@ if __name__ == '__main__':
     for text in texts:
         with open(text, 'r') as f:
             REFERENCE_TEXTS.append(f.read())
-
-
+            
 def clean_tokenize_corpus(texts):
     list_of_not_words = [
         '!', '@', '#', '$', '%', '^',
@@ -35,14 +34,32 @@ def clean_tokenize_corpus(texts):
         return clean_list
     else:
         return []
-
-
+    
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        pass
+        if not isinstance(self.corpus, list) or self.corpus is None:
+            return []
+        else:
+            for piece in self.corpus:
+                if piece is not None:
+                    tfd = {}
+                    c = 0
+                    for elm in piece:
+                        if isinstance(elm, str):
+                            c += 1
+                    for word in piece:
+                        if isinstance(word, str):
+                            tf_n = piece.count(word) / c
+                            tfd_1 = {word : tf_n}
+                            tfd.update(tfd_1)
+                    self.tf_values.append(tfd)
+            return self.tf_values
 
     def calculate_idf(self):
         pass
