@@ -55,10 +55,38 @@ class TfIdfCalculator:
         return self.tf_values
 
     def calculate_idf(self):
-        pass
+        corpus_word_list = []
+        clear_corpus = []
+        if self.corpus is None:
+            return {}
+        for text in self.corpus:
+            if text is not None:
+                clear_corpus.append(text)
+                for word in text:
+                    if isinstance(word, str) and word not in corpus_word_list:
+                        corpus_word_list.append(word)
+        for word_to_count in corpus_word_list:
+            text_counter = 0
+            for text in clear_corpus:
+                if word_to_count is not None and word_to_count in text:
+                    text_counter += 1
+            inversed_document_frequency = math.log(len(clear_corpus) / text_counter)
+            self.idf_values[word_to_count] = inversed_document_frequency
+        return self.idf_values
 
     def calculate(self):
-        pass
+        if self.tf_values is None:
+            return []
+        for text_tf in self.tf_values:
+            tf_one_text = {}
+            for word in text_tf.keys():
+                if word in self.idf_values:
+                    word_idf = self.idf_values[word]
+                    word_tf_idf = text_tf[word] * self.idf_values[word]
+                    tf_one_text[word] = word_tf_idf
+            if tf_one_text != {}:
+                self.tf_idf_values.append(tf_one_text)
+        return self.tf_idf_values
 
     def report_on(self, word, document_index):
         pass
