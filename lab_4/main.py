@@ -102,7 +102,7 @@ class TfIdfCalculator:
                             counter += 1
                             rating_of_tf_idf[value] = len(tf_idf) - counter
                         place = rating_of_tf_idf[value_of_tf_idf]
-                        result = value_of_tf_idf, place
+                        result = value_of_tf_idf, place - 1
         return result
 
 
