@@ -110,7 +110,7 @@ class TfIdfCalculator:
                 else:
                     vocub.update({word:1})
         for key,value in vocub.items():
-            self.tf_idf_values[key] =  'math.log(' + str(num_of_sent) + ' / ' + str(value) + ')'
+            self.tf_idf_values[key] =  math.log(num_of_sent/value)
 
     def calculate_idf(self):
         pass
