@@ -32,9 +32,9 @@ def clean_tokenize_corpus(texts: list) -> list:
                     continue
                 else:
                     ex_text += ' '
-        n_list = []
         n_text = ex_text.split()
         result = []
+    n_list = []
         for elem in n_text:
             if elem == 'br' or elem == 'n':
                 continue
