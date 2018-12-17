@@ -62,10 +62,41 @@ class TfIdfCalculator:
             return self.tf_values
 
     def calculate_idf(self):
-        pass
+        if self.corpus is None:
+            return {}
+        else:
+            list_of_words = []
+            for piece in self.corpus:
+                if piece:
+                    list_of_words.append(piece)
+            full_wrd = []
+            for elem in list_of_words:
+                for word in elem:
+                    if isinstance(word, str):
+                        full_wrd.append(word)
+            for word in full_wrd:
+                f = 0
+                if word in self.idf_values:
+                    continue
+                for current_text in list_of_words:
+                    if word in current_text:
+                        f += 1
+                        continue
+                self.idf_values[word] = math.log(len(list_of_words) / f)
+            return self.idf_values
 
     def calculate(self):
-        pass
+        if self.tf_values is None or self.idf_values is None:
+            return {}
+        elif self.tf_values == [] or self.idf_values == {}:
+            return {}
+        else:
+            for v in self.tf_values:
+                tf_idf_value_d = {}
+                for word in v:
+                    tf_idf_value_d[word] = v[word] * self.idf_values[word]
+                self.tf_idf_values.append(tf_idf_value_d)
+            return self.tf_idf_values
 
     def report_on(self, word, document_index):
         pass
