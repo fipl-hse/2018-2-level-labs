@@ -54,19 +54,125 @@ def clean_tokenize_corpus(texts: list) -> list:
 
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        pass
+        try:
+            corpus1 = self.corpus.copy()
+            self.corpus = []
+            for i in corpus1:
+                if type(i) == list:
+                    self.corpus.append(i)
+
+            corpus2 = self.corpus.copy()
+            self.corpus = []
+            for i in corpus2:
+                c = i.copy()
+                i = []
+                for k in c:
+                    if type(k) == str:
+                        i.append(k)
+                self.corpus.append(i)
+
+            res = []
+            for text in self.corpus:
+                dct = {}
+                nk = len(text)
+                for w in text:
+                    if w in dct.keys():
+                        k = dct[w]
+                        dct[w] = k + 1
+                    else:
+                        dct[w] = 1
+                for w, nt in dct.items():
+                    tf = nt / nk
+                    dct[w] = tf
+                res.append(dct)
+            self.tf_values = res
+            return res
+        except AttributeError:
+            return []
 
     def calculate_idf(self):
-        pass
+        try:
+            corpus1 = self.corpus.copy()
+            self.corpus = []
+            for i in corpus1:
+                if type(i) == list:
+                    self.corpus.append(i)
+
+            corpus2 = self.corpus.copy()
+            self.corpus = []
+            for i in corpus2:
+                c = i.copy()
+                i = []
+                for k in c:
+                    if type(k) == str:
+                        i.append(k)
+                self.corpus.append(i)
+                
+            d = len(self.corpus)
+            dct = {}
+            add = []
+
+            for text in self.corpus:
+                for i in text:
+                    add.append(i)
+            add = set(add)
+
+            for w in add:
+                for text in self.corpus:
+                    if w in text and w in dct.keys():
+                        k = dct[w]
+                        dct[w] = k + 1
+                    elif w in text:
+                        dct[w] = 1
+
+            for k, v in dct.items():
+                d1 = d / v
+                v = math.log(d1)
+                dct[k] = v
+            self.idf_values = dct
+
+            return dct
+        except AttributeError:
+            return {}
+
 
     def calculate(self):
-        pass
+        try:
+            for i in self.tf_values:
+                dct = {}
+                for k, v in i.items():
+                    tf = v
+                    idf = self.idf_values.get(k)
+                    tf_idf = tf * idf
+                    dct[k] = tf_idf
+                self.tf_idf_values.append(dct)
+            return self.tf_idf_values
+        except TypeError:
+            return []
 
     def report_on(self, word, document_index):
-        pass
+        try:
+            dct = self.tf_idf_values[document_index]
+            org = sorted(dct.items(), key=lambda x: x[1])
+            org.reverse()
+            print(org)
+            for i in org:
+                for w in i:
+                    if w == word:
+                        n = org.index(i)
+                        res = (i[1], n)
+
+            return res
+        except IndexError:
+            return ()
+        except TypeError:
+            return ()
 
 
 # scenario to check your work
