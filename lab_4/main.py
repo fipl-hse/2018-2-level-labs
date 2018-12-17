@@ -74,6 +74,8 @@ class TfIdfCalculator:
                 if not isinstance(part,list):
                     continue
                 for word in part:
+                    if not isinstance(word,str):
+                        continue
                     number_of_words_in_voc += 1
                     if word in vocub:
                         vocub[word]+=1
