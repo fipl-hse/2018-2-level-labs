@@ -108,6 +108,10 @@ class TfIdfCalculator:
     def calculate(self):
         if self.corpus == None:
             return []
+        if type(self.tf_values) != list:
+            return []
+        if type(self.idf_values) != dict or self.idf_values == {}:
+            return []
         for dict_tf in self.tf_values:
             dict_of_tf_idf = dict()
             for word in dict_tf:
@@ -119,6 +123,10 @@ class TfIdfCalculator:
 
     def report_on(self, word, document_index):
         if document_index > (len(self.corpus) - 1):
+            return ()
+        if not isinstance(self.tf_idf_values, list):
+            return ()
+        if self.tf_idf_values == []:
             return ()
         report_on_word = list()
         text = self.corpus[document_index]
