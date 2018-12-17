@@ -14,10 +14,29 @@ def clean_tokenize_corpus(texts: list) -> list:
 
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        pass
+        try:
+            for text in self.corpus:
+                only_words_from_text = []
+                tf_one_text = {}
+                try:
+                    for word in text:
+                        if isinstance(word, str) is True:
+                            only_words_from_text.append(word)
+                    for new_word in only_words_from_text:
+                        term_frequency = only_words_from_text.count(new_word) / len(only_words_from_text)
+                        tf_one_text[new_word] = term_frequency
+                    self.tf_values.append(tf_one_text)
+                except TypeError:
+                    continue
+        except TypeError:
+            pass
+        return self.tf_values
 
     def calculate_idf(self):
         pass
