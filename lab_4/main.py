@@ -53,7 +53,6 @@ class TfIdfCalculator:
         self.tf_values = []
         self.idf_values = {}
         self.tf_idf_values = []
-        #self.file = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
 
     def calculate_tf(self):
         pass
