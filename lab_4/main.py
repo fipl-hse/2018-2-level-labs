@@ -24,7 +24,7 @@ def clean_tokenize_corpus(texts: list) -> list:
         if sentence == str(sentence) and sentence is not None:
             new_text = ''
             sentence = sentence.lower()
-            sentence = sentence.replace('<br /><br />', ' ')
+            sentence = sentence.replace('<br />', ' ')
             for element in sentence:
                 if element not in list_of_marks:
                     new_text += element
@@ -37,19 +37,68 @@ def clean_tokenize_corpus(texts: list) -> list:
     return new_list
 
 
-
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        pass
+        if self.corpus is None:
+            return self.tf_values
+        for sentence in self.corpus:
+            if sentence is not None:
+                counter = 0
+                freq_dict = {}
+                for element in sentence:
+                    if type(element) is str:
+                        counter += 1
+                for word in sentence:
+                    if type(word) is str:
+                        tf = sentence.count(word) / counter
+                        new_dict = {word: tf}
+                        freq_dict.update(new_dict)
+                self.tf_values.append(freq_dict)
+        return self.tf_values
 
     def calculate_idf(self):
-        pass
+        if self.corpus is None:
+            return self.idf_values
+        count_sentences = 0
+        all_words = []
+        for sentence in self.corpus:
+            if sentence is not None:
+                count_sentences += 1
+                for word in sentence:
+                    if type(word) is str:
+                        all_words.append(word)
+        all_words = list(set(all_words))
+        for element in all_words:
+            count_word = 0
+            for text in self.corpus:
+                if text is not None:
+                    if element in text:
+                        count_word += 1
+            idf = math.log(count_sentences / count_word)
+            little_dict = {element: idf}
+            self.idf_values.update(little_dict)
+        return self.idf_values
 
     def calculate(self):
-        pass
+        if self.tf_values == [] or self.idf_values == {}:
+            return  self.tf_idf_values
+        if self.tf_values is None or self.idf_values is None:
+            return self.tf_idf_values
+        for the_dict in self.tf_values:
+            in_dict = {}
+            for key, value in the_dict.items():
+                idf_value = self.idf_values[key]
+                calc = value * idf_value
+                new_dict = {key: calc}
+                in_dict.update(new_dict)
+            self.tf_idf_values.append(in_dict)
+        return self.tf_idf_values
 
     def report_on(self, word, document_index):
         pass
