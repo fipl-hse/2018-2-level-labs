@@ -15,20 +15,17 @@ def clean_tokenize_corpus(texts: list) -> list:
             continue
         ex_text = ''
         for ind in range(0, len(el)-1):
-            if el[ind].isalpha() or el[ind] is ' ' or "'":
+            if el[ind].isalpha() or el[ind] == ' ' or el [ind] == "'":
                 ex_text += el[ind].lower()
-                continue
             if el[index] in ['.', ',', '!', '?']:
                 if el[index-1].isalpha() and el[index+1].isalpha():
                     continue
                 if el[index-1].isalpha() and el[index+1] is ' ':
                     ex_text += ' '
-                    continue
             if el[index] in '/':
                 if el[index-1].isalpha() and el[index+1].isalpha():
                     ex_text += ' '
-                    continue
-            if el[index] is '"' or el[index] is '<' or el[index] is '>':
+            if el[index] == '"' or el[index] == '<' or el[index] == '>':
                 if el[index-1].isalpha() and el[index+1].isalpha():
                     continue
                 else:
