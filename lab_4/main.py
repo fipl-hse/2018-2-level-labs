@@ -38,7 +38,7 @@ class TfIdfCalculator:
                 cur_dict = {}
                 sum = 0
                 len = 0
-                if isinstance(line, list) and line is not None and line is not []:
+                if isinstance(line, list) and line is not None and line != []:
                     for word in line:
                         if isinstance(word, str):
                             len += 1
@@ -59,13 +59,13 @@ class TfIdfCalculator:
                 if isinstance(line, list):
                     len += 1
             for line in self.corpus:
-                if isinstance(line, list) and line is not None and line is not []:
+                if isinstance(line, list) and line is not None and line != []:
                     for word in line:
                         if isinstance(word, str) and word is not None:
                             sum = 0
                             if self.idf_values.get(word) is None:
                                 for _line in self.corpus:
-                                    if isinstance(_line, list) and _line is not None and _line is not []:
+                                    if isinstance(_line, list) and _line is not None and _line != []:
                                         for _word in _line:
                                             if word is _word:
                                                 sum += 1
@@ -73,8 +73,8 @@ class TfIdfCalculator:
                                 self.idf_values[word] = math.log(len/sum)
 
     def calculate(self):
-        if self.tf_values is not None and isinstance(self.tf_values, list) and self.tf_values is not []:
-            if self.idf_values is not None and isinstance(self.idf_values, dict) and self.idf_values is not {}:
+        if self.tf_values is not None and isinstance(self.tf_values, list) and self.tf_values != []:
+            if self.idf_values is not None and isinstance(self.idf_values, dict) and self.idf_values != {}:
                 for line in self.tf_values:
                     cur_dict = {}
                     for word in line:
@@ -83,7 +83,7 @@ class TfIdfCalculator:
                     self.tf_idf_values.append(cur_dict)
 
     def report_on(self, word, document_index):
-        if self.tf_idf_values is not None and isinstance(self.tf_idf_values, list) and self.tf_idf_values is not []:
+        if self.tf_idf_values is not None and isinstance(self.tf_idf_values, list) and self.tf_idf_values == []:
             if document_index <= len(self.tf_idf_values):
                 value = self.tf_idf_values[document_index].get(word)
                 position = 0
