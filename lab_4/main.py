@@ -78,7 +78,8 @@ class TfIdfCalculator:
                 for line in self.tf_values:
                     cur_dict = {}
                     for word in line:
-                        cur_dict[word] = line.get(word)*self.idf_values.get(word)
+                        if not line.get(word) is None and not self.idf_values.get(word) is None: 
+                            cur_dict[word] = line.get(word)*self.idf_values.get(word)
                     self.tf_idf_values.append(cur_dict)
 
     def report_on(self, word, document_index):
@@ -92,3 +93,13 @@ class TfIdfCalculator:
                             position += 1
                 return value, position
         return ()
+
+    
+    # scenario to check your work
+#test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
+#tf_idf = TfIdfCalculator(test_texts)
+#tf_idf.calculate_tf()
+#tf_idf.calculate_idf()
+#tf_idf.calculate()
+#print(tf_idf.report_on('good', 0))
+#print(tf_idf.report_on('and', 1))
