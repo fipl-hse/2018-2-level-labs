@@ -25,6 +25,8 @@ def clean_tokenize_corpus(texts):
         else:
             new_text = ''
             sentences = list()
+            extra_element = '<br />'
+            text = text.replce(extra_element, ' ')
             for element in text:
                 try:
                     for e in element:
@@ -49,14 +51,59 @@ def clean_tokenize_corpus(texts):
 
 
 class TfIdfCalculator:
-    def __init__(self, corpus):
-        pass
+        def __init__(self, corpus):
+        self.corpus = corpus
+        self.tf_values = list() #list of dicts
+        self.idf_values = dict()
+        self.tf_idf_values = list()
 
     def calculate_tf(self):
-        pass
+        if not isinstance(self.corpus, list):
+            return []
+        else:
+            for text in self.corpus:
+                if not isinstance(text, list):
+                    continue
+                dict_of_tf = dict()
+                len_of_corp = len(text)
+                for word in text:
+                    if type(word) != str:
+                        len_of_corp -= 1
+                for word in text:
+                    if not isinstance(word, str):
+                        continue
+                    freq = 0
+                    for word2 in text:
+                        if word2 == word:
+                            freq += 1
+                        else:
+                            continue
+                    tf_of_word = freq / len_of_corp
+                    dict_of_tf[word] = tf_of_word
+                self.tf_values.append(dict_of_tf)
 
     def calculate_idf(self):
-        pass
+        if self.corpus == None:
+            return {}
+        num_of_texts = len(self.corpus)
+        for text in self.corpus:
+            if type(text) != list:
+                num_of_texts -= 1
+        for text in self.corpus:
+            if not isinstance(text, list):
+                continue
+            for word in text:
+                if not isinstance(word, str):
+                    continue
+                num_of_word = 0
+                for text2 in self.corpus:
+                    if not isinstance(text2, list):
+                        continue
+                    if word in text2:
+                        num_of_word += 1
+                idf_of_word = math.log(num_of_texts / num_of_word)
+                self.idf_values[word] = idf_of_word
+        
 
     def calculate(self):
         pass
