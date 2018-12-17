@@ -45,9 +45,9 @@ class TfIdfCalculator:
 
     def calculate_tf(self):
         if self.corpus and isinstance(self.corpus, list):
-            len_of_text = 0
             for text in self.corpus:
                 if text:
+                    len_of_text = 0
                     dict_of_freq = {}
                     for word in text:
                         if isinstance(word, str):
