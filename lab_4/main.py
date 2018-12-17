@@ -101,8 +101,20 @@ class TfIdfCalculator:
         return self.tf_idf_values
 
     def report_on(self, word, document_index):
-        pass
-
+        if self.tf_idf_values == [] or self.tf_idf_values is None or document_index >= len(self.tf_idf_values):
+            return ()
+        values = []
+        for value in self.tf_idf_values[document_index].values():
+            values.append(value)
+        sorted_val = sorted(values)
+        for key, index in self.tf_idf_values[document_index].items():
+            if key == word:
+                first = index
+                for i in sorted_val:
+                    if i == value:
+                        second = sorted_val.index(i)
+        final = [first, second]
+        return tuple(final)
 
 # scenario to check your work
 test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
