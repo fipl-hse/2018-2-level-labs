@@ -2,7 +2,6 @@
 Labour work #2
  Check spelling of words in the given  text
 """
-
 from lab_1.main import calculate_frequences
 
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -12,7 +11,6 @@ REFERENCE_TEXT = ''
 if __name__ == '__main__':
     with open('very_big_reference_text.txt', 'r') as f:
         REFERENCE_TEXT = f.read()
-
 
 def propose_candidates(word: str, max_depths_permutations: int = 1) -> list:
     # Step 0. Test processing.
@@ -163,74 +161,22 @@ def choose_best(frequencies: dict, candidates: tuple) -> str:
 def spell_check_word(frequencies: dict, as_is_words: tuple, word: str) -> str:
     if word is None:
         return 'UNK'
->>>>>>> upstream/master
     if as_is_words is None:
         pass
     else:
         if word.upper() in as_is_words:
             return word
-<<<<<<< HEAD
-    if word in frequencies:
-        return word
-    first = propose_candidates(word)
-    true_candidates = keep_known(tuple(first), frequencies)
-=======
     if frequencies is None:
         return 'UNK'
     if word in frequencies:
         return word
     first_ones = propose_candidates(word)
     true_candidates = keep_known(tuple(first_ones), frequencies)  # -as_is_words
->>>>>>> upstream/master
     final_candidate = choose_best(frequencies, tuple(true_candidates))
     return final_candidate
 
 
 def spell_check_text(frequencies: dict, as_is_words: tuple, text: str) -> str:
-<<<<<<< HEAD
-    symbols = ['.', ',', '!', '?']
-    new_text = ''
-    for symbol in text:
-        if symbol in symbols:
-            new_text = new_text + ' ' + symbol
-        else:
-            new_text += symbol
-    new_text = new_text.split()
-
-    correct_list = []
-    for symbol in new_text:
-        if symbol in symbols:
-            correct_list.append(symbol)
-            continue
-        if symbol in frequencies:
-            correct_list.append(symbol)
-            continue
-        if symbol[0].isupper():
-            symbol_lower = symbol.lower()
-        if symbol_lower in frequencies:
-            correct_list.append(symbol)
-            continue
-        correct_word = spell_check_word(frequencies, as_is_words, symbol_lower)
-        for letter in correct_word:
-            symbol_lower = letter.upper() + correct_word[1:]
-            correct_list.append(symbol_lower)
-            break
-        else:
-            correct_word = spell_check_word(frequencies, as_is_words, symbol)
-            correct_list.append(correct_word)
-
-    str_text = ''
-    for symbol in correct_list:
-        str_text = str_text + symbol + ' '
-
-    final_text_str = ''
-    for symbol in range(len(str_text)):
-        if str_text[symbol] in symbols:
-            final_text_str = final_text_str[:-1] + str_text[symbol]
-            continue
-    final_text_str += str_text[symbol]
-    return final_text_str
-=======
     symbols_to_save = ['.', ',', '!', '?']
 
     # Step 1. Making our text possible to split with punctuation symbols.
