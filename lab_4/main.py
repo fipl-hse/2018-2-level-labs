@@ -1,4 +1,5 @@
 import math
+import csv
 
 undesired = list("1234567890/?<>,.()-+=&*^:;%$#@!'""")
 REFERENCE_TEXTS = []
@@ -110,11 +111,43 @@ class TfIdfCalculator:
                 val.remove(maxi)
             return (self.tf_idf_values[document_index][word], ord_list.index(self.tf_idf_values[document_index][word]))
 
+    def dump_report_csv(self):
+        table = []
+        flst = ['TF_values_' + text for text in texts]
+        flst1 = ['TF_IDF_values_' + text for text in texts]
+        flst.insert(0, 'word')
+        flst1.insert(0, 'IDF_values')
+        table_head = ','.join(flst + flst1)
+        table.append(table_head)
+        for word in self.idf_values.keys():
+            TFs = []
+            TF_IDFs = []
+            for i in range(len(self.tf_values)):
+                if word in self.tf_values[i].keys():
+                    TFs.append(str(self.tf_values[i][word]))
+                else:
+                    TFs.append('0')
+            for i in range(len(self.tf_idf_values)):
+                if word in self.tf_idf_values[i].keys():
+                    TF_IDFs.append(str(self.tf_idf_values[i][word]))
+                else:
+                    TF_IDFs.append('0')
+            TFs.insert(0, word)
+            TF_IDFs.insert(0, (str(self.idf_values[word])))
+            line = TFs + TF_IDFs
+            lin = ','.join(line)
+            table.append(lin)
+        with open('report.csv', "w", newline='') as csv_file:
+             writer = csv.writer(csv_file, delimiter=',')
+             for lin in table:
+                 writer.writerow(lin)
+
+
 # scenario to check your work
-#corpus = clean_tokenize_corpus(REFERENCE_TEXTS)
-#tf_idf = TfIdfCalculator(corpus)
-#tf_idf.calculate_tf()
-#tf_idf.calculate_idf()
-#tf_idf.calculate()
-#print(tf_idf.report_on('good', 0))
-#print(tf_idf.report_on('and', 1))
+corpus = clean_tokenize_corpus(REFERENCE_TEXTS)
+tf_idf = TfIdfCalculator(corpus)
+tf_idf.calculate_tf()
+tf_idf.calculate_idf()
+tf_idf.calculate()
+print(tf_idf.report_on('good', 0))
+print(tf_idf.report_on('and', 1))
