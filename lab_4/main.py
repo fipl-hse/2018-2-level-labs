@@ -38,7 +38,7 @@ def clean_tokenize_corpus(texts: list) -> list:
         n_text = v_text.split()
         result = []
         for j in n_text:
-            if j == 'br' or 'n':
+            if j == 'br' or j == 'n':
                 continue
             else:
                 result.append(j)
