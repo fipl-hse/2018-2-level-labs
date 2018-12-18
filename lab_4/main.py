@@ -92,7 +92,7 @@ class TfIdfCalculator:
             self.idf_values[word] = math.log(len(n_list) / freq)
 
     def calculate(self):
-        if self.idf_values == {} or None or self.tf_values == [] or None:
+        if self.idf_values == {} or self.idf_values == None or self.tf_values == [] or self.tf_values == None:
             return []
         for dict_tf in self.tf_values:
             tf_idf = {}
