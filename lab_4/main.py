@@ -7,7 +7,6 @@ if __name__ == '__main__':
         with open(text, 'r') as f:
             REFERENCE_TEXTS.append(f.read())
 
-
 def clean_tokenize_corpus(texts: list) -> list:
     pass
 
