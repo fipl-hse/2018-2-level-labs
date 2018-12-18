@@ -82,7 +82,11 @@ class TfIdfCalculator:
 
     def calculate(self):
         if self.tf_values == [] or self.idf_values == {} or self.tf_values is None or self.idf_values is None:
+<<<<<<< HEAD
             self.tf_idf_values = []
+=======
+           return
+>>>>>>> abc32a7f5811ba96b202ec2c3685746048e75070
         else:
             for i in range(len(self.tf_values)):
                 dic = {}
