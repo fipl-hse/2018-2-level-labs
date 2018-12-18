@@ -95,7 +95,7 @@ class TfIdfCalculator:
 
 
     def calculate_idf(self):
-                try:
+        try:
             num_of_docs = 0
             for text in self.corpus:
                 if type(text) is list and text != []:
@@ -175,6 +175,7 @@ class TfIdfCalculator:
         self.tf_idf_values = tf_idf_list
 
     def report_on(self, word, document_index):
+        
         no_duplicates_corpus = []
         if document_index < len(self.corpus):
             if word not in self.corpus[document_index]:
@@ -189,35 +190,24 @@ class TfIdfCalculator:
                 no_duplicates_text = []
             no_duplicates_corpus.append(no_duplicates_text)
 
-        freqs = []
-        freqs_list_all = []
-        for ind, text in enumerate(no_duplicates_corpus):
-            freqs_text = {}
-            freqs_list = []
-            for token in text:
-                i = 0
-                while i < len(self.corpus):
-                    freq = self.corpus[ind].count(token)
-                    i += 1
-                freqs_text[token] = freq
-                if freq not in freqs_list:
-                    freqs_list.append(freq)
-            freqs.append(freqs_text)
-            freqs_list_all.append(freqs_list)
-
+        tf_idf_list = []
         big_helper = []
-        for text in freqs_list_all:
+        for text in self.tf_idf_values:
+            tf_idf_individual = []
+            for value in text.values():
+                tf_idf_individual.append(value)
             helper_d = {}
-            text.sort()
+            tf_idf_individual.sort()
+            tf_idf_list.append(tf_idf_individual)
             c = len(text)
             while c != 0:
-                for i in text:
+                for i in tf_idf_individual:
                     helper_d[i] = c - 1
                     c -= 1
             big_helper.append(helper_d)
 
         ratings = []
-        for ind, text in enumerate(freqs):
+        for ind, text in enumerate(self.tf_idf_values):
             rating = {}
             for el, v in text.items():
                 rating[el] = big_helper[ind][v]
@@ -227,19 +217,17 @@ class TfIdfCalculator:
             tf_idf = self.tf_idf_values[document_index][word]
         except:
             tf_idf = None
-        # print(ratings[document_index])
         try:
             rate = ratings[document_index][word]
         except:
             rate = None
-        # print(rate)
         if tf_idf != None and rate != None:
             report = (tf_idf, rate)
         else:
             report = ()
 
-
         return report
+
 
 
 # scenario to check your work
