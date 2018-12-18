@@ -21,12 +21,12 @@ def clean_tokenize_corpus(texts: list) -> list:
             if i[index].isalpha():
                 v_text += i[index].lower()
             if i[index] in punct:
-                if i[index - 1].isalpha() and i[index + 1].isalpha():
+                if el[ind-1].isalpha() and el[ind+1].isalpha():
                     continue
-            if i[index] is ' ' or i[index] is "'":
-                v_text += i[index]
-                if i[index - 1].isalpha() and i[index + 1] is ' ':
-                    v_text += ' '
+                if el[ind-1].isalpha() and el[ind+1] is ' ':
+                    ex_text += ' '
+            if el[ind] is ' ' or el [ind] is "'":
+                ex_text += el[ind]
             if i[index] in '/':
                 if i[index - 1].isalpha() and i[index + 1].isalpha():
                     v_text += ' '
