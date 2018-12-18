@@ -82,7 +82,7 @@ class TfIdfCalculator:
 
     def calculate(self):
         if self.tf_values == [] or self.idf_values == {} or self.tf_values is None or self.idf_values is None:
-           return
+           return []
         else:
             for i in range(len(self.tf_values)):
                 dic = {}
@@ -94,7 +94,7 @@ class TfIdfCalculator:
     def report_on(self, word, document_index):
         if self.tf_idf_values is None:
             return ()
-        elif self.tf_idf_values == []:
+        elif self.tf_idf_values is []:
             return ()
         elif document_index >= len(self.tf_idf_values):
             return ()
