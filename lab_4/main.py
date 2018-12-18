@@ -106,8 +106,6 @@ class TfIdfCalculator:
                 val.remove(maxi)
             return (self.tf_idf_values[document_index][word], ord_list.index(self.tf_idf_values[document_index][word]))
 
-        print(report_on('this', 0))
-
 # scenario to check your work
 #corpus = clean_tokenize_corpus(REFERENCE_TEXTS)
 #tf_idf = TfIdfCalculator(corpus)
