@@ -11,26 +11,41 @@ if __name__ == '__main__':
 def clean_tokenize_corpus(texts: list) -> list:
     if not texts or not isinstance(texts, list):
         return []
-    token_corpus = []
+    marks = [
+        '.', ',', ':', '"', '`', '[', ']',
+        '?', '!', '@', '&', "'", '-',
+        '$', '^', '*', '(', ')', '=',
+        '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\n'
+        ]
+    words = []
     for text in texts:
-        if text and isinstance(text, str):
-            while '<br />' in text:
-                text = text.replace("<br />", " ")
-            token = []
-            words = text.split(" ")
-            for word in words:
-                new_word = ""
-                if not word.isalpha():
-                    word = word.lower()
-                    for i in word:
-                        if i.isalpha():
-                            new_word += i
-                    if new_word:
-                        token.append(new_word)
-                else:
-                    token.append(word)
-            token_corpus += token
-    return token_corpus
+        if not isinstance(text, str):
+            continue
+        else:
+            not_needed = '<br />'
+            text = text.replace(not_needed, ' ')
+            new_text = ''
+            sentences = []
+            for element in text:
+                try:
+                    for e in element:
+                        if e not in marks:
+                            try:
+                                new_text += e
+                                continue
+                            except IndexError:
+                                pass
+                        if e in marks:
+                            continue
+                except IndexError:
+                    pass
+            new_text = new_text.lower()
+            sentences.append(new_text)
+            for sentence in sentences:
+                split = sentence.split()
+                words.append(split)
+    return words
 
 
 class TfIdfCalculator:
@@ -47,21 +62,14 @@ class TfIdfCalculator:
             if not isinstance(text, list):
                 continue
             tf_dict = {}
-            corpus_length = len(text)
-            for word in text:
-                if type(word) != str:
-                    corpus_length -= 1
-                if not isinstance(word, str):
-                    continue
-                freq = 0
-                for word2 in text:
-                    if word2 == word:
-                        freq += 1
-                    else:
-                        continue
-                tf_dict[word] = freq / corpus_length
+            new_text = []
+            for element in text:
+                if isinstance(element, str):
+                    new_text.append(element)
+            for word in new_text:
+                tf_value = new_text.count(word)
+                tf_dict[word] = tf_value / len(new_text)
             self.tf_values.append(tf_dict)
-
 
     def calculate_idf(self):
         if self.corpus is None:
