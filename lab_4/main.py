@@ -46,67 +46,71 @@ class TfIdfCalculator:
 
     def calculate_tf(self):
         if self.corpus is None:
-           self.tf_values = []
+            self.tf_values = []
         else:
-           self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
-           for text in self.corpus:
-               text = list(filter(lambda x: type(x) == str, text))
-               dic = {}
-               for i in range(len(text)):
-                   num = 0
-                   for c in text:
-                       if text[i] == c:
-                          num += 1
-                   dic[text[i]] = num / len(text)
-               self.tf_values.append(dic)
+            self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
+            for text in self.corpus:
+                text = list(filter(lambda x: type(x) == str, text))
+                dic = {}
+                for i in range(len(text)):
+                    num = 0
+                    for c in text:
+                        if text[i] == c:
+                            num += 1
+                    dic[text[i]] = num / len(text)
+                self.tf_values.append(dic)
         return self.tf_values
 
     def calculate_idf(self):
         if self.corpus is None:
-           self.tf_values = []
+            self.tf_values = []
         else:
-           all_words = []
-           self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
-           for i in range(len(self.corpus)):
-               self.corpus[i] = list(filter(lambda x: type(x) == str, self.corpus[i]))
-               for word in self.corpus[i]:
-                   if word not in all_words:
-                       all_words.append(word)
-               for word in all_words:
-                   num = 0
-                   for i in range(len(self.corpus)):
-                       if word in self.corpus[i]:
-                           num += 1
-                   self.idf_values[word] = math.log(len(self.corpus) / num)
+            all_words = []
+            self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
+            for i in range(len(self.corpus)):
+                self.corpus[i] = list(filter(lambda x: type(x) == str, self.corpus[i]))
+                for word in self.corpus[i]:
+                    if word not in all_words:
+                        all_words.append(word)
+                for word in all_words:
+                    num = 0
+                    for i in range(len(self.corpus)):
+                        if word in self.corpus[i]:
+                            num += 1
+                    self.idf_values[word] = math.log(len(self.corpus) / num)
         return self.idf_values
 
     def calculate(self):
         if self.tf_values == [] or self.idf_values == {} or self.tf_values is None or self.idf_values is None:
-           self.tf_idf_values = []
+            self.tf_idf_values = []
         else:
-           for i in range(len(self.tf_values)):
-               dic = {}
-               for word in self.tf_values[i].keys():
-                   dic[word] = self.tf_values[i][word] * self.idf_values[word]
-               self.tf_idf_values.append(dic)
+            for i in range(len(self.tf_values)):
+                dic = {}
+                for k,v in self.tf_values[i].items():
+                    dic[k] = v * self.idf_values[k]
+                self.tf_idf_values.append(dic)
         return self.tf_idf_values
 
     def report_on(self, word, document_index):
-        val = []
-        for v in self.tf_idf_values[document_index].values():
-            if v not in val:
-                val.append(v)
-        ord_list = []
-        while len(val) != 0:
-            maxi = max(val)
-            ord_list.append(maxi)
-            val.remove(maxi)
-        return tuple(self.tf_idf_values[document_index][word], ord_list.index(self.tf_idf_values[document_index][word]))
+        if document_index >= len(self.tf_idf_values) or self.tf_idf_values == [] or self.tf_idf_values is None:
+            return ()
+        else:
+            val = []
+            for v in self.tf_idf_values[document_index].values():
+                if v not in val:
+                    val.append(v)
+            ord_list = []
+            while len(val) != 0:
+                maxi = max(val)
+                ord_list.append(maxi)
+                val.remove(maxi)
+            return (self.tf_idf_values[document_index][word], ord_list.index(self.tf_idf_values[document_index][word]))
 
+        print(report_on('this', 0))
 
 # scenario to check your work
-#test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
-#tf_idf = TfIdfCalculator(test_texts)
+#corpus = clean_tokenize_corpus(REFERENCE_TEXTS)
+#tf_idf = TfIdfCalculator(corpus)
 #tf_idf.calculate_tf()
 #tf_idf.calculate_idf()
 #tf_idf.calculate()
