@@ -43,6 +43,7 @@ class TfIdfCalculator:
         self.tf_values = []
         self.idf_values = {}
         self.tf_idf_values = []
+        self.file_names = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
 
     def calculate_tf(self):
         if self.corpus is None:
@@ -115,6 +116,23 @@ class TfIdfCalculator:
                         second = sorted_val.index(i)
         final = [first, second]
         return tuple(final)
+    
+    def dump_report_csv(self):
+        excel_file = open('report.csv', 'w')
+        first_line = 'word,'
+        for text in self.file_names:
+            first_line += 'tf' + text + ','
+        first_line += 'idf,'
+        for text in self.file_names:
+            first_line += 'tf_idf' + text + ','
+        last_coma = first_line[-1]
+        first_line = first_line.replace(last_coma, '\n')
+        excel_file.write(first_line)
+        for text in self.file_names:
+            for word in text:
+                second_line = word + ','
+                
+        excel_file.close
 
 # scenario to check your work
 test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
