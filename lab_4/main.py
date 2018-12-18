@@ -227,6 +227,42 @@ class TfIdfCalculator:
             report = ()
 
         return report
+    
+    
+    def dump_report_csv(self):
+        if self.tf_idf_values == []:
+            f = open('report.csv', 'w')
+            f.close()
+        else:
+            f = open('report.csv', 'w')
+            f.write('Token, TF {}, TF {}, TF {}, TF{}, IDF, TF-IDF {}, TF-IDF {}, TF-IDF {}, TF-IDF {}'.format(self.file_names[0], self.file_names[1], self.file_names[2],self.file_names[3], self.file_names[0], self.file_names[1], self.file_names[2],self.file_names[3]))
+
+            for token in self.idf_values.keys():
+                idf = self.idf_values[token]
+                tfs = []
+                index = 0
+                while index < 4:
+                    try:
+                        tf = self.tf_values[index][token]
+                        tfs.append(tf)
+                    except:
+                        tfs.append(0)
+                    index += 1
+                #print(tfs)
+
+                tf_idfs = []
+                i = 0
+                while i < 4:
+                    try:
+                        tf_idf = self.tf_idf_values[i][token]
+                        tf_idfs.append(tf_idf)
+                    except:
+                        tf_idfs.append(0)
+                    i += 1
+                #print(tf_idfs)
+
+                f.write('\n{}, {}, {}, {}, {}, {}, {}, {}, {}, {}'.format(token, tfs[0], tfs[1], tfs[2], tfs[3], idf, tf_idfs[0], tf_idfs[1], tf_idfs[2], tf_idfs[3]))
+            f.close()
 
 
 
