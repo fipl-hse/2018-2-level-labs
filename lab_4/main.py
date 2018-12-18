@@ -75,7 +75,8 @@ class TfIdfCalculator:
             return {}
         n_list = []
         for f_i in self.corpus:
-            n_list.append(f_i)
+            if f_i:
+                n_list.append(f_i)
         words = []
         for s_i in n_list:
             for word in s_i:
