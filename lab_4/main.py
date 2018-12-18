@@ -11,7 +11,7 @@ if __name__ == '__main__':
 def clean_tokenize_corpus(texts: list) -> list:
     if not isinstance(texts, list):
         return []
-    list = []
+    v_list = []
     for i in texts:
         if not isinstance(i, str):
             continue
@@ -42,8 +42,8 @@ def clean_tokenize_corpus(texts: list) -> list:
                 continue
             else:
                 result.append(j)
-        list.append(result)
-    return list
+        v_list.append(result)
+    return v_list
 
 
 class TfIdfCalculator:
