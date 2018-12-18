@@ -15,27 +15,27 @@ def clean_tokenize_corpus(texts: list) -> list:
     for i in texts:
         if not isinstance(i, str):
             continue
-        text = ''
+        v_text = ''
         punct = ['.', ',', '!', '?']
         for index in range(0, len(i) - 1):
             if i[index].isalpha():
-                text += i[index].lower()
+                v_text += i[index].lower()
             if i[index] in punct:
                 if i[index - 1].isalpha() and i[index + 1].isalpha():
                     continue
             if i[index] is ' ' or i[index] is "'":
-                text += i[index]
+                v_text += i[index]
                 if i[index - 1].isalpha() and i[index + 1] is ' ':
-                    text += ' '
+                    v_text += ' '
             if i[index] in '/':
                 if i[index - 1].isalpha() and i[index + 1].isalpha():
-                    text += ' '
+                    v_text += ' '
             if i[index] is '"' or i[index] is '<' or i[index] is '>':
                 if i[index - 1].isalpha() and i[index + 1].isalpha():
                     continue
                 else:
-                    text += ' '
-        n_text = text.split()
+                    v_text += ' '
+        n_text = v_text.split()
         result = []
         for j in n_text:
             if j == 'br' or 'n':
