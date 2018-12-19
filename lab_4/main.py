@@ -142,6 +142,34 @@ class TfIdfCalculator:
              for lin in table:
                  writer.writerow(lin)
 
+    def cosine_distance(self, index_text_1, index_text_2):
+        all_words = []
+        for k in self.tf_idf_values[index_text_1].keys():
+            if k not in all_words:
+                all_words.append(k)
+        for k in self.tf_idf_values[index_text_2].keys():
+            if k not in all_words:
+                all_words.append(k)
+        vec1 = []
+        vec2 = []
+        for word in all_words:
+            if word in self.tf_idf_values[index_text_1].keys():
+                vec1.append(self.tf_idf_values[index_text_1][word])
+            else:
+                vec1.append(0)
+            if word in self.tf_idf_values[index_text_2].keys():
+                vec2.append(self.tf_idf_values[index_text_2][word])
+            else:
+                vec2.append(0)
+        nom = 0
+        underroot1 = 0
+        underroot2 = 0
+        for i in range(len(vec1)):
+            nom += vec1[i] * vec2[i]
+            underroot1 += vec1[i] ** 2
+            underroot2 += vec2[i] ** 2
+        denom = math.sqrt(underroot1) + math.sqrt(underroot2)
+        return nom / denom
 
 # scenario to check your work
 corpus = clean_tokenize_corpus(REFERENCE_TEXTS)
