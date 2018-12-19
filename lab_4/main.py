@@ -117,7 +117,7 @@ class TfIdfCalculator:
         flst1 = ['TF_IDF_values_' + text for text in texts]
         flst.insert(0, 'word')
         flst1.insert(0, 'IDF_values')
-        table_head = ','.join(flst + flst1)
+        table_head = flst + flst1
         table.append(table_head)
         for word in self.idf_values.keys():
             TFs = []
@@ -135,12 +135,11 @@ class TfIdfCalculator:
             TFs.insert(0, word)
             TF_IDFs.insert(0, (str(self.idf_values[word])))
             line = TFs + TF_IDFs
-            lin = ','.join(line)
-            table.append(lin)
+            table.append(line)
         with open('report.csv', "w", newline='') as csv_file:
              writer = csv.writer(csv_file, delimiter=',')
-             for lin in table:
-                 writer.writerow(lin)
+             for line in table:
+                 writer.writerow(line)
 
     def cosine_distance(self, index_text_1, index_text_2):
         all_words = []
