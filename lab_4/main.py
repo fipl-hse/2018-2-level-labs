@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    passta
 
 
 class TfIdfCalculator:
@@ -27,7 +27,6 @@ class TfIdfCalculator:
 
     def report_on(self, word, document_index):
         pass
-
 
 # scenario to check your work
 test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
