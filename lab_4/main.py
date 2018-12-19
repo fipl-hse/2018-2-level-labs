@@ -56,7 +56,7 @@ class TfIdfCalculator:
         for element in text_list:
             for word in element:
                 if type(word) == str:
-                    text_list.append(word)
+                    words.append(word)
         for word in words:
             fr = 0
             if word in self.idf_values:
@@ -65,7 +65,7 @@ class TfIdfCalculator:
                 if word in cur_text:
                     fr += 1
                     continue
-            self.idf_values[word] = math.log(len(list) / fr)
+            self.idf_values[word] = math.log(len(text_list) / fr)
 
 
 
