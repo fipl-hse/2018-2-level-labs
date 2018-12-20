@@ -62,13 +62,53 @@ class TfIdfCalculator:
         return self.tf_values
 
     def calculate_idf(self):
-        pass
+        if self.corpus is None:
+            self.tf_values = []
+        else:
+            words_storage = []
+            self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
+            for i in range(len(self.corpus)):
+                self.corpus[i] = list(filter(lambda x: type(x) == str, self.corpus[i]))
+                for word in self.corpus[i]:
+                    if word not in words_storage:
+                        words_storage.append(word)
+                for word in words_storage:
+                    counter = 0
+                    for i in range(len(self.corpus)):
+                        if word in self.corpus[i]:
+                            counter += 1
+                    self.idf_values[word] = math.log(len(self.corpus) / counter)
+        return self.idf_values
 
     def calculate(self):
-        pass
+        if self.tf_values == [] or self.idf_values == {} or self.tf_values is None or self.idf_values is None:
+            return []
+        else:
+            for i in range(len(self.tf_values)):
+                sl = {}
+                for k, v in self.tf_values[i].items():
+                    sl[k] = v * self.idf_values[k]
+                self.tf_idf_values.append(sl)
+        return self.tf_idf_values
 
     def report_on(self, word, document_index):
-        pass
+        if self.tf_idf_values is None:
+            return ()
+        elif self.tf_idf_values is []:
+            return ()
+        elif document_index >= len(self.tf_idf_values):
+            return ()
+        else:
+            zn = []
+            for v in self.tf_idf_values[document_index].values():
+                if v not in zn:
+                    zn.append(v)
+            ordered = []
+            while len(zn) != 0:
+                maxi = max(zn)
+                ordered.append(maxi)
+                zn.remove(maxi)
+            return (self.tf_idf_values[document_index][word], ordered.index(self.tf_idf_values[document_index][word]))
 
 
 # scenario to check your work
