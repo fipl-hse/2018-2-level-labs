@@ -37,13 +37,29 @@ def clean_tokenize_corpus(REFERENCE_TEXTS ) -> list:
 
 
 
-
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
 
     def calculate_tf(self):
-        pass
+        if self.corpus is None:
+            self.tf_values = []
+        else:
+            self.corpus = list(filter(lambda x: x is not None and type(x) == list, self.corpus))
+            for item in self.corpus:
+                item = list(filter(lambda x: type(x) == str, item))
+                dic = {}
+                for i in range(len(item)):
+                    counter = 0
+                    for el in item:
+                        if item[i] == el:
+                            counter += 1
+                    dic[item[i]] = counter / len(item)
+                self.tf_values.append(dic)
+        return self.tf_values
 
     def calculate_idf(self):
         pass
