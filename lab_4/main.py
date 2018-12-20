@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    return{"Ann":"goddess"}
 
 
 class TfIdfCalculator:
