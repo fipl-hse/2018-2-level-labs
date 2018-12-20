@@ -54,6 +54,7 @@ class TfIdfCalculator:
         self.tf_values = []
         self.idf_values = {}
         self.tf_idf_values = []
+        self.file_names = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
 
     def calculate_tf(self):
         try:
