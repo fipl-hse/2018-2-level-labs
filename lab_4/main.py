@@ -42,9 +42,9 @@ def clean_tokenize_corpus(texts):
                     clean_review.append(word)
             if clean_review != []:
                 clean_reviews.append(clean_review)
-    except:
+      except:
         clean_reviews = []
-    return clean_reviews
+      return clean_reviews
 
 
 
