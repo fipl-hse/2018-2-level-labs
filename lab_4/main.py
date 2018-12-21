@@ -12,11 +12,11 @@ def clean_tokenize_corpus(texts: list) -> list:
     if texts and isinstance(texts, list):
         return []
     token_corpus = []
+    token_texts = []
     for text in texts:
         if text and isinstance(text, str):
             if '<br/>' in text:
                 text = text.replace('<br/>', ' ')
-            token_texts = []
             text = text.lower()
             for element in text:
                 if element not in 'qwertyuiopasdfghjklzxcvbnm':
