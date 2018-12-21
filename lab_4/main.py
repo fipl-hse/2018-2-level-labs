@@ -10,9 +10,9 @@ if __name__ == '__main__':
 
 def clean_tokenize_corpus(texts: list) -> list:
     pass
-    if texts and isinstance(texts, list):
-        return []
     token_corpus = []
+    if texts and isinstance(texts, list):
+ #       return []
     for text in texts:
         if text and isinstance(text, str):
             if '<br/>' in text:
@@ -50,25 +50,23 @@ class TfIdfCalculator:
             for text in self.corpus:
                 if text:
                     tf_dict = {}
-                    length_text = 0
+                    len_text = 0
                     for element in text:
                         if isinstance(element, str):
-                            length_text += 1
+                            len_text += 1
                             if element not in tf_dict:
                                 tf_dict[element] = 1
                             else:
                                 tf_value = tf_dict[element] + 1
                                 tf_dict[element] = tf_value
                     for element, value in tf_dict.items():
-                        tf_dict[element] = value / length_text
+                        tf_dict[element] = value / len_text
                     self.tf_values.append(tf_dict)
-       # else:
-       #     return self.tf_values
 
     def calculate_idf(self):
         pass
         if self.corpus and isinstance(self.corpus, list):
-            length_text = length_texts(self.corpus)
+            len_text = len_texts(self.corpus)
             for text in self.corpus:
                 if text:
                     for element in text:
@@ -79,7 +77,7 @@ class TfIdfCalculator:
                                     if new_text:
                                         if element in new_text:
                                             text_counter += 1
-                                self.idf_values[element] = math.log(length_text / text_counter)
+                                self.idf_values[element] = math.log(len_text / text_counter)
 
     def calculate(self):
         pass
@@ -91,7 +89,7 @@ class TfIdfCalculator:
 
     def report_on(self, word, document_index):
         pass
-        if not self.tf_idf_values or document_index <= len(self.tf_idf_values):
+        if document_index >= len(self.tf_idf_values) or self.tf_idf_values == [] or self.tf_idf_values is None:
             return ()
         result_list = []
         for element, value in self.tf_idf_values[document_index].items():
