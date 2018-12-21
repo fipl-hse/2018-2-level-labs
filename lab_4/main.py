@@ -12,30 +12,28 @@ def clean_tokenize_corpus(texts: list) -> list:
     pass
     token_corpus = []
     if texts and isinstance(texts, list):
- #       return []
-    for text in texts:
-        if text and isinstance(text, str):
-            if '<br/>' in text:
-                text = text.replace('<br/>', ' ')
-            token_texts = []
-            itog_text = text.split(' ')
-            for element in itog_text:
-                element = element.lower()
-                new_element = ''
-                if not element.isalpha():
-                    for i in element:
-                        if i.isalpha():
-                            new_element += i
-                    if new_element:
-                        token_texts.append(new_element.lower())
-                else:
-                    token_texts.append(element.lower())
-            token_corpus += [token_texts]
+        for text in texts:
+            if text and isinstance(text, str):
+                if '<br/>' in text:
+                    text = text.replace('<br/>', ' ')
+                token_texts = []
+                itog_text = text.split(' ')
+                for element in itog_text:
+                    element = element.lower()
+                    new_element = ''
+                    if not element.isalpha():
+                        for i in element:
+                            if i.isalpha():
+                                new_element += i
+                        if new_element:
+                            token_texts.append(new_element.lower())
+                    else:
+                        token_texts.append(element.lower())
+                token_corpus += [token_texts]
         return token_corpus
     else:
         return token_corpus
-   #             if element not in 'qwertyuiopasdfghjklzxcvbnm':
-
+   
 class TfIdfCalculator:
     def __init__(self, corpus):
         pass
