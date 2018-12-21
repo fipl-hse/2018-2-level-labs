@@ -9,7 +9,21 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    if texts and isinstance(texts, list):
+        return []
+    token_corpus = []
+    for text in texts:
+        if text and isinstance(text, str):
+            if '<br/>' in text:
+                text = text.replace('<br/>', ' ')
+            token_texts = []
+            text = text.lower()
+            for element in text:
+                if element not in 'qwertyuiopasdfghjklzxcvbnm':
+                    text = text.replace(element, '')
+            token_texts = text.split('')
+            token_corpus.append(token_texts)
+    return token_texts
 
 
 class TfIdfCalculator:
