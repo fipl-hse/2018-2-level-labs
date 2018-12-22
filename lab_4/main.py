@@ -47,7 +47,7 @@ class TfIdfCalculator:
             return []
         if isinstance(self.corpus, list):
             for o_text in self.corpus:
-                if text:
+                if o_text:
                     tf_dict = {}
                     len_text = 0
                     for element in o_text:
