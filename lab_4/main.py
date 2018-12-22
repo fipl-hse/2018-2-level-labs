@@ -47,20 +47,17 @@ class TfIdfCalculator:
             return []
         if isinstance(self.corpus, list):
             for o_text in self.corpus:
-                if o_text:
-                    tf_dict = {}
-                    len_text = 0
-                    for element in o_text:
-                        if isinstance(element, str):
-                            len_text += 1
-                            if element not in tf_dict:
-                                tf_dict[element] = 1
-                            else:
-                                tf_value = tf_dict[element] + 1
-                                tf_dict[element] = tf_value
-                    for element, value in tf_dict.items():
-                        tf_dict[element] = value / len_text
-                    self.tf_values.append(tf_dict)
+                if not isinstance(o_text, list):
+                    continue
+                tf_dict = {}
+                elements_list = []
+                for element in o_text:
+                    if isinstance(element, str):
+                        elements_list.append(element)
+                for new_element in elements_list:
+                    tf_value = elements_list.count(new_element) / len(elements_list)
+                    tf_dict[new_element] = tf_value
+                self.tf_values.append(tf_dict)
 
     def calculate_idf(self):
         pass
@@ -68,18 +65,24 @@ class TfIdfCalculator:
         element_idf_list = []
         if self.corpus is None:
             return {}
-        for o_text in self.corpus:
-            if o_text:
-                idf_list.append(o_text)
-                for element in o_text:
-                    if isinstance(element, str) and element not in element_idf_list:
+        if isinstance(self.corpus, list):
+            for o_text in self.corpus:
+                if o_text:
+                    idf_list.append(o_text)
+            for word in idf_list:
+                for element in word:
+                    if isinstance(element, str):
                         element_idf_list.append(element)
-        for count in element_idf_list:
-            o_text_counter = 0
-            for o_text in idf_list:
-                if count is None and count in o_text:
-                    o_text_counter += 1
-            self.idf_values[count] = math.log(len(idf_list) / o_text_counter)
+            for count in element_idf_list:
+                o_text_counter = 0
+                if count in self.idf_values:
+                    continue
+                for new_text in idf_list:
+                    if count in new_text:
+                        o_text_counter += 1
+                        continue
+                idf_value = math.log(len(idf_list) / o_text_counter)
+                self.idf_values[count] = idf_value
 
     def calculate(self):
         pass
