@@ -118,7 +118,7 @@ class TfIdfCalculator:
 
         for key,value in vocub.items():
             self.tf_idf_values.update({key : math.log(num_of_sent/value)})
-
+        self.tf_idf_values.update(key = math.log(num_of_sent/value))
     def calculate_idf(self):
         pass
 
