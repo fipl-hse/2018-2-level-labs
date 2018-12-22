@@ -40,6 +40,7 @@ class TfIdfCalculator:
         self.tf_values = []
         self.idf_values = {}
         self.tf_idf_values = []
+        self.file_names = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
 
     def calculate_tf(self):
         pass
@@ -62,13 +63,13 @@ class TfIdfCalculator:
     def calculate_idf(self):
         pass
         idf_list = []
-        element_idf_list = []
         if self.corpus is None:
             return {}
         if isinstance(self.corpus, list):
             for o_text in self.corpus:
                 if o_text:
                     idf_list.append(o_text)
+            element_idf_list = []        
             for word in idf_list:
                 for element in word:
                     if isinstance(element, str):
@@ -88,12 +89,10 @@ class TfIdfCalculator:
         pass
         if self.tf_values == [] or self.tf_values is None:
             return []
-        if self.idf_values == {} or self.idf_values is None:
-            return []
-        for tf_dict in self.tf_values:
+        for values in self.tf_values:
             tf_idf_dict = {}
-            for element in tf_idf_dict:
-                tf_idf_dict[element] = tf_dict[element] * self.idf_values[element]
+            for element in values:
+                tf_idf_dict[element] = values[element] * self.idf_values[element]
             self.tf_idf_values.append(tf_idf_dict)
 
     def report_on(self, word, document_index):
