@@ -101,14 +101,21 @@ class TfIdfCalculator:
             if not isinstance(part,list):
                     continue
             num_of_sent += 1            
-            #part = list(set(part))
+          
+            temp_vocub = {}
+            
             for word in part:
                 if not isinstance(word,str):
                     continue
-                if word in vocub:
+                if word in temp_vocub:
                     continue
+                if word in vocub:
+                    temp_vocub[word] = vocub[word] + 1
                 else:
-                    vocub.update({word:1})
+                    temp_vocub.update({word:1})
+
+            vocub.update(temp_vocub)
+
         for key,value in vocub.items():
             self.tf_idf_values[key] =  math.log(num_of_sent/value)
 
