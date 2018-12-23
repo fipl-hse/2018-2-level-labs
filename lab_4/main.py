@@ -26,6 +26,7 @@ def clean_tokenize_corpus(texts: list) -> list:
         else:
             clean_text = ''
             extra = '<br />'
+            text = text.replace(extra, ' ')
             sentences = []
             for i in text:
                 try:
