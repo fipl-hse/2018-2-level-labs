@@ -42,7 +42,7 @@ def clean_tokenize_corpus(texts: list) -> list:
                     pass
                 
             clean_text = clean_text.lower()
-            sentences.append(new_text)
+            sentences.append(clean_text)
             
             for sentence in sentences:
                 splitted = sentence.split()
