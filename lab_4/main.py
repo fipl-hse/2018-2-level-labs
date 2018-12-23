@@ -68,7 +68,7 @@ class TfIdfCalculator:
             corpus_len = len(text)
             for i in text:
                 if type(i) != str:
-                corpus_len -= 1
+                    corpus_len -= 1
             for i in text:
                 if not isinstance(i, str):
                     continue
