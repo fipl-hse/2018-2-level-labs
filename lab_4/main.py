@@ -79,8 +79,8 @@ class TfIdfCalculator:
                     else:
                         continue
                 tf_of_word = frequency / corpus_len
-                dict_of_tf[i] = tf_of_word
-            self.tf_values.append(dict_of_tf)
+                tf_dict[i] = tf_of_word
+            self.tf_values.append(tf_dict)
 
     def calculate_idf(self):
         if self.corpus is None:
