@@ -10,51 +10,21 @@ if __name__ == '__main__':
 def clean_tokenize_corpus(texts: list) -> list:
     pass
     token_corpus = []
-    try:
+    if texts:
         for o_text in texts:
-            try:
-                if '<br/>' in o_text:
-                    o_text = o_text.replace('<br/>', ' ')
-                o_text = o_text.lower()
-                for element in o_text:
-                    if element not in 'qwertyuiopasdfghjklzxcvbnm':
-                        o_text = o_text.replace(element, '')
-                token_texts = o_text.split()
+            if o_text and isinstance(o_text, str):
+                import re
+                token_texts = []
+                itog_text = re.split(r' |<br ', text.lower())
+                for element in itog_text:
+                    new_element = ''
+                    for one_element in enumerate(element):
+                        if one_element[1] in 'qwertyuiopasdfghjklzxcvbnm':
+                            new_element += one_element[1]
+                    if new_element:
+                        token_texts.append(new_element)
                 token_corpus.append(token_texts)
-            except TypeError:
-                continue
-            except AttributeError:
-                continue
-    except TypeError:
-        pass
     return token_corpus
-    #token_corpus = []
-   # if texts and isinstance(texts, list):
-       # for o_text in texts:
-   #         if o_text and isinstance(o_text, str):
-       #         while '<br/>' in o_text:
-   #                 o_text = o_text.replace('<br/>', ' ')
-    #            token_texts = []
-     #           itog_text = o_text.split(' ')
-      #          for element in itog_text:
-       #             element = element.lower()
-        #            new_element = ''
-         #           if element == 'br' or element == 'n':
-          #              continue
-           #         else:
-            #            token_texts.append(element)
-             #       if not element.isalpha():
-              #          for i in element:
-               #             if i.isalpha():
-                #                new_element += i
-                 #       if new_element:
-                  #          token_texts.append(new_element.lower())
-                   # else:
-                    #    token_texts.append(element.lower())
-             #   token_corpus += [token_texts]
-       # return token_corpus
-  #  else:
-   #     return token_corpus
 
 class TfIdfCalculator:
     def __init__(self, corpus):
