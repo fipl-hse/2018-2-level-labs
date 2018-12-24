@@ -95,6 +95,8 @@ class TfIdfCalculator:
                 number_of_words_in_voc = 0
 
     def calculate_idf(self):
+        if not isinstance(self.corpus,list):
+            return
         vocub = {}
         num_of_sent = 0
         for part in self.corpus:
