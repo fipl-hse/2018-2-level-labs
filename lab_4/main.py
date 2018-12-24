@@ -99,7 +99,7 @@ class TfIdfCalculator:
 
     def report_on(self, word, document_index):
         pass
-        if document_index >= len(self.tf_idf_values) or self.tf_idf_values is None:
+        if not self.tf_idf_values or document_index >= len(self.tf_idf_values):
             return ()
         result_list = []
         tf_idf_doc = self.tf_idf_values[document_index]
