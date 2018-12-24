@@ -125,10 +125,10 @@ class TfIdfCalculator:
         for i in self.file:
             line += 'tf_idf_' + i + ','
         file.write(i + '\n')
-        len = len(self.corpus)
+        lenght = len(self.corpus)
         count = 0
-        while len:
-            len -= 1
+        while lenght:
+            lenght -= 1
             for word in self.tf_values[count]:
                 line = ''
                 line += word + ','
