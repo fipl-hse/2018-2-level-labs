@@ -1,3 +1,4 @@
+
 import math
 
 REFERENCE_TEXTS = []
@@ -9,31 +10,29 @@ if __name__ == '__main__':
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    list_of_marks = [
-        '!', '?', '.', ',', ':', '"', '`', '[', ']', '@', '&', "'", '-',
-        '$', '^', '*', '(', ')', '=',
-        '_', '“', '”', '’', '#', '%', '<', '>', '*', '~',
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\n'
-    ]
-
-    all_new = []
-    if texts is None:
-        return all_new
-    for sentence in texts:
-        if sentence == str(sentence) and sentence is not None:
-            all_new = ''
-            sentence = sentence.lower()
-            sentence = sentence.replace('<br />', ' ')
-            for e in sentence:
-                if e not in list_of_marks:
-                    all_new += e
-            new_text = all_new.lower()
-            txt_separate = new_text.split(' ')
-            for word in txt_separate:
-                if word == '':
-                    txt_separate.remove(word)
-            all_new.append(txt_separate)
-    return all_new
+    clean_corpus = []
+    if texts and isinstance(texts, list):
+        for f_text in texts:
+            if f_text and isinstance(f_text, str):
+                while '<br />' in f_text:
+                    f_text = f_text.replace('<br />', ' ')
+                clean_texts = []
+                words = f_text.split(' ')
+                for word in words:
+                    word = word.lower()
+                    new_word = ''
+                    if not word.isalpha():
+                        for index in word:
+                            if index.isalpha():
+                                new_word += index
+                        if new_word:
+                            clean_texts.append(new_word.lower())
+                    else:
+                        clean_texts.append(word.lower())
+                clean_corpus += [clean_texts]
+        return clean_corpus
+    else:
+        return clean_corpus
 
 
 class TfIdfCalculator:
