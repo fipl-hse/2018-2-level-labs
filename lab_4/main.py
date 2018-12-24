@@ -57,7 +57,6 @@ from fractions import Fraction
 class TfIdfCalculator:
     corpus = []
     tf_values = []
-    tf_values_num = []
     idf_values = {}
     tf_idf_values = []
     
@@ -67,7 +66,6 @@ class TfIdfCalculator:
     def calculate_tf(self):
         vocub = {}
         final_vocub = {}
-        final_vocub_num = {}
         number_of_words_in_voc = 0
         self.tf_values = []
         if isinstance(self.corpus,list): 
@@ -84,13 +82,13 @@ class TfIdfCalculator:
                         vocub.update({word:1})
                 for key,value in vocub.items():
                     tf_value_num = value/number_of_words_in_voc
-                    tf_value = str(value) + ' / ' + str(number_of_words_in_voc)
+                    
                     final_vocub[key] = tf_value_num
-                    final_vocub_num[key] = tf_value_num
+                    
 
 
                 self.tf_values.append(final_vocub)
-                self.tf_values_num.append(final_vocub_num)
+                
                 vocub = {}
                 final_vocub = {}
                 number_of_words_in_voc = 0
