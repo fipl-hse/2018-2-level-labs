@@ -15,7 +15,7 @@ def clean_tokenize_corpus(texts: list) -> list:
             if o_text and isinstance(o_text, str):
                 import re
                 token_texts = []
-                itog_text = re.split(r' |<br ', text.lower())
+                itog_text = re.split(r' |<br ', o_text.lower())
                 for element in itog_text:
                     new_element = ''
                     for one_element in enumerate(element):
