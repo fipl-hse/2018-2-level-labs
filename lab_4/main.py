@@ -122,7 +122,7 @@ class TfIdfCalculator:
         for key,value in vocub.items():
             self.idf_values.update({key : math.log(num_of_sent/value)})
             
-    def calculate(self)
+    def calculate(self):
         if not isinstance(self.tf_values,list):
             return
         if not isinstance(self.idf_values,dict):
