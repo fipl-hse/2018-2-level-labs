@@ -42,18 +42,22 @@ class TfIdfCalculator:
         self.idf_values = {}
         self.tf_idf_values = []
 
-    def calculate_tf(self):
-        for text in self.corpus:
-            tf_text = {}
-            len_text = len(text)
-
-            for word in text:
-                if word in tf_text:
-                    tf_text[word] += 1 / len_text
-                else:
-                    tf_text[word] = 1 / len_text
-            self.tf_values.append(tf_text)
-        return
+       def calculate_tf(self):
+        if isinstance(self.corpus, list):
+            for f_text in self.corpus:
+                if not isinstance(f_text, list):
+                    continue
+                dict_tf = {}
+                new_word_text = []
+                for word in f_text:
+                    if isinstance(word, str):
+                        new_word_text.append(word)
+                for new_word in new_word_text:
+                    tf_value = new_word_text.count(new_word)
+                    dict_tf[new_word] = tf_value / len(new_word_text)
+                self.tf_values.append(dict_tf)
+        else:
+            return []
 
     def calculate_idf(self):
         if self.corpus is None:
