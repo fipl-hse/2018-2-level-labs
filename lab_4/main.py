@@ -42,7 +42,7 @@ class TfIdfCalculator:
         self.idf_values = {}
         self.tf_idf_values = []
 
-       def calculate_tf(self):
+    def calculate_tf(self):
         if isinstance(self.corpus, list):
             for f_text in self.corpus:
                 if not isinstance(f_text, list):
