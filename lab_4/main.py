@@ -122,8 +122,20 @@ class TfIdfCalculator:
         for key,value in vocub.items():
             self.idf_values.update({key : math.log(num_of_sent/value)})
             
-    def calculate(self):
-        pass
+    def calculate(self)
+        if not isinstance(self.tf_values,list):
+            return
+        if not isinstance(self.idf_values,dict):
+            return
+        if(self.tf_values == [] or self.idf_values == {}):
+            return
+        self.tf_idf_values = []
+        for tmp_d in self.tf_values:
+            idf_dict = {}
+            for wrd in tmp_d:
+                idf_dict[wrd] = tmp_d[wrd]*self.idf_values[wrd]
+                
+            self.tf_idf_values.append(idf_dict)
 
     def report_on(self, word, document_index):
         pass
