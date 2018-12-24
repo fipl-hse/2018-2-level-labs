@@ -41,9 +41,11 @@ class TfIdfCalculator:
         self.idf_values = {}
         self.tf_idf_values = []
         self.file_names = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
-        
+
     def calculate_tf(self):
         pass
+        if not isinstance(self.corpus, list):
+            return []
         if isinstance(self.corpus, list):
             for o_text in self.corpus:
                 if not isinstance(o_text, list):
@@ -54,11 +56,9 @@ class TfIdfCalculator:
                     if isinstance(element, str):
                         elements_list.append(element)
                 for new_element in elements_list:
-                    tf_value = elements_list.count(new_element) / len(elements_list)
-                    tf_dict[new_element] = tf_value
+                    tf_value = elements_list.count(new_element)
+                    tf_dict[new_element] = tf_value / len(elements_list)
                 self.tf_values.append(tf_dict)
-        else:
-            return []
 
     def calculate_idf(self):
         pass
@@ -84,18 +84,18 @@ class TfIdfCalculator:
                         continue
                 idf_value = math.log(len(idf_list) / o_text_counter)
                 self.idf_values[count] = idf_value
-            return self.idf_values
 
     def calculate(self):
         pass
         if self.tf_values == [] or self.tf_values is None:
             return []
-        for values in self.tf_values:
+        if self.idf_values == {} or self.idf_values is None:
+            return []
+        for tf_dict in self.tf_values:
             tf_idf_dict = {}
-            for element in values:
-                tf_idf_dict[element] = values[element] * self.idf_values[element]
+            for element in tf_dict:
+                tf_idf_dict[element] = tf_dict[element] * self.idf_values[element]
             self.tf_idf_values.append(tf_idf_dict)
-        return self.tf_idf_values
 
     def report_on(self, word, document_index):
         pass
@@ -112,11 +112,11 @@ class TfIdfCalculator:
             if number[1] == word:
                 return number[0], counter
 
-    # scenario to check your work
-    test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
-    tf_idf = TfIdfCalculator(test_texts)
-    tf_idf.calculate_tf
-    tf_idf.calculate_idf()
-    tf_idf.calculate()
-    print(tf_idf.report_on('good', 0))
-    print(tf_idf.report_on('and', 1))
+# scenario to check your work
+test_texts = clean_tokenize_corpus(REFERENCE_TEXTS)
+tf_idf = TfIdfCalculator(test_texts)
+tf_idf.calculate_tf
+tf_idf.calculate_idf()
+tf_idf.calculate()
+print(tf_idf.report_on('good', 0))
+print(tf_idf.report_on('and', 1))
