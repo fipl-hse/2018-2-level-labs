@@ -28,7 +28,7 @@ def clean_tokenize_corpus(texts: list) -> list:
                         for el in new_part:
                             if el == '>':
                                 neces_part2 = new_part[1 + new_part.find(el):]
-                                res_part = neces_part1 + neces_part2
+                                res_part = neces_part1 + '' + neces_part2###
                                 part = res_part
 
                                 
