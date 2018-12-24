@@ -69,6 +69,7 @@ class TfIdfCalculator:
         final_vocub = {}
         final_vocub_num = {}
         number_of_words_in_voc = 0
+        self.tf_values = []
         if isinstance(self.corpus,list): 
             for part in self.corpus:
                 if not isinstance(part,list):
