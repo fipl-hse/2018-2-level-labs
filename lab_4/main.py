@@ -94,7 +94,7 @@ class TfIdfCalculator:
                 final_vocub = {}
                 number_of_words_in_voc = 0
 
-    def calculate(self):
+    def calculate_idf(self):
         vocub = {}
         num_of_sent = 0
         for part in self.corpus:
@@ -119,7 +119,7 @@ class TfIdfCalculator:
         for key,value in vocub.items():
             self.tf_idf_values.update({key : math.log(num_of_sent/value)})
             
-    def calculate_idf(self):
+    def calculate(self):
         pass
 
     def report_on(self, word, document_index):
