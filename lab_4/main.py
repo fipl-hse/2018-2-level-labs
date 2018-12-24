@@ -13,13 +13,17 @@ def clean_tokenize_corpus(texts: list) -> list:
     if texts and isinstance(texts, list):
         for o_text in texts:
             if o_text and isinstance(o_text, str):
-                while '<br/>' in o_text:
-                    o_text = o_text.replace('<br/>', ' ')
+       #         while '<br/>' in o_text:
+   #                 o_text = o_text.replace('<br/>', ' ')
                 token_texts = []
                 itog_text = o_text.split(' ')
                 for element in itog_text:
                     element = element.lower()
                     new_element = ''
+                    if element == 'br' or element == 'n':
+                        continue
+                    else:
+                        token_texts.append(element)
                     if not element.isalpha():
                         for i in element:
                             if i.isalpha():
