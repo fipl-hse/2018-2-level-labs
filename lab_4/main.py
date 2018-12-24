@@ -84,7 +84,7 @@ class TfIdfCalculator:
                 for key,value in vocub.items():
                     tf_value_num = value/number_of_words_in_voc
                     tf_value = str(value) + ' / ' + str(number_of_words_in_voc)
-                    final_vocub[key] = tf_value
+                    final_vocub[key] = tf_value_num
                     final_vocub_num[key] = tf_value_num
 
 
