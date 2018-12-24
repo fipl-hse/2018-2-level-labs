@@ -56,22 +56,22 @@ class TfIdfCalculator:
         self.idf_values = {}
         self.tf_idf_values = []
 
-
     def calculate_tf(self):
         if self.corpus is None or not isinstance(self.corpus, list):  # проверка корпуса в целом на соответствие
             return
         for text_splitted in self.corpus:
+            words_counter = 0
             if text_splitted is not None:  # проверка отдельного текста на None
                 tf_dict = {}
                 for word in text_splitted:
                     if isinstance(word, str):  # проверка отдельного элемента текста (слово или нет)
+                        words_counter += 1
                         try:
                             tf_dict[word] += 1
                         except:
                             tf_dict[word] = 1
-                len_text = len(text_splitted)
                 for word in tf_dict.keys():
-                    tf_dict[word] = tf_dict[word] / len_text
+                    tf_dict[word] = tf_dict[word] / words_counter
                 self.tf_values.append(tf_dict)
 
     def calculate_idf(self):
