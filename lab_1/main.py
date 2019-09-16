@@ -13,7 +13,7 @@ def read_from_file(path_to_file, lines_limit: int) -> str:
         my_text += line
         count_lines += 1
     my_file.close()
-    return my_text
+    return 'hello'
 
 
 def calculate_frequences(text: str) -> dict:
